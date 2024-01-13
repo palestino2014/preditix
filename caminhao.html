@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Ativo - Caminhão</title>
+  <style>
+   body {
+      font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+      width: 50%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="file"] {
+      margin-top: 4px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Formulário de Ativo - Caminhão</h1>
+
+    <form action="inserir_dados.php" method="post" enctype="multipart/form-data">
+    
+      <label for="foto">Foto:</label>
+      <input type="file" id="foto" name="foto" accept="image/*" required> 
+     
+ 		<label for="placa">Placa:</label>
+      <input type="text" id="placa" name="placa" required>
+      
+      <label for="fabricante">Fabricante:</label>
+      <input type="text" id="fabricante" name="fabricante" required>
+      
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" name="modelo" required>
+      
+      <label for="anoFabricacao">Ano de Fabricação:</label>
+      <input type="date" id="anoFabricacao" name="anoFabricacao" required>
+    
+      <label for="chassis">Chassis:</label>
+      <input type="text" id="chassis" name="chassis" required>
+
+      <label for="renavam">Renavam:</label>
+      <input type="text" id="renavam" name="renavam" required>
+      
+      <label for="cor">Cor:</label>
+      <input type="text" id="cor" name="cor" required>     
+      
+      <input type="submit" value="Enviar">
+    </form>
+  </div>
+
+</body>
+</html>
+
