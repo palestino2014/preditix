@@ -156,7 +156,7 @@
 			                <!-- DataTales Example -->
 			                <div class="card shadow mb-4">
 				                <div class="card-header py-3 d-flex justify-content-between">
-					                <h4 class="m-0 font-weight-bold text-primary">Lista de ativos</h4>
+					                <h4 class="m-0 font-weight-bold text-primary">Ativos</h4>
 
 					                <!-- Change style content view -->
 					                <div class="d-sm-flex align-items-center justify-content-between">
@@ -164,16 +164,17 @@
 							                <h1 class="h3 mb-0 text-gray-800"></h1>
 						                </div>
 						                <div class="d-sm-flex align-items-center justify-content">
-							                <a href="#" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4 "><i
-									                class="fas fa-bars fa-sm"></i></a>
-							                <a href="#" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" style="margin-left: 10px;"><i
+							                <a href="#table-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4 "><i
 									                class="fas fa-table fa-sm"></i></a>
+							                <a href="#graphs-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" style="margin-left: 10px;"><i
+									                class="fas fa-chart-pie fa-sm"></i></a>
 						                </div>
 					                </div>
 				                </div>
+
 				                <div class="card-body">
-					                <div class="table-responsive">
-						                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					                <div class="table-responsive" id="table-show">
+						                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
 							                <thead>
 								                <tr>
 									                <th>Identificação</th>
@@ -549,6 +550,117 @@
 							                </tbody>
 						                </table>
 					                </div>
+
+					                <div id="graphs-show">
+						                <div class="row">
+							                <!-- Pie Chart -->
+							                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+								                <div class="card shadow mb-4">
+									                <!-- Card Header - Dropdown -->
+									                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+										                <h6 class="m-0 font-weight-bold text-primary text-lg-center">QLS-2H91 - Veículo</h6>
+										                <div class="dropdown no-arrow">
+											                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+											                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												                <i class="fas fa-plus-circle fa-sm fa-fw text-gray-400"></i>
+											                </a>
+											                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											                     aria-labelledby="dropdownMenuLink">
+												                <a class="dropdown-item" href="#"><b>Identificação:</b> QLS-2H94</a>
+												                <a class="dropdown-item" href="#"><b>Tipo:</b> Veículo</a>
+												                <a class="dropdown-item" href="#"><b>Subtipo:</b> cavalo Mecânico</a>
+												                <a class="dropdown-item" href="#"><b>Localização:</b> Porto-Icoaraci</a>
+												                <a class="dropdown-item" href="#"><b>Status:</b> Em Manutenção</a>
+												                <a class="dropdown-item" href="#"><b>Odômetro:</b> 52414 km</a>
+												                <a class="dropdown-item" href="#"><b>Próxima Preventiva:</b> 60.000 km</a>
+											                </div>
+										                </div>
+									                </div>
+									                <!-- Card Body -->
+									                <div class="card-body">
+										                <div class="chart-pie pt-2 pb-2">
+											                <canvas id="myPieChart0"></canvas>
+										                </div>
+										                <div class="mt-4 text-center small">
+					                                        <span class="mr-2">
+					                                            <i class="fas fa-circle text-warning"></i> Em Manutenção há 5 dias
+					                                        </span>
+									                    </div>
+									                </div>
+								                </div>
+							                </div>
+							                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+								                <div class="card shadow mb-4">
+									                <!-- Card Header - Dropdown -->
+									                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+										                <h6 class="m-0 font-weight-bold text-primary text-lg-center">QLS-2H91 - Veículo</h6>
+										                <div class="dropdown no-arrow">
+											                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+											                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												                <i class="fas fa-plus-circle fa-sm fa-fw text-gray-400"></i>
+											                </a>
+											                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											                     aria-labelledby="dropdownMenuLink">
+												                <a class="dropdown-item" href="#"><b>Identificação:</b> QLS-2H94</a>
+												                <a class="dropdown-item" href="#"><b>Tipo:</b> Veículo</a>
+												                <a class="dropdown-item" href="#"><b>Subtipo:</b> cavalo Mecânico</a>
+												                <a class="dropdown-item" href="#"><b>Localização:</b> Porto-Icoaraci</a>
+												                <a class="dropdown-item" href="#"><b>Status:</b> Em Manutenção</a>
+												                <a class="dropdown-item" href="#"><b>Odômetro:</b> 52414 km</a>
+												                <a class="dropdown-item" href="#"><b>Próxima Preventiva:</b> 60.000 km</a>
+											                </div>
+										                </div>
+									                </div>
+									                <!-- Card Body -->
+									                <div class="card-body">
+										                <div class="chart-pie pt-2 pb-2">
+											                <canvas id="myPieChart1"></canvas>
+										                </div>
+										                <div class="mt-4 text-center small">
+					                                        <span class="mr-2">
+					                                            <i class="fas fa-circle text-warning"></i> Em Manutenção há 5 dias
+					                                        </span>
+										                </div>
+									                </div>
+								                </div>
+							                </div>
+							                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+								                <div class="card shadow mb-4">
+									                <!-- Card Header - Dropdown -->
+									                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+										                <h6 class="m-0 font-weight-bold text-primary text-lg-center">QLS-2H91 - Veículo</h6>
+										                <div class="dropdown no-arrow">
+											                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+											                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												                <i class="fas fa-plus-circle fa-sm fa-fw text-gray-400"></i>
+											                </a>
+											                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											                     aria-labelledby="dropdownMenuLink">
+												                <a class="dropdown-item" href="#"><b>Identificação:</b> QLS-2H94</a>
+												                <a class="dropdown-item" href="#"><b>Tipo:</b> Veículo</a>
+												                <a class="dropdown-item" href="#"><b>Subtipo:</b> cavalo Mecânico</a>
+												                <a class="dropdown-item" href="#"><b>Localização:</b> Porto-Icoaraci</a>
+												                <a class="dropdown-item" href="#"><b>Status:</b> Em Manutenção</a>
+												                <a class="dropdown-item" href="#"><b>Odômetro:</b> 52414 km</a>
+												                <a class="dropdown-item" href="#"><b>Próxima Preventiva:</b> 60.000 km</a>
+											                </div>
+										                </div>
+									                </div>
+									                <!-- Card Body -->
+									                <div class="card-body">
+										                <div class="chart-pie pt-2 pb-2">
+											                <canvas id="myPieChart2"></canvas>
+										                </div>
+										                <div class="mt-4 text-center small">
+					                                        <span class="mr-2">
+					                                            <i class="fas fa-circle text-warning"></i> Em Manutenção há 5 dias
+					                                        </span>
+										                </div>
+									                </div>
+								                </div>
+							                </div>
+						                </div>
+					                </div>
 				                </div>
 			                </div>
 
@@ -619,6 +731,13 @@
 
 	<!-- Page level custom scripts -->
 	<script src="js/demo/datatables-demo.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

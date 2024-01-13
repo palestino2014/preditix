@@ -1,5 +1,5 @@
 :root {
-  --blue: #159969;
+  --blue: #1639c0;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -11270,4 +11270,12 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+#table-show, #graphs-show {
+  display: none;
+}
+
+#table-show:target, #graphs-show:target {
+  display: block;
 }
