@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulário de Embarcação</title>
+  <title>Embarcação</title>
   <style>
     /* Adicione estilos conforme necessário */
     body {
@@ -51,34 +51,35 @@
 <body>
 
   <div class="form-container">
-    <h1>Formulário de Embarcação</h1>
+    <h1>Embarcação</h1>
 
     <form action="inserir_embarcacao.php" method="post" enctype="multipart/form-data">
     
       <label for="tipoEmbarcacao">Tipo de Embarcação:</label>
       <select id="tipo_embarcacao" name="tipo_embarcacao" required>
-        <option value="barco">Barco</option>
-        <option value="navio">Navio</option>
-        <option value="iate">Iate</option>
+        <option value="balsaSimples">Balsa Simples</option>
+        <option value="balsaMotorizada">Balsa Motorizada</option>
+        <option value="empurrador">Empurrador</option>
+        <option value="ferryboat">Ferryboat</option>
       </select>
 
       <label for="numInscricao">Número de Inscrição:</label>
-      <input type="text" id="num_inscricao" name="num_inscricao" required>
+      <input type="text" id="num_inscricao" name="num_inscricao" maxlength="35" required>
 
       <label for="fabricante">Fabricante:</label>
-      <input type="text" id="fabricante" name="fabricante" required>
+      <input type="text" id="fabricante" name="fabricante" maxlength="40" required>
 
       <label for="armador">Armador:</label>
-      <input type="text" id="armador" name="armador" required>
-
+      <input type="text" id="armador" name="armador" maxlength="50" required>
+ 
       <label for="anoFabricacao">Ano de Fabricação:</label>
-      <input type="number" id="ano_fabricacao" name="ano_fabricacao" required>
+      <input type="number" id="ano_fabricacao" name="ano_fabricacao" maxlength="20" required>
 
       <label for="capacidadeVolumetrica">Capacidade Volumétrica:</label>
-      <input type="number" id="capacidade_volumetrica" name="capacidade_volumetrica" required>
+      <input type="number" id="capacidade_volumetrica" name="capacidade_volumetrica" maxlength="5" required>
 
       <label for="foto">Foto:</label>
-      <input type="file" id="foto" name="foto" accept="image/*" required>
+      <input type="file" id="foto" name="foto" accept="image/*" maxlength="140" required>
 
       <input type="submit" value="Enviar">
     </form>
