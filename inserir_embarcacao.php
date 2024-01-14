@@ -6,7 +6,7 @@ include "conexao_bd.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
      // Preparar e executar a inserção no banco de dados
-    $stmt = $conn->prepare("INSERT INTO embarcacao (tipo_embarcacao, num_inscricao, fabricante, armador, ano_fabricacao, capacidade_volumetrica, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO ativo_embarcacao (tipo_embarcacao, num_inscricao, fabricante, armador, ano_fabricacao, capacidade_volumetrica, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param("ssssiss", $tipo_embarcacao, $num_inscricao, $fabricante, $armador, $ano_fabricacao, $capacidade_volumetrica, $foto);
 
@@ -31,3 +31,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
