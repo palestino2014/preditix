@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulário de Ativo - Veículo</title>
+  <title>Veículo</title>
   <style>
    body {
       font-family: Arial, sans-serif;
@@ -50,12 +50,21 @@
 <body>
 
   <div class="form-container">
-    <h1>Formulário de Ativo - Caminhão</h1>
+    <h1>Veículo</h1>
 
-    <form action="inserir_dados.php" method="post" enctype="multipart/form-data">
+    <form action="inserir_veiculos.php" method="post" enctype="multipart/form-data">
     
-      <label for="foto">Foto:</label>
-      <input type="file" id="foto" name="foto" accept="image/*" required> 
+       <label for="tipo_veiculo">Tipo de Veículo:</label>
+      		<select id="tipo_veiculo" name="tipo_veiculo" required>
+        			<option value="caminhaoTocoComBau">Caminhão toco com baú</option>
+        			<option value="cavaloMecanicoEixoSimples">Cavalo mecânico - Eixo simples</option>
+       			<option value="VeiculoLeveAdm">Veículo Leve ADM</option>
+       			<option value="VeiculoLeveDeCarga">Veículo leve de carga</option>
+      		</select>
+    
+     
+ 		<label for="tag">TAG:</label>
+      <input type="text" id="tag" name="tag" required>     
      
  		<label for="placa">Placa:</label>
       <input type="text" id="placa" name="placa" required>
@@ -66,8 +75,8 @@
       <label for="modelo">Modelo:</label>
       <input type="text" id="modelo" name="modelo" required>
       
-      <label for="anoFabricacao">Ano de Fabricação:</label>
-      <input type="date" id="anoFabricacao" name="anoFabricacao" required>
+      <label for="ano_fabricao">Ano de Fabricação:</label>
+      <input type="date" id="ano_fabricao" name="ano_fabricao" required>
     
       <label for="chassis">Chassis:</label>
       <input type="text" id="chassis" name="chassis" required>
@@ -75,8 +84,26 @@
       <label for="renavam">Renavam:</label>
       <input type="text" id="renavam" name="renavam" required>
       
+      <label for="proprietario">Proprietário:</label>
+      <input type="text" id="proprietario" name="proprietario" required>
+      
+      <label for="Tara">Tara [kg]:</label>
+      <input type="text" id="tara" name="tara" required>
+      
+      <label for="Lotação">Lotação [kg]:</label>
+      <input type="text" id="lotacao" name="lotacao" required>   
+      
+      <label for="PTB">Peso Bruto Total [kg]:</label>
+      <input type="text" id="PTB" name="PTB" required>   
+      
+      <label for="PBTC">Peso Bruto Total Combinado - Somente Cavalo mecânico [kg]:</label>
+      <input type="text" id="PBTC" name="PBTC" required>  
+      
       <label for="cor">Cor:</label>
       <input type="text" id="cor" name="cor" required>     
+      
+      <label for="foto">Foto:</label>
+      <input type="file" id="foto" name="foto" accept="image/*" required> 
       
       <input type="submit" value="Enviar">
     </form>
