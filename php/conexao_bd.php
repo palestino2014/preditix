@@ -2,8 +2,8 @@
 // Configurações do banco de dados (ajuste conforme necessário)
 $hostname = "localhost";
 $username = "root";
-$password = "";
-$database = "manutencao";
+$password = "Preditix@123";
+$database = "manutencao_px";
 
 // Conectar ao banco de dados
 $conn = new mysqli($hostname, $username, $password, $database);
