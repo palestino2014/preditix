@@ -18,13 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lotacao = $_POST["lotacao"];
     $PTB = $_POST["PTB"];
     $PBTC = $_POST["PBTC"];
+    $CMT = $_POST["CMT"];
     $cor = $_POST["cor"];
     $foto = $_FILES["foto"]["name"];
 
     // Preparar e executar a inserção no banco de dados
-    $stmt = $conn->prepare("INSERT INTO ativo_veiculo (tipo_veiculo, tag, placa, fabricante, modelo, ano_fabricacao, chassis, renavam, proprietario, tara, lotacao, PTB, PBTC, cor, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO ativo_veiculo (tipo_veiculo, tag, placa, fabricante, modelo, ano_fabricacao, chassis, renavam, proprietario, tara, lotacao, PTB, PBTC, CMT , cor, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssssisssssssss", $tipo_veiculo, $tag, $placa, $fabricante, $modelo, $ano_fabricacao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $PBTC, $cor, $foto);
+    $stmt->bind_param("sssssissssssssss", $tipo_veiculo, $tag, $placa, $fabricante, $modelo, $ano_fabricacao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $PBTC, $CMT , $cor, $foto);
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
