@@ -56,10 +56,11 @@
     
        <label for="tipo_veiculo">Tipo de Veículo:</label>
       		<select id="tipo_veiculo" name="tipo_veiculo" required>
-        			<option value="caminhaoTocoComBau">Caminhão toco com baú</option>
-        			<option value="cavaloMecanicoEixoSimples">Cavalo mecânico - Eixo simples</option>
-       			<option value="VeiculoLeveAdm">Veículo Leve ADM</option>
-       			<option value="VeiculoLeveDeCarga">Veículo leve de carga</option>
+        			<option value="caminhão toco">Caminhão toco</option>
+        			<option value="cavalo mecânico eixo simples">Cavalo mecânico - Eixo simples</option>
+        			<option value="cavalo mecânico trucado">Cavalo mecânico - trucado</option>
+       			<option value="Veiculo leve administrativo">Veículo Leve administrativo</option>
+       			<option value="Veiculo leve de carga">Veículo leve de carga</option>
       		</select>
     
      
@@ -75,8 +76,8 @@
       <label for="modelo">Modelo:</label>
       <input type="text" id="modelo" name="modelo" required>
       
-      <label for="ano_fabricao">Ano de Fabricação:</label>
-      <input type="date" id="ano_fabricao" name="ano_fabricao" required>
+      <label for="ano_fabricacao">Ano de Fabricação:</label>
+      <input type="text" id="ano_fabricacao" name="ano_fabricacao" required>
     
       <label for="chassis">Chassis:</label>
       <input type="text" id="chassis" name="chassis" required>
@@ -88,22 +89,25 @@
       <input type="text" id="proprietario" name="proprietario" required>
       
       <label for="Tara">Tara [kg]:</label>
-      <input type="text" id="tara" name="tara" required>
+      <input type="number" id="tara" name="tara" required>
       
       <label for="Lotação">Lotação [kg]:</label>
-      <input type="text" id="lotacao" name="lotacao" required>   
+      <input type="number" id="lotacao" name="lotacao">   
       
       <label for="PTB">Peso Bruto Total [kg]:</label>
-      <input type="text" id="PTB" name="PTB" required>   
+      <input type="number" id="PTB" name="PTB">   
       
       <label for="PBTC">Peso Bruto Total Combinado - Somente Cavalo mecânico [kg]:</label>
-      <input type="text" id="PBTC" name="PBTC" required>  
+      <input type="number" id="PBTC" name="PBTC">  
+      
+      <label for="CMT">CMT - Capacidade máxima de tração [kg]:</label>
+      <input type="number" id="CMT" name="CMT">  
       
       <label for="cor">Cor:</label>
-      <input type="text" id="cor" name="cor" required>     
+      <input type="text" id="cor" name="cor">     
       
       <label for="foto">Foto:</label>
-      <input type="file" id="foto" name="foto" accept="image/*" required> 
+      <input type="file" id="foto" name="foto" accept="image/*"> 
       
       <input type="submit" value="Enviar">
     </form>
