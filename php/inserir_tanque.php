@@ -5,19 +5,18 @@ include "conexao_bd.php";
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-     // Preparar e executar a inserção no banco de dados
-     
-    $stmt = $conn->prepare("INSERT INTO ativo_tanque (tag, fabricante, anoFabricacao, capacidadeVolumetrica, foto) VALUES (?, ?, ?, ?, ?)");
-
-    $stmt->bind_param("sssbs", $tag, $fabricante, $anoFabricacao, $capacidadeVolumetrica, $foto);
-
-    // Atribuir valores aos parâmetros
-    // Atribuir valores dos campos do formulário a variáveis
+    // Atribuir valores aos parâmetros antes de preparar a instrução
     $tag = $_POST["tag"];
     $fabricante = $_POST["fabricante"];
     $anoFabricacao = $_POST["anoFabricacao"];
+    $localizacao = $_POST["localizacao"];
     $capacidadeVolumetrica = $_POST["capacidadeVolumetrica"];
-    $foto = $_FILES["foto"]["name"]; // Nome do arquivo de imagem
+    $foto = $_FILES["foto"]["name"];
+
+    // Preparar e executar a inserção no banco de dados
+    $stmt = $conn->prepare("INSERT INTO ativo_tanque (tag, fabricante, anoFabricacao, localizacao, capacidadeVolumetrica, foto) VALUES (?, ?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("ssssss", $tag, $fabricante, $anoFabricacao, $localizacao, $capacidadeVolumetrica, $foto);
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p>Erro ao inserir dados: " . $stmt->error . "</p>";
     }
 
-    // Fechar a instrução preparada e a conexão
+    // Fechar a instrução preparada
     $stmt->close();
 }
 
