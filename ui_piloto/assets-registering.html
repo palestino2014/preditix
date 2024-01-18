@@ -31,7 +31,7 @@
 	<ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
 
 		<!-- Sidebar - Brand -->
-		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
 			<div class="sidebar-brand-text"><img src="./img/prediti_logo.png" alt="logo" width="100px"></div>
 			<div class="sidebar-brand-icon">
 				<img src="./img/shadow_logo_hourglass.png" alt="logo" width="40px">
@@ -57,7 +57,7 @@
 		<!-- Side Bar content -->
 		<!-- Nav Item - Assets -->
 		<li class="nav-item">
-			<a class="nav-link" href="assets.html">
+			<a class="nav-link" href="assets.php">
 				<i class="fas fa-fw fa-truck"></i>
 				<span>Ativos</span></a>
 		</li>
@@ -160,18 +160,35 @@
 
 	                <div class="container mt-3">
 		                <!-- Nav pills -->
-		                <ul class="nav nav-pills" role="tablist">
+		                <ul class="nav nav-pills"
+		                    role="tablist">
 			                <li class="nav-item">
-				                <a class="nav-link active" data-toggle="pill" href="#embarcacao">Embarcação</a>
+				                <a class="nav-link active"
+				                   data-toggle="pill"
+				                   href="#embarcacao">
+					                Embarcação
+				                </a>
 			                </li>
 			                <li class="nav-item">
-				                <a class="nav-link" data-toggle="pill" href="#implemento">Implemento</a>
+				                <a class="nav-link"
+				                   data-toggle="pill"
+				                   href="#implemento">
+					                Implemento
+				                </a>
 			                </li>
 			                <li class="nav-item">
-				                <a class="nav-link" data-toggle="pill" href="#tanque">Tanque</a>
+				                <a class="nav-link"
+				                   data-toggle="pill"
+				                   href="#tanque">
+					                Tanque
+				                </a>
 			                </li>
 			                <li class="nav-item">
-				                <a class="nav-link" data-toggle="pill" href="#veiculo">Veículo</a>
+				                <a class="nav-link"
+				                   data-toggle="pill"
+				                   href="#veiculo">
+					                Veículo
+				                </a>
 			                </li>
 		                </ul>
 
@@ -180,7 +197,7 @@
 			                <!-- EMBARCAÇÕES -->
 			                <div id="embarcacao"
 			                     class="container tab-pane active"><br>
-				                <form action="inserir_embarcacao.php"
+				                <form action="php/inserir_embarcacao.php"
 				                      method="post"
 				                      enctype="multipart/form-data">
 					                <div class="row">
@@ -411,7 +428,7 @@
 			                <div id="implemento"
 			                     class="container tab-pane"><br>
 				                <div class="form-container">
-					                <form action="inserir_implemento.php"
+					                <form action="php/inserir_implemento.php"
 					                      method="post"
 					                      enctype="multipart/form-data">
 						                <!-- Inputs start -->
@@ -748,7 +765,7 @@
 			                <!-- TANQUES -->
 			                <div id="tanque"
 			                     class="container tab-pane fade"><br>
-				                <form action="inserir_tanque.php"
+				                <form action="php/inserir_tanque.php"
 				                      method="post"
 				                      enctype="multipart/form-data">
 									<div class="row">
@@ -948,7 +965,7 @@
 			                <div id="veiculo"
 			                     class="container tab-pane fade"><br>
 				                <div class="form-container">
-					                <form action="inserir_veiculos.php"
+					                <form action="php/inserir_veiculos.php"
 					                      method="post"
 					                      enctype="multipart/form-data">
 						                <!-- Inputs start -->

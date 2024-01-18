@@ -1,5 +1,16 @@
+<?php
+    // Incluir o script de conexão
+    include "php/conexao_bd.php";
+
+    // Consulta SQL para obter todos os dados da tabela
+    $consulta = $conn->query("SELECT * FROM ativo_veiculo");
+
+    // Verifica se há resultados
+    if ($consulta->num_rows > 0) {
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 
@@ -19,6 +30,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/style_default.css" rel="stylesheet">
+	<script src="js/php-management.js"></script>
 
 </head>
 
@@ -31,7 +43,7 @@
     <ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
             <div class="sidebar-brand-text"><img src="./img/prediti_logo.png" alt="logo" width="100px"></div>
             <div class="sidebar-brand-icon">
                 <img src="./img/shadow_logo_hourglass.png" alt="logo" width="40px">
@@ -56,7 +68,7 @@
 
         <!-- Side Bar content -->
 	    <!-- Nav Item - Assets -->
-	    <li class="nav-item active">
+	    <li class="nav-item">
 		    <a class="nav-link" href="assets.html">
 			    <i class="fas fa-fw fa-truck"></i>
 			    <span>Ativos</span></a>
@@ -159,7 +171,7 @@
 			                <!-- DataTales Example -->
 			                <div class="card shadow mb-4">
 				                <div class="card-header py-3 d-flex justify-content-between">
-					                <h4 class="m-0 font-weight-bold text-primary">Ativos</h4>
+					                <h4 class="m-0 font-weight-bold text-primary">Dashboard</h4>
 
 					                <!-- Change style content view -->
 					                <div class="d-sm-flex align-items-center justify-content-between">
@@ -210,377 +222,6 @@
 									                <td>52414 KM</td>
 									                <td>60.000 km</td>
 									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>AMC-01</td>
-									                <td>Embarcação</td>
-									                <td>Bolsa Motorizada</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>31/01/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H91</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Hydro-Barcarena</td>
-									                <td>Em Operação</td>
-									                <td>52414 KM</td>
-									                <td>60.000 km</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>AMC-01</td>
-									                <td>Embarcação</td>
-									                <td>Bolsa Motorizada</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>31/01/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>AMC-01</td>
-									                <td>Embarcação</td>
-									                <td>Bolsa Motorizada</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>31/01/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H91</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Hydro-Barcarena</td>
-									                <td>Em Operação</td>
-									                <td>52414 KM</td>
-									                <td>60.000 km</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-								                <tr>
-									                <td>AMC-01</td>
-									                <td>Embarcação</td>
-									                <td>Bolsa Motorizada</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>31/01/2024</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H94</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>Em Manutenção</td>
-									                <td>6636 KM</td>
-									                <td>05/02/2024</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
-								                </tr>
-								                <tr>
-									                <td>JTV-1512</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10/03/2024</td>
-								                </tr>
-								                <tr>
-									                <td>QLS-2H90</td>
-									                <td>Implemento Rodoviário</td>
-									                <td>Tanque</td>
-									                <td>Porto-Icoaraci</td>
-									                <td>À Disposição</td>
-									                <td>-</td>
-									                <td>10.000 KM</td>
 								                </tr>
 							                </tbody>
 						                </table>
@@ -778,3 +419,14 @@
 </body>
 
 </html>
+    <?php
+} else {
+    echo "Nenhum veículo encontrado.";
+}
+
+// Fechar a consulta
+$consulta->close();
+
+// Fechar a conexão
+$conn->close();
+?>
