@@ -64,3 +64,21 @@ triggerTabList.forEach(triggerEl => {
     tabTrigger.show()
   })
 })
+
+function showTable() {
+  var tableShow = document.getElementById("table-show");
+  var graphsShow = document.getElementById("graphs-show");
+
+  tableShow.style.display = "block";
+  graphsShow.style.display = "none";
+
+}
+
+function showGraphs() {
+  var graphsShow = document.getElementById("graphs-show");
+  var tableShow = document.getElementById("table-show");
+
+  tableShow.style.display = "none";
+  graphsShow.style.display = "block";
+
+}

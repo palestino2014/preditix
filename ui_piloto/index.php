@@ -179,16 +179,16 @@
 							                <h1 class="h3 mb-0 text-gray-800"></h1>
 						                </div>
 						                <div class="d-sm-flex align-items-center justify-content">
-							                <a href="#table-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" style="display: block;"><i
+							                <a href="#table-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" onclick="showTable()"><i
 									                class="fas fa-table fa-sm"></i></a>
-							                <a href="#graphs-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" style="margin-left: 10px;"><i
+							                <a href="#graphs-show" class="d-none d-sm-inline-block btn btn-sm shadow-sm ms-4" onclick="showGraphs()" ><i
 									                class="fas fa-chart-pie fa-sm"></i></a>
 						                </div>
 					                </div>
 				                </div>
 
 				                <div class="card-body">
-					                <div class="table-responsive" id="table-show">
+					                <div class="table-responsive" id="table-show" style="display: block;">
 						                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
 							                <thead>
 								                <tr>
@@ -227,7 +227,7 @@
 						                </table>
 					                </div>
 					                <!-- chart view start -->
-					                <div id="graphs-show">
+					                <div id="graphs-show" style="display: none;">
 						                <div class="row">
 							                <!-- Pie Chart -->
 							                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
@@ -401,6 +401,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/script.min.js"></script>
+    <script src="js/script.js"></script>
+
 
 	<!-- Page level plugins -->
 	<script src="vendor/datatables/jquery.dataTables.min.js"></script>

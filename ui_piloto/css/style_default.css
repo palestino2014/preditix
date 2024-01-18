@@ -11271,11 +11271,3 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
-
-#table-show, #graphs-show {
-  display: none;
-}
-
-#table-show:target, #graphs-show:target {
-  display: block;
-}
