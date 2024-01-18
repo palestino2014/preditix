@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 17-Jan-2024 às 21:24
+-- Tempo de geração: 18-Jan-2024 às 02:14
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -54,18 +54,18 @@ INSERT INTO `ativo_embarcacao` (`id`, `tipo_embarcacao`, `num_inscricao`, `fabri
 CREATE TABLE `ativo_implemento` (
   `id` int(11) NOT NULL,
   `tipo_implemento` varchar(255) DEFAULT NULL,
+  `vincular` varchar(250) DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
   `placa` varchar(15) DEFAULT NULL,
   `fabricante` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
-  `ano_fabricao` int(11) DEFAULT NULL,
+  `ano_fabricao` varchar(150) DEFAULT NULL,
   `chassis` varchar(255) DEFAULT NULL,
   `renavam` varchar(20) DEFAULT NULL,
   `proprietario` varchar(255) DEFAULT NULL,
   `tara` int(11) DEFAULT NULL,
   `lotacao` int(11) DEFAULT NULL,
   `PTB` int(11) DEFAULT NULL,
-  `PBTC` int(11) DEFAULT NULL,
   `capacidadeMaxTracao` int(11) DEFAULT NULL,
   `capacidadeVolumetrica` int(11) DEFAULT NULL,
   `cor` varchar(50) DEFAULT NULL,
@@ -76,10 +76,32 @@ CREATE TABLE `ativo_implemento` (
 -- Extraindo dados da tabela `ativo_implemento`
 --
 
-INSERT INTO `ativo_implemento` (`id`, `tipo_implemento`, `tag`, `placa`, `fabricante`, `modelo`, `ano_fabricao`, `chassis`, `renavam`, `proprietario`, `tara`, `lotacao`, `PTB`, `PBTC`, `capacidadeMaxTracao`, `capacidadeVolumetrica`, `cor`, `foto`) VALUES
-(1, 'tanqueSemiReboque5eixos', 'TTPPEE', 'xxx-6565-0000', 'volvo', '34TBC', 2024, '333344445555', '4423423423', 'Gustavo Lemes', 120, 12, 1299, 150, NULL, 20, 'branca ', '81R-zMnuHHL._AC_UF894,1000_QL80_.jpg'),
-(2, 'tanqueSemiReboque5eixos', 'TTPPEE', 'xxx-6565-0000', 'volvo', '34TBC', 2024, '333344445555', '4423423423', 'Gustavo Lemes', 120, 12, 1299, 150, NULL, 20, 'branca ', '81R-zMnuHHL._AC_UF894,1000_QL80_.jpg'),
-(3, 'tanqueSemiReboque2eixos', '00 BB 22', 'xxx-290-415', 'Volvo', '3540', 2024, 'rwrwrwerwe', 'rwerwrwerw', 'wewrwer', 11, 22, 33, 33, NULL, 44, '55', 'Captura de tela de 2023-12-26 08-25-07.png');
+INSERT INTO `ativo_implemento` (`id`, `tipo_implemento`, `vincular`, `tag`, `placa`, `fabricante`, `modelo`, `ano_fabricao`, `chassis`, `renavam`, `proprietario`, `tara`, `lotacao`, `PTB`, `capacidadeMaxTracao`, `capacidadeVolumetrica`, `cor`, `foto`) VALUES
+(1, 'tanqueSemiReboque5eixos', NULL, 'TTPPEE', 'xxx-6565-0000', 'volvo', '34TBC', '2024', '333344445555', '4423423423', 'Gustavo Lemes', 120, 12, 1299, NULL, 20, 'branca ', '81R-zMnuHHL._AC_UF894,1000_QL80_.jpg'),
+(2, 'tanqueSemiReboque5eixos', NULL, 'TTPPEE', 'xxx-6565-0000', 'volvo', '34TBC', '2024', '333344445555', '4423423423', 'Gustavo Lemes', 120, 12, 1299, NULL, 20, 'branca ', '81R-zMnuHHL._AC_UF894,1000_QL80_.jpg'),
+(3, 'tanqueSemiReboque2eixos', NULL, '00 BB 22', 'xxx-290-415', 'Volvo', '3540', '2024', 'rwrwrwerwe', 'rwerwrwerw', 'wewrwer', 11, 22, 33, NULL, 44, '55', 'Captura de tela de 2023-12-26 08-25-07.png'),
+(4, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(5, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(6, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(7, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(8, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(9, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(10, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, NULL, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(11, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, 35000, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(12, 'tanqueSemiReboque2eixos', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, 35000, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(13, 'Tanque semirreboque com 5ª roda traseira', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, 35000, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(14, 'Baú', NULL, '## 09', '334/567', 'Fiat ', '147 ', '2024', '3333333333ffffffffffgggggggggggg', '654634563453645', 'Auto Center ', 1000, 10, 1500, 35000, 20000, 'Branco', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(15, 'Comboio de abastecimento', NULL, '234', '33EE', 'Fiat  ', '!47', NULL, '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(16, 'Comboio de abastecimento', NULL, '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(17, 'Comboio de abastecimento', NULL, '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(18, 'Tanque semirreboque com 5ª roda traseira', NULL, '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(19, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(20, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 20000, 55, 'Azul', 'Tabela-de-interpretacao-dos-Espectros.png'),
+(21, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 35000, 20000, '55', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(22, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 35000, 20000, '55', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(23, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 35000, 20000, '55', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(24, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 35000, 20000, '55', 'Captura de tela de 2023-12-26 20-06-27.png'),
+(25, 'Tanque semirreboque com 5ª roda traseira', '## 09', '234', '33EE', 'Fiat  ', '!47', '6', '654634563453645', '234', 'Augusto', 10, 1500, 3000, 35000, 20000, '55', 'Captura de tela de 2023-12-26 20-06-27.png');
 
 -- --------------------------------------------------------
 
@@ -164,7 +186,8 @@ INSERT INTO `ativo_veiculo` (`id`, `tipo_veiculo`, `tag`, `placa`, `fabricante`,
 (24, 'caminhão toco', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, NULL, '1', ''),
 (25, 'caminhão toco', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, '1200', '1', ''),
 (26, 'caminhão toco', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, '1200', '1', ''),
-(27, 'cavalo mecânico trucado', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, '1200', '1', '');
+(27, 'cavalo mecânico trucado', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, '1200', '1', ''),
+(28, 'caminhão toco', 'CA 330', '555AF350', 'Volvo ', 'A380', '2000', 'xxx-uuu-3456', '123123123123', 'Porto Brasil ', 2000, 14, 2500, 3500, '1500', 'Azul ', 'Captura de tela de 2024-01-16 09-53-33.png');
 
 --
 -- Índices para tabelas despejadas
@@ -208,7 +231,7 @@ ALTER TABLE `ativo_embarcacao`
 -- AUTO_INCREMENT de tabela `ativo_implemento`
 --
 ALTER TABLE `ativo_implemento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `ativo_tanque`
@@ -220,7 +243,7 @@ ALTER TABLE `ativo_tanque`
 -- AUTO_INCREMENT de tabela `ativo_veiculo`
 --
 ALTER TABLE `ativo_veiculo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
