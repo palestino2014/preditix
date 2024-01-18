@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Implemento</title>
+  <title>Implemento rodoviário</title>
   <style>
    body {
       font-family: Arial, sans-serif;
@@ -50,17 +50,21 @@
 <body>
 
   <div class="form-container">
-    <h1>Implemento</h1>
+    <h1>Implemento rodoviário</h1>
 
     <form action="inserir_implemento.php" method="post" enctype="multipart/form-data">
     
-       <label for="tipo_implemento">Tipo de Implemento:</label>
+       <label for="tipo_implemento">Tipo de implemento rodoviário</label>
       		<select id="tipo_implemento" name="tipo_implemento" required>
-        			<option value="tanqueSemiReboque2eixos">Tanque Semirreboque 2 eixos</option>
-        			<option value="tanqueSemiReboque3eixos">Tanque Semirreboque 3 eixos</option>
-        			<option value="tanqueSemiReboque5eixos">Tanque Semirreboque 5 eixos</option>
-       			<option value="comboioAbestecimento">Comboio Abastecimento</option>
+        			<option value="Tanque semirreboque 2 eixos">Tanque semirreboque 2 eixos</option>
+        			<option value="tanque semirreboque 3 eixos">Tanque semirreboque 3 eixos</option>
+        			<option value="Tanque semirreboque com 5ª roda traseira">Tanque semirreboque com 5ª roda traseira</option>
+       			<option value="Comboio de abastecimento">Comboio de abastecimento</option>
+       			<option value="Baú">Baú</option>
        		</select>
+       		
+    	<label for="vincular">Vincular:</label>
+      <input type="text" id="vincular" name="vincular" required>   		
     
      
  		<label for="tag">TAG:</label>
@@ -75,8 +79,9 @@
       <label for="modelo">Modelo:</label>
       <input type="text" id="modelo" name="modelo" required>
       
-      <label for="ano_fabricao">Ano de Fabricação:</label>
-      <input type="date" id="ano_fabricao" name="ano_fabricao" required>
+     <label for="ano_fabricao">Ano de Fabricação:</label>
+     <input type="number" id="ano_fabricao" name="ano_fabricao" required>
+
     
       <label for="chassis">Chassis:</label>
       <input type="text" id="chassis" name="chassis" required>
@@ -88,28 +93,26 @@
       <input type="text" id="proprietario" name="proprietario" required>
       
       <label for="Tara">Tara [kg]:</label>
-      <input type="text" id="tara" name="tara" required>
+      <input type="text" id="tara" name="tara">
       
       <label for="Lotação">Lotação [kg]:</label>
-      <input type="text" id="lotacao" name="lotacao" required>   
+      <input type="text" id="lotacao" name="lotacao">   
       
       <label for="PTB">Peso Bruto Total [kg]:</label>
-      <input type="text" id="PTB" name="PTB" required>   
+      <input type="text" id="PTB" name="PTB">   
       
-      <label for="PBTC">Peso Bruto Total Combinado - Somente Cavalo mecânico [kg]:</label>
-      <input type="text" id="PBTC" name="PBTC" required>  
-      
+          
       <label for="capacidadeMaxTracao">Capacidade Máxima de tração - CMT - [kg]:</label>
-      <input type="text" id="capacidadeMaxTracao" name="capacidadeMaxTracao" required>  
+      <input type="text" id="capacidadeMaxTracao" name="capacidadeMaxTracao">  
       
       <label for="capacidadeVolumetrica">Capacidade Volumétrica:</label>
-      <input type="text" id="capacidadeVolumetrica" name="capacidadeVolumetrica" required>  
+      <input type="text" id="capacidadeVolumetrica" name="capacidadeVolumetrica">  
       
       <label for="cor">Cor:</label>
-      <input type="text" id="cor" name="cor" required>     
+      <input type="text" id="cor" name="cor" >     
       
       <label for="foto">Foto:</label>
-      <input type="file" id="foto" name="foto" accept="image/*" required> 
+      <input type="file" id="foto" name="foto" accept="image/*"> 
       
       <input type="submit" value="Enviar">
     </form>
