@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18-Jan-2024 às 02:14
+-- Tempo de geração: 18-Jan-2024 às 02:52
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -30,8 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `ativo_embarcacao` (
   `id` int(11) NOT NULL,
   `tipo_embarcacao` varchar(50) DEFAULT NULL,
+  `tag` varchar(150) NOT NULL,
   `num_inscricao` varchar(20) DEFAULT NULL,
-  `fabricante` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
   `armador` varchar(255) DEFAULT NULL,
   `ano_fabricacao` int(11) DEFAULT NULL,
   `capacidade_volumetrica` int(11) DEFAULT NULL,
@@ -42,8 +43,20 @@ CREATE TABLE `ativo_embarcacao` (
 -- Extraindo dados da tabela `ativo_embarcacao`
 --
 
-INSERT INTO `ativo_embarcacao` (`id`, `tipo_embarcacao`, `num_inscricao`, `fabricante`, `armador`, `ano_fabricacao`, `capacidade_volumetrica`, `foto`) VALUES
-(1, 'ferryboat', '014.112.991-32', '1985', 'Gustavo Lemes LTDA', 2005, 222, '416457550_778141584114395_1375641987417283047_n.jpg');
+INSERT INTO `ativo_embarcacao` (`id`, `tipo_embarcacao`, `tag`, `num_inscricao`, `nome`, `armador`, `ano_fabricacao`, `capacidade_volumetrica`, `foto`) VALUES
+(1, 'ferryboat', '', '014.112.991-32', '1985', 'Gustavo Lemes LTDA', 2005, 222, '416457550_778141584114395_1375641987417283047_n.jpg'),
+(2, 'balsaSimples', '', '123000', 'Cumis ', 'Ap Marine ', 2000, 850, 'Captura de tela de 2024-01-16 09-53-33.png'),
+(3, 'balsaSimples', '', '123000', 'Cumis ', 'Ap Marine ', 2000, 850, 'Captura de tela de 2024-01-16 09-53-33.png'),
+(4, 'balsaMotorizada', '', '123000', 'Cumis ', 'Ap Marine ', 2000, 850, 'Captura de tela de 2024-01-16 09-53-33.png'),
+(5, 'balsa simples', '', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(6, 'balsa simples', '', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(7, 'balsa simples', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(8, 'empurrador', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(9, 'balsa motorizada', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(10, 'balsa simples', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(11, 'balsa simples', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(12, 'balsa simples', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(13, 'balsa simples', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png');
 
 -- --------------------------------------------------------
 
@@ -225,7 +238,7 @@ ALTER TABLE `ativo_veiculo`
 -- AUTO_INCREMENT de tabela `ativo_embarcacao`
 --
 ALTER TABLE `ativo_embarcacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `ativo_implemento`
