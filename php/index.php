@@ -159,6 +159,7 @@
                     <th>Ano de Fabricação</th>
                     <th>Capacidade Volumétrica</th>
                     <th>Foto</th>
+                    <th>Editar</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -171,6 +172,7 @@
                     <th>Ano de Fabricação</th>
                     <th>Capacidade Volumétrica</th>
                     <th>Foto</th>
+                    <th>Editar</th>
                   </tr>
                 </tfoot>
                 <tbody>
@@ -187,6 +189,7 @@
                             <td><?= $row["ano_fabricacao"] ?></td>
                             <td><?= $row["capacidade_volumetrica"] ?></td>
                             <td><?= $row["foto"] ?></td>
+                            <th><a href="./atualizar_embarcacao.php">&#9998;</a></th>
                             <!-- Adicione mais colunas conforme necessário -->
                         </tr>
                       <?php
@@ -208,6 +211,7 @@
                         <th>Fabricante</th>
                         <th>Modelo</th>
                         <th>Ano de Fabricação</th>
+                        <th>Editar</th>
                         <!-- Adicione mais colunas conforme necessário -->
                     </tr>
                 </thead>
@@ -220,6 +224,7 @@
                         <th>Fabricante</th>
                         <th>Modelo</th>
                         <th>Ano de Fabricação</th>
+                        <th>Editar</th>
                         <!-- Adicione mais colunas conforme necessário -->
                     </tr>
                 </tfoot>
@@ -236,6 +241,7 @@
                             <td><?= $row["fabricante"] ?></td>
                             <td><?= $row["modelo"] ?></td>
                             <td><?= $row["ano_fabricao"] ?></td>
+                            <th><a href="./atualizar_implemento.php">&#9998;</a></th>
                             <!-- Adicione mais colunas conforme necessário -->
                         </tr>
                       <?php
@@ -257,6 +263,7 @@
                       <th>Localização</th>
                       <th>Capacidade Volumétrica</th>
                       <th>Foto</th>
+                      <th>Editar</th>
                       <!-- Adicione mais colunas conforme necessário -->
                   </tr>
                 </thead>
@@ -269,6 +276,7 @@
                       <th>Localização</th>
                       <th>Capacidade Volumétrica</th>
                       <th>Foto</th>
+                      <th>Editar</th>
                       <!-- Adicione mais colunas conforme necessário -->
                   </tr>
                 </tfoot>
@@ -285,6 +293,7 @@
                           <td><?= $row["localizacao"] ?></td>
                           <td><?= $row["capacidadeVolumetrica"] ?></td>
                           <td><?= $row["foto"] ?></td>
+                          <th><a href="./atualizar_tanque.php">&#9998;</a></th>
                           <!-- Adicione mais colunas conforme necessário -->
                       </tr>
                       <?php
@@ -314,6 +323,7 @@
                       <th>PBT</th>
                       <th>PBTC</th>
                       <th>Cor</th>
+                      <th>Editar</th>
                       <!-- Adicione mais colunas conforme necessário -->
                   </tr>
                 </thead>
@@ -334,6 +344,7 @@
                       <th>PBT</th>
                       <th>PBTC</th>
                       <th>Cor</th>
+                      <th>Editar</th>
                       <!-- Adicione mais colunas conforme necessário -->
                   </tr>
                 </tfoot>
@@ -358,6 +369,7 @@
                               <td><?= $row["PTB"] ?></td>
                               <td><?= $row["PBTC"] ?></td>
                               <td><?= $row["cor"] ?></td>
+                              <th><a href="./atualizar_veiculo.php">&#9998;</a></th>
                               <!-- Adicione mais colunas conforme necessário -->
                           </tr>
                       <?php
