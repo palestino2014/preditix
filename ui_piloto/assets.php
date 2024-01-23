@@ -71,7 +71,7 @@
             <!-- Side Bar content -->
             <!-- Nav Item - Assets -->
             <li class="nav-item active">
-                <a class="nav-link" href="assets.html">
+                <a class="nav-link" href="assets.php">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Ativos</span></a>
             </li>
@@ -178,7 +178,7 @@
                             <div class="card">
                                 <div class="card-header"
                                      id="headingOne">
-                                    <h5 class="mb-0">
+                                    <h2 class="mb-0">
                                         <button class="btn btn-link"
                                                 data-toggle="collapse"
                                                 data-target="#collapseOne"
@@ -186,7 +186,7 @@
                                                 aria-controls="collapseOne">
                                                 Embarcações
                                         </button>
-                                    </h5>
+                                    </h2>
                                 </div>
 
                                 <div id="collapseOne"
@@ -251,7 +251,7 @@
                             <div class="card">
                                 <div class="card-header"
                                      id="headingFour">
-                                    <h5 class="mb-0">
+                                     <h2 class="mb-0">
                                         <button class="btn btn-link"
                                                 data-toggle="collapse"
                                                 data-target="#collapseFour"
@@ -259,7 +259,7 @@
                                                 aria-controls="collapseFour">
                                             Implementos
                                         </button>
-                                    </h5>
+                                    </h2>
                                 </div>
 
                                 <div id="collapseFour"
@@ -322,7 +322,7 @@
                             <div class="card">
                                 <div class="card-header"
                                      id="headingTwo">
-                                    <h5 class="mb-0">
+                                     <h2 class="mb-0">
                                         <button class="btn btn-link collapsed"
                                                 data-toggle="collapse"
                                                 data-target="#collapseTwo"
@@ -330,7 +330,7 @@
                                                 aria-controls="collapseTwo">
                                             Tanques
                                         </button>
-                                    </h5>
+                                    </h2>
                                 </div>
                                 <div id="collapseTwo"
                                      class="collapse"
@@ -392,7 +392,7 @@
                             <div class="card">
                                 <div class="card-header"
                                      id="headingTwo">
-                                    <h5 class="mb-0">
+                                     <h2 class="mb-0">
                                         <button class="btn btn-link collapsed"
                                                 data-toggle="collapse"
                                                 data-target="#collapseFive"
@@ -400,7 +400,7 @@
                                                 aria-controls="collapseFive">
                                             Veículos
                                         </button>
-                                    </h5>
+                                    </h2>
                                 </div>
                                 <div id="collapseFive"
                                      class="collapse"
