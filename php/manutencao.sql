@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18-Jan-2024 às 02:52
+-- Tempo de geração: 27-Jan-2024 às 17:50
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -56,7 +56,8 @@ INSERT INTO `ativo_embarcacao` (`id`, `tipo_embarcacao`, `tag`, `num_inscricao`,
 (10, 'balsa simples', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
 (11, 'balsa simples', '123000', 'Cumis ', 'Ap Marine ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
 (12, 'balsa simples', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
-(13, 'balsa simples', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png');
+(13, 'balsa simples', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png'),
+(14, 'balsa motorizada', '123000', 'Cumis ', 'Fé em Deus ', 'Maritimos ', 850, 333, 'Captura de tela de 2024-01-16 10-17-28.png');
 
 -- --------------------------------------------------------
 
@@ -140,7 +141,9 @@ INSERT INTO `ativo_tanque` (`id`, `tag`, `fabricante`, `anoFabricacao`, `localiz
 (1, 'externo', 'Metalmar', '2004', 'Belém - PA', '80', 'Captura de tela de 2023-12-26 21-06-26.png'),
 (2, 'externo', 'Metalmar', '2004', 'Belém - PA', '80', 'Captura de tela de 2023-12-26 21-06-26.png'),
 (3, 'TQ 01', 'Metalmar ', '2024-01-01', 'São Paulo - SP ', '80', '414927476_917225716429122_6886172699108488252_n.jpg'),
-(4, 'TQ 01', 'Metalmar ', '2024-01-01', 'São Paulo - SP ', '80', '414927476_917225716429122_6886172699108488252_n.jpg');
+(4, 'TQ 01', 'Metalmar ', '2024-01-01', 'São Paulo - SP ', '80', '414927476_917225716429122_6886172699108488252_n.jpg'),
+(5, '9900!@#$%¨&*()', 'Tanques Du bom', '2000', 'Manaus - MA ', '250 ', 'Captura de tela de 2024-01-09 20-11-48.png'),
+(6, '9900!@#$%¨&*()', 'Tanques Du bom', '2000', 'Manaus - MA ', '250 ', 'Captura de tela de 2024-01-09 20-11-48.png');
 
 -- --------------------------------------------------------
 
@@ -202,6 +205,28 @@ INSERT INTO `ativo_veiculo` (`id`, `tipo_veiculo`, `tag`, `placa`, `fabricante`,
 (27, 'cavalo mecânico trucado', '33333', 'rtwertwer', 'twertwert', 'twertwer', '2000', '1', '1', '1', 1, 1, 1, 1, '1200', '1', ''),
 (28, 'caminhão toco', 'CA 330', '555AF350', 'Volvo ', 'A380', '2000', 'xxx-uuu-3456', '123123123123', 'Porto Brasil ', 2000, 14, 2500, 3500, '1500', 'Azul ', 'Captura de tela de 2024-01-16 09-53-33.png');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `operador`
+--
+
+CREATE TABLE `operador` (
+  `id` int(3) NOT NULL,
+  `nome` varchar(150) NOT NULL,
+  `funcao` varchar(150) NOT NULL,
+  `matricula` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `operador`
+--
+
+INSERT INTO `operador` (`id`, `nome`, `funcao`, `matricula`) VALUES
+(1, 'Vinicius Gustavo de Jesus Ferreira Lemes', 'Gerente Operacional ', '1122'),
+(2, 'Manoella M. O. Antunes', 'Engenheria Mecânica', '1111'),
+(3, 'Jefferson Mendes ', 'Gerente de Marketing ', '2222');
+
 --
 -- Índices para tabelas despejadas
 --
@@ -231,6 +256,12 @@ ALTER TABLE `ativo_veiculo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `operador`
+--
+ALTER TABLE `operador`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -238,7 +269,7 @@ ALTER TABLE `ativo_veiculo`
 -- AUTO_INCREMENT de tabela `ativo_embarcacao`
 --
 ALTER TABLE `ativo_embarcacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `ativo_implemento`
@@ -250,13 +281,19 @@ ALTER TABLE `ativo_implemento`
 -- AUTO_INCREMENT de tabela `ativo_tanque`
 --
 ALTER TABLE `ativo_tanque`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `ativo_veiculo`
 --
 ALTER TABLE `ativo_veiculo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de tabela `operador`
+--
+ALTER TABLE `operador`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
