@@ -131,32 +131,28 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </tr>
     </tbody>
 </table>
+<br>
+  <div>
+    <label>Qual tipo de manutenção você pretende solicitar?</label>
+    <div>
+        <input type="radio" name="radio-maintenance" id="corretiva" value="Corretiva">
+        <label for="corretiva">Corretiva</label>
+    </div>
+    <div>
+        <input type="radio" name="radio-maintenance" id="preditiva" value="Preditiva">
+        <label for="preditiva">Preditiva</label>
+    </div>
+    <div>
+        <input type="radio" name="radio-maintenance" id="preventiva" value="Preventiva">
+        <label for="preventiva">Preventiva</label>
+    </div>
+</div>
 
-                            <form class="mb-5">
+<br>
 
-                                <div class="mb-3">
 
-                                    <label class="d-flex flex-column mb-2">Qual tipo de manuten&ccedil;&atilde;o voc&ecirc; pretende solicitar?</label>
 
-                                    <div class="form-check  form-check-inline">
-                                        <input class="form-check-input corretivaRadio" type="radio" name="radio-maintenance" id="radio-corrective-maintenance">
-                                        <label class="form-check-label" for="radio-corrective-maintenance">
-                                            Corretiva
-                                        </label>
-                                    </div>
-                                    <div class="form-check  form-check-inline">
-                                        <input class="form-check-input preditivaRadio" type="radio" name="radio-maintenance" id="radio-predictive-maintenance">
-                                        <label class="form-check-label" for="radio-predictive-maintenance">
-                                            Preditiva
-                                        </label>
-                                    </div>
-                                    <div class="form-check  form-check-inline">
-                                        <input class="form-check-input preventivaRadio" type="radio" name="radio-maintenance" id="radio-preventive-maintenance">
-                                        <label class="form-check-label" for="radio-preventive-maintenance">
-                                            Preventiva
-                                        </label>
-                                    </div>
-                                </div>
+                            <form class="mb-5">                
 
                                 <label class="form-label">Quais os sistemas afetados?</label>
 
