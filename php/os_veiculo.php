@@ -90,15 +90,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 <div class="input-group mb-3"><div class="input-group-prepend">
 
-                            <table class="table table-hover my-4">
-                                
-                                <tbody>                      
-                                	<tr>
-                                		<td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
-                                	</tr>                                                                            
-                                </tbody>
-                                
-                            </table>
+                           <table class="table table-hover my-4">
+    				<tbody>                      
+        			   <tr>
+           				<td class="maintenanceOdometer">Odômetro (KM):</td>
+            				<td><input type="text" name="odometerValue" id="odometerValue" placeholder="Insira o valor do odômetro"></td>
+        			   </tr>                                                                            
+    				</tbody>
+			    </table>
 
                             <table class="table table-hover my-4">
                                 <thead>
