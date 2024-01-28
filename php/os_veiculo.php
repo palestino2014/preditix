@@ -131,6 +131,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </tr>
     </tbody>
 </table>
+
                             <form class="mb-5">
 
                                 <div class="mb-3">
@@ -797,58 +798,8 @@ formul&aacute;rio poder&aacute; acrescentar outros sintomas nos campos em aberto
                                 <div class="form-group mb-3">
                                     <label class="mb-2" for="descricaoIntervencoes">Descri&ccedil;&atilde;o das interven&ccedil;&otilde;es:</label>
                                     <textarea class="form-control" rows="5"  id="descricaoIntervencoes" aria-label="Descri&ccedil;&atilde;o das interven&ccedil;&otilde;es" placeholder="Descreva de maneira detalhada"></textarea>
-                                </div>
-
-                                <table class="mantenedoresResponsaveis table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="5" class="text-center fs-5">Mantenedores Respons&aacute;veis</th>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2" class="text-center align-middle" style="border-bottom-color: black;">Nome</th>
-                                        <th colspan="2" class="text-center">In&iacute;cio do servi&ccedil;o</th>
-                                        <th colspan="2" class="text-center">Fim do servi&ccedil;o</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Data</th>
-                                        <th class="text-center">Hora</th>
-                                        <th class="text-center">Data</th>
-                                        <th class="text-center">Hora</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center maintenanceResponsible"></td>
-                                        <td class="text-center maintenanceStartedDate"></td>
-                                        <td class="text-center maintenanceStartedTime"></td>
-                                        <td class="text-center maintenanceFinishedDate"></td>
-                                        <td class="text-center maintenanceFinishedTime"></td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-
-                                <table class="materiaisutilizados table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="5" class="text-center fs-5">Materiais Utilizados</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center align-middle">Descri&ccedil;&atilde;o</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Custo Unit&aacute;rio</th>
-                                        <th class="text-center">Custo Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center maintenanceProductUsed"></td>
-                                        <td class="text-center maintenanceProductQuatity"></td>
-                                        <td class="text-center maintenanceProductUnitCost"></td>
-                                        <td class="text-center maintenanceProductTotalCost"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                </div>                
+                    
 									     <input type="submit" value="ir">
                                 <button type="submit" class="btn btn-primary">Solicitar</button>
                             </form>	
