@@ -1,9 +1,5 @@
 <?php
-// Configurações do banco de dados
-$servername = "seu_servidor_mysql";
-$username = "seu_usuario_mysql";
-$password = "sua_senha_mysql";
-$dbname = "seu_banco_de_dados";
+include 'conexao_bd.php';
 
 // Conectar ao banco de dados
 $conn = new mysqli($servername, $username, $password, $dbname);
