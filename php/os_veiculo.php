@@ -92,21 +92,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                             <table class="table table-hover my-4">
                                 
-                                <tbody>
-                                <tr>
-                                    <td class="col-sm-6 maintenanceRequestDate">Data de solicita&ccedil;&atilde;o de servi&ccedil;o:</td>
-                                    <td class="col-sm-6 maintenanceRequester">Nome do solicitante:</td>
-                                </tr>
-                                <tr>
-                                    <td class="maintenanceAssetId">Placa:</td>
-                                    <td class="maintenanceAssetDescription">Descri&ccedil;&atilde;o de ativo:</td>
-                                </tr>
-                                <tr>
-                                    <td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
-                                    <td class="maintenanceAssetManufacturer">Fabricante:</td>
-                                </tr>
-                                <tr>
+                                <tbody>                      
+                                	<tr>
+                                		<td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
+                                	</tr>                                                                            
                                 </tbody>
+                                
                             </table>
 
                             <table class="table table-hover my-4">
@@ -133,7 +124,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                 </tr>
                                 </tbody>
                             </table>
-
                             <form class="mb-5">
 
                                 <div class="mb-3">
