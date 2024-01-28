@@ -99,30 +99,38 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     				</tbody>
 			    </table>
 
-                            <table class="table table-hover my-4">
-                                <thead>
-                                <tr>
-                                    <th colspan="3" class="text-center fs-5">Tempo de manuten&ccedil;&atilde;o</th>
-                                </tr>
-                                <tr>
-                                    <th class="text-center col-sm-6">Descri&ccedil;&atilde;o</th>
-                                    <th class="text-center col-sm-3">Data</th>
-                                    <th class="text-center col-sm-3">Hora</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="text-center col-sm-6">In&iacute;cio de manuten&ccedil;&atilde;o</td>
-                                    <td class="text-center col-sm-3 maintenanceStartDate"></td>
-                                    <td class="text-center col-sm-3 maintenanceStartTime"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center col-sm-6">T&eacute;rmino de manuten&ccedil;&atilde;o</td>
-                                    <td class="text-center col-sm-3 maintenanceEndtDate"></td>
-                                    <td class="text-center col-sm-3 maintenanceFinishTime"></td>
-                                </tr>
-                                </tbody>
-                            </table>
+<table class="table table-hover my-4">
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center fs-5">Tempo de manutenção</th>
+        </tr>
+        <tr>
+            <th class="text-center col-sm-6">Descrição</th>
+            <th class="text-center col-sm-3">Data</th>
+            <th class="text-center col-sm-3">Hora</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center col-sm-6">Início de manutenção</td>
+            <td class="text-center col-sm-3 maintenanceStartDate">
+                <input type="date" name="maintenanceStartDate">
+            </td>
+            <td class="text-center col-sm-3 maintenanceStartTime">
+                <input type="time" name="maintenanceStartTime">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center col-sm-6">Término de manutenção</td>
+            <td class="text-center col-sm-3 maintenanceEndDate">
+                <input type="date" name="maintenanceEndDate">
+            </td>
+            <td class="text-center col-sm-3 maintenanceFinishTime">
+                <input type="time" name="maintenanceFinishTime">
+            </td>
+        </tr>
+    </tbody>
+</table>
                             <form class="mb-5">
 
                                 <div class="mb-3">
