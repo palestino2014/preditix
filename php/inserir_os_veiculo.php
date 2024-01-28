@@ -23,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $maintenanceType = isset($_POST['radio-maintenance']) ? $_POST['radio-maintenance'] : '';
     echo "maintenanceType: " . $maintenanceType . "<br>";
+    
+ 
 
     // ... Continuação dos parâmetros
 
