@@ -42,13 +42,20 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-light sidebar sidebar-light accordion" 
+        id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-text"><img src="./img/prediti_logo.png" alt="logo" width="100px"></div>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" 
+            href="index.php">
+                <div class="sidebar-brand-text">
+                    <img src="./img/prediti_logo.png" 
+                    alt="logo" 
+                    width="100px"></div>
                 <div class="sidebar-brand-icon">
-                    <img src="./img/shadow_logo_hourglass.png" alt="logo" width="40px">
+                    <img src="./img/shadow_logo_hourglass.png" 
+                    alt="logo" 
+                    width="40px">
                 </div>
             </a>
 
@@ -57,7 +64,8 @@
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline mt-2">
-                <button id="sidebarToggle" class="btn rounded-circle mr-3">
+                <button id="sidebarToggle" 
+                class="btn rounded-circle mr-3">
                 </button>
             </div>
 
@@ -71,25 +79,29 @@
             <!-- Side Bar content -->
             <!-- Nav Item - Assets -->
             <li class="nav-item active">
-                <a class="nav-link" href="assets.php">
+                <a  class="nav-link" 
+                    href="assets.php">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Ativos</span></a>
             </li>
             <!-- Nav Item - OS -->
             <li class="nav-item">
-                <a class="nav-link" href="invoice.html">
+                <a  class="nav-link" 
+                    href="invoice.html">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Ordens de Serviço</span></a>
             </li>
             <!-- Nav Item - KPI -->
             <li class="nav-item">
-                <a class="nav-link" href="kpi.html">
+                <a  class="nav-link" 
+                    href="kpi.html">
                     <i class="fas fa-fw fa-chart-line"></i>
                     <span>KPI</span></a>
             </li>
             <!-- Nav Item - Help -->
             <li class="nav-item">
-                <a class="nav-link" href="help.html">
+                <a  class="nav-link" 
+                    href="help.html">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>Ajuda</span></a>
             </li>
@@ -199,27 +211,23 @@
                                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Tipo de Embarcação</th>
-                                                    <th>Número de Inscrição</th>
-                                                    <th>Fabricante</th>
-                                                    <th>Armador</th>
-                                                    <th>Ano de Fabricação</th>
-                                                    <th>Capacidade Volumétrica</th>
-                                                    <th>Foto</th>
+                                                    <th class="text-center">TAG</th>
+                                                    <th class="text-center">Tipo de Embarcação</th>
+                                                    <th class="text-center">Inscrição</th>
+                                                    <th class="text-center">Nome da embarcação</th>
+                                                    <th class="text-center">Capacidade Volumétrica</th>
+                                                    <th class="text-center">Opções</th>
                                                     <!-- Adicione mais colunas conforme necessário -->
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Tipo de Embarcação</th>
-                                                    <th>Número de Inscrição</th>
-                                                    <th>Fabricante</th>
-                                                    <th>Armador</th>
-                                                    <th>Ano de Fabricação</th>
-                                                    <th>Capacidade Volumétrica</th>
-                                                    <th>Foto</th>
+                                                    <th class="text-center">TAG</th>
+                                                    <th class="text-center">Tipo de Embarcação</th>
+                                                    <th class="text-center">Inscrição</th>
+                                                    <th class="text-center">Nome da embarcação</th>
+                                                    <th class="text-center">Capacidade Volumétrica</th>
+                                                    <th class="text-center">Opções</th>
                                                     <!-- Adicione mais colunas conforme necessário -->
                                                 </tr>
                                             </tfoot>
@@ -229,15 +237,18 @@
                                                 while ($row = $ativo_embarcacao->fetch_assoc()) {
                                                     ?>
                                                     <tr>
-                                                        <td><?= $row["id"] ?></td>
-                                                        <td><?= $row["tipo_embarcacao"] ?></td>
-                                                        <td><?= $row["num_inscricao"] ?></td>
-                                                        <td><?= $row["fabricante"] ?></td>
-                                                        <td><?= $row["armador"] ?></td>
-                                                        <td><?= $row["ano_fabricacao"] ?></td>
-                                                        <td><?= $row["capacidade_volumetrica"] ?></td>
-                                                        <td><?= $row["foto"] ?></td>
-                                                        <!-- Adicione mais colunas conforme necessário -->
+                                                        <td class="text-center"><?= $row["id"] ?></td>
+                                                        <td class="text-center"><?= $row["tipo_embarcacao"] ?></td>
+                                                        <td class="text-center"><?= $row["num_inscricao"] ?></td>
+                                                        <td class="text-center"><?= $row["ano_fabricacao"] ?></td>
+                                                        <td class="text-center"><?= $row["capacidade_volumetrica"] ?></td>
+                                                        <td class="text-center">
+                                                            <a  data-toggle="modal"
+                                                                data-target="#moreInformationModal">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </a>
+                                                            <a href="php/atualizar_embarcacao.php">&#9998;</a>
+                                                        </td>                                                       
                                                     </tr>
                                                     <?php
                                                 }
@@ -272,25 +283,27 @@
                                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Tipo de Implemento</th>
-                                                    <th>TAG</th>
-                                                    <th>Placa</th>
-                                                    <th>Fabricante</th>
-                                                    <th>Modelo</th>
-                                                    <th>Ano de Fabricação</th>
+                                                    <th class="text-center">TAG</th>
+                                                    <th class="text-center">Placa</th>
+                                                    <th class="text-center">Vínculo permanente</th>
+                                                    <th class="text-center">Tipo de Implemento</th>
+                                                    <th class="text-center">Fabricante</th>
+                                                    <th class="text-center">Modelo</th>
+                                                    <th class="text-center">Ano de Fabricação</th>
+                                                    <th class="text-center">Opções</th>
                                                     <!-- Adicione mais colunas conforme necessário -->
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Tipo de Implemento</th>
-                                                    <th>TAG</th>
-                                                    <th>Placa</th>
-                                                    <th>Fabricante</th>
-                                                    <th>Modelo</th>
-                                                    <th>Ano de Fabricação</th>
+                                                    <th class="text-center">TAG</th>
+                                                    <th class="text-center">Placa</th>
+                                                    <th class="text-center">Vínculo permanente</th>
+                                                    <th class="text-center">Tipo de Implemento</th>
+                                                    <th class="text-center">Fabricante</th>
+                                                    <th class="text-center">Modelo</th>
+                                                    <th class="text-center">Ano de Fabricação</th>
+                                                    <th class="text-center">Opções</th>
                                                     <!-- Adicione mais colunas conforme necessário -->
                                                 </tr>
                                             </tfoot>
@@ -300,14 +313,20 @@
                                                 while ($row = $ativo_implemento->fetch_assoc()) {
                                                     ?>
                                                     <tr>
-                                                        <td><?= $row["id"] ?></td>
-                                                        <td><?= $row["tipo_implemento"] ?></td>
-                                                        <td><?= $row["tag"] ?></td>
-                                                        <td><?= $row["placa"] ?></td>
-                                                        <td><?= $row["fabricante"] ?></td>
-                                                        <td><?= $row["modelo"] ?></td>
-                                                        <td><?= $row["ano_fabricao"] ?></td>
-                                                        <!-- Adicione mais colunas conforme necessário -->
+                                                        <td class="text-center"><?= $row["tag"] ?></td>
+                                                        <td class="text-center"><?= $row["placa"] ?></td>
+                                                        <td class="text-center"><?= $row["id"] ?></td>
+                                                        <td class="text-center"><?= $row["tipo_implemento"] ?></td>
+                                                        <td class="text-center"><?= $row["fabricante"] ?></td>
+                                                        <td class="text-center"><?= $row["modelo"] ?></td>
+                                                        <td class="text-center"><?= $row["ano_fabricao"] ?></td>
+                                                        <td class="text-center">
+                                                            <a  data-toggle="modal"
+                                                                data-target="#moreInformationModal">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </a>
+                                                            <a href="php/atualizar_implemento.php">&#9998;</a>
+                                                        </td>                                                        <!-- Adicione mais colunas conforme necessário -->
                                                     </tr>
                                                     <?php
                                                 }
@@ -319,6 +338,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card">
                                 <div class="card-header"
                                      id="headingTwo">
@@ -328,7 +348,7 @@
                                                 data-target="#collapseTwo"
                                                 aria-expanded="false"
                                                 aria-controls="collapseTwo">
-                                            Tanques
+                                            Tanques de armazenamento
                                         </button>
                                     </h2>
                                 </div>
@@ -342,25 +362,23 @@
                                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>TAG</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Ano de Fabricação</th>
-                                                        <th>Localização</th>
-                                                        <th>Capacidade Volumétrica</th>
-                                                        <th>Foto</th>
+                                                        <th class="text-center">TAG</th>
+                                                        <th class="text-center">Fabricante / Responsável técnico</th>
+                                                        <th class="text-center">Ano de Fabricação</th>
+                                                        <th class="text-center">Ano</th>
+                                                        <th class="text-center">Capacidade Volumétrica</th>
+                                                        <th class="text-center">Opções</th>
                                                         <!-- Adicione mais colunas conforme necessário -->
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>TAG</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Ano de Fabricação</th>
-                                                        <th>Localização</th>
-                                                        <th>Capacidade Volumétrica</th>
-                                                        <th>Foto</th>
+                                                        <th class="text-center">TAG</th>
+                                                        <th class="text-center">Fabricante / Responsável técnico</th>
+                                                        <th class="text-center">Ano de Fabricação</th>
+                                                        <th class="text-center">Ano</th>
+                                                        <th class="text-center">Capacidade Volumétrica</th>
+                                                        <th class="text-center">Opções</th>
                                                         <!-- Adicione mais colunas conforme necessário -->
                                                     </tr>
                                                 </tfoot>
@@ -370,14 +388,18 @@
                                                     while ($row = $ativo_tanque->fetch_assoc()) {
                                                         ?>
                                                         <tr>
-                                                            <td><?= $row["id"] ?></td>
-                                                            <td><?= $row["tag"] ?></td>
-                                                            <td><?= $row["fabricante"] ?></td>
-                                                            <td><?= $row["anoFabricacao"] ?></td>
-                                                            <td><?= $row["localizacao"] ?></td>
-                                                            <td><?= $row["capacidadeVolumetrica"] ?></td>
-                                                            <td><?= $row["foto"] ?></td>
-                                                            <!-- Adicione mais colunas conforme necessário -->
+                                                            <td class="text-center"><?= $row["tag"] ?></td>
+                                                            <td class="text-center"><?= $row["id"] ?></td>
+                                                            <td class="text-center"><?= $row["anoFabricacao"] ?></td>
+                                                            <td class="text-center"><?= $row["fabricante"] ?></td>
+                                                            <td class="text-center"><?= $row["capacidadeVolumetrica"] ?></td>
+                                                            <td class="text-center">
+                                                                <a data-toggle="modal"
+                                                                    data-target="#moreInformationModal">
+                                                                    <i class="fas fa-plus-circle"></i>
+                                                                </a>
+                                                                <a href="php/atualizar_tanque.php">&#9998;</a>
+                                                            </td>                                                            <!-- Adicione mais colunas conforme necessário -->
                                                         </tr>
                                                         <?php
                                                     }
@@ -389,6 +411,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card">
                                 <div class="card-header"
                                      id="headingTwo">
@@ -412,41 +435,25 @@
                                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Tipo de Veículo</th>
-                                                        <th>TAG</th>
-                                                        <th>Placa</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Modelo</th>
-                                                        <th>Ano de Fabricação</th>
-                                                        <th>Chassis</th>
-                                                        <th>Renavam</th>
-                                                        <th>Proprietário</th>
-                                                        <th>Tara</th>
-                                                        <th>Lotação</th>
-                                                        <th>PBT</th>
-                                                        <th>PBTC</th>
-                                                        <th>Cor</th>
+                                                        <th class="text-center">TAG</th>
+                                                        <th class="text-center">Placa</th>
+                                                        <th class="text-center">Tipo de Veículo</th>
+                                                        <th class="text-center">Fabricante</th>
+                                                        <th class="text-center">Modelo</th>
+                                                        <th class="text-center">Ano de Fabricação</th>
+                                                        <th class="text-center">Opções</th>
                                                         <!-- Adicione mais colunas conforme necessário -->
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Tipo de Veículo</th>
-                                                        <th>TAG</th>
-                                                        <th>Placa</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Modelo</th>
-                                                        <th>Ano de Fabricação</th>
-                                                        <th>Chassis</th>
-                                                        <th>Renavam</th>
-                                                        <th>Proprietário</th>
-                                                        <th>Tara</th>
-                                                        <th>Lotação</th>
-                                                        <th>PBT</th>
-                                                        <th>PBTC</th>
-                                                        <th>Cor</th>
+                                                        <th class="text-center">TAG</th>
+                                                        <th class="text-center">Placa</th>
+                                                        <th class="text-center">Tipo de Veículo</th>
+                                                        <th class="text-center">Fabricante</th>
+                                                        <th class="text-center">Modelo</th>
+                                                        <th class="text-center">Ano de Fabricação</th>
+                                                        <th class="text-center">Opções</th>
                                                         <!-- Adicione mais colunas conforme necessário -->
                                                     </tr>
                                                 </tfoot>
@@ -456,21 +463,19 @@
                                                     while ($row = $ativo_veiculo->fetch_assoc()) {
                                                         ?>
                                                             <tr>
-                                                                <td><?= $row["id"] ?></td>
-                                                                <td><?= $row["tipo_veiculo"] ?></td>
-                                                                <td><?= $row["tag"] ?></td>
-                                                                <td><?= $row["placa"] ?></td>
-                                                                <td><?= $row["fabricante"] ?></td>
-                                                                <td><?= $row["modelo"] ?></td>
-                                                                <td><?= $row["ano_fabricacao"] ?></td>
-                                                                <td><?= $row["chassis"] ?></td>
-                                                                <td><?= $row["renavam"] ?></td>
-                                                                <td><?= $row["proprietario"] ?></td>
-                                                                <td><?= $row["tara"] ?></td>
-                                                                <td><?= $row["lotacao"] ?></td>
-                                                                <td><?= $row["PTB"] ?></td>
-                                                                <td><?= $row["PBTC"] ?></td>
-                                                                <td><?= $row["cor"] ?></td>
+                                                                <td class="text-center"><?= $row["tag"] ?></td>
+                                                                <td class="text-center"><?= $row["placa"] ?></td>
+                                                                <td class="text-center"><?= $row["tipo_veiculo"] ?></td>
+                                                                <td class="text-center"><?= $row["fabricante"] ?></td>
+                                                                <td class="text-center"><?= $row["modelo"] ?></td>
+                                                                <td class="text-center"><?= $row["ano_fabricacao"] ?></td>
+                                                                <td class="text-center">
+                                                                    <a  data-toggle="modal"
+                                                                        data-target="#moreInformationModal">
+                                                                        <i class="fas fa-plus-circle"></i>
+                                                                    </a>
+                                                                    <a href="php/atualizar_veiculo.php">&#9998;</a>
+                                                                </td>
                                                                 <!-- Adicione mais colunas conforme necessário -->
                                                             </tr>
                                                         <?php
@@ -510,6 +515,34 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        <!-- More information Modal-->
+        <div class="modal fade" id="moreInformationModal" tabindex="-1" role="dialog" aria-labelledby="More information Modal"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mais informações sobre o ativo:</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                        <li class="list-group-item">A fourth item</li>
+                        <li class="list-group-item">And a fifth one</li>
+                    </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Permanecer logado</button>
+                        <a class="btn btn-primary" href="404.html">Encerrar sessão</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Logout Modal-->
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

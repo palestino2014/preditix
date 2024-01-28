@@ -5,8 +5,14 @@
     // Consulta SQL para obter todos os dados da tabela
     $consulta = $conn->query("SELECT * FROM ativo_veiculo");
 
+    // Consulta SQL para obter todos os dados da tabela
+    $ativo_embarcacao = $conn->query("SELECT * FROM ativo_embarcacao");
+    $ativo_implemento = $conn->query("SELECT * FROM ativo_implemento");
+    $ativo_tanque = $conn->query("SELECT * FROM ativo_tanque");
+    $ativo_veiculo = $conn->query("SELECT * FROM ativo_veiculo");
+
     // Verifica se há resultados
-    if ($consulta->num_rows > 0) {
+    if ($ativo_embarcacao || $ativo_implemento || $ativo_tanque || $ativo_veiculo -> num_rows > 0) {
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +75,7 @@
         <!-- Side Bar content -->
 	    <!-- Nav Item - Assets -->
 	    <li class="nav-item">
-		    <a class="nav-link" href="assets.html">
+		    <a class="nav-link" href="assets.php">
 			    <i class="fas fa-fw fa-truck"></i>
 			    <span>Ativos</span></a>
 	    </li>
@@ -151,6 +157,7 @@
                 <div class="container-fluid">
 
 	                <!-- Page Heading -->
+					<!-- Buttons to add assets and invoices -->
 	                <div class="d-sm-flex align-items-center justify-content-between mb-4">
 		                <div>
 		                </div>
@@ -189,43 +196,58 @@
 
 				                <div class="card-body">
 					                <div class="table-responsive" id="table-show" style="display: block;">
-						                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-							                <thead>
-								                <tr>
-									                <th>Identificação</th>
-									                <th colspan="2">Tipo de ativo</th>
-									                <th>Localização</th>
-									                <th>Status</th>
-									                <th>Odômetro</th>
-									                <th>Próxima preventiva</th>
-									                <th>Edição</th>
-								                </tr>
-							                </thead>
-							                <tfoot>
-								                <tr>
-									                <th>Identificação</th>
-									                <th colspan="2">Tipo de ativo</th>
-									                <th>Localização</th>
-									                <th>Status</th>
-									                <th>Odômetro</th>
-									                <th>Próxima preventiva</th>
-									                <th>Edição</th>
-								                </tr>
-							                </tfoot>
-							                <tbody>
-								                <tr>
-									                <td>QLS-2H91</td>
-									                <td>Veículo</td>
-									                <td>Cavalo Mecânico</td>
-									                <td>Hydro-Barcarena</td>
-									                <td>Em Operação</td>
-									                <td>52414 KM</td>
-									                <td>60.000 km</td>
-									                <td><i class="fas fa-pen"></i></td>
-								                </tr>
-							                </tbody>
-						                </table>
-					                </div>
+										<h2>Embarcações&nbsp;<a href="php/atualizar_embarcacao.php">&#9998;</a></h2>
+										<!-- Embarcação table -->
+										<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th class="sticky-col first-col">ID</th>
+													<th>Tipo de Embarcação</th>
+													<th>Número de Inscrição</th>
+													<th>Fabricante</th>
+													<th>Armador</th>
+													<th>Ano de Fabricação</th>
+													<th>Capacidade Volumétrica</th>
+													<th>Foto</th>
+													<!-- <th>Mais Informações</th> -->
+												</tr>
+												</thead>
+												<tfoot>
+												<tr>
+													<th class="sticky-col first-col">ID</th>
+													<th>Tipo de Embarcação</th>
+													<th>Número de Inscrição</th>
+													<th>Fabricante</th>
+													<th>Armador</th>
+													<th>Ano de Fabricação</th>
+													<th>Capacidade Volumétrica</th>
+													<th>Foto</th>
+													<!-- <th>Mais informações</th> -->
+												</tr>
+												</tfoot>
+												<tbody>
+													<?php
+														// Loop através dos resultados e exibir cada linha na tabela
+														while ($row = $ativo_embarcacao->fetch_assoc()) {
+														?>
+															<tr>
+																<td class="sticky-col first-col"><?= $row["id"] ?></td>
+																<td><?= $row["tipo_embarcacao"] ?></td>
+																<td><?= $row["num_inscricao"] ?></td>
+																<td><?= $row["fabricante"] ?></td>
+																<td><?= $row["armador"] ?></td>
+																<td><?= $row["ano_fabricacao"] ?></td>
+																<td><?= $row["capacidade_volumetrica"] ?></td>
+																<td><?= $row["foto"] ?></td>
+																<!-- Adicione mais colunas conforme necessário -->
+															</tr>
+														<?php
+														}
+													?>
+												</tbody>
+											</table>
+										</table>	
+									</div>
 					                <!-- chart view start -->
 					                <div id="graphs-show" style="display: none;">
 						                <div class="row">
@@ -426,9 +448,12 @@
     echo "Nenhum veículo encontrado.";
 }
 
-// Fechar a consulta
-$consulta->close();
+    // Fechar a consulta
+    $ativo_embarcacao->close();
+    $ativo_implemento->close();
+    $ativo_tanque->close();
+    $ativo_veiculo->close();
 
-// Fechar a conexão
-$conn->close();
+    // Fechar a conexão
+    $conn->close();
 ?>
