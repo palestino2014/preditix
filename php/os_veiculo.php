@@ -800,8 +800,7 @@ formul&aacute;rio poder&aacute; acrescentar outros sintomas nos campos em aberto
                                     <textarea class="form-control" rows="5"  id="descricaoIntervencoes" aria-label="Descri&ccedil;&atilde;o das interven&ccedil;&otilde;es" placeholder="Descreva de maneira detalhada"></textarea>
                                 </div>                
                     
-									     <input type="submit" value="ir">
-                                <button type="submit" class="btn btn-primary">Solicitar</button>
+									     <button type="submit" class="btn btn-primary">Solicitar</button>
                             </form>	
                         </div><br>
             </form>
