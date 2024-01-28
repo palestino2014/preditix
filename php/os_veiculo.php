@@ -85,45 +85,27 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <tr>
         <th>Observações</th>
         <td>
-            <form action="processar_observacoes_veiculo.php" method="post">              
+            <form action="processar_observacoes_veiculo.php" method="post">
+                
+
+<div class="input-group mb-3"><div class="input-group-prepend">
 
                             <table class="table table-hover my-4">
-                           <thead><tr>
+                                
                                 <tbody>
                                 <tr>
                                     <td class="col-sm-6 maintenanceRequestDate">Data de solicita&ccedil;&atilde;o de servi&ccedil;o:</td>
-                                    </tr>
-                               <tr>
+                                    <td class="col-sm-6 maintenanceRequester">Nome do solicitante:</td>
+                                </tr>
+                                <tr>
+                                    <td class="maintenanceAssetId">Placa:</td>
+                                    <td class="maintenanceAssetDescription">Descri&ccedil;&atilde;o de ativo:</td>
+                                </tr>
                                 <tr>
                                     <td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
-                                 
-                                </tr>
-                             <tr>
-                                </tbody>
-                            </table>
-
-                            <table class="table table-hover my-4">
-                                <thead>
-                                <tr>
-                                    <th colspan="3" class="text-center fs-5">Tempo de manuten&ccedil;&atilde;o</th>
+                                    <td class="maintenanceAssetManufacturer">Fabricante:</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-center col-sm-6">Descri&ccedil;&atilde;o</th>
-                                    <th class="text-center col-sm-3">Data</th>
-                                    <th class="text-center col-sm-3">Hora</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="text-center col-sm-6">In&iacute;cio de manuten&ccedil;&atilde;o</td>
-                                    <td class="text-center col-sm-3 maintenanceStartDate"></td>
-                                    <td class="text-center col-sm-3 maintenanceStartTime"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center col-sm-6">T&eacute;rmino de manuten&ccedil;&atilde;o</td>
-                                    <td class="text-center col-sm-3 maintenanceEndtDate"></td>
-                                    <td class="text-center col-sm-3 maintenanceFinishTime"></td>
-                                </tr>
                                 </tbody>
                             </table>
 
