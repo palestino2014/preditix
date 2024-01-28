@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 27-Jan-2024 às 17:50
+-- Tempo de geração: 29-Jan-2024 às 00:03
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -227,6 +227,37 @@ INSERT INTO `operador` (`id`, `nome`, `funcao`, `matricula`) VALUES
 (2, 'Manoella M. O. Antunes', 'Engenheria Mecânica', '1111'),
 (3, 'Jefferson Mendes ', 'Gerente de Marketing ', '2222');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `os_veiculo`
+--
+
+CREATE TABLE `os_veiculo` (
+  `id` int(11) NOT NULL,
+  `odometer` int(11) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `maintenance_type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `os_veiculo`
+--
+
+INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_date`, `end_time`, `maintenance_type`) VALUES
+(1, 111, '2024-01-03', '12:00:00', '2024-01-22', '13:00:00', 'on'),
+(2, 12, '2023-10-31', '12:00:00', '2023-11-07', '12:00:00', 'on'),
+(3, 7456746, '2024-01-02', '12:22:00', '2024-01-10', '12:22:00', ''),
+(4, 7456746, '2024-01-02', '12:22:00', '2024-01-10', '12:22:00', 'Preditiva'),
+(5, 7456746, '2024-01-02', '12:22:00', '2024-01-10', '12:22:00', 'Preditiva'),
+(6, 333, '2024-01-02', '05:05:00', '2024-01-03', '06:06:00', 'Corretiva'),
+(7, 7456746, '2024-01-02', '12:22:00', '2024-01-10', '12:22:00', 'Preditiva'),
+(8, 74, '2024-01-02', '12:22:00', '2024-01-10', '12:22:00', 'Preventiva'),
+(9, 333, '2024-01-02', '05:05:00', '2024-01-03', '06:06:00', 'Preventiva');
+
 --
 -- Índices para tabelas despejadas
 --
@@ -262,6 +293,12 @@ ALTER TABLE `operador`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `os_veiculo`
+--
+ALTER TABLE `os_veiculo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -294,6 +331,12 @@ ALTER TABLE `ativo_veiculo`
 --
 ALTER TABLE `operador`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `os_veiculo`
+--
+ALTER TABLE `os_veiculo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
