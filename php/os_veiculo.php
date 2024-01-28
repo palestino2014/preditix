@@ -31,7 +31,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Veículo</title>
+    <title>OS- Veículo</title>
     <style>
         table {
             border-collapse: collapse;
@@ -64,7 +64,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </head>
 <body>
 
-<h2>Detalhes do Veículo</h2>
+<h2>OS - Veículo</h2>
 
 <table>
     <tr>
@@ -85,55 +85,44 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <tr>
         <th>Observações</th>
         <td>
-            <form action="processar_observacoes_veiculo.php" method="post">
-                <input type="hidden" name="id_veiculo" value="<?php echo $row["id"]; ?>">
-                <label for="tipo_manutencao">Tipo de Manutenção:</label>
-      		<select id="tipo_veiculo" name="tipo_veiculo" required>
-        			<option value="corretiva">corretiva</option>
-        			<option value="preventiva">preventiva</option>
-        			<option value="preditiva">preditiva</option>       	
-      		</select>
-                <br> <br>
-                <input type="submit" value="ir">
-                
-                <br><div class="mx-5">
+            <form action="processar_observacoes_veiculo.php" method="post">              
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Selecione o ativo
-                                    </label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Escolha</option>
-                                    <option value="1">Ativo 01</option>
-                                    <option value="2">Ativo 02</option>
-                                    <option value="3">Ativo 03</option>
-                                </select>
-                            </div>
+                            <table class="table table-hover my-4">
+                           <thead><tr>
+                                <tbody>
+                                <tr>
+                                    <td class="col-sm-6 maintenanceRequestDate">Data de solicita&ccedil;&atilde;o de servi&ccedil;o:</td>
+                                    </tr>
+                               <tr>
+                                <tr>
+                                    <td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
+                                 
+                                </tr>
+                             <tr>
+                                </tbody>
+                            </table>
 
                             <table class="table table-hover my-4">
                                 <thead>
                                 <tr>
-                                    <th class="documentNumber">Documento:</th>
-                                    <th class="revision">Revis&atilde;o:</th>
+                                    <th colspan="3" class="text-center fs-5">Tempo de manuten&ccedil;&atilde;o</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center col-sm-6">Descri&ccedil;&atilde;o</th>
+                                    <th class="text-center col-sm-3">Data</th>
+                                    <th class="text-center col-sm-3">Hora</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="col-sm-6 maintenanceRequestDate">Data de solicita&ccedil;&atilde;o de servi&ccedil;o:</td>
-                                    <td class="col-sm-6 maintenanceRequester">Nome do solicitante:</td>
+                                    <td class="text-center col-sm-6">In&iacute;cio de manuten&ccedil;&atilde;o</td>
+                                    <td class="text-center col-sm-3 maintenanceStartDate"></td>
+                                    <td class="text-center col-sm-3 maintenanceStartTime"></td>
                                 </tr>
                                 <tr>
-                                    <td class="maintenanceAssetId">Placa:</td>
-                                    <td class="maintenanceAssetDescription">Descri&ccedil;&atilde;o de ativo:</td>
-                                </tr>
-                                <tr>
-                                    <td class="maintenanceOdometer">Od&ocirc;metro (KM):</td>
-                                    <td class="maintenanceAssetManufacturer">Fabricante:</td>
-                                </tr>
-                                <tr>
-                                    <td class="maintenanceAssetModel">Modelo:</td>
-                                    <td class="maintenanceAssetManufacturerYear">Ano:</td>
+                                    <td class="text-center col-sm-6">T&eacute;rmino de manuten&ccedil;&atilde;o</td>
+                                    <td class="text-center col-sm-3 maintenanceEndtDate"></td>
+                                    <td class="text-center col-sm-3 maintenanceFinishTime"></td>
                                 </tr>
                                 </tbody>
                             </table>
