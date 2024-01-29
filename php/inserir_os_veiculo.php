@@ -19,10 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $combustivelCheckbox = isset($_POST['combustivelCheckbox']) ? 1 : 0;
     $medicaoControleCheckbox = isset($_POST['medicaoControleCheckbox']) ? 1 : 0;
     $protecaoImpactosCheckbox = isset($_POST['protecaoImpactosCheckbox']) ? 1 : 0;
-
+    $transmissaoCheckbox = isset($_POST['transmissaoCheckbox']) ? 1 : 0;
+    $estruturalCheckbox = isset($_POST['estruturalCheckbox']) ? 1 : 0; 
+    $controleEletronicoCheckbox = isset($_POST['controleEletronicoCheckbox']) ? 1 : 0;  
+    $acoplamentoCheckbox = isset($_POST['acoplamentoCheckbox']) ? 1 : 0;
+    $exaustaoCheckbox = isset($_POST['exaustaoCheckbox']) ? 1 : 0;
+    $propulsaoCheckbox = isset($_POST['propulsaoCheckbox']) ? 1 : 0;
+    $protecaoContraIncendioCheckbox = isset($_POST['protecaoContraIncendioCheckbox']) ? 1 : 0;
     // Preparar e executar a instrução de inserção no banco de dados
     $stmt = $conn->prepare("INSERT INTO os_veiculo (
-        odometer, start_date, start_time, end_date, end_time, maintenance_type, cabine, direcao, combustivel, medicao_controle, protecao_impactos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        odometer, start_date, start_time, end_date, end_time, maintenance_type, cabine, direcao, combustivel, medicao_controle, protecao_impactos, transmissao, estrutural, controle_eletronico, acoplamento,
+        exaustao, propulsao, protecao_contra_incendio)
+         VALUES (? , ? , ? , ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Verificar se a preparação da instrução foi bem-sucedida
     if (!$stmt) {
@@ -30,8 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Modificar a string de definição de tipo para corresponder ao número correto de parâmetros
-    $stmt->bind_param("ssssssiiiii",
-        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType, $cabineCheckbox, $direcaoCheckbox, $combustivelCheckbox, $medicaoControleCheckbox, $protecaoImpactosCheckbox);
+    $stmt->bind_param("ssssssiiiiiiiiiiii",
+        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType, $cabineCheckbox, $direcaoCheckbox, $combustivelCheckbox, $medicaoControleCheckbox, $protecaoImpactosCheckbox,$transmissaoCheckbox,$estruturalCheckbox,$controleEletronicoCheckbox,
+        $acoplamentoCheckbox , $exaustaoCheckbox , $propulsaoCheckbox , $protecaoContraIncendioCheckbox);
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
