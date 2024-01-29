@@ -152,7 +152,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                       <label>Sistemas afetados</label>                                      
                                  <div>
                                     <input type="checkbox" id="cabineCheckbox" name="cabineCheckbox" value="cabine" >
-                                    <label class="form-check-label" for="cabineCheckbox">Cabine</label>
+                                    <label for="cabineCheckbox">Cabine</label>
                                  </div>     
 
                          			<div>
@@ -174,6 +174,80 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     											<input type="checkbox" id="protecaoImpactosCheckbox" name="protecaoImpactosCheckbox" value="protecaoImpactos">
     											<label for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
 											</div>
+<div>
+    <input type="checkbox" id="transmissaoCheckbox" name="transmissaoCheckbox" value="transmissaoCheckbox">
+    <label for="transmissaoCheckbox">Transmiss&atilde;o</label>
+</div>
+
+<div>
+    <input type="checkbox" id="estruturalCheckbox" name="estruturalCheckbox" value="estruturalCheckbox">
+    <label for="estruturalCheckbox">Estrutural</label>
+</div>
+
+<div>
+    <input type="checkbox" id="acoplamentoCheckbox" name="acoplamentoCheckbox" value="acoplamentoCheckbox">
+    <label for="acoplamentoCheckbox">Acomplamento</label>
+</div>
+
+<div>
+    <input type="checkbox" id="controleEletronicoCheckbox" name="controleEletronicoCheckbox" value="controleEletronicoCheckbox">
+    <label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
+</div>
+
+<div>
+    <input type="checkbox" id="exaustaoCheckbox" name="exaustaoCheckbox" value="exaustaoCheckbox">
+    <label for="exaustaoCheckbox">Exaust&atilde;o</label>
+</div>
+
+<div>
+    <input type="checkbox" id="propulsaoCheckbox" name="propulsaoCheckbox" value="propulsaoCheckbox">
+    <label for="propulsaoCheckbox">Propuls&atilde;o</label>
+</div>
+
+<div>
+    <input type="checkbox" id="protecaoContraIncendioCheckbox" name="protecaoContraIncendioCheckbox" value="protecaoContraIncendioCheckbox">
+    <label for="protecaoContraIncendioCheckbox">Porte&ccedil;&atilde;o contra inc&ecirc;ndio</label>
+</div>
+
+<div>
+    <input type="checkbox" id="ventilacaoCheckbox" name="ventilacaoCheckbox" value="ventilacaoCheckbox">
+    <label for="ventilacaoCheckbox">Ventila&ccedil;&atilde;o</label>
+</div>
+
+<div>
+    <input type="checkbox" id="tanqueCheckbox" name="tanqueCheckbox" value="tanqueCheckbox">
+    <label for="tanqueCheckbox">Tanque</label>
+</div>
+
+<div>
+    <input type="checkbox" id="arrefecimentoCheckbox" name="arrefecimentoCheckbox" value="arrefecimentoCheckbox">
+    <label for="arrefecimentoCheckbox">Arrefecimento</label>
+</div>
+
+<div>
+    <input type="checkbox" id="descargaCheckbox" name="descargaCheckbox" value="descargaCheckbox">
+    <label for="descargaCheckbox">Descarga</label>
+</div>
+
+<div>
+    <input type="checkbox" id="freiosCheckbox" name="freiosCheckbox" value="freiosCheckbox">
+    <label for="freiosCheckbox">Freios</label>
+</div>
+
+<div>
+    <input type="checkbox" id="prote&ccedil;&atilde;oAmbientalCheckbox" name="protecaoAmbientalCheckbox" value="protecaoAmbientalCheckbox">
+    <label for="prote&ccedil;&atilde;oAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
+</div>
+
+<div>
+    <input type="checkbox" id="suspensaoCheckbox" name="suspensaoCheckbox" value="suspensaoCheckbox">
+    <label for="suspensaoCheckbox">Suspens&atilde;o</label>
+</div>
+
+<div>
+    <input type="checkbox" id="eletricoCheckbox" name="eletricoCheckbox" value="eletricoCheckbox">
+    <label for="eletricoCheckbox">El&eacute;trico</label>
+</div>
 
     										
 
