@@ -152,106 +152,98 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                                     <div>
 
-                                        <div >
-                                            <input type="checkbox"  id="cabineCheckbox">
-                                            <label  for="cabineCheckbox">Cabine</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="direcaoCheckbox" name="sistemasAfetados[]" value="direcao">
+        <label for="direcaoCheckbox">Dire&ccedil;&atilde;o</label>
+    </div>
 
-                                        <div class=>
-                                            <input type="checkbox"  id="combustivelCheckbox">
-                                            <label  for="combustivelCheckbox">Combust&iacute;vel</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="medicaoControleCheckbox" name="sistemasAfetados[]" value="medicaoControle">
+        <label for="medicaoControleCheckbox">Medi&ccedil;&atilde;o de controle</label>
+    </div>
 
-                                        <div class=>
-                                            <input type="checkbox"  id="direcaoCheckbox">
-                                            <label  for="direcaoCheckbox">Dire&ccedil;&atilde;o</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="protecaoImpactosCheckbox" name="sistemasAfetados[]" value="protecaoImpactos">
+        <label for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox" id="medicaoControleCheckbox">
-                                            <label for="medicaoControleCheckbox">Medi&ccedil;&atilde;o de controle</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="transmissaoCheckbox" name="sistemasAfetados[]" value="transmissao">
+        <label for="transmissaoCheckbox">Transmiss&atilde;o</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox" id="protecaoImpactosCheckbox">
-                                            <label  for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="estruturalCheckbox" name="sistemasAfetados[]" value="estrutural">
+        <label for="estruturalCheckbox">Estrutural</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox" id="transmissaoCheckbox">
-                                            <label for="transmissaoCheckbox">Transmiss&atilde;o</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="acoplamentoCheckbox" name="sistemasAfetados[]" value="acoplamento">
+        <label for="acoplamentoCheckbox">Acomplamento</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox" id="estruturalCheckbox">
-                                            <label  for="estruturalCheckbox">Estrutural</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="controleEletronicoCheckbox" name="sistemasAfetados[]" value="controleEletronico">
+        <label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox" id="acoplamentoCheckbox">
-                                            <label  for="acoplamentoCheckbox">Acomplamento</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="exaustaoCheckbox" name="sistemasAfetados[]" value="exaustao">
+        <label for="exaustaoCheckbox">Exaust&atilde;o</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox"  id="controleEletronicoCheckbox">
-                                            <label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="propulsaoCheckbox" name="sistemasAfetados[]" value="propulsao">
+        <label for="propulsaoCheckbox">Propuls&atilde;o</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox" id="exaustaoCheckbox">
-                                            <label for="exaustaoCheckbox">Exaust&atilde;o</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="protecaoContraIncendioCheckbox" name="sistemasAfetados[]" value="protecaoContraIncendio">
+        <label for="protecaoContraIncendioCheckbox">Porte&ccedil;&atilde;o contra inc&ecirc;ndio</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox"id="propulsaoCheckbox">
-                                            <label  for="propulsaoCheckbox">Propuls&atilde;o</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="ventilacaoCheckbox" name="sistemasAfetados[]" value="ventilacao">
+        <label for="ventilacaoCheckbox">Ventila&ccedil;&atilde;o</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox"id="protecaoContraIncendioCheckbox">
-                                            <label  for="protecaoContraIncendioCheckbox">Porte&ccedil;&atilde;o contra inc&ecirc;ndio</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="tanqueCheckbox" name="sistemasAfetados[]" value="tanque">
+        <label for="tanqueCheckbox">Tanque</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox"  id="ventilacaoCheckbox">
-                                            <label for="ventilacaoCheckbox">Ventila&ccedil;&atilde;o</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="arrefecimentoCheckbox" name="sistemasAfetados[]" value="arrefecimento">
+        <label for="arrefecimentoCheckbox">Arrefecimento</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox"id="tanqueCheckbox">
-                                            <label for="tanqueCheckbox">Tanque</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="descargaCheckbox" name="sistemasAfetados[]" value="descarga">
+        <label for="descargaCheckbox">Descarga</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox" id="arrefecimentoCheckbox">
-                                            <label  for="arrefecimentoCheckbox">Arrefecimento</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="freiosCheckbox" name="sistemasAfetados[]" value="freios">
+        <label for="freiosCheckbox">Freios</label>
+    </div>
 
-                                        <div>
-                                            <input type="checkbox"  id="descargaCheckbox">
-                                            <label for="descargaCheckbox">Descarga</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="protecaoAmbientalCheckbox" name="sistemasAfetados[]" value="protecaoAmbiental">
+        <label for="protecaoAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox"  id="freiosCheckbox">
-                                            <label  for="freiosCheckbox">Freios</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="suspensaoCheckbox" name="sistemasAfetados[]" value="suspensao">
+        <label for="suspensaoCheckbox">Suspens&atilde;o</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox"id="prote&ccedil;&atilde;oAmbientalCheckbox">
-                                            <label for="prote&ccedil;&atilde;oAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
-                                        </div>
+    <div>
+        <input type="checkbox" id="eletricoCheckbox" name="sistemasAfetados[]" value="eletrico">
+        <label for="eletricoCheckbox">El&eacute;trico</label>
+    </div>
 
-                                        <div >
-                                            <input type="checkbox" id="suspensaoCheckbox">
-                                            <label  for="suspensaoCheckbox">Suspens&atilde;o</label>
-                                        </div>
+</div>
 
-                                        <div >
-                                            <input type="checkbox" id="eletricoCheckbox">
-                                            <label for="eletricoCheckbox">El&eacute;trico</label>
-                                        </div>
-                                    </div>
                                 </div>
 
 <br>
