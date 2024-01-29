@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $maintenanceFinishTime = isset($_POST['maintenanceFinishTime']) ? $_POST['maintenanceFinishTime'] : '';
     $maintenanceType = isset($_POST['radio-maintenance']) ? $_POST['radio-maintenance'] : '';
 
-    // Verificar as checkboxes
+    // Verificar as checkboxes - Sistemas afetados
     $cabineCheckbox = isset($_POST['cabineCheckbox']) ? 1 : 0;
     $direcaoCheckbox = isset($_POST['direcaoCheckbox']) ? 1 : 0;
     $combustivelCheckbox = isset($_POST['combustivelCheckbox']) ? 1 : 0;
