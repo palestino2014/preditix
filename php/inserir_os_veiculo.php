@@ -23,23 +23,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $maintenanceType = isset($_POST['radio-maintenance']) ? $_POST['radio-maintenance'] : '';
     echo "maintenanceType: " . $maintenanceType . "<br>";
-    
- 
 
-    // ... Continuação dos parâmetros
+    $sistemasAfetados = [];
+
+    $checkboxes = [
+        'cabineCheckbox', 'combustivelCheckbox', 'direcaoCheckbox', 'medicaoControleCheckbox', 'protecaoImpactosCheckbox',
+        'transmissaoCheckbox', 'estruturalCheckbox', 'acoplamentoCheckbox', 'controleEletronicoCheckbox', 'exaustaoCheckbox',
+        'propulsaoCheckbox', 'protecaoContraIncendioCheckbox', 'ventilacaoCheckbox', 'tanqueCheckbox', 'arrefecimentoCheckbox',
+        'descargaCheckbox', 'freiosCheckbox', 'protecaoAmbientalCheckbox', 'suspensaoCheckbox', 'eletricoCheckbox'
+    ];
+
+    foreach ($checkboxes as $checkbox) {
+        if (isset($_POST[$checkbox])) {
+            $sistemasAfetados[] = $checkbox;
+        }
+    }
+
+    // Converter o vetor em uma string separada por vírgula
+    $sistemasAfetadosString = implode(", ", $sistemasAfetados);
+
+    echo "String sistemas afetados: " . $sistemasAfetadosString . "<br>";
 
     // Preparar e executar a instrução de inserção no banco de dados
     $stmt = $conn->prepare("INSERT INTO os_veiculo (
-        odometer, start_date, start_time, end_date, end_time, maintenance_type) VALUES (
-        ?, ?, ?, ?, ?, ?)");
+        odometer, start_date, start_time, end_date, end_time, maintenance_type, sistema_afetado) VALUES (
+        ?, ?, ?, ?, ?, ?, ?)");
 
     // Verificar se a preparação da instrução foi bem-sucedida
     if ($stmt === false) {
         die('Erro na preparação da consulta: ' . $conn->error);
     }
 
-    $stmt->bind_param("ssssss",
-        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType);
+    // Modificar a string de definição de tipo para corresponder ao número correto de parâmetros
+    $stmt->bind_param("sssssss",
+        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType, $sistemasAfetadosString);
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
