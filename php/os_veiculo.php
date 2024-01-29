@@ -147,120 +147,115 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <label for="preventiva">Preventiva</label>
     </div>
 </div>
-
 <br>
+ 
 
+                                    <div>
 
-
-                            <form class="mb-5">                
-
-                                <label class="form-label">Quais os sistemas afetados?</label>
-
-                                <div class="mb-3 form-check">
-
-                                    <div class="row">
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="cabineCheckbox">
-                                            <label class="form-check-label" for="cabineCheckbox">Cabine</label>
+                                        <div >
+                                            <input type="checkbox"  id="cabineCheckbox">
+                                            <label  for="cabineCheckbox">Cabine</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="combustivelCheckbox">
-                                            <label class="form-check-label" for="combustivelCheckbox">Combust&iacute;vel</label>
+                                        <div class=>
+                                            <input type="checkbox"  id="combustivelCheckbox">
+                                            <label  for="combustivelCheckbox">Combust&iacute;vel</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="direcaoCheckbox">
-                                            <label class="form-check-label" for="direcaoCheckbox">Dire&ccedil;&atilde;o</label>
+                                        <div class=>
+                                            <input type="checkbox"  id="direcaoCheckbox">
+                                            <label  for="direcaoCheckbox">Dire&ccedil;&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="medicaoControleCheckbox">
-                                            <label class="form-check-label" for="medicaoControleCheckbox">Medi&ccedil;&atilde;o de controle</label>
+                                        <div>
+                                            <input type="checkbox" id="medicaoControleCheckbox">
+                                            <label for="medicaoControleCheckbox">Medi&ccedil;&atilde;o de controle</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="protecaoImpactosCheckbox">
-                                            <label class="form-check-label" for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
+                                        <div >
+                                            <input type="checkbox" id="protecaoImpactosCheckbox">
+                                            <label  for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="transmissaoCheckbox">
-                                            <label class="form-check-label" for="transmissaoCheckbox">Transmiss&atilde;o</label>
+                                        <div >
+                                            <input type="checkbox" id="transmissaoCheckbox">
+                                            <label for="transmissaoCheckbox">Transmiss&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="estruturalCheckbox">
-                                            <label class="form-check-label" for="estruturalCheckbox">Estrutural</label>
+                                        <div>
+                                            <input type="checkbox" id="estruturalCheckbox">
+                                            <label  for="estruturalCheckbox">Estrutural</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="acoplamentoCheckbox">
-                                            <label class="form-check-label" for="acoplamentoCheckbox">Acomplamento</label>
+                                        <div >
+                                            <input type="checkbox" id="acoplamentoCheckbox">
+                                            <label  for="acoplamentoCheckbox">Acomplamento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="controleEletronicoCheckbox">
-                                            <label class="form-check-label" for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
+                                        <div>
+                                            <input type="checkbox"  id="controleEletronicoCheckbox">
+                                            <label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="exaustaoCheckbox">
-                                            <label class="form-check-label" for="exaustaoCheckbox">Exaust&atilde;o</label>
+                                        <div >
+                                            <input type="checkbox" id="exaustaoCheckbox">
+                                            <label for="exaustaoCheckbox">Exaust&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="propulsaoCheckbox">
-                                            <label class="form-check-label" for="propulsaoCheckbox">Propuls&atilde;o</label>
+                                        <div >
+                                            <input type="checkbox"id="propulsaoCheckbox">
+                                            <label  for="propulsaoCheckbox">Propuls&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="protecaoContraIncendioCheckbox">
-                                            <label class="form-check-label" for="protecaoContraIncendioCheckbox">Porte&ccedil;&atilde;o contra inc&ecirc;ndio</label>
+                                        <div >
+                                            <input type="checkbox"id="protecaoContraIncendioCheckbox">
+                                            <label  for="protecaoContraIncendioCheckbox">Porte&ccedil;&atilde;o contra inc&ecirc;ndio</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="ventilacaoCheckbox">
-                                            <label class="form-check-label" for="ventilacaoCheckbox">Ventila&ccedil;&atilde;o</label>
+                                        <div>
+                                            <input type="checkbox"  id="ventilacaoCheckbox">
+                                            <label for="ventilacaoCheckbox">Ventila&ccedil;&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="tanqueCheckbox">
-                                            <label class="form-check-label" for="tanqueCheckbox">Tanque</label>
+                                        <div>
+                                            <input type="checkbox"id="tanqueCheckbox">
+                                            <label for="tanqueCheckbox">Tanque</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="arrefecimentoCheckbox">
-                                            <label class="form-check-label" for="arrefecimentoCheckbox">Arrefecimento</label>
+                                        <div>
+                                            <input type="checkbox" id="arrefecimentoCheckbox">
+                                            <label  for="arrefecimentoCheckbox">Arrefecimento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="descargaCheckbox">
-                                            <label class="form-check-label" for="descargaCheckbox">Descarga</label>
+                                        <div>
+                                            <input type="checkbox"  id="descargaCheckbox">
+                                            <label for="descargaCheckbox">Descarga</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="freiosCheckbox">
-                                            <label class="form-check-label" for="freiosCheckbox">Freios</label>
+                                        <div >
+                                            <input type="checkbox"  id="freiosCheckbox">
+                                            <label  for="freiosCheckbox">Freios</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="prote&ccedil;&atilde;oAmbientalCheckbox">
-                                            <label class="form-check-label" for="prote&ccedil;&atilde;oAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
+                                        <div >
+                                            <input type="checkbox"id="prote&ccedil;&atilde;oAmbientalCheckbox">
+                                            <label for="prote&ccedil;&atilde;oAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="suspensaoCheckbox">
-                                            <label class="form-check-label" for="suspensaoCheckbox">Suspens&atilde;o</label>
+                                        <div >
+                                            <input type="checkbox" id="suspensaoCheckbox">
+                                            <label  for="suspensaoCheckbox">Suspens&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="eletricoCheckbox">
-                                            <label class="form-check-label" for="eletricoCheckbox">El&eacute;trico</label>
+                                        <div >
+                                            <input type="checkbox" id="eletricoCheckbox">
+                                            <label for="eletricoCheckbox">El&eacute;trico</label>
                                         </div>
                                     </div>
                                 </div>
+
+<br>
+                                           
 
                                 <div class="form-group mb-3">
                                     <label class="mb-2" for="componentesAfetados">Quais os componentes afetados?</label>
