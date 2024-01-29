@@ -174,30 +174,30 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     											<input type="checkbox" id="protecaoImpactosCheckbox" name="protecaoImpactosCheckbox" value="protecaoImpactos">
     											<label for="protecaoImpactosCheckbox">Prote&ccedil;&atilde;o contra impactos</label>
 											</div>
-<div>
-    <input type="checkbox" id="transmissaoCheckbox" name="transmissaoCheckbox" value="transmissaoCheckbox">
-    <label for="transmissaoCheckbox">Transmiss&atilde;o</label>
-</div>
+											<div>
+    											<input type="checkbox" id="transmissaoCheckbox" name="transmissaoCheckbox" value="transmissaoCheckbox">
+    											<label for="transmissaoCheckbox">Transmiss&atilde;o</label>
+											</div>
 
-<div>
-    <input type="checkbox" id="estruturalCheckbox" name="estruturalCheckbox" value="estruturalCheckbox">
-    <label for="estruturalCheckbox">Estrutural</label>
-</div>
+											<div>
+    											<input type="checkbox" id="estruturalCheckbox" name="estruturalCheckbox" value="estruturalCheckbox">
+    											<label for="estruturalCheckbox">Estrutural</label>
+											</div>
 
-<div>
-    <input type="checkbox" id="acoplamentoCheckbox" name="acoplamentoCheckbox" value="acoplamentoCheckbox">
-    <label for="acoplamentoCheckbox">Acomplamento</label>
-</div>
+											<div>
+    											<input type="checkbox" id="acoplamentoCheckbox" name="acoplamentoCheckbox" value="acoplamentoCheckbox">
+    											<label for="acoplamentoCheckbox">Acomplamento</label>
+											</div>
 
-<div>
-    <input type="checkbox" id="controleEletronicoCheckbox" name="controleEletronicoCheckbox" value="controleEletronicoCheckbox">
-    <label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
-</div>
+											<div>
+    											<input type="checkbox" id="controleEletronicoCheckbox" name="controleEletronicoCheckbox" value="controleEletronicoCheckbox">
+    											<label for="controleEletronicoCheckbox">Controle eletr&ocirc;nico</label>
+											</div>
 
-<div>
-    <input type="checkbox" id="exaustaoCheckbox" name="exaustaoCheckbox" value="exaustaoCheckbox">
-    <label for="exaustaoCheckbox">Exaust&atilde;o</label>
-</div>
+											<div>
+    											<input type="checkbox" id="exaustaoCheckbox" name="exaustaoCheckbox" value="exaustaoCheckbox">
+    											<label for="exaustaoCheckbox">Exaust&atilde;o</label>
+											</div>
 
 <div>
     <input type="checkbox" id="propulsaoCheckbox" name="propulsaoCheckbox" value="propulsaoCheckbox">
@@ -235,8 +235,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </div>
 
 <div>
-    <input type="checkbox" id="prote&ccedil;&atilde;oAmbientalCheckbox" name="protecaoAmbientalCheckbox" value="protecaoAmbientalCheckbox">
-    <label for="prote&ccedil;&atilde;oAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
+    <input type="checkbox" id="protecaoAmbientalCheckbox" name="protecaoAmbientalCheckbox" value="protecaoAmbientalCheckbox">
+    <label for="protecaoAmbientalCheckbox">Prote&ccedil;&atilde;o ambiental</label>
 </div>
 
 <div>
