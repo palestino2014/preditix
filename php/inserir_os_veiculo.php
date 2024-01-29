@@ -17,10 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cabineCheckbox = isset($_POST['cabineCheckbox']) ? 1 : 0;
     $direcaoCheckbox = isset($_POST['direcaoCheckbox']) ? 1 : 0;
     $combustivelCheckbox = isset($_POST['combustivelCheckbox']) ? 1 : 0;
+    $medicaoControleCheckbox = isset($_POST['medicaoControleCheckbox']) ? 1 : 0;
+    $protecaoImpactosCheckbox = isset($_POST['protecaoImpactosCheckbox']) ? 1 : 0;
 
     // Preparar e executar a instrução de inserção no banco de dados
     $stmt = $conn->prepare("INSERT INTO os_veiculo (
-        odometer, start_date, start_time, end_date, end_time, maintenance_type, cabine, combustivel, direcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        odometer, start_date, start_time, end_date, end_time, maintenance_type, cabine, direcao, combustivel, medicao_controle, protecao_impactos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Verificar se a preparação da instrução foi bem-sucedida
     if (!$stmt) {
@@ -28,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Modificar a string de definição de tipo para corresponder ao número correto de parâmetros
-    $stmt->bind_param("ssssssiii",
-        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType, $cabineCheckbox, $combustivelCheckbox, $direcaoCheckbox);
+    $stmt->bind_param("ssssssiiiii",
+        $odometerValue, $maintenanceStartDate, $maintenanceStartTime, $maintenanceEndDate, $maintenanceFinishTime, $maintenanceType, $cabineCheckbox, $direcaoCheckbox, $combustivelCheckbox, $medicaoControleCheckbox, $protecaoImpactosCheckbox);
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
