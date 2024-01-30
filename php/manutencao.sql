@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 29-Jan-2024 às 22:16
+-- Tempo de geração: 30-Jan-2024 às 15:59
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -260,52 +260,46 @@ CREATE TABLE `os_veiculo` (
   `freios` tinyint(4) DEFAULT NULL,
   `protecao_ambiental` tinyint(4) DEFAULT NULL,
   `suspensao` tinyint(4) DEFAULT NULL,
-  `eletrico` tinyint(4) DEFAULT NULL
+  `eletrico` tinyint(4) DEFAULT NULL,
+  `componentesAfetados` varchar(400) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `os_veiculo`
 --
 
-INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_date`, `end_time`, `maintenance_type`, `cabine`, `direcao`, `combustivel`, `medicao_controle`, `protecao_impactos`, `transmissao`, `estrutural`, `acoplamento`, `controle_eletronico`, `exaustao`, `propulsao`, `protecao_contra_incendio`, `ventilacao`, `tanque`, `arrefecimento`, `descarga`, `freios`, `protecao_ambiental`, `suspensao`, `eletrico`) VALUES
-(1, '61514', '2024-01-02', '12:04', '2023-09-06', '13:44', 'preventiva', 1, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preditiva', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 1, 1, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, '100', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(21, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'preventiva', 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(24, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, '90', '2024-01-01', '11:11', '2024-01-01', '22:33', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(34, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(38, '123456', '2024-01-01', '00:00', '2024-01-01', '00:00', 'corretiva', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_date`, `end_time`, `maintenance_type`, `cabine`, `direcao`, `combustivel`, `medicao_controle`, `protecao_impactos`, `transmissao`, `estrutural`, `acoplamento`, `controle_eletronico`, `exaustao`, `propulsao`, `protecao_contra_incendio`, `ventilacao`, `tanque`, `arrefecimento`, `descarga`, `freios`, `protecao_ambiental`, `suspensao`, `eletrico`, `componentesAfetados`) VALUES
+(1, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
+(2, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
+(3, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
+(4, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
+(5, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 'Hidráulico'),
+(6, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `veiculo_os`
+--
+
+CREATE TABLE `veiculo_os` (
+  `id` int(11) NOT NULL,
+  `sistemas_afetados` varchar(5000) DEFAULT NULL,
+  `sintomas_detectados` varchar(5000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `veiculo_os`
+--
+
+INSERT INTO `veiculo_os` (`id`, `sistemas_afetados`, `sintomas_detectados`) VALUES
+(1, NULL, 'abertoCheckbox: Aberto, desvioLateralCheckbox: Desvio lateral, queimadoCheckbox: Queimado, semFreioCheckbox: Sem freio, sujoCheckbox: Sujo, vazandoCheckbox: Vazando, baixoRendimentoCheckbox: Baixo Rendimento, empenadoCheckbox: Empenado, rompidoCheckbox: Rompido, semVelocidadeCheckbox: Sem velocidade, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando, desarmadoCheckbox: Desarmado, preventivaPreditivaCheckbox: Preventiva ou Preditiva, ruidoAnormalCheckbox: Ruído Anormal, soltoCheckbox: Solto, trincadoCheckbox: Trincado, othersCheckboxValue: Outros'),
+(2, NULL, 'rompidoCheckbox: Rompido'),
+(3, NULL, 'rompidoCheckbox: Rompido, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando'),
+(4, NULL, 'rompidoCheckbox: Rompido, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando'),
+(5, NULL, 'radio-maintenance: preventiva, componentesAfetados: , abertoCheckbox: Aberto, desvioLateralCheckbox: Desvio lateral'),
+(6, NULL, 'radio-maintenance: preventiva, componentesAfetados: , soltoCheckbox: Solto'),
+(7, NULL, 'radio-maintenance: preventiva, cabineCheckbox: cabine, direcaoCheckbox: direcao, combustivelCheckbox: combustivel, medicaoControleCheckbox: medicaoControle, protecaoImpactosCheckbox: protecaoImpactos, transmissaoCheckbox: transmissaoCheckbox, estruturalCheckbox: estruturalCheckbox, acoplamentoCheckbox: acoplamentoCheckbox, controleEletronicoCheckbox: controleEletronicoCheckbox, exaustaoCheckbox: exaustaoCheckbox, propulsaoCheckbox: propulsaoCheckbox, protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox, ventilacaoCheckbox: ventilacaoCheckbox, tanqueCheckbox: tanqueCheckbox, arrefecimentoCheckbox: arrefecimentoCheckbox, descargaCheckbox: descargaCheckbox, freiosCheckbox: freiosCheckbox, protecaoAmbientalCheckbox: protecaoAmbientalCheckbox, suspensaoCheckbox: suspensaoCheckbox, eletricoCheckbox: eletricoCheckbox, componentesAfetados:');
 
 --
 -- Índices para tabelas despejadas
@@ -348,6 +342,12 @@ ALTER TABLE `os_veiculo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `veiculo_os`
+--
+ALTER TABLE `veiculo_os`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -385,7 +385,13 @@ ALTER TABLE `operador`
 -- AUTO_INCREMENT de tabela `os_veiculo`
 --
 ALTER TABLE `os_veiculo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `veiculo_os`
+--
+ALTER TABLE `veiculo_os`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
