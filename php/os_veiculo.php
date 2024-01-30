@@ -257,15 +257,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     										
 
                                  </div>
-
-
-                                <!-- Este é um comentário em HTML. Ele não será exibido no navegador.        
-
-                                <div class="form-group mb-3">
-                                    <label class="mb-2" for="componentesAfetados">Quais os componentes afetados?</label>
-                                    <textarea class="form-control" rows="2"  id="componentesAfetados" aria-label="Componentes afetados"></textarea>
-                                </div>
-
+                            
                                 <label class="form-label">Quais s&atilde;o os sintomas detectados?</label>
 
                                 <div class="mb-3 form-check">
@@ -375,8 +367,7 @@ formul&aacute;rio poder&aacute; acrescentar outros sintomas nos campos em aberto
                                             <input class="col-12" id="othersCheckboxValue" name="othersCheckboxValue" disabled="disabled" style="display: none;"/>
                                         </div>
                                     </div>
-                                </div>
-
+    
                                 <div class="form-group mb-3">
                                     <label class="mb-2" for="descricaoDefeitoFalha">Descreva o defeito ou falha encontrado:</label>
                                     <textarea class="form-control" rows="2"  id="descricaoDefeitoFalha" aria-label="Descri&ccedil;&atilde;o do defeito ou falha"></textarea>
@@ -795,6 +786,7 @@ formul&aacute;rio poder&aacute; acrescentar outros sintomas nos campos em aberto
                                     <textarea class="form-control" rows="5"  id="descricaoIntervencoes" aria-label="Descri&ccedil;&atilde;o das interven&ccedil;&otilde;es" placeholder="Descreva de maneira detalhada"></textarea>
                                 </div>                
                     
+                    <!-- Este é um comentário em HTML. Ele não será exibido no navegador.    
 																	-->                          
                     
 									     <button type="submit" class="btn btn-primary">Solicitar</button>
