@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 30-Jan-2024 às 15:59
+-- Tempo de geração: 30-Jan-2024 às 23:51
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -274,7 +274,12 @@ INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_dat
 (3, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
 (4, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
 (5, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 'Hidráulico'),
-(6, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico');
+(6, '123', '2024-01-01', '12:12', '2024-01-29', '12:12', 'preditiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hidráulico'),
+(7, '2', '2024-01-01', '11:11', '2024-01-01', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(8, '2', '2024-01-01', '11:11', '2024-01-01', '22:22', 'preditiva', 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(9, '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
+(10, '11', '2024-01-01', '11:11', '2024-01-02', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ''),
+(11, '11', '2024-01-01', '11:11', '2024-01-02', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -284,22 +289,15 @@ INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_dat
 
 CREATE TABLE `veiculo_os` (
   `id` int(11) NOT NULL,
-  `sistemas_afetados` varchar(5000) DEFAULT NULL,
-  `sintomas_detectados` varchar(5000) DEFAULT NULL
+  `sintomas_detectados` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `veiculo_os`
 --
 
-INSERT INTO `veiculo_os` (`id`, `sistemas_afetados`, `sintomas_detectados`) VALUES
-(1, NULL, 'abertoCheckbox: Aberto, desvioLateralCheckbox: Desvio lateral, queimadoCheckbox: Queimado, semFreioCheckbox: Sem freio, sujoCheckbox: Sujo, vazandoCheckbox: Vazando, baixoRendimentoCheckbox: Baixo Rendimento, empenadoCheckbox: Empenado, rompidoCheckbox: Rompido, semVelocidadeCheckbox: Sem velocidade, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando, desarmadoCheckbox: Desarmado, preventivaPreditivaCheckbox: Preventiva ou Preditiva, ruidoAnormalCheckbox: Ruído Anormal, soltoCheckbox: Solto, trincadoCheckbox: Trincado, othersCheckboxValue: Outros'),
-(2, NULL, 'rompidoCheckbox: Rompido'),
-(3, NULL, 'rompidoCheckbox: Rompido, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando'),
-(4, NULL, 'rompidoCheckbox: Rompido, travadoCheckbox: Travado, vibrandoCheckbox: Vibrando'),
-(5, NULL, 'radio-maintenance: preventiva, componentesAfetados: , abertoCheckbox: Aberto, desvioLateralCheckbox: Desvio lateral'),
-(6, NULL, 'radio-maintenance: preventiva, componentesAfetados: , soltoCheckbox: Solto'),
-(7, NULL, 'radio-maintenance: preventiva, cabineCheckbox: cabine, direcaoCheckbox: direcao, combustivelCheckbox: combustivel, medicaoControleCheckbox: medicaoControle, protecaoImpactosCheckbox: protecaoImpactos, transmissaoCheckbox: transmissaoCheckbox, estruturalCheckbox: estruturalCheckbox, acoplamentoCheckbox: acoplamentoCheckbox, controleEletronicoCheckbox: controleEletronicoCheckbox, exaustaoCheckbox: exaustaoCheckbox, propulsaoCheckbox: propulsaoCheckbox, protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox, ventilacaoCheckbox: ventilacaoCheckbox, tanqueCheckbox: tanqueCheckbox, arrefecimentoCheckbox: arrefecimentoCheckbox, descargaCheckbox: descargaCheckbox, freiosCheckbox: freiosCheckbox, protecaoAmbientalCheckbox: protecaoAmbientalCheckbox, suspensaoCheckbox: suspensaoCheckbox, eletricoCheckbox: eletricoCheckbox, componentesAfetados:');
+INSERT INTO `veiculo_os` (`id`, `sintomas_detectados`) VALUES
+(2, 'odometerValue: 1144 | maintenanceStartDate: 2024-01-01 | maintenanceStartTime: 11:11 | maintenanceEndDate: 2024-01-02 | maintenanceFinishTime: 22:22 | radio-maintenance: corretiva | cabineCheckbox: cabine | direcaoCheckbox: direcao | combustivelCheckbox: combustivel | medicaoControleCheckbox: medicaoControle | protecaoImpactosCheckbox: protecaoImpactos | transmissaoCheckbox: transmissaoCheckbox | estruturalCheckbox: estruturalCheckbox | acoplamentoCheckbox: acoplamentoCheckbox | controleEletronicoCheckbox: controleEletronicoCheckbox | exaustaoCheckbox: exaustaoCheckbox | propulsaoCheckbox: propulsaoCheckbox | protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox | ventilacaoCheckbox: ventilacaoCheckbox | tanqueCheckbox: tanqueCheckbox | arrefecimentoCheckbox: arrefecimentoCheckbox | descargaCheckbox: descargaCheckbox | freiosCheckbox: freiosCheckbox | protecaoAmbientalCheckbox: protecaoAmbientalCheckbox | suspensaoCheckbox: suspensaoCheckbox | eletricoCheckbox: eletricoCheckbox | componentesAfetados: AAAAAAAAAA | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | queimadoCheckbox: Queimado | semFreioCheckbox: Sem freio | sujoCheckbox: Sujo | vazandoCheckbox: Vazando | baixoRendimentoCheckbox: Baixo Rendimento | empenadoCheckbox: Empenado | rompidoCheckbox: Rompido | semVelocidadeCheckbox: Sem velocidade | travadoCheckbox: Travado | vibrandoCheckbox: Vibrando | desarmadoCheckbox: Desarmado | preventivaPreditivaCheckbox: Preventiva ou Preditiva | ruidoAnormalCheckbox: Ruído Anormal | soltoCheckbox: Solto | trincadoCheckbox: Trincado | othersCheckboxValue: Outros | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | causaDesnivelamentoCheckbox: causaDesnivelamentoCheckbox | causaDestensionamentoCheckbox: causaDestensionamentoCheckbox | causaFissuraCheckbox: causaFissuraCheckbox | causaGastoCheckbox: causaGastoCheckbox | causaPreventivaPreditivaCheckbox: causaPreventivaPreditivaCheckbox | causaRotaDeInspecaoCheckbox: causaRotaDeInspecaoCheckbox | causaSobrecargaDeCorrenteCheckbox: causaSobrecargaDeCorrenteCheckbox | causaDesalinhamentoCheckbox: causaDesalinhamentoCheckbox | causaFaltaDeProtecaoCheckbox: causaFaltaDeProtecaoCheckbox | causaEngripamentoCheckbox: causaEngripamentoCheckbox | causaFolgaCheckbox: causaFolgaCheckbox | causaSobrecargaDePesoCheckbox: causaSobrecargaDePesoCheckbox | causaSubdimensionamentoCheckbox: causaSubdimensionamentoCheckbox | causaDesbalanceamentoCheckbox: causaDesbalanceamentoCheckbox | causaDesregulamentoCheckbox: causaDesregulamentoCheckbox | causaFadigaCheckbox: causaFadigaCheckbox | causaForaDeEspecificacaoCheckbox: causaForaDeEspecificacaoCheckbox | causaNivelBaixoCheckbox: causaNivelBaixoCheckbox | causaRompidoCheckbox: causaRompidoCheckbox | causaSobrecargaDeTensaoCheckbox: causaSobrecargaDeTensaoCheckbox | causaOthersCheckboxValue: GGGGGGGGGGGGGGGGG | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoUsinagemCheckbox: intervencaoUsinagemCheckbox | intervencaoEletricaCheckbox: intervencaoEletricaCheckbox | intervencaoFunilariaCheckbox: intervencaoFunilariaCheckbox | intervencaoCaldeirariaCheckbox: intervencaoCaldeirariaCheckbox | intervencaoHidraulicoCheckbox: intervencaoHidraulicoCheckbox | intervencaoSoldagemCheckbox: intervencaoSoldagemCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox | intervencaoSoldadoCheckbox: intervencaoSoldadoCheckbox | intervencaoAjustadoCheckbox: intervencaoAjustadoCheckbox | intervencaoFabricadoCheckbox: intervencaoFabricadoCheckbox | intervencaoLimpezaCheckbox: intervencaoLimpezaCheckbox | intervencaoRecuperacaoCheckbox: intervencaoRecuperacaoCheckbox | intervencaoSubstituidoCheckbox: intervencaoSubstituidoCheckbox | intervencaoAlinhadoCheckbox: intervencaoAlinhadoCheckbox | intervencaoFixadoCheckbox: intervencaoFixadoCheckbox | intervencaoLubrificadoCheckbox: intervencaoLubrificadoCheckbox | intervencaoRepostoCheckbox: intervencaoRepostoCheckbox | intervencaoApertadoCheckbox: intervencaoApertadoCheckbox | intervencaoInspecionadoCheckbox: intervencaoInspecionadoCheckbox | intervencaoModificadoCheckbox: intervencaoModificadoCheckbox | intervencaoRetiradoCheckbox: intervencaoRetiradoCheckbox');
 
 --
 -- Índices para tabelas despejadas
@@ -385,13 +383,13 @@ ALTER TABLE `operador`
 -- AUTO_INCREMENT de tabela `os_veiculo`
 --
 ALTER TABLE `os_veiculo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `veiculo_os`
 --
 ALTER TABLE `veiculo_os`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
