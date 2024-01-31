@@ -85,7 +85,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <tr>
         <th>Observações</th>
         <td>
-            <form action="inserir_os_veiculo.php" method="post">
+            <form action="processa_formulario_veiculo.php" method="post">
                 
 
 <div class="input-group mb-3"><div class="input-group-prepend">
@@ -260,301 +260,235 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                              <br>Quais os sintomas detectados<br>
                              <br><div>
     <div>
-                <div>
+        <div>
             <input type="checkbox" id="abertoCheckbox" name="abertoCheckbox" value="Aberto">
-            <label for="abertoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Descontinuidade em um circuito fechado">Aberto</label>
+            <label for="abertoCheckbox" >Aberto</label>
         </div>
+        
 
         <div>
             <input type="checkbox" id="desvioLateralCheckbox" name="desvioLateralCheckbox" value="Desvio lateral">
-            <label for="desvioLateralCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Durante a opera&ccedil;&atilde;o, &eacute; identificado equipamento
-            “puxando” para um dos lados.">Desvio lateral</label>
+            <label for="desvioLateralCheckbox">Desvio lateral</label>
         </div>
+        
 
         <div>
-    <input type="checkbox" id="queimadoCheckbox" name="queimadoCheckbox" value="Queimado">
-    <label for="queimadoCheckbox"  data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Queima do equipamento ou componente">Queimado</label>
-</div>
+    			<input type="checkbox" id="queimadoCheckbox" name="queimadoCheckbox" value="Queimado">
+    			<label for="queimadoCheckbox" >Queimado</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="semFreioCheckbox" name="semFreioCheckbox" value="Sem freio">
-    <label for="semFreioCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Impossibilidade de diminuir a velocidade de um equipamento
-    at&eacute; sua parada total, por n&atilde;o funcionamento do sistema de freio.">Sem freio</label>
-</div>
+			<div>
+    			<input type="checkbox" id="semFreioCheckbox" name="semFreioCheckbox" value="Sem freio">
+    			<label for="semFreioCheckbox" >Sem freio</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="sujoCheckbox" name="sujoCheckbox" value="Sujo">
-    <label for="sujoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Exist&ecirc;ncia de sujeira que comprometa funcionamento do
-    equipamento.">Sujo</label>
-</div>
+			<div>
+    			<input type="checkbox" id="sujoCheckbox" name="sujoCheckbox" value="Sujo">
+    			<label for="sujoCheckbox" >Sujo</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="vazandoCheckbox" name="vazandoCheckbox" value="Vazando">
-    <label for="vazandoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Vazamento constante no equipamento.">Vazando</label>
-</div>
+			<div>
+    			<input type="checkbox" id="vazandoCheckbox" name="vazandoCheckbox" value="Vazando">
+    			<label for="vazandoCheckbox" >Vazando</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="baixoRendimentoCheckbox" name="baixoRendimentoCheckbox" value="Baixo Rendimento">
-    <label for="baixoRendimentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Queda no rendimento de maquin&aacute;rio. Exemplo: o
-    equipamento levando 1 minuto para efetuar uma tarefa, quando
-    normalmente a faria em 45 segundos.">Baixo Rendimento</label>
-</div>
+			<div>
+    			<input type="checkbox" id="baixoRendimentoCheckbox" name="baixoRendimentoCheckbox" value="Baixo Rendimento">
+    			<label for="baixoRendimentoCheckbox" >Baixo Rendimento</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="empenadoCheckbox" name="empenadoCheckbox" value="Empenado">
-    <label for="empenadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Equipamento e/ou estrutura se constituindo em um empeno,
-    ou seja, uma altera&ccedil;&atilde;o em seu corpo, impossibilitando seu ajuste em
-    outro equipamento ou elemento.">Empenado</label>
-</div>
+			<div>
+    			<input type="checkbox" id="empenadoCheckbox" name="empenadoCheckbox" value="Empenado">
+    			<label for="empenadoCheckbox" >Empenado</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="rompidoCheckbox" name="rompidoCheckbox" value="Rompido">
-    <label for="rompidoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Dano no equipamento provocando separa&ccedil;&atilde;o entre suas
-    partes, que deveriam ser cont&iacute;nuas.">Rompido</label>
-</div>
+			<div>
+    			<input type="checkbox" id="rompidoCheckbox" name="rompidoCheckbox" value="Rompido">
+   			<label for="rompidoCheckbox" >Rompido</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="semVelocidadeCheckbox" name="semVelocidadeCheckbox" value="Sem velocidade">
-    <label for="semVelocidadeCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Equipamento n&atilde;o atingindo velocidade necess&aacute;ria para
-    seu funcionamento.">Sem velocidade</label>
-</div>
+			<div>
+    			<input type="checkbox" id="semVelocidadeCheckbox" name="semVelocidadeCheckbox" value="Sem velocidade">
+    			<label for="semVelocidadeCheckbox" >Sem velocidade</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="travadoCheckbox" name="travadoCheckbox" value="Travado">
-    <label for="travadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Equipamento se encontra travado, sem movimento.">Travado</label>
-</div>
+			<div>
+    			<input type="checkbox" id="travadoCheckbox" name="travadoCheckbox" value="Travado">
+    			<label for="travadoCheckbox" >Travado</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="vibrandoCheckbox" name="vibrandoCheckbox" value="Vibrando">
-    <label for="vibrandoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Vibra&ccedil;&atilde;o mec&acirc;nica, acima do normal do equipamento">Vibrando</label>
-</div>
+			<div>
+    			<input type="checkbox" id="vibrandoCheckbox" name="vibrandoCheckbox" value="Vibrando">
+    			<label for="vibrandoCheckbox" >Vibrando</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="desarmadoCheckbox" name="desarmadoCheckbox" value="Desarmado">
-    <label for="desarmadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Equipamento n&atilde;o recebendo alimenta&ccedil;&atilde;o de sua fonte de energia.">Desarmado</label>
-</div>
+			<div>
+    			<input type="checkbox" id="desarmadoCheckbox" name="desarmadoCheckbox" value="Desarmado">
+   			<label for="desarmadoCheckbox" >Desarmado</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="preventivaPreditivaCheckbox" name="preventivaPreditivaCheckbox" value="Preventiva ou Preditiva">
-    <label for="preventivaPreditivaCheckbox">Preventiva ou Preditiva</label>
-</div>
+			<div>
+    			<input type="checkbox" id="preventivaPreditivaCheckbox" name="preventivaPreditivaCheckbox" value="Preventiva ou Preditiva">
+    			<label for="preventivaPreditivaCheckbox">Preventiva ou Preditiva</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="ruidoAnormalCheckbox" name="ruidoAnormalCheckbox" value="Ru&iacute;do Anormal">
-    <label for="ruidoAnormalCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Equipamento apresentando ru&iacute;do fora de sua
-    normalidade.">Ru&iacute;do Anormal</label>
-</div>
+			<div>
+    			<input type="checkbox" id="ruidoAnormalCheckbox" name="ruidoAnormalCheckbox" value="Ru&iacute;do Anormal">
+    			<label for="ruidoAnormalCheckbox" >Ruido Anormal</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="soltoCheckbox" name="soltoCheckbox" value="Solto">
-    <label for="soltoCheckbox"  data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Inexist&ecirc;ncia de uni&atilde;o entre componentes que deveriam estar
-    interligados.">Solto</label>
-</div>
+			<div>
+    			<input type="checkbox" id="soltoCheckbox" name="soltoCheckbox" value="Solto">
+    			<label for="soltoCheckbox" >Solto</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="trincadoCheckbox" name="trincadoCheckbox" value="Trincado">
-    <label for="trincadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Dano no equipamento constitu&iacute;do por trinca, ou seja, uma
-    fissura vis&iacute;vel.">Trincado</label>
-</div>
+			<div>
+    			<input type="checkbox" id="trincadoCheckbox" name="trincadoCheckbox" value="Trincado">
+    			<label for="trincadoCheckbox" >Trincado</label>
+			</div>
 
-<div>
-    <input type="checkbox" id="othersCheckboxValue" name="othersCheckboxValue" value="Outros" onclick="let input = document.getElementById('othersCheckboxValue'); if(this.checked){ input.disabled = false;input.style = 'block'; input.focus();}else{input.disabled=true;input.style='display: none;';}">
-    <label for="othersCheckboxValue" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Em caso de sintoma n&atilde;o listado acima, o respons&aacute;vel por preencher o
-    formul&aacute;rio poder&aacute; acrescentar outros sintomas nos campos em aberto.">Outros</label>
-    <input id="othersCheckboxValue" name="othersCheckboxValue" disabled="disabled" style="display: none;">
-</div>      
+			<div>
+    			<input type="checkbox" id="othersCheckboxValue" name="othersCheckboxValue" value="Outros" onclick="let input = document.getElementById('othersCheckboxValue'); if(this.checked){ input.disabled = false;input.style = 'block'; input.focus();}else{input.disabled=true;input.style='display: none;';}">
+    			<label for="othersCheckboxValue" >Outros</label>
+    			<input id="othersCheckboxValue" name="othersCheckboxValue" disabled="disabled" style="display: none;">
+			</div>      
     </div>
 </div>
+
 <br>
+
+
+
+
+
+
+
                                 
-                                <div class="form-group mb-3">
-                                    <label class="mb-2" for="descricaoDefeitoFalha">Descreva o defeito ou falha encontrado:</label>
-                                    <textarea class="form-control" rows="2"  id="descricaoDefeitoFalha" aria-label="Descri&ccedil;&atilde;o do defeito ou falha"></textarea>
-                                </div>
+        <div class="form-group mb-3">
+            <label class="mb-2" for="descricaoDefeitoFalha">Descreva o defeito ou falha encontrado:</label>
+            <textarea class="form-control" rows="2"  id="descricaoDefeitoFalha" aria-label="Descri&ccedil;&atilde;o do defeito ou falha"></textarea>
+        </div>
+        
 
-                                <label class="form-label">Quais s&atilde;o as causas do defeito/falha?</label>
-
+        <label class="form-label">Quais s&atilde;o as causas do defeito/falha?</label>
+        
                                 <div class="mb-3 form-check">
 
                                     <div class="row">
 
                                         <div >
-                                            <input type="checkbox" class="form-check-input" id="causaNaoIdentificadaCheckbox">
-                                            <label class="form-check-label" for="causaNaoIdentificadaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Deve-se apontar essa causa quando n&atilde;o puder ser afirmado com exatid&atilde;o o que provocou a falha ou defeito do componente.">
-                                                N&atilde;o identificada
-                                            </label>
+                                            <input type="checkbox" id="causaNaoIdentificadaCheckbox" name="causaNaoIdentificadaCheckbox" value="causaNaoIdentificadaCheckbox">
+                                            <label for="causaNaoIdentificadaCheckbox" >N&atilde;o identificada </label>                                      
+                                            
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDefeitoDeFabricaCheckbox">
-                                            <label class="form-check-label" for="causaDefeitoDeFabricaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Ocorr&ecirc;ncia de imperfei&ccedil;&atilde;o, defeito de fabrica&ccedil;&atilde;o de componente ou elemento. Exemplo: bobina com nº menor de espiras">
-                                                Defeito de f&aacute;brica
-                                            </label>
+                                        <div>
+                                            <input type="checkbox" id="causaDefeitoDeFabricaCheckbox"name="causaDefeitoDeFabricaCheckbox" value="causaDefeitoDeFabricaCheckbox" >
+                                            <label for="causaDefeitoDeFabricaCheckbox" >Defeito de f&aacute;brica </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDesnivelamentoCheckbox">
-                                            <label class="form-check-label" for="causaDesnivelamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento fora do nivelamento, ocasionando diferen&ccedil;a de n&iacute;vel entre elementos que interagem.">
-                                                Desnivelamento
-                                            </label>
+
+                                        <div >
+                                            <input type="checkbox" class="form-check-input" id="causaDesnivelamentoCheckbox" name="causaDesnivelamentoCheckbox" value="causaDesnivelamentoCheckbox">
+                                            <label for="causaDesnivelamentoCheckbox">Desnivelamento </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDestensionamentoCheckbox">
-                                            <label class="form-check-label" for="causaDestensionamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento se encontra sem tensionamento ou torque necess&aacute;rio (recomend&aacute;vel) para sua opera&ccedil;&atilde;o.">
-                                                Destensionamento
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaDestensionamentoCheckbox" name="causaDestensionamentoCheckbox" value="causaDestensionamentoCheckbox">
+                                            <label for="causaDestensionamentoCheckbox" >Destensionamento </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaFissuraCheckbox">
-                                            <label class="form-check-label" for="causaFissuraCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento com fissuras em seu corpo">
-                                                Fissura
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaFissuraCheckbox" name="causaFissuraCheckbox" value="causaFissuraCheckbox">
+                                            <label for="causaFissuraCheckbox" >Fissura </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaGastoCheckbox">
-                                            <label class="form-check-label" for="causaGastoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento deteriorado, consumido nas partes úteis de seu corpo.">
-                                                Gasto
-                                            </label>
+                                        <div>
+                                            <input type="checkbox" id="causaGastoCheckbox" name="causaGastoCheckbox" value="causaGastoCheckbox">
+                                            <label for="causaGastoCheckbox" >Gasto</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaPreventivaPreditivaCheckbox">
-                                            <label class="form-check-label" for="causaPreventivaPreditivaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Interven&ccedil;&atilde;o proveniente de manuten&ccedil;&atilde;o preventiva ou preditiva.">
-                                                Preventiva ou Preditiva
-                                            </label>
+                                        <div>
+                                            <input type="checkbox" id="causaPreventivaPreditivaCheckbox" name="causaPreventivaPreditivaCheckbox" value="causaPreventivaPreditivaCheckbox">
+                                            <label for="causaPreventivaPreditivaCheckbox" >Preventiva ou Preditiva</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaRotaDeInspecaoCheckbox">
-                                            <label class="form-check-label" for="causaRotaDeInspecaoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="">
-                                                Rota de inspe&ccedil;&atilde;o
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaRotaDeInspecaoCheckbox" name="causaRotaDeInspecaoCheckbox" value="causaRotaDeInspecaoCheckbox">
+                                            <label for="causaRotaDeInspecaoCheckbox" >Rota de inspe&ccedil;&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaSobrecargaDeCorrenteCheckbox">
-                                            <label class="form-check-label" for="causaSobrecargaDeCorrenteCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Solicita&ccedil;&atilde;o do equipamento acima de sua capacidade m&aacute;xima de suportar corrente.">
-                                                Sobrecarga de corrente
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaSobrecargaDeCorrenteCheckbox" name="causaSobrecargaDeCorrenteCheckbox" value="causaSobrecargaDeCorrenteCheckbox">
+                                            <label for="causaSobrecargaDeCorrenteCheckbox" >Sobrecarga de corrente</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDesalinhamentoCheckbox">
-                                            <label class="form-check-label" for="causaDesalinhamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Sem alinho, componente ou elemento fora do seu devido alinhamento.">
-                                                Desalinhamento
-                                            </label>
+                                        <div>
+                                            <input type="checkbox" id="causaDesalinhamentoCheckbox" name="causaDesalinhamentoCheckbox" value="causaDesalinhamentoCheckbox">
+                                            <label for="causaDesalinhamentoCheckbox" > Desalinhamento </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaFaltaDeProtecaoCheckbox">
-                                            <label class="form-check-label" for="causaFaltaDeProtecaoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Falta de prote&ccedil;&atilde;o que deveria existir para salvaguardar equipamento, bem como a retirada intencional de tal prote&ccedil;&atilde;o. Exemplo: Danos a sistema hidr&aacute;ulico por falta de sistema de filtragem na suc&ccedil;&atilde;o.">
-                                                Falta de prote&ccedil;&atilde;o
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaFaltaDeProtecaoCheckbox" name="causaFaltaDeProtecaoCheckbox" value="causaFaltaDeProtecaoCheckbox">
+                                            <label for="causaFaltaDeProtecaoCheckbox" >Falta de prote&ccedil;&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaEngripamentoCheckbox">
-                                            <label class="form-check-label" for="causaEngripamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento com suas partes móveis sem mobilidade devido a alto coeficiente de atrito, devido a grande quantidade de oxida&ccedil;&atilde;o (ferrugem) etc.">
-                                                Engripamento
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaEngripamentoCheckbox" name="causaEngripamentoCheckbox" value="causaEngripamentoCheckbox">
+                                            <label for="causaEngripamentoCheckbox" >Engripamento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaFolgaCheckbox">
-                                            <label class="form-check-label" for="causaFolgaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento com folga, ou seja, espa&ccedil;o entre partes de intera&ccedil;&atilde;o acima do permitido">
-                                                Folga
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaFolgaCheckbox" name="causaFolgaCheckbox" value="causaFolgaCheckbox">
+                                            <label for="causaFolgaCheckbox" >Folga</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaSobrecargaDePesoCheckbox">
-                                            <label class="form-check-label" for="causaSobrecargaDePesoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="">
-                                                Sobrecarga de peso
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaSobrecargaDePesoCheckbox" name="causaSobrecargaDePesoCheckbox" value="causaSobrecargaDePesoCheckbox">
+                                            <label for="causaSobrecargaDePesoCheckbox" >Sobrecarga de peso</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaSubdimensionamentoCheckbox">
-                                            <label class="form-check-label" for="causaSubdimensionamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Especifica&ccedil;&atilde;o de projeto de componente ou elemento que n&atilde;o atende requisitos m&iacute;nimos para o bom funcionamento do conjunto.">
-                                                Subdimensionamento
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaSubdimensionamentoCheckbox" name="causaSubdimensionamentoCheckbox" value="causaSubdimensionamentoCheckbox">
+                                            <label for="causaSubdimensionamentoCheckbox" >Subdimensionamento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDesbalanceamentoCheckbox">
-                                            <label class="form-check-label" for="causaDesbalanceamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="">
-                                                Desbalanceamento
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaDesbalanceamentoCheckbox" name="causaDesbalanceamentoCheckbox" value="causaDesbalanceamentoCheckbox">
+                                            <label for="causaDesbalanceamentoCheckbox" >Desbalanceamento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaDesregulamentoCheckbox">
-                                            <label class="form-check-label" for="causaDesregulamentoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Falta de ajuste, calibra&ccedil;&atilde;o, regulagem de um determinado componente/elemento e/ou equipamento.">
-                                                Desregulamento
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaDesregulamentoCheckbox" name="causaDesregulamentoCheckbox" value="causaDesregulamentoCheckbox">
+                                            <label for="causaDesregulamentoCheckbox">Desregulamento</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaFadigaCheckbox">
-                                            <label class="form-check-label" for="causaFadigaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento sob efeito de afadigamento, que consiste na diminui&ccedil;&atilde;o gradual de resist&ecirc;ncia de um material por efeito de solicita&ccedil;&otilde;es repetidas">
-                                                Fadiga
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaFadigaCheckbox" name="causaFadigaCheckbox" value="causaFadigaCheckbox">
+                                            <label for="causaFadigaCheckbox" >Fadiga</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaForaDeEspecificacaoCheckbox">
-                                            <label class="form-check-label" for="causaForaDeEspecificacaoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento fora de especifica&ccedil;&atilde;o estabelecida para o trabalho. Exemplo: Rolamento blindado no lugar de um rolamento o que deveria ser do tipo aberto.">
-                                                Fora de especifica&ccedil;&atilde;o
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaForaDeEspecificacaoCheckbox" name="causaForaDeEspecificacaoCheckbox" value="causaForaDeEspecificacaoCheckbox">
+                                            <label for="causaForaDeEspecificacaoCheckbox" >Fora de especifica&ccedil;&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaNivelBaixoCheckbox">
-                                            <label class="form-check-label" for="causaNivelBaixoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Relacionado a lubrifica&ccedil;&atilde;o ou hidr&aacute;ulica, relacionado ao n&iacute;vel insuficiente de óleo ou graxa no sistema.">
-                                                N&iacute;vel Baixo
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaNivelBaixoCheckbox" name="causaNivelBaixoCheckbox" value="causaNivelBaixoCheckbox">
+                                            <label for="causaNivelBaixoCheckbox" >N&iacute;vel Baixo</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaRompidoCheckbox">
-                                            <label class="form-check-label" for="causaRompidoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Componente ou elemento rompido, ou seja, interrompida sua continuidade estrutural.">
-                                                Rompido
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaRompidoCheckbox" name="causaRompidoCheckbox" value="causaRompidoCheckbox">
+                                            <label for="causaRompidoCheckbox" >Rompido </label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="causaSobrecargaDeTensaoCheckbox">
-                                            <label class="form-check-label" for="causaSobrecargaDeTensaoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Solicita&ccedil;&atilde;o do equipamento acima de sua capacidade m&aacute;xima de suportar tens&atilde;o.">
-                                                Sobrecarga de tens&atilde;o
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="causaSobrecargaDeTensaoCheckbox" name="causaSobrecargaDeTensaoCheckbox" value="causaSobrecargaDeTensaoCheckbox">
+                                            <label for="causaSobrecargaDeTensaoCheckbox" >Sobrecarga de tens&atilde;o</label>
                                         </div>
 
-                                        <div class="col-sm-12">
+                                        <div >
                                             <input type="checkbox" class="form-check-input" onclick="let input = document.getElementById('causaOthersCheckboxValue'); if(this.checked){ input.disabled = false;input.style = 'block'; input.focus();}else{input.disabled=true;input.style='display: none;';}"/>
                                             <label class="form-check-label" for="causaOthersCheckboxValue">Outros</label>
                                             <input class="col-12" id="causaOthersCheckboxValue" name="causaOthersCheckboxValue" disabled="disabled" style="display: none;"/>
@@ -572,44 +506,44 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                 <div class="mb-3 form-check">
                                     <div class="row">
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoMecanicaCheckbox">
-                                            <label class="form-check-label" for="intervencaoMecanicaCheckbox">Mec&acirc;nica</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoMecanicaCheckbox" name="intervencaoMecanicaCheckbox" value="intervencaoMecanicaCheckbox">
+                                            <label for="intervencaoMecanicaCheckbox">Mec&acirc;nica</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoPinturaCheckbox">
-                                            <label class="form-check-label" for="intervencaoPinturaCheckbox">Pintura</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoPinturaCheckbox" name="intervencaoPinturaCheckbox" value="intervencaoPinturaCheckbox">
+                                            <label for="intervencaoPinturaCheckbox">Pintura</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoUsinagemCheckbox">
-                                            <label class="form-check-label" for="intervencaoUsinagemCheckbox">Usinagem</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoUsinagemCheckbox" name="intervencaoUsinagemCheckbox" value="intervencaoUsinagemCheckbox">
+                                            <label for="intervencaoUsinagemCheckbox">Usinagem</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoEletricaCheckbox">
-                                            <label class="form-check-label" for="intervencaoEletricaCheckbox">El&eacute;trica</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoEletricaCheckbox" name="intervencaoEletricaCheckbox" value="intervencaoEletricaCheckbox">
+                                            <label  for="intervencaoEletricaCheckbox">El&eacute;trica</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoFunilariaCheckbox">
-                                            <label class="form-check-label" for="intervencaoFunilariaCheckbox">Funilaria</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoFunilariaCheckbox" name="intervencaoFunilariaCheckbox" value="intervencaoFunilariaCheckbox">
+                                            <label for="intervencaoFunilariaCheckbox">Funilaria</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoCaldeirariaCheckbox">
-                                            <label class="form-check-label" for="intervencaoCaldeirariaCheckbox">Caldeiraria</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoCaldeirariaCheckbox" name="intervencaoCaldeirariaCheckbox" value="intervencaoCaldeirariaCheckbox">
+                                            <label for="intervencaoCaldeirariaCheckbox">Caldeiraria</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoHidraulicoCheckbox">
-                                            <label class="form-check-label" for="intervencaoHidraulicoCheckbox">Hidraulico</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoHidraulicoCheckbox" name="intervencaoHidraulicoCheckbox" value="intervencaoHidraulicoCheckbox"> 
+                                            <label for="intervencaoHidraulicoCheckbox">Hidraulico</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoSoldagemCheckbox">
-                                            <label class="form-check-label" for="intervencaoSoldagemCheckbox">Soldagem</label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoSoldagemCheckbox" name="intervencaoSoldagemCheckbox" value="intervencaoSoldagemCheckbox">
+                                            <label for="intervencaoSoldagemCheckbox">Soldagem</label>
                                         </div>
 
                                         <div class="col-sm-12">
@@ -626,151 +560,97 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                 <div class="mb-3 form-check">
                                     <div class="row">
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoAcopladoCheckbox">
-                                            <label class="form-check-label" for="intervencaoAcopladoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Acoplamento de partes de um sistema.">
-                                                Acoplado
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoAcopladoCheckbox" name="intervencaoAcopladoCheckbox" value="intervencaoAcopladoCheckbox">
+                                            <label for="intervencaoAcopladoCheckbox" >Acoplado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoDesacopladoCheckbox" name="intervencaoDesacopladoCheckbox" value="intervencaoDesacopladoCheckbox">
+                                            <label for="intervencaoDesacopladoCheckbox" >Desacoplado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoInstaladoCheckbox" name="intervencaoInstaladoCheckbox" value="intervencaoInstaladoCheckbox">
+                                            <label for="intervencaoInstaladoCheckbox" >Instalado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoRearmadoCheckbox" name="intervencaoRearmadoCheckbox" value="intervencaoRearmadoCheckbox">
+                                            <label class="form-check-label" for="intervencaoRearmadoCheckbox" >Rearmado</label>
                                         </div>
 
                                         <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoDesacopladoCheckbox">
-                                            <label class="form-check-label" for="intervencaoDesacopladoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Desacoplamento de componente ou equipamento.">
-                                                Desacoplado
-                                            </label>
+                                            <input type="checkbox" id="intervencaoSoldadoCheckbox" name="intervencaoSoldadoCheckbox" value="intervencaoSoldadoCheckbox">
+                                            <label for="intervencaoSoldadoCheckbox" >Soldado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoAjustadoCheckbox" name="intervencaoAjustadoCheckbox" value="intervencaoAjustadoCheckbox">
+                                            <label for="intervencaoAjustadoCheckbox" >Ajustado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoFabricadoCheckbox" name="intervencaoFabricadoCheckbox" value="intervencaoFabricadoCheckbox">
+                                            <label for="intervencaoFabricadoCheckbox" >Fabricado </label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoLimpezaCheckbox" name="intervencaoLimpezaCheckbox" value="intervencaoLimpezaCheckbox">
+                                            <label for="intervencaoLimpezaCheckbox" >Limpeza</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoRecuperacaoCheckbox" name="intervencaoRecuperacaoCheckbox" value="intervencaoRecuperacaoCheckbox">
+                                            <label for="intervencaoRecuperacaoCheckbox" >Recupera&ccedil;&atilde;o</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoSubstituidoCheckbox" name="intervencaoSubstituidoCheckbox" value="intervencaoSubstituidoCheckbox">
+                                            <label for="intervencaoSubstituidoCheckbox" >Substitu&iacute;do</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoAlinhadoCheckbox" name="intervencaoAlinhadoCheckbox" value="intervencaoAlinhadoCheckbox">
+                                            <label for="intervencaoAlinhadoCheckbox" >Alinhado</label>
+                                        </div>
+
+                                        <div >
+                                            <input type="checkbox" id="intervencaoFixadoCheckbox" name="intervencaoFixadoCheckbox" value="intervencaoFixadoCheckbox">
+                                            <label for="intervencaoFixadoCheckbox" >Fixado</label>
                                         </div>
 
                                         <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoInstaladoCheckbox">
-                                            <label class="form-check-label" for="intervencaoInstaladoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content=" Instala&ccedil;&atilde;o de um determinado componente ou equipamento pela primeira vez, ou seja, ele n&atilde;o existia na estrutura anteriormente.">
-                                                Instalado
-                                            </label>
+                                            <input type="checkbox" id="intervencaoLubrificadoCheckbox" name="intervencaoLubrificadoCheckbox" value="intervencaoLubrificadoCheckbox">
+                                            <label for="intervencaoLubrificadoCheckbox" >Lubrificado</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoRearmadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoRearmadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Reenergiza&ccedil;&atilde;o do equipamento.">
-                                                Rearmado
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoRepostoCheckbox" name="intervencaoRepostoCheckbox" value="intervencaoRepostoCheckbox">
+                                            <label for="intervencaoRepostoCheckbox" >Reposto</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoSoldadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoSoldadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Solda de um determinado componente ou equipamento.">
-                                                Soldado
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoApertadoCheckbox" name="intervencaoApertadoCheckbox" value="intervencaoApertadoCheckbox">
+                                            <label for="intervencaoApertadoCheckbox" > Apertado</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoAjustadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoAjustadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Ajuste, regula&ccedil;&atilde;o ou calibra&ccedil;&atilde;o do equipamento ou componente.">
-                                                Ajustado
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoInspecionadoCheckbox" name="intervencaoInspecionadoCheckbox" value="intervencaoInspecionadoCheckbox">
+                                            <label for="intervencaoInspecionadoCheckbox" >Inspecionado</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoFabricadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoFabricadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content=" Quando a OM tratar da fabrica&ccedil;&atilde;o de alguma pe&ccedil;a para reparo de ativo.">
-                                                Fabricado
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoModificadoCheckbox" name="intervencaoModificadoCheckbox" value="intervencaoModificadoCheckbox">
+                                            <label for="intervencaoModificadoCheckbox" >Modificado</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoLimpezaCheckbox">
-                                            <label class="form-check-label" for="intervencaoLimpezaCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Limpeza do componente ou equipamento.">
-                                                Limpeza
-                                            </label>
+                                        <div >
+                                            <input type="checkbox" id="intervencaoRetiradoCheckbox" name="intervencaoRetiradoCheckbox" value="intervencaoRetiradoCheckbox">
+                                            <label for="intervencaoModificadoCheckbox" >Retirado</label>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoRecuperacaoCheckbox">
-                                            <label class="form-check-label" for="intervencaoRecuperacaoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Recuperado determinado equipamento ou componente, reutilizando-o.">
-                                                Recupera&ccedil;&atilde;o
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoSubstituidoCheckbox">
-                                            <label class="form-check-label" for="intervencaoSubstituidoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Troca do equipamento ou componente.">
-                                                Substitu&iacute;do
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoAlinhadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoAlinhadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Alinhamento do componente.">
-                                                Alinhado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoFixadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoFixadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Fixa&ccedil;&atilde;o de determinado componente ou equipamento.">
-                                                Fixado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoLubrificadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoLubrificadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Lubrifica&ccedil;&atilde;o, troca ou complementa&ccedil;&atilde;o de lubrificante.">
-                                                Lubrificado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoRepostoCheckbox">
-                                            <label class="form-check-label" for="intervencaoRepostoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Reposi&ccedil;&atilde;o de componente no equipamento, que se encontrava operando sem ele.">
-                                                Reposto
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoApertadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoApertadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Aperto de determinado componente">
-                                                Apertado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoInspecionadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoInspecionadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Execu&ccedil;&atilde;o de uma inspe&ccedil;&atilde;o">
-                                                Inspecionado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoModificadoCheckbox">
-                                            <label class="form-check-label" for="intervencaoModificadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Modifica&ccedil;&atilde;o (altera&ccedil;&atilde;o) do projeto anterior do equipamento">
-                                                Modificado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="checkbox" class="form-check-input" id="intervencaoRetiradoCheckbox">
-                                            <label class="form-check-label" for="intervencaoModificadoCheckbox" data-bs-toggle="popover" data-bs-trigger="hover"
-                                                   data-bs-content="Remo&ccedil;&atilde;o de um determinado elemento da estrutura, ele pertencendo ou n&atilde;o a ela.">
-                                                Retirado
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-12">
+                                        <div >
                                             <input type="checkbox" class="form-check-input" onclick="let input = document.getElementById('intervencaoOthersCheckboxValue'); if(this.checked){ input.disabled = false;input.style = 'block'; input.focus();}else{input.disabled=true;input.style='display: none;';}"/>
                                             <label class="form-check-label" for="intervencaoOthersCheckboxValue" data-bs-toggle="popover" data-bs-trigger="hover"
                                                    data-bs-content="Em caso de interven&ccedil;&atilde;o n&atilde;o listada acima, o respons&aacute;vel por preencher o formul&aacute;rio poder&aacute; acrescentar outras interven&ccedil;&otilde;es nos campos em aberto.">
