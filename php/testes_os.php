@@ -85,7 +85,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <tr>
         <th>Observações</th>
         <td>
-            <form action="processa_formulario.php" method="post">
+            <form action="processa_formulario_veiculo.php" method="post">
                 
 
 <div class="input-group mb-3"><div class="input-group-prepend">
