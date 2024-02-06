@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 06-Fev-2024 às 02:39
+-- Tempo de geração: 06-Fev-2024 às 03:10
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -208,6 +208,24 @@ INSERT INTO `ativo_veiculo` (`id`, `tipo_veiculo`, `tag`, `placa`, `fabricante`,
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `embarcacao_os`
+--
+
+CREATE TABLE `embarcacao_os` (
+  `id` int(11) NOT NULL,
+  `dados_embarcacao` varchar(5000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `embarcacao_os`
+--
+
+INSERT INTO `embarcacao_os` (`id`, `dados_embarcacao`) VALUES
+(1, 'odometerValue: 4444 | maintenanceStartDate: 2024-02-01 | maintenanceStartTime: 11:11 | maintenanceEndDate: 2024-02-15 | maintenanceFinishTime: 11:11 | radio-maintenance: corretiva | cabineCheckbox: cabine | componentesAfetados: 1111111111111 | abertoCheckbox: Aberto | descricaoDefeitoFalha: 3333333333 | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | causaOthersCheckboxValue: 5555555555 | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `implemento_os`
 --
 
@@ -360,6 +378,12 @@ ALTER TABLE `ativo_veiculo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `embarcacao_os`
+--
+ALTER TABLE `embarcacao_os`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `implemento_os`
 --
 ALTER TABLE `implemento_os`
@@ -416,6 +440,12 @@ ALTER TABLE `ativo_tanque`
 --
 ALTER TABLE `ativo_veiculo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de tabela `embarcacao_os`
+--
+ALTER TABLE `embarcacao_os`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `implemento_os`
