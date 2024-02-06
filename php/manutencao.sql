@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 30-Jan-2024 às 23:51
+-- Tempo de geração: 06-Fev-2024 às 02:39
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 7.4.27
 
@@ -208,6 +208,24 @@ INSERT INTO `ativo_veiculo` (`id`, `tipo_veiculo`, `tag`, `placa`, `fabricante`,
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `implemento_os`
+--
+
+CREATE TABLE `implemento_os` (
+  `id` int(111) NOT NULL,
+  `dados_implemento` varchar(5000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `implemento_os`
+--
+
+INSERT INTO `implemento_os` (`id`, `dados_implemento`) VALUES
+(1, 'odometerValue: 1222 | maintenanceStartDate: 2024-02-05 | maintenanceStartTime: 11:11 | maintenanceEndDate: 2024-02-10 | maintenanceFinishTime: 22:22 | radio-maintenance: preventiva | cabineCheckbox: cabine | direcaoCheckbox: direcao | combustivelCheckbox: combustivel | medicaoControleCheckbox: medicaoControle | protecaoImpactosCheckbox: protecaoImpactos | transmissaoCheckbox: transmissaoCheckbox | estruturalCheckbox: estruturalCheckbox | acoplamentoCheckbox: acoplamentoCheckbox | controleEletronicoCheckbox: controleEletronicoCheckbox | exaustaoCheckbox: exaustaoCheckbox | propulsaoCheckbox: propulsaoCheckbox | protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox | ventilacaoCheckbox: ventilacaoCheckbox | tanqueCheckbox: tanqueCheckbox | arrefecimentoCheckbox: arrefecimentoCheckbox | descargaCheckbox: descargaCheckbox | freiosCheckbox: freiosCheckbox | protecaoAmbientalCheckbox: protecaoAmbientalCheckbox | suspensaoCheckbox: suspensaoCheckbox | eletricoCheckbox: eletricoCheckbox | componentesAfetados: 11111111111111111111111 | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | queimadoCheckbox: Queimado | semFreioCheckbox: Sem freio | sujoCheckbox: Sujo | vazandoCheckbox: Vazando | baixoRendimentoCheckbox: Baixo Rendimento | empenadoCheckbox: Empenado | rompidoCheckbox: Rompido | semVelocidadeCheckbox: Sem velocidade | travadoCheckbox: Travado | vibrandoCheckbox: Vibrando | desarmadoCheckbox: Desarmado | preventivaPreditivaCheckbox: Preventiva ou Preditiva | ruidoAnormalCheckbox: Ruído Anormal | soltoCheckbox: Solto | trincadoCheckbox: Trincado | othersCheckboxValue: 222222222222222 | descricaoDefeitoFalha: 555555555555555 | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | causaDesnivelamentoCheckbox: causaDesnivelamentoCheckbox | causaDestensionamentoCheckbox: causaDestensionamentoCheckbox | causaFissuraCheckbox: causaFissuraCheckbox | causaGastoCheckbox: causaGastoCheckbox | causaPreventivaPreditivaCheckbox: causaPreventivaPreditivaCheckbox | causaRotaDeInspecaoCheckbox: causaRotaDeInspecaoCheckbox | causaSobrecargaDeCorrenteCheckbox: causaSobrecargaDeCorrenteCheckbox | causaDesalinhamentoCheckbox: causaDesalinhamentoCheckbox | causaFaltaDeProtecaoCheckbox: causaFaltaDeProtecaoCheckbox | causaEngripamentoCheckbox: causaEngripamentoCheckbox | causaFolgaCheckbox: causaFolgaCheckbox | causaSobrecargaDePesoCheckbox: causaSobrecargaDePesoCheckbox | causaSubdimensionamentoCheckbox: causaSubdimensionamentoCheckbox | causaDesbalanceamentoCheckbox: causaDesbalanceamentoCheckbox | causaDesregulamentoCheckbox: causaDesregulamentoCheckbox | causaFadigaCheckbox: causaFadigaCheckbox | causaForaDeEspecificacaoCheckbox: causaForaDeEspecificacaoCheckbox | causaNivelBaixoCheckbox: causaNivelBaixoCheckbox | causaRompidoCheckbox: causaRompidoCheckbox | causaSobrecargaDeTensaoCheckbox: causaSobrecargaDeTensaoCheckbox | causaOthersCheckboxValue: 777777777777777 | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoUsinagemCheckbox: intervencaoUsinagemCheckbox | intervencaoEletricaCheckbox: intervencaoEletricaCheckbox | intervencaoFunilariaCheckbox: intervencaoFunilariaCheckbox | intervencaoCaldeirariaCheckbox: intervencaoCaldeirariaCheckbox | intervencaoHidraulicoCheckbox: intervencaoHidraulicoCheckbox | intervencaoSoldagemCheckbox: intervencaoSoldagemCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox | intervencaoSoldadoCheckbox: intervencaoSoldadoCheckbox | intervencaoAjustadoCheckbox: intervencaoAjustadoCheckbox | intervencaoFabricadoCheckbox: intervencaoFabricadoCheckbox | intervencaoLimpezaCheckbox: intervencaoLimpezaCheckbox | intervencaoRecuperacaoCheckbox: intervencaoRecuperacaoCheckbox | intervencaoSubstituidoCheckbox: intervencaoSubstituidoCheckbox | intervencaoAlinhadoCheckbox: intervencaoAlinhadoCheckbox | intervencaoFixadoCheckbox: intervencaoFixadoCheckbox | intervencaoLubrificadoCheckbox: intervencaoLubrificadoCheckbox | intervencaoRepostoCheckbox: intervencaoRepostoCheckbox | intervencaoApertadoCheckbox: intervencaoApertadoCheckbox | intervencaoInspecionadoCheckbox: intervencaoInspecionadoCheckbox | intervencaoModificadoCheckbox: intervencaoModificadoCheckbox | intervencaoRetiradoCheckbox: intervencaoRetiradoCheckbox');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `operador`
 --
 
@@ -279,7 +297,28 @@ INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_dat
 (8, '2', '2024-01-01', '11:11', '2024-01-01', '22:22', 'preditiva', 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
 (9, '', '', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ''),
 (10, '11', '2024-01-01', '11:11', '2024-01-02', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ''),
-(11, '11', '2024-01-01', '11:11', '2024-01-02', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '');
+(11, '11', '2024-01-01', '11:11', '2024-01-02', '22:22', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, ''),
+(12, '2', '2024-01-01', '11:11', '1111-11-11', '11:11', 'corretiva', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tanque_os`
+--
+
+CREATE TABLE `tanque_os` (
+  `id` int(11) NOT NULL,
+  `dados_tanque` varchar(5000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `tanque_os`
+--
+
+INSERT INTO `tanque_os` (`id`, `dados_tanque`) VALUES
+(1, 'odometerValue: 0 | maintenanceStartDate: 2024-02-05 | maintenanceStartTime: 04:44 | maintenanceEndDate: 2024-02-05 | maintenanceFinishTime: 04:04 | radio-maintenance: preditiva | eletricoCheckbox: eletricoCheckbox | componentesAfetados:  | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | descricaoDefeitoFalha:  | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox'),
+(2, 'odometerValue: 1 | maintenanceStartDate: 2024-02-05 | maintenanceStartTime: 04:44 | maintenanceEndDate: 2024-02-05 | maintenanceFinishTime: 04:04 | radio-maintenance: preditiva | cabineCheckbox: cabine | direcaoCheckbox: direcao | combustivelCheckbox: combustivel | medicaoControleCheckbox: medicaoControle | protecaoImpactosCheckbox: protecaoImpactos | transmissaoCheckbox: transmissaoCheckbox | estruturalCheckbox: estruturalCheckbox | acoplamentoCheckbox: acoplamentoCheckbox | controleEletronicoCheckbox: controleEletronicoCheckbox | exaustaoCheckbox: exaustaoCheckbox | propulsaoCheckbox: propulsaoCheckbox | protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox | ventilacaoCheckbox: ventilacaoCheckbox | tanqueCheckbox: tanqueCheckbox | arrefecimentoCheckbox: arrefecimentoCheckbox | descargaCheckbox: descargaCheckbox | freiosCheckbox: freiosCheckbox | protecaoAmbientalCheckbox: protecaoAmbientalCheckbox | suspensaoCheckbox: suspensaoCheckbox | eletricoCheckbox: eletricoCheckbox | componentesAfetados: 11111111111111111111 | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | queimadoCheckbox: Queimado | semFreioCheckbox: Sem freio | sujoCheckbox: Sujo | vazandoCheckbox: Vazando | baixoRendimentoCheckbox: Baixo Rendimento | empenadoCheckbox: Empenado | rompidoCheckbox: Rompido | semVelocidadeCheckbox: Sem velocidade | travadoCheckbox: Travado | vibrandoCheckbox: Vibrando | desarmadoCheckbox: Desarmado | preventivaPreditivaCheckbox: Preventiva ou Preditiva | ruidoAnormalCheckbox: Ruído Anormal | soltoCheckbox: Solto | trincadoCheckbox: Trincado | othersCheckboxValue: 22222222222222222222 | descricaoDefeitoFalha: 44444444444444444 | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | causaDesnivelamentoCheckbox: causaDesnivelamentoCheckbox | causaDestensionamentoCheckbox: causaDestensionamentoCheckbox | causaFissuraCheckbox: causaFissuraCheckbox | causaGastoCheckbox: causaGastoCheckbox | causaPreventivaPreditivaCheckbox: causaPreventivaPreditivaCheckbox | causaRotaDeInspecaoCheckbox: causaRotaDeInspecaoCheckbox | causaSobrecargaDeCorrenteCheckbox: causaSobrecargaDeCorrenteCheckbox | causaDesalinhamentoCheckbox: causaDesalinhamentoCheckbox | causaFaltaDeProtecaoCheckbox: causaFaltaDeProtecaoCheckbox | causaEngripamentoCheckbox: causaEngripamentoCheckbox | causaFolgaCheckbox: causaFolgaCheckbox | causaSobrecargaDePesoCheckbox: causaSobrecargaDePesoCheckbox | causaSubdimensionamentoCheckbox: causaSubdimensionamentoCheckbox | causaDesbalanceamentoCheckbox: causaDesbalanceamentoCheckbox | causaDesregulamentoCheckbox: causaDesregulamentoCheckbox | causaFadigaCheckbox: causaFadigaCheckbox | causaForaDeEspecificacaoCheckbox: causaForaDeEspecificacaoCheckbox | causaNivelBaixoCheckbox: causaNivelBaixoCheckbox | causaRompidoCheckbox: causaRompidoCheckbox | causaSobrecargaDeTensaoCheckbox: causaSobrecargaDeTensaoCheckbox | causaOthersCheckboxValue: 555555555555555555 | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoUsinagemCheckbox: intervencaoUsinagemCheckbox | intervencaoEletricaCheckbox: intervencaoEletricaCheckbox | intervencaoFunilariaCheckbox: intervencaoFunilariaCheckbox | intervencaoCaldeirariaCheckbox: intervencaoCaldeirariaCheckbox | intervencaoHidraulicoCheckbox: intervencaoHidraulicoCheckbox | intervencaoSoldagemCheckbox: intervencaoSoldagemCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox | intervencaoSoldadoCheckbox: intervencaoSoldadoCheckbox | intervencaoAjustadoCheckbox: intervencaoAjustadoCheckbox | intervencaoFabricadoCheckbox: intervencaoFabricadoCheckbox | intervencaoLimpezaCheckbox: intervencaoLimpezaCheckbox | intervencaoRecuperacaoCheckbox: intervencaoRecuperacaoCheckbox | intervencaoSubstituidoCheckbox: intervencaoSubstituidoCheckbox | intervencaoAlinhadoCheckbox: intervencaoAlinhadoCheckbox | intervencaoFixadoCheckbox: intervencaoFixadoCheckbox | intervencaoLubrificadoCheckbox: intervencaoLubrificadoCheckbox | intervencaoRepostoCheckbox: intervencaoRepostoCheckbox | intervencaoApertadoCheckbox: intervencaoApertadoCheckbox | intervencaoInspecionadoCheckbox: intervencaoInspecionadoCheckbox | intervencaoModificadoCheckbox: intervencaoModificadoCheckbox | intervencaoRetiradoCheckbox: intervencaoRetiradoCheckbox'),
+(3, 'odometerValue: 3333333 | maintenanceStartDate: 2024-02-01 | maintenanceStartTime: 11:11 | maintenanceEndDate: 2024-02-01 | maintenanceFinishTime: 11:11 | radio-maintenance: corretiva | cabineCheckbox: cabine | direcaoCheckbox: direcao | combustivelCheckbox: combustivel | medicaoControleCheckbox: medicaoControle | protecaoImpactosCheckbox: protecaoImpactos | transmissaoCheckbox: transmissaoCheckbox | estruturalCheckbox: estruturalCheckbox | acoplamentoCheckbox: acoplamentoCheckbox | controleEletronicoCheckbox: controleEletronicoCheckbox | exaustaoCheckbox: exaustaoCheckbox | propulsaoCheckbox: propulsaoCheckbox | protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox | ventilacaoCheckbox: ventilacaoCheckbox | tanqueCheckbox: tanqueCheckbox | arrefecimentoCheckbox: arrefecimentoCheckbox | descargaCheckbox: descargaCheckbox | freiosCheckbox: freiosCheckbox | protecaoAmbientalCheckbox: protecaoAmbientalCheckbox | suspensaoCheckbox: suspensaoCheckbox | eletricoCheckbox: eletricoCheckbox | componentesAfetados: 111111111111 | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | queimadoCheckbox: Queimado | semFreioCheckbox: Sem freio | sujoCheckbox: Sujo | vazandoCheckbox: Vazando | baixoRendimentoCheckbox: Baixo Rendimento | empenadoCheckbox: Empenado | rompidoCheckbox: Rompido | semVelocidadeCheckbox: Sem velocidade | travadoCheckbox: Travado | vibrandoCheckbox: Vibrando | desarmadoCheckbox: Desarmado | preventivaPreditivaCheckbox: Preventiva ou Preditiva | ruidoAnormalCheckbox: Ruído Anormal | soltoCheckbox: Solto | trincadoCheckbox: Trincado | othersCheckboxValue: 2222222222222 | descricaoDefeitoFalha: 55555555555 | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | causaDesnivelamentoCheckbox: causaDesnivelamentoCheckbox | causaDestensionamentoCheckbox: causaDestensionamentoCheckbox | causaFissuraCheckbox: causaFissuraCheckbox | causaGastoCheckbox: causaGastoCheckbox | causaPreventivaPreditivaCheckbox: causaPreventivaPreditivaCheckbox | causaRotaDeInspecaoCheckbox: causaRotaDeInspecaoCheckbox | causaSobrecargaDeCorrenteCheckbox: causaSobrecargaDeCorrenteCheckbox | causaDesalinhamentoCheckbox: causaDesalinhamentoCheckbox | causaFaltaDeProtecaoCheckbox: causaFaltaDeProtecaoCheckbox | causaEngripamentoCheckbox: causaEngripamentoCheckbox | causaFolgaCheckbox: causaFolgaCheckbox | causaSobrecargaDePesoCheckbox: causaSobrecargaDePesoCheckbox | causaSubdimensionamentoCheckbox: causaSubdimensionamentoCheckbox | causaDesbalanceamentoCheckbox: causaDesbalanceamentoCheckbox | causaDesregulamentoCheckbox: causaDesregulamentoCheckbox | causaFadigaCheckbox: causaFadigaCheckbox | causaForaDeEspecificacaoCheckbox: causaForaDeEspecificacaoCheckbox | causaNivelBaixoCheckbox: causaNivelBaixoCheckbox | causaRompidoCheckbox: causaRompidoCheckbox | causaSobrecargaDeTensaoCheckbox: causaSobrecargaDeTensaoCheckbox | causaOthersCheckboxValue: 777777777777 | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoUsinagemCheckbox: intervencaoUsinagemCheckbox | intervencaoEletricaCheckbox: intervencaoEletricaCheckbox | intervencaoFunilariaCheckbox: intervencaoFunilariaCheckbox | intervencaoCaldeirariaCheckbox: intervencaoCaldeirariaCheckbox | intervencaoHidraulicoCheckbox: intervencaoHidraulicoCheckbox | intervencaoSoldagemCheckbox: intervencaoSoldagemCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox | intervencaoSoldadoCheckbox: intervencaoSoldadoCheckbox | intervencaoAjustadoCheckbox: intervencaoAjustadoCheckbox | intervencaoFabricadoCheckbox: intervencaoFabricadoCheckbox | intervencaoLimpezaCheckbox: intervencaoLimpezaCheckbox | intervencaoRecuperacaoCheckbox: intervencaoRecuperacaoCheckbox | intervencaoSubstituidoCheckbox: intervencaoSubstituidoCheckbox | intervencaoAlinhadoCheckbox: intervencaoAlinhadoCheckbox | intervencaoFixadoCheckbox: intervencaoFixadoCheckbox | intervencaoLubrificadoCheckbox: intervencaoLubrificadoCheckbox | intervencaoRepostoCheckbox: intervencaoRepostoCheckbox | intervencaoApertadoCheckbox: intervencaoApertadoCheckbox | intervencaoInspecionadoCheckbox: intervencaoInspecionadoCheckbox | intervencaoModificadoCheckbox: intervencaoModificadoCheckbox | intervencaoRetiradoCheckbox: intervencaoRetiradoCheckbox');
 
 -- --------------------------------------------------------
 
@@ -289,15 +328,8 @@ INSERT INTO `os_veiculo` (`id`, `odometer`, `start_date`, `start_time`, `end_dat
 
 CREATE TABLE `veiculo_os` (
   `id` int(11) NOT NULL,
-  `sintomas_detectados` varchar(10000) DEFAULT NULL
+  `dados_veiculo` varchar(10000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `veiculo_os`
---
-
-INSERT INTO `veiculo_os` (`id`, `sintomas_detectados`) VALUES
-(2, 'odometerValue: 1144 | maintenanceStartDate: 2024-01-01 | maintenanceStartTime: 11:11 | maintenanceEndDate: 2024-01-02 | maintenanceFinishTime: 22:22 | radio-maintenance: corretiva | cabineCheckbox: cabine | direcaoCheckbox: direcao | combustivelCheckbox: combustivel | medicaoControleCheckbox: medicaoControle | protecaoImpactosCheckbox: protecaoImpactos | transmissaoCheckbox: transmissaoCheckbox | estruturalCheckbox: estruturalCheckbox | acoplamentoCheckbox: acoplamentoCheckbox | controleEletronicoCheckbox: controleEletronicoCheckbox | exaustaoCheckbox: exaustaoCheckbox | propulsaoCheckbox: propulsaoCheckbox | protecaoContraIncendioCheckbox: protecaoContraIncendioCheckbox | ventilacaoCheckbox: ventilacaoCheckbox | tanqueCheckbox: tanqueCheckbox | arrefecimentoCheckbox: arrefecimentoCheckbox | descargaCheckbox: descargaCheckbox | freiosCheckbox: freiosCheckbox | protecaoAmbientalCheckbox: protecaoAmbientalCheckbox | suspensaoCheckbox: suspensaoCheckbox | eletricoCheckbox: eletricoCheckbox | componentesAfetados: AAAAAAAAAA | abertoCheckbox: Aberto | desvioLateralCheckbox: Desvio lateral | queimadoCheckbox: Queimado | semFreioCheckbox: Sem freio | sujoCheckbox: Sujo | vazandoCheckbox: Vazando | baixoRendimentoCheckbox: Baixo Rendimento | empenadoCheckbox: Empenado | rompidoCheckbox: Rompido | semVelocidadeCheckbox: Sem velocidade | travadoCheckbox: Travado | vibrandoCheckbox: Vibrando | desarmadoCheckbox: Desarmado | preventivaPreditivaCheckbox: Preventiva ou Preditiva | ruidoAnormalCheckbox: Ruído Anormal | soltoCheckbox: Solto | trincadoCheckbox: Trincado | othersCheckboxValue: Outros | causaNaoIdentificadaCheckbox: causaNaoIdentificadaCheckbox | causaDefeitoDeFabricaCheckbox: causaDefeitoDeFabricaCheckbox | causaDesnivelamentoCheckbox: causaDesnivelamentoCheckbox | causaDestensionamentoCheckbox: causaDestensionamentoCheckbox | causaFissuraCheckbox: causaFissuraCheckbox | causaGastoCheckbox: causaGastoCheckbox | causaPreventivaPreditivaCheckbox: causaPreventivaPreditivaCheckbox | causaRotaDeInspecaoCheckbox: causaRotaDeInspecaoCheckbox | causaSobrecargaDeCorrenteCheckbox: causaSobrecargaDeCorrenteCheckbox | causaDesalinhamentoCheckbox: causaDesalinhamentoCheckbox | causaFaltaDeProtecaoCheckbox: causaFaltaDeProtecaoCheckbox | causaEngripamentoCheckbox: causaEngripamentoCheckbox | causaFolgaCheckbox: causaFolgaCheckbox | causaSobrecargaDePesoCheckbox: causaSobrecargaDePesoCheckbox | causaSubdimensionamentoCheckbox: causaSubdimensionamentoCheckbox | causaDesbalanceamentoCheckbox: causaDesbalanceamentoCheckbox | causaDesregulamentoCheckbox: causaDesregulamentoCheckbox | causaFadigaCheckbox: causaFadigaCheckbox | causaForaDeEspecificacaoCheckbox: causaForaDeEspecificacaoCheckbox | causaNivelBaixoCheckbox: causaNivelBaixoCheckbox | causaRompidoCheckbox: causaRompidoCheckbox | causaSobrecargaDeTensaoCheckbox: causaSobrecargaDeTensaoCheckbox | causaOthersCheckboxValue: GGGGGGGGGGGGGGGGG | intervencaoMecanicaCheckbox: intervencaoMecanicaCheckbox | intervencaoPinturaCheckbox: intervencaoPinturaCheckbox | intervencaoUsinagemCheckbox: intervencaoUsinagemCheckbox | intervencaoEletricaCheckbox: intervencaoEletricaCheckbox | intervencaoFunilariaCheckbox: intervencaoFunilariaCheckbox | intervencaoCaldeirariaCheckbox: intervencaoCaldeirariaCheckbox | intervencaoHidraulicoCheckbox: intervencaoHidraulicoCheckbox | intervencaoSoldagemCheckbox: intervencaoSoldagemCheckbox | intervencaoAcopladoCheckbox: intervencaoAcopladoCheckbox | intervencaoDesacopladoCheckbox: intervencaoDesacopladoCheckbox | intervencaoInstaladoCheckbox: intervencaoInstaladoCheckbox | intervencaoRearmadoCheckbox: intervencaoRearmadoCheckbox | intervencaoSoldadoCheckbox: intervencaoSoldadoCheckbox | intervencaoAjustadoCheckbox: intervencaoAjustadoCheckbox | intervencaoFabricadoCheckbox: intervencaoFabricadoCheckbox | intervencaoLimpezaCheckbox: intervencaoLimpezaCheckbox | intervencaoRecuperacaoCheckbox: intervencaoRecuperacaoCheckbox | intervencaoSubstituidoCheckbox: intervencaoSubstituidoCheckbox | intervencaoAlinhadoCheckbox: intervencaoAlinhadoCheckbox | intervencaoFixadoCheckbox: intervencaoFixadoCheckbox | intervencaoLubrificadoCheckbox: intervencaoLubrificadoCheckbox | intervencaoRepostoCheckbox: intervencaoRepostoCheckbox | intervencaoApertadoCheckbox: intervencaoApertadoCheckbox | intervencaoInspecionadoCheckbox: intervencaoInspecionadoCheckbox | intervencaoModificadoCheckbox: intervencaoModificadoCheckbox | intervencaoRetiradoCheckbox: intervencaoRetiradoCheckbox');
 
 --
 -- Índices para tabelas despejadas
@@ -328,6 +360,12 @@ ALTER TABLE `ativo_veiculo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `implemento_os`
+--
+ALTER TABLE `implemento_os`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `operador`
 --
 ALTER TABLE `operador`
@@ -337,6 +375,12 @@ ALTER TABLE `operador`
 -- Índices para tabela `os_veiculo`
 --
 ALTER TABLE `os_veiculo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `tanque_os`
+--
+ALTER TABLE `tanque_os`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -374,6 +418,12 @@ ALTER TABLE `ativo_veiculo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
+-- AUTO_INCREMENT de tabela `implemento_os`
+--
+ALTER TABLE `implemento_os`
+  MODIFY `id` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `operador`
 --
 ALTER TABLE `operador`
@@ -383,13 +433,19 @@ ALTER TABLE `operador`
 -- AUTO_INCREMENT de tabela `os_veiculo`
 --
 ALTER TABLE `os_veiculo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `tanque_os`
+--
+ALTER TABLE `tanque_os`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `veiculo_os`
 --
 ALTER TABLE `veiculo_os`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
