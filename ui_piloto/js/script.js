@@ -1,84 +1,112 @@
-(function($) {
-  "use strict"; // Start of use strict
-
-  // Toggle the side navigation
-  $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
-    $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");
-    if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
+// get values from clicked row
+function start(){}
+var table = document.getElementById("tableImplemento");
+if (table) {
+  for (var i = 0; i < table.rows.length; i++) {
+    table.rows[i].onclick = function() {
+      tableText(this);
     };
-  });
-
-  // Close any open menu accordions when window is resized below 768px
-  $(window).resize(function() {
-    if ($(window).width() < 768) {
-      $('.sidebar .collapse').collapse('hide');
-    };
-    
-    // Toggle the side navigation when window is resized below 480px
-    if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
-      $("body").addClass("sidebar-toggled");
-      $(".sidebar").addClass("toggled");
-      $('.sidebar .collapse').collapse('hide');
-    };
-  });
-
-  // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
-  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
-    if ($(window).width() > 768) {
-      var e0 = e.originalEvent,
-        delta = e0.wheelDelta || -e0.detail;
-      this.scrollTop += (delta < 0 ? 1 : -1) * 30;
-      e.preventDefault();
-    }
-  });
-
-  // Scroll to top button appear
-  $(document).on('scroll', function() {
-    var scrollDistance = $(this).scrollTop();
-    if (scrollDistance > 100) {
-      $('.scroll-to-top').fadeIn();
-    } else {
-      $('.scroll-to-top').fadeOut();
-    }
-  });
-
-  // Smooth scrolling using jQuery easing
-  $(document).on('click', 'a.scroll-to-top', function(e) {
-    var $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: ($($anchor.attr('href')).offset().top)
-    }, 1000, 'easeInOutExpo');
-    e.preventDefault();
-  });
-
-})(jQuery); // End of use strict
-
-const triggerTabList = document.querySelectorAll('#myTab button')
-triggerTabList.forEach(triggerEl => {
-  const tabTrigger = new bootstrap.Tab(triggerEl)
-
-  triggerEl.addEventListener('click', event => {
-    event.preventDefault()
-    tabTrigger.show()
-  })
-})
-
-function showTable() {
-  var tableShow = document.getElementById("table-show");
-  var graphsShow = document.getElementById("graphs-show");
-
-  tableShow.style.display = "block";
-  graphsShow.style.display = "none";
-
+  }
 }
 
-function showGraphs() {
-  var graphsShow = document.getElementById("graphs-show");
-  var tableShow = document.getElementById("table-show");
-
-  tableShow.style.display = "none";
-  graphsShow.style.display = "block";
-
+function tableText(tableRow) {
+  var id = tableRow.childNodes[1].innerHTML;
+  var age = tableRow.childNodes[3].innerHTML;
+  var obj = {'ativoId': id, 'tableId': "tableImplemento"};
+  populateModal(tableRow)
 }
+
+function populateModal(obj){
+  var modal = document.getElementById("myModal");
+  modal.innerHTML = obj.childNodes[1].innerHTML;
+}
+
+//MODAL START
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+//MODAL END
+
+
+function consultarBanco() {
+  var dado = document.getElementById('inputDado').value;
+
+  if (dado.trim() !== '') {
+      // Fazer uma solicitação AJAX para o servidor PHP
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              var resultado = JSON.parse(xhr.responseText);
+              criarLista(resultado);
+          }
+      };
+
+      xhr.open('GET', 'php/consulta_linha.php?dado=' + dado, true);
+      xhr.send();
+  } else {
+      alert('Digite um dado para consultar.');
+  }
+}
+
+function criarLista(resultado) {
+  var modal = document.getElementById('moreInformationModal');
+  var conteudoModal = document.getElementById('resultado');
+
+  conteudoModal.innerHTML = '<p>Resultados:</p>';
+  
+  for (var i = 0; i < resultado.length; i++) {
+      conteudoModal.innerHTML += '<p>' + resultado[i].campo1 + ' - ' + resultado[i].campo2 + '</p>';
+  }
+
+  modal.style.display = 'block';
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Obtém todas as tabelas com a classe 'tabela'
+  var tabelas = document.querySelectorAll(".tabela");
+
+  // Adiciona um ouvinte de eventos de clique a todas as tabelas
+  tabelas.forEach(function (tabela) {
+    tabela.addEventListener("click", function (e) {
+      // Verifica se o clique ocorreu em um botão dentro da célula
+      if (e.target.classList.contains("obter-dados")) {
+        // Obtém a tabela clicada
+        var tabelaClicada = e.currentTarget;
+
+        // Obtém a linha correspondente ao botão clicado
+        var linha = e.target.closest("tr");
+
+        // Obtém os valores das células da linha
+        var coluna2 = linha.children[1].textContent;
+
+
+        // Faça o que quiser com os valores obtidos
+        console.log("Tabela clicada:", tabelaClicada);
+        console.log("Valores da linha:", coluna1);
+      }
+    });
+  });
+});

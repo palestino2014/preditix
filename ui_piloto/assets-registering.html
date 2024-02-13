@@ -12,13 +12,16 @@
     <title>Preditix Cadastro de Ativos</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" 
+		  rel="stylesheet" 
+		  type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/style_default.css" rel="stylesheet">
+    <link href="css/style_default.css" 
+		  rel="stylesheet">
 
 </head>
 
@@ -28,13 +31,20 @@
 <div id="wrapper">
 
 	<!-- Sidebar -->
-	<ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
+	<ul class="navbar-nav bg-light sidebar sidebar-light accordion" 
+		id="accordionSidebar">
 
 		<!-- Sidebar - Brand -->
-		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-			<div class="sidebar-brand-text"><img src="./img/prediti_logo.png" alt="logo" width="100px"></div>
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" 
+			href="index.php">
+			<div class="sidebar-brand-text">
+				<img src="./img/prediti_logo.png" 
+					 alt="logo" 
+					 width="100px"></div>
 			<div class="sidebar-brand-icon">
-				<img src="./img/shadow_logo_hourglass.png" alt="logo" width="40px">
+				<img src="./img/shadow_logo_hourglass.png" 
+					 alt="logo" 
+					 width="40px">
 			</div>
 		</a>
 
@@ -43,7 +53,8 @@
 
 		<!-- Sidebar Toggler (Sidebar) -->
 		<div class="text-center d-none d-md-inline mt-2">
-			<button id="sidebarToggle" class="btn rounded-circle mr-3">
+			<button id="sidebarToggle" 
+					class="btn rounded-circle mr-3">
 			</button>
 		</div>
 
@@ -218,7 +229,17 @@
 								                <option value="ferryboat">Ferryboat</option>
 							                </select>
 						                </div>
-						                <div class="form-floating mb-4 col-sm-5">
+										<div class="form-floating mb-4 col-sm-3">
+							                <label for="num_inscricao">TAG</label>
+							                <input class="form-control"
+							                       placeholder=""
+							                       type="text"
+							                       id="num_inscricao"
+							                       name="num_inscricao"
+							                       maxlength="35"
+							                       required>
+						                </div>
+						                <div class="form-floating mb-4 col-sm-4">
 							                <label for="num_inscricao">Número de Inscrição</label>
 							                <input class="form-control"
 							                       placeholder=""
@@ -229,8 +250,8 @@
 							                       required>
 						                </div>
 
-						                <div class="form-floating mb-4 col-sm-7">
-							                <label for="fabricante">Fabricante</label>
+						                <div class="form-floating mb-4 col-sm-5">
+							                <label for="fabricante">Nome da embarcação</label>
 							                <input class="form-control"
 							                       placeholder=""
 							                       type="text"
@@ -240,7 +261,7 @@
 							                       required>
 						                </div>
 
-						                <div class="form-floating mb-4 col-sm-4">
+						                <div class="form-floating mb-4 col-sm-6">
 							                <label for="fabricante">Armador</label>
 							                <input class="form-control"
 							                       placeholder=""
@@ -248,6 +269,17 @@
 							                       id="armador"
 							                       name="armador"
 							                       maxlength="50"
+							                       required>
+						                </div>
+										
+						                <div class="form-floating mb-4 col-sm-6">
+							                <label for="fabricante">Fabricante</label>
+							                <input class="form-control"
+							                       placeholder=""
+							                       type="text"
+							                       id="fabricante"
+							                       name="fabricante"
+							                       maxlength="40"
 							                       required>
 						                </div>
 
@@ -420,10 +452,10 @@
 							                <input type="submit"
 							                       class="btn btn-primary mb-5"
 							                       value="Enviar">
-							                </input>
 						                </div>
 					                </div>
-				                </form>			                </div>
+				                </form>			                
+							</div>
 			                <!-- IMPLEMENTOS -->
 			                <div id="implemento"
 			                     class="container tab-pane"><br>
@@ -448,6 +480,24 @@
 									                <option value="tanqueSemiReboque3eixos">Tanque Semirreboque 3 eixos</option>
 									                <option value="tanqueSemiReboque5eixos">Tanque Semirreboque 5 eixos</option>
 									                <option value="comboioAbestecimento">Comboio Abastecimento</option>
+								                </select>
+							                </div>
+
+											<div class="form-floating input-group mb-4 col-sm-12">
+								                <div class="input-group-prepend">
+									                <label class="input-group-text"
+									                       for="tipo_implemento">Vínculo permanente
+									                </label>
+								                </div>
+								                <select class="custom-select"
+								                        id="tipo_implemento"
+								                        name="tipo_veiculo"
+								                        required>
+									                <option selected>Escolha</option>
+									                <option value="tanqueSemiReboque2eixos">Ativo A</option>
+									                <option value="tanqueSemiReboque3eixos">Ativo B</option>
+									                <option value="tanqueSemiReboque5eixos">Ativo C</option>
+									                <option value="comboioAbestecimento">Ativo E</option>
 								                </select>
 							                </div>
 
@@ -691,18 +741,6 @@
 							                </div>
 
 							                <div class="form-floating mb-4 col-sm-4">
-								                <label for="PBTC"
-								                       data-toggle="tooltip"
-								                       title="Peso Bruto Total Composto - Somente Cavalo mecânico">PBTC - [kg]</label>
-								                <input class="form-control"
-								                       type="text"
-								                       placeholder=""
-								                       id="PBTC"
-								                       name="PBTC"
-								                       required>
-							                </div>
-
-							                <div class="form-floating mb-4 col-sm-4">
 								                <label for="capacidadeMaxTracao"
 								                       data-toggle="tooltip"
 								                       title="Capacidade Máxima de tração">CMT - [kg]</label>
@@ -756,12 +794,12 @@
 								                <input type="submit"
 								                       class="btn btn-primary mb-5"
 								                       value="Enviar">
-								                </input>
 							                </div>
 						                </div>
 						                <!-- Inputs End -->
 					                </form>
-				                </div>			                </div>
+				                </div>			                
+							</div>
 			                <!-- TANQUES -->
 			                <div id="tanque"
 			                     class="container tab-pane fade"><br>
@@ -769,7 +807,7 @@
 				                      method="post"
 				                      enctype="multipart/form-data">
 									<div class="row">
-						                <div class="form-floating mb-4 col-sm-6">
+						                <div class="form-floating mb-4 col-sm-3">
 							                <label for="tag">TAG</label>
 							                <input class="form-control"
 							                       placeholder="0000000000"
@@ -779,8 +817,18 @@
 							                       required>
 						                </div>
 
-						                <div class="form-floating mb-4 col-sm-6">
-							                <label for="fabricante">Fabricante</label>
+						                <div class="form-floating mb-4 col-sm-9">
+							                <label for="fabricante">Fabricante / Responsável técnico</label>
+							                <input class="form-control"
+							                       placeholder=""
+							                       type="text"
+							                       id="fabricante"
+							                       name="fabricante"
+							                       required>
+						                </div>
+										
+						                <div class="form-floating mb-4 col-sm-9">
+							                <label for="fabricante">Localização</label>
 							                <input class="form-control"
 							                       placeholder=""
 							                       type="text"
@@ -789,7 +837,7 @@
 							                       required>
 						                </div>
 
-						                <div class="form-floating mb-4 col-sm-6">
+						                <div class="form-floating mb-4 col-sm-3">
 							                <label for="modelo">Ano de fabricação</label>
 							                <select class="custom-select form-control"
 							                        id="ano_fabricao"
@@ -956,7 +1004,6 @@
 							                <input type="submit"
 							                       class="btn btn-primary mb-5"
 							                       value="Enviar">
-							                </input>
 						                </div>
 									</div>
 				                </form>
@@ -1206,7 +1253,9 @@
 							                </div>
 
 							                <div class="form-floating mb-4 col-sm-3">
-								                <label for="lotacao">Lotação [kg]</label>
+								                <label for="lotacao"
+													   data-toggle="tooltip" 
+													   title="Em KG">Lotação</label>
 								                <input class="form-control"
 								                       type="text"
 								                       placeholder=""
@@ -1216,7 +1265,9 @@
 							                </div>
 
 							                <div class="form-floating mb-4 col-sm-3">
-								                <label for="PTB" data-toggle="tooltip" title="Peso Bruto Total">PBT [kg]</label>
+								                <label for="PTB" 
+													   data-toggle="tooltip" 
+													   title="Peso Bruto Total em KG">PBT</label>
 								                <input class="form-control"
 								                       type="text"
 								                       placeholder=""
@@ -1226,12 +1277,24 @@
 							                </div>
 
 							                <div class="form-floating mb-4 col-sm-3">
-								                <label for="PBTC" data-toggle="tooltip" title="Peso Bruto Total Composto - Somente Cavalo mecânico">PBTC - [kg]</label>
+								                <label for="PBTC" 
+													   data-toggle="tooltip" 
+													   title="Peso Bruto Total Composto - Somente Cavalo mecânico em KG">PBTC</label>
 								                <input class="form-control"
 								                       type="text"
 								                       placeholder=""
 								                       id="PBTC"
 								                       name="PBTC"
+								                       required>
+							                </div>
+
+							                <div class="form-floating mb-4 col-sm-3">
+								                <label for="CMT" data-toggle="tooltip" title="Capacidade máxima de tração em KG">CMT</label>
+								                <input class="form-control"
+								                       type="text"
+								                       placeholder=""
+								                       id="CMT"
+								                       name="CMT"
 								                       required>
 							                </div>
 

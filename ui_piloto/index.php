@@ -3,9 +3,6 @@
     include "php/conexao_bd.php";
 
     // Consulta SQL para obter todos os dados da tabela
-    $consulta = $conn->query("SELECT * FROM ativo_veiculo");
-
-    // Consulta SQL para obter todos os dados da tabela
     $ativo_embarcacao = $conn->query("SELECT * FROM ativo_embarcacao");
     $ativo_implemento = $conn->query("SELECT * FROM ativo_implemento");
     $ativo_tanque = $conn->query("SELECT * FROM ativo_tanque");
@@ -35,9 +32,9 @@
             rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/style_default.css" rel="stylesheet">
-	<script src="js/php-management.js"></script>
-
+    <link href="css/style_default.css" 
+		  rel="stylesheet">
+	<script src="./js/php-management.js"></script>
 </head>
 
 <body id="page-top">
@@ -57,7 +54,7 @@
         </a>
 
         <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+        <!-- <hr class="sidebar-divider my-0"> -->
 
 	    <!-- Sidebar Toggler (Sidebar) -->
 	    <div class="text-center d-none d-md-inline mt-2">
@@ -91,6 +88,10 @@
 			    <i class="fas fa-fw fa-chart-line"></i>
 			    <span>KPI</span></a>
 	    </li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider mt-3">
+
 	    <!-- Nav Item - Help -->
 	    <li class="nav-item">
 		    <a class="nav-link" href="help.html">
@@ -421,11 +422,6 @@
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/script.min.js"></script>
-    <script src="js/script.js"></script>
-
-
 	<!-- Page level plugins -->
 	<script src="vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -440,20 +436,24 @@
 	<script src="js/demo/chart-area-demo.js"></script>
 	<script src="js/demo/chart-pie-demo.js"></script>
 
+	<!-- Custom scripts for all pages-->
+	<script src="js/script.min.js"></script>
+    <script src="js/script.js"></script>
+
 </body>
 
 </html>
-    <?php
-} else {
-    echo "Nenhum veículo encontrado.";
-}
+<?php
+	} else {
+		echo "Nenhum veículo encontrado.";
+	}
 
-    // Fechar a consulta
-    $ativo_embarcacao->close();
-    $ativo_implemento->close();
-    $ativo_tanque->close();
-    $ativo_veiculo->close();
+	// Fechar a consulta
+	$ativo_embarcacao->close();
+	$ativo_implemento->close();
+	$ativo_tanque->close();
+	$ativo_veiculo->close();
 
-    // Fechar a conexão
-    $conn->close();
+	// Fechar a conexão
+	$conn->close();
 ?>
