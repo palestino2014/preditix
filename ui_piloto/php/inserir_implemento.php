@@ -6,6 +6,7 @@ include "conexao_bd.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Atribuir valores aos parâmetros antes de preparar a instrução
     $tipo_implemento = $_POST["tipo_implemento"];
+    $vincular = $_POST["vincular"];
     $tag = $_POST["tag"];
     $placa = $_POST["placa"];
     $fabricante = $_POST["fabricante"];
@@ -17,14 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tara = $_POST["tara"];
     $lotacao = $_POST["lotacao"];
     $PTB = $_POST["PTB"];
-    $PBTC = $_POST["PBTC"];
+   
     $capacidadeMaxTracao = $_POST["capacidadeMaxTracao"];
     $capacidadeVolumetrica = $_POST["capacidadeVolumetrica"];
     $cor = $_POST["cor"];
     $foto = $_FILES["foto"]["name"];
 
     // Chamar a função para inserção no banco de dados
-    if (inserirImplemento($conn, $tipo_implemento, $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $PBTC, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto)) {
+    if (inserirImplemento($conn, $tipo_implemento, $vincular, $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto)) {
         echo "<p>Registro inserido com sucesso.</p>";
     } else {
         echo "<p>Erro ao inserir registro.</p>";
@@ -35,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Função para inserir um implemento no banco de dados
-function inserirImplemento($conexao, $tipo_implemento, $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $PBTC, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto) {
-    $stmt = $conexao->prepare("INSERT INTO ativo_implemento (tipo_implemento, tag, placa, fabricante, modelo, ano_fabricao, chassis, renavam, proprietario, tara, lotacao, PTB, PBTC, capacidadeMaxTracao, capacidadeVolumetrica, cor, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+function inserirImplemento($conexao, $tipo_implemento,$vincular , $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto) {
+    $stmt = $conexao->prepare("INSERT INTO ativo_implemento (tipo_implemento, vincular , tag, placa, fabricante, modelo, ano_fabricao, chassis, renavam, proprietario, tara, lotacao, PTB, capacidadeMaxTracao, capacidadeVolumetrica, cor, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssssisssssssssss", $tipo_implemento, $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $PBTC, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto);
+    $stmt->bind_param("ssssssissssssssss", $tipo_implemento, $vincular ,$tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto);
 
     return $stmt->execute();
 }

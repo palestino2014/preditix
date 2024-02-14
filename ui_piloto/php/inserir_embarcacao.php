@@ -6,14 +6,15 @@ include "conexao_bd.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
      // Preparar e executar a inserção no banco de dados
-    $stmt = $conn->prepare("INSERT INTO ativo_embarcacao (tipo_embarcacao, num_inscricao, fabricante, armador, ano_fabricacao, capacidade_volumetrica, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO ativo_embarcacao (tipo_embarcacao, tag , num_inscricao, nome, armador, ano_fabricacao, capacidade_volumetrica, foto) VALUES (?, ? , ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("ssssiss", $tipo_embarcacao, $num_inscricao, $fabricante, $armador, $ano_fabricacao, $capacidade_volumetrica, $foto);
+    $stmt->bind_param("sssssiss", $tipo_embarcacao,$tag , $num_inscricao, $nome, $armador, $ano_fabricacao, $capacidade_volumetrica, $foto);
 
     // Atribuir valores aos parâmetros
     $tipo_embarcacao = $_POST["tipo_embarcacao"];
+    $tag = $_POST["tag"];
     $num_inscricao = $_POST["num_inscricao"];
-    $fabricante = $_POST["fabricante"];
+    $nome = $_POST["nome"];
     $armador = $_POST["armador"];
     $ano_fabricacao = $_POST["ano_fabricacao"];
     $capacidade_volumetrica = $_POST["capacidade_volumetrica"];
@@ -31,4 +32,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-

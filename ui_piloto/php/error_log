@@ -1,0 +1,481 @@
+[06-Feb-2024 20:21:04 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_tanque.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:32:42 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:36:36 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_embarcacao.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:36:41 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_implemento.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:02 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_tanque.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:05 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:06 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:10 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_tanque.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:16 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/listar_tanque.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:25 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:37:41 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:48:03 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao_px' in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:48:05 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao_px' in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao_px')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 21:49:23 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'br796.hostgator.com.br' (using password: YES) in /home2/autode51/public_html/conexao_bd.php:9
+Stack trace:
+#0 /home2/autode51/public_html/conexao_bd.php(9): mysqli->__construct('autodev.com.br', 'autode51_adm', Object(SensitiveParameterValue), 'autode51_manute...')
+#1 /home2/autode51/public_html/pre_os_veiculo.php(3): include('/home2/autode51...')
+#2 {main}
+  thrown in /home2/autode51/public_html/conexao_bd.php on line 9
+[06-Feb-2024 22:01:29 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[06-Feb-2024 22:17:37 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[06-Feb-2024 22:51:02 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[06-Feb-2024 22:51:54 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 06:57:44 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:03:51 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 10:57:18 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/autode51/public_html/processa_formulario_embarcacao.php:226
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_embarcacao.php(226): mysqli->__construct('localhost', 'root', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_embarcacao.php(251): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_embarcacao.php on line 226
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:50:30 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 11:58:23 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_tanque.php:219
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_tanque.php(219): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_tanque.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_tanque.php on line 219
+[07-Feb-2024 11:59:43 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_implemento.php:226
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_implemento.php(226): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_implemento.php(251): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_implemento.php on line 226
+[07-Feb-2024 12:02:31 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:10:23 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:11:17 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 15:12:15 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:09:54 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:13 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[07-Feb-2024 19:10:37 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:16:33 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[08-Feb-2024 23:36:45 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[08-Feb-2024 23:51:53 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[08-Feb-2024 23:51:56 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[08-Feb-2024 23:52:06 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[08-Feb-2024 23:56:15 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[09-Feb-2024 00:06:36 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[09-Feb-2024 00:19:36 America/Fortaleza] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'autode51_adm'@'localhost' to database 'manutencao' in /home2/autode51/public_html/processa_formulario_veiculo.php:229
+Stack trace:
+#0 /home2/autode51/public_html/processa_formulario_veiculo.php(229): mysqli->__construct('localhost', 'autode51_adm', Object(SensitiveParameterValue), 'manutencao')
+#1 /home2/autode51/public_html/processa_formulario_veiculo.php(254): processaFormularioVeiculo()
+#2 {main}
+  thrown in /home2/autode51/public_html/processa_formulario_veiculo.php on line 229
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:23 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:30 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 19:45:33 America/Fortaleza] PHP Warning:  Undefined array key "fabricante" in /home2/autode51/public_html/listar_embarcacao.php on line 43
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:35:48 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
+[13-Feb-2024 20:39:20 America/Fortaleza] PHP Warning:  Undefined array key "ano_fabricacao" in /home2/autode51/public_html/pre_os_implemento.php on line 78
