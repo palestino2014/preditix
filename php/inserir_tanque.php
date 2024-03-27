@@ -17,6 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO ativo_tanque (tag, fabricante, anoFabricacao, localizacao, capacidadeVolumetrica, foto) VALUES (?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param("ssssss", $tag, $fabricante, $anoFabricacao, $localizacao, $capacidadeVolumetrica, $foto);
+    
+    { if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == 0) 
+										
+										{ $foto_nome = $_FILES["foto"]["name"]; 
+													$foto_tmp = $_FILES["foto"]["tmp_name"]; 
+													$foto_destino = "tanque/" . $foto_nome; // diretório onde as imagens serão salvas 
+													move_uploaded_file($foto_tmp, $foto_destino); 
+													$sql = "INSERT INTO fotos (caminho) VALUES ('$foto_destino')"; //inserir na tabela fotos
+										if ($conn->query($sql) === TRUE) { echo "Imagem enviada com sucesso."; } 
+						
+						else  { echo "Erro ao enviar imagem: " . $conn->error; } 
+					} else { echo "Erro no envio do arquivo."; 
+				} 
+			}  
 
     // Executar a instrução preparada
     if ($stmt->execute()) {
