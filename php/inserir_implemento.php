@@ -17,12 +17,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $proprietario = $_POST["proprietario"];
     $tara = $_POST["tara"];
     $lotacao = $_POST["lotacao"];
-    $PTB = $_POST["PTB"];
-   
+    $PTB = $_POST["PTB"];   
     $capacidadeMaxTracao = $_POST["capacidadeMaxTracao"];
     $capacidadeVolumetrica = $_POST["capacidadeVolumetrica"];
     $cor = $_POST["cor"];
     $foto = $_FILES["foto"]["name"];
+    
+    		{ if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == 0) 
+										
+										{ $foto_nome = $_FILES["foto"]["name"]; 
+													$foto_tmp = $_FILES["foto"]["tmp_name"]; 
+													$foto_destino = "implemento/" . $foto_nome; // diretório onde as imagens serão salvas 
+													move_uploaded_file($foto_tmp, $foto_destino); 
+													$sql = "INSERT INTO fotos (caminho) VALUES ('$foto_destino')"; //inserir na tabela fotos
+										if ($conn->query($sql) === TRUE) { echo "Imagem enviada com sucesso."; } 
+						
+						else  { echo "Erro ao enviar imagem: " . $conn->error; } 
+					} else { echo "Erro no envio do arquivo."; 
+				} 
+			}    
 
     // Chamar a função para inserção no banco de dados
     if (inserirImplemento($conn, $tipo_implemento, $vincular, $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto)) {
@@ -38,9 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Função para inserir um implemento no banco de dados
 function inserirImplemento($conexao, $tipo_implemento,$vincular , $tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto) {
     $stmt = $conexao->prepare("INSERT INTO ativo_implemento (tipo_implemento, vincular , tag, placa, fabricante, modelo, ano_fabricao, chassis, renavam, proprietario, tara, lotacao, PTB, capacidadeMaxTracao, capacidadeVolumetrica, cor, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
+    
     $stmt->bind_param("ssssssissssssssss", $tipo_implemento, $vincular ,$tag, $placa, $fabricante, $modelo, $ano_fabricao, $chassis, $renavam, $proprietario, $tara, $lotacao, $PTB, $capacidadeMaxTracao, $capacidadeVolumetrica, $cor, $foto);
-
+    	
+	   	
+    	
     return $stmt->execute();
 }
 ?>
