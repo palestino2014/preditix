@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+		<head>
+       <meta charset="UTF-8" http-equiv="Content-Style-Type" content="text/css"> 
+       <link rel="stylesheet" type="text/css" href="estilo.css">	
+      </head>
+
+		<body>
+		<title>Login</title>				
+				
+			<center><form method="POST" action="login.php">
+			<label>Login:</label><input type="text" name="login" id="login" required="required" maxlength="40">
+			<br>
+			<label>Senha:</label><input type="password" name="senha" id="senha" required="required" maxlength="40">
+			<br>			
+			<label><select id="tipoAcss" name="tipoAcss" title="Escolha os dias de curso" class="selectpicker col-md-8 show-tick align-items-center" data-size="auto" data-style="btn-outline-primary" title="" multiple>
+         	<option></option>
+         	<option>admin</option>                                                                   
+         </select></label>			
+			<br>
+			<input type="submit" value="entrar" id="entrar" name="entrar"><br>
+		   </form></center>
+		</body>
+	</html>
