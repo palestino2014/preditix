@@ -1,0 +1,64 @@
+<?php
+
+// Incluir o script de conexão
+include "conexao_bd.php";
+
+// Verifica se os dados do formulário foram submetidos via método POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Função para evitar XSS
+    function limpar_entrada($entrada) {
+        $entrada = trim($entrada);
+        $entrada = stripslashes($entrada);
+        $entrada = htmlspecialchars($entrada);
+        return $entrada;
+    }
+
+    // Limpar e validar os dados do formulário
+    $id = limpar_entrada($_POST["id"]);
+    $tipo_veiculo = limpar_entrada($_POST["tipo_veiculo"]);
+    $tag = limpar_entrada($_POST["tag"]);
+    $placa = limpar_entrada($_POST["placa"]);
+    $fabricante = limpar_entrada($_POST["fabricante"]);
+    $modelo = limpar_entrada($_POST["modelo"]);
+    $ano_fabricacao = limpar_entrada($_POST["ano_fabricacao"]);
+    $chassis = limpar_entrada($_POST["chassis"]);
+    $renavam = limpar_entrada($_POST["renavam"]);
+    $proprietario = limpar_entrada($_POST["proprietario"]);
+    $tara = limpar_entrada($_POST["tara"]);
+    $lotacao = limpar_entrada($_POST["lotacao"]);
+    $PTB = limpar_entrada($_POST["PTB"]);
+    $PBTC = limpar_entrada($_POST["PBTC"]);
+    $CMT = limpar_entrada($_POST["CMT"]);
+    $cor = limpar_entrada($_POST["cor"]);
+    $foto = limpar_entrada($_POST["foto"]);
+
+    // Query SQL para atualizar os dados do veículo no banco de dados
+    $sql = "UPDATE ativo_veiculo SET 
+            tipo_veiculo = '$tipo_veiculo', 
+            tag = '$tag', 
+            placa = '$placa', 
+            fabricante = '$fabricante', 
+            modelo = '$modelo', 
+            ano_fabricacao = '$ano_fabricacao', 
+            chassis = '$chassis', 
+            renavam = '$renavam', 
+            proprietario = '$proprietario', 
+            tara = '$tara', 
+            lotacao = '$lotacao', 
+            PTB = '$PTB', 
+            PBTC = '$PBTC', 
+            CMT = '$CMT', 
+            cor = '$cor', 
+            foto = '$foto'
+            WHERE id = $id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Registro atualizado com sucesso.";
+    } else {
+        echo "Erro ao atualizar o registro: " . $conn->error;
+    }
+}
+
+// Fecha a conexão
+$conn->close();
+?>
