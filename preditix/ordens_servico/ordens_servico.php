@@ -112,9 +112,6 @@ require_once '../includes/header.php';
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFiltros">
                 <i class="bi bi-funnel"></i> Filtros
             </button>
-            <a href="os.php" class="btn btn-success">
-                <i class="bi bi-plus-lg"></i> Nova OS
-            </a>
         </div>
     </div>
 

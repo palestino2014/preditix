@@ -67,7 +67,7 @@ $veiculos = $veiculo->listar();
                                     <a href="form_veiculo.php?id=<?php echo $v['id']; ?>" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="ordens_servico/os.php?tipo=veiculo&id=<?php echo $v['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
+                                    <a href="ordens_servico/os.php?tipo=veiculo&id_equipamento=<?php echo $v['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
                                         <i class="bi bi-clipboard-plus"></i>
                                     </a>
                                     <a href="veiculos.php?excluir=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" 

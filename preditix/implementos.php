@@ -65,7 +65,7 @@ $implementos = $implemento->listar();
                                     <a href="form_implemento.php?id=<?php echo $i['id']; ?>" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="ordens_servico/os.php?tipo=implemento&id=<?php echo $i['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
+                                    <a href="ordens_servico/os.php?tipo=implemento&id_equipamento=<?php echo $i['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
                                         <i class="bi bi-clipboard-plus"></i>
                                     </a>
                                     <a href="implementos.php?excluir=<?php echo $i['id']; ?>" class="btn btn-danger btn-sm" 
