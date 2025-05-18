@@ -231,11 +231,17 @@ require_once '../includes/header.php';
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="data_abertura">Data de Abertura</label>
-                                            <input type="date" name="data_abertura" id="data_abertura" class="form-control" 
-                                                   value="<?php echo $modo_edicao ? date('Y-m-d', strtotime($os['data_abertura'])) : date('Y-m-d'); ?>" 
-                                                   <?php echo $modo_edicao ? 'readonly' : 'required'; ?>>
+                                            <?php if ($modo_edicao): ?>
+                                                <input type="date" name="data_abertura" id="data_abertura" class="form-control" 
+                                                       value="<?php echo date('Y-m-d', strtotime($os['data_abertura'])); ?>" 
+                                                       readonly>
+                                            <?php else: ?>
+                                                <input type="datetime-local" name="data_abertura" id="data_abertura" class="form-control" 
+                                                       value="<?php echo date('Y-m-d\TH:i'); ?>" 
+                                                       required>
+                                            <?php endif; ?>
                                             <div class="invalid-feedback">
-                                                Por favor, selecione a data de abertura.
+                                                Por favor, selecione a data e hora de abertura.
                                             </div>
                                         </div>
                                     </div>
