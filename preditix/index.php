@@ -1,10 +1,12 @@
 <?php
-// require_once 'includes/init.php';
+require_once 'includes/auth.php';
 require_once 'classes/Embarcacao.php';
 require_once 'classes/Implemento.php';
 require_once 'classes/Tanque.php';
 require_once 'classes/Veiculo.php';
 require_once 'classes/OrdemServico.php';
+
+Auth::checkAuth();
 
 // Inicializar classes
 $embarcacao = new Embarcacao();
