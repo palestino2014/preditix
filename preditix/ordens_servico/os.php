@@ -232,8 +232,8 @@ require_once '../includes/header.php';
                                         <div class="form-group">
                                             <label for="data_abertura">Data de Abertura</label>
                                             <?php if ($modo_edicao): ?>
-                                                <input type="date" name="data_abertura" id="data_abertura" class="form-control" 
-                                                       value="<?php echo date('Y-m-d', strtotime($os['data_abertura'])); ?>" 
+                                                <input type="datetime-local" name="data_abertura" id="data_abertura" class="form-control" 
+                                                       value="<?php echo date('Y-m-d\TH:i', strtotime($os['data_abertura'])); ?>" 
                                                        readonly>
                                             <?php else: ?>
                                                 <input type="datetime-local" name="data_abertura" id="data_abertura" class="form-control" 
