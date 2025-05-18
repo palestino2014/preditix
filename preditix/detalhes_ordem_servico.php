@@ -28,7 +28,7 @@ require_once 'includes/header.php';
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Detalhes da Ordem de Serviço</h1>
         <div>
-            <a href="ordens_servico.php" class="btn btn-secondary">Voltar</a>
+            <a href="ordens_servico/ordens_servico.php" class="btn btn-secondary">Voltar</a>
             <a href="form_ordem_servico.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
         </div>
     </div>

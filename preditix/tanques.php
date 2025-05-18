@@ -63,6 +63,9 @@ $tanques = $tanque->listar();
                                     <a href="form_tanque.php?id=<?php echo $t['id']; ?>" class="btn btn-warning btn-sm">
                                         <i class="bi bi-pencil"></i>
                                     </a>
+                                    <a href="ordens_servico/os.php?tipo=tanque&id=<?php echo $t['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
+                                        <i class="bi bi-clipboard-plus"></i>
+                                    </a>
                                     <a href="tanques.php?excluir=<?php echo $t['id']; ?>" class="btn btn-danger btn-sm" 
                                        onclick="return confirm('Tem certeza que deseja excluir este tanque?')">
                                         <i class="bi bi-trash"></i>
