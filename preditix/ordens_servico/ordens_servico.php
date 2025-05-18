@@ -1,0 +1,327 @@
+<?php
+$titulo = 'Ordens de Serviço';
+require_once '../includes/config.php';
+require_once '../includes/auth.php';
+require_once '../classes/Database.php';
+
+// Verifica se o usuário está autenticado
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ../login.php');
+    exit;
+}
+
+// Inicializa a conexão com o banco de dados
+$db = new Database();
+
+// Obtém os filtros da URL
+$filtros = [
+    'tipo_equipamento' => $_GET['tipo'] ?? null,
+    'status' => $_GET['status'] ?? null,
+    'prioridade' => $_GET['prioridade'] ?? null,
+    'data_inicio' => $_GET['data_inicio'] ?? null,
+    'data_fim' => $_GET['data_fim'] ?? null,
+    'busca' => $_GET['busca'] ?? null
+];
+
+// Constrói a query base
+$sql = "SELECT os.*, 
+               u.nome as nome_usuario_abertura,
+               CASE 
+                   WHEN os.tipo_equipamento = 'embarcacao' THEN e.nome
+                   WHEN os.tipo_equipamento = 'veiculo' THEN v.placa
+                   WHEN os.tipo_equipamento = 'implemento' THEN i.placa
+                   WHEN os.tipo_equipamento = 'tanque' THEN t.tag
+               END as identificacao_equipamento
+        FROM ordens_servico os
+        LEFT JOIN usuarios u ON u.id = os.usuario_abertura_id
+        LEFT JOIN embarcacoes e ON e.id = os.equipamento_id AND os.tipo_equipamento = 'embarcacao'
+        LEFT JOIN veiculos v ON v.id = os.equipamento_id AND os.tipo_equipamento = 'veiculo'
+        LEFT JOIN implementos i ON i.id = os.equipamento_id AND os.tipo_equipamento = 'implemento'
+        LEFT JOIN tanques t ON t.id = os.equipamento_id AND os.tipo_equipamento = 'tanque'
+        WHERE 1=1";
+
+$params = [];
+
+// Aplica os filtros
+if ($filtros['tipo_equipamento']) {
+    $sql .= " AND os.tipo_equipamento = :tipo_equipamento";
+    $params[':tipo_equipamento'] = $filtros['tipo_equipamento'];
+}
+
+if ($filtros['status']) {
+    $sql .= " AND os.status = :status";
+    $params[':status'] = $filtros['status'];
+}
+
+if ($filtros['prioridade']) {
+    $sql .= " AND os.prioridade = :prioridade";
+    $params[':prioridade'] = $filtros['prioridade'];
+}
+
+if ($filtros['data_inicio']) {
+    $sql .= " AND os.data_abertura >= :data_inicio";
+    $params[':data_inicio'] = $filtros['data_inicio'] . ' 00:00:00';
+}
+
+if ($filtros['data_fim']) {
+    $sql .= " AND os.data_abertura <= :data_fim";
+    $params[':data_fim'] = $filtros['data_fim'] . ' 23:59:59';
+}
+
+if ($filtros['busca']) {
+    $sql .= " AND (
+        os.numero_os LIKE :busca 
+        OR os.tipo_equipamento LIKE :busca 
+        OR os.identificacao_equipamento LIKE :busca
+        OR u.nome LIKE :busca
+    )";
+    $params[':busca'] = '%' . $filtros['busca'] . '%';
+}
+
+// Ordenação
+$sql .= " ORDER BY os.data_abertura DESC, os.numero_os DESC";
+
+// Busca as ordens de serviço
+try {
+    $ordens_servico = $db->query($sql, $params);
+    
+    // Busca estatísticas
+    $sql_stats = "SELECT 
+        COUNT(*) as total,
+        SUM(CASE WHEN status = 'aberta' THEN 1 ELSE 0 END) as abertas,
+        SUM(CASE WHEN status = 'em_andamento' THEN 1 ELSE 0 END) as em_andamento,
+        SUM(CASE WHEN status = 'concluida' THEN 1 ELSE 0 END) as concluidas,
+        SUM(CASE WHEN status = 'cancelada' THEN 1 ELSE 0 END) as canceladas,
+        SUM(CASE WHEN prioridade = 'alta' OR prioridade = 'urgente' THEN 1 ELSE 0 END) as prioridade_alta
+        FROM ordens_servico";
+    
+    $stats = $db->query($sql_stats)[0];
+} catch (Exception $e) {
+    error_log("Erro ao buscar ordens de serviço: " . $e->getMessage());
+    die("Erro ao buscar ordens de serviço. Por favor, tente novamente mais tarde.");
+}
+
+// Inclui o cabeçalho
+require_once '../includes/header.php';
+?>
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Ordens de Serviço</h1>
+        <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFiltros">
+                <i class="bi bi-funnel"></i> Filtros
+            </button>
+            <a href="os.php" class="btn btn-success">
+                <i class="bi bi-plus-lg"></i> Nova OS
+            </a>
+        </div>
+    </div>
+
+    <!-- Cards de Estatísticas -->
+    <div class="row mb-4">
+        <div class="col-md-2">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total</h5>
+                    <p class="card-text display-6"><?php echo $stats['total']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Abertas</h5>
+                    <p class="card-text display-6"><?php echo $stats['abertas']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Em Andamento</h5>
+                    <p class="card-text display-6"><?php echo $stats['em_andamento']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Concluídas</h5>
+                    <p class="card-text display-6"><?php echo $stats['concluidas']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Canceladas</h5>
+                    <p class="card-text display-6"><?php echo $stats['canceladas']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Prioridade Alta</h5>
+                    <p class="card-text display-6"><?php echo $stats['prioridade_alta']; ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela de Ordens de Serviço -->
+    <div class="card">
+        <div class="card-body">
+            <?php if (empty($ordens_servico)): ?>
+                <div class="alert alert-info">
+                    Nenhuma ordem de serviço encontrada com os filtros selecionados.
+                </div>
+            <?php else: ?>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Número OS</th>
+                                <th>Tipo</th>
+                                <th>Equipamento</th>
+                                <th>Data Abertura</th>
+                                <th>Status</th>
+                                <th>Prioridade</th>
+                                <th>Aberto por</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($ordens_servico as $os): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($os['numero_os']); ?></td>
+                                    <td><?php echo ucfirst($os['tipo_equipamento']); ?></td>
+                                    <td><?php echo htmlspecialchars($os['identificacao_equipamento']); ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
+                                    <td>
+                                        <span class="badge bg-<?php 
+                                            echo match($os['status']) {
+                                                'aberta' => 'warning',
+                                                'em_andamento' => 'info',
+                                                'concluida' => 'success',
+                                                'cancelada' => 'danger',
+                                                default => 'secondary'
+                                            };
+                                        ?>">
+                                            <?php echo ucfirst($os['status']); ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-<?php 
+                                            echo match($os['prioridade']) {
+                                                'baixa' => 'success',
+                                                'media' => 'info',
+                                                'alta' => 'warning',
+                                                'urgente' => 'danger',
+                                                default => 'secondary'
+                                            };
+                                        ?>">
+                                            <?php echo ucfirst($os['prioridade']); ?>
+                                        </span>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($os['nome_usuario_abertura']); ?></td>
+                                    <td class="text-end">
+                                        <?php if ($os['status'] === 'aberta'): ?>
+                                            <a href="os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-primary" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <a href="visualiza_os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-info" title="Visualizar">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Filtros -->
+<div class="modal fade" id="modalFiltros" tabindex="-1" aria-labelledby="modalFiltrosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFiltrosLabel">Filtros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <form method="GET" action="">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Equipamento</label>
+                                <select name="tipo" id="tipo" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="embarcacao" <?php echo $filtros['tipo_equipamento'] === 'embarcacao' ? 'selected' : ''; ?>>Embarcação</option>
+                                    <option value="veiculo" <?php echo $filtros['tipo_equipamento'] === 'veiculo' ? 'selected' : ''; ?>>Veículo</option>
+                                    <option value="implemento" <?php echo $filtros['tipo_equipamento'] === 'implemento' ? 'selected' : ''; ?>>Implemento</option>
+                                    <option value="tanque" <?php echo $filtros['tipo_equipamento'] === 'tanque' ? 'selected' : ''; ?>>Tanque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="aberta" <?php echo $filtros['status'] === 'aberta' ? 'selected' : ''; ?>>Aberta</option>
+                                    <option value="em_andamento" <?php echo $filtros['status'] === 'em_andamento' ? 'selected' : ''; ?>>Em Andamento</option>
+                                    <option value="concluida" <?php echo $filtros['status'] === 'concluida' ? 'selected' : ''; ?>>Concluída</option>
+                                    <option value="cancelada" <?php echo $filtros['status'] === 'cancelada' ? 'selected' : ''; ?>>Cancelada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="prioridade" class="form-label">Prioridade</label>
+                                <select name="prioridade" id="prioridade" class="form-select">
+                                    <option value="">Todas</option>
+                                    <option value="baixa" <?php echo $filtros['prioridade'] === 'baixa' ? 'selected' : ''; ?>>Baixa</option>
+                                    <option value="media" <?php echo $filtros['prioridade'] === 'media' ? 'selected' : ''; ?>>Média</option>
+                                    <option value="alta" <?php echo $filtros['prioridade'] === 'alta' ? 'selected' : ''; ?>>Alta</option>
+                                    <option value="urgente" <?php echo $filtros['prioridade'] === 'urgente' ? 'selected' : ''; ?>>Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="data_inicio" class="form-label">Data Início</label>
+                                <input type="date" name="data_inicio" id="data_inicio" class="form-control" 
+                                       value="<?php echo $filtros['data_inicio']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="data_fim" class="form-label">Data Fim</label>
+                                <input type="date" name="data_fim" id="data_fim" class="form-control" 
+                                       value="<?php echo $filtros['data_fim']; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="busca" class="form-label">Buscar</label>
+                        <input type="text" name="busca" id="busca" class="form-control" 
+                               placeholder="Número OS, tipo, equipamento ou usuário" 
+                               value="<?php echo htmlspecialchars($filtros['busca']); ?>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="ordens_servico.php" class="btn btn-secondary">Limpar Filtros</a>
+                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
