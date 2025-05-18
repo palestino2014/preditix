@@ -207,11 +207,9 @@ require_once '../includes/header.php';
                                     </td>
                                     <td><?php echo htmlspecialchars($os['nome_usuario_abertura']); ?></td>
                                     <td class="text-end">
-                                        <?php if ($os['status'] === 'aberta'): ?>
-                                            <a href="os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-primary" title="Editar">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                        <?php endif; ?>
+                                        <a href="os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-primary" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
                                         <a href="visualiza_os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-info" title="Visualizar">
                                             <i class="bi bi-eye"></i>
                                         </a>

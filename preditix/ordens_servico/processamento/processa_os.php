@@ -49,6 +49,8 @@ try {
 
     if (!$modo_edicao) {
         $campos_obrigatorios['data_abertura'] = 'Data de Abertura';
+    } else {
+        $campos_obrigatorios['status'] = 'Status';
     }
 
     $erros = [];
@@ -83,6 +85,16 @@ try {
         ':odometro' => null
     ];
 
+    if ($modo_edicao) {
+        $dados[':status'] = $_POST['status'];
+        
+        // Se o status for 'concluida', registra a data de conclusão e o usuário
+        if ($_POST['status'] === 'concluida') {
+            $dados[':data_conclusao'] = date('Y-m-d H:i:s');
+            $dados[':usuario_conclusao_id'] = $_SESSION['usuario_id'];
+        }
+    }
+
     // Gera o número da OS apenas para novas OS
     if (!$modo_edicao) {
         $ano = date('Y');
@@ -103,18 +115,13 @@ try {
         $id_os = (int)$_POST['id'];
         error_log("Editando OS ID: " . $id_os);
         
-        // Verifica se a OS existe e está aberta
+        // Verifica se a OS existe
         $sql_verifica = "SELECT status FROM ordens_servico WHERE id = :id";
         $result = $db->query($sql_verifica, [':id' => $id_os]);
         
         if (empty($result)) {
             error_log("OS não encontrada: " . $id_os);
             throw new Exception("Ordem de serviço não encontrada.");
-        }
-        
-        if ($result[0]['status'] !== 'aberta') {
-            error_log("OS não está aberta: " . $id_os . " - Status: " . $result[0]['status']);
-            throw new Exception("Não é possível editar uma ordem de serviço que não está aberta.");
         }
 
         // Adiciona campos específicos da edição
@@ -141,6 +148,9 @@ try {
                 acoes_realizadas = :acoes_realizadas,
                 data_prevista = :data_prevista,
                 odometro = :odometro,
+                status = :status,
+                " . (isset($dados[':data_conclusao']) ? "data_conclusao = :data_conclusao," : "") . "
+                " . (isset($dados[':usuario_conclusao_id']) ? "usuario_conclusao_id = :usuario_conclusao_id," : "") . "
                 updated_at = NOW()
                 WHERE id = :id";
 

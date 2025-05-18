@@ -43,13 +43,6 @@ if ($modo_edicao) {
 
     $os = $result[0];
     
-    // Verifica se a OS está aberta
-    if ($os['status'] !== 'aberta') {
-        $_SESSION['erro'] = "Não é possível editar uma ordem de serviço que não está aberta.";
-        header('Location: visualiza_os.php?id=' . $id_os);
-        exit;
-    }
-
     // Define o tipo e ID do equipamento a partir da OS
     $tipo_equipamento = $os['tipo_equipamento'];
     $id_equipamento = $os['equipamento_id'];
@@ -246,6 +239,24 @@ require_once '../includes/header.php';
                                         </div>
                                     </div>
                                 </div>
+                                <?php if ($modo_edicao): ?>
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="status">Status da OS</label>
+                                            <select name="status" id="status" class="form-control" required>
+                                                <option value="aberta" <?php echo ($os['status'] === 'aberta') ? 'selected' : ''; ?>>Aberta</option>
+                                                <option value="em_andamento" <?php echo ($os['status'] === 'em_andamento') ? 'selected' : ''; ?>>Em Andamento</option>
+                                                <option value="concluida" <?php echo ($os['status'] === 'concluida') ? 'selected' : ''; ?>>Concluída</option>
+                                                <option value="cancelada" <?php echo ($os['status'] === 'cancelada') ? 'selected' : ''; ?>>Cancelada</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o status da OS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
 
