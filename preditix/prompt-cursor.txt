@@ -1,0 +1,45 @@
+Faça um sistema de manutenção em html, css, javascript e php. 
+
+Tudo puro, sem framework nenhum. 
+
+O sistema deve ser capaz de cadastrar os ativos (embarcação, implemento, tanque e veículo), listá-los e também de solicitar manutenção(Ordens de Serviço) destes. 
+
+A parte de manutenção faremos depois, pois será mais complexo. 
+
+Vamos por partes. 
+
+Primeiro vamos fazer um CRUD de ativos, mas antes quero que você crie apenas o arquivo do banco de dados geral, ou seja, dos ativos e das ordens de serviço, que será feito em mysql e não crie mais nada, espere eu validar o banco de dados e aguarde as próximas instruções.
+
+Vou te informar as informações do ambiente de hospedagem caso seja necessário na hora de construir o sistema. São as seguintes: "
+Servidor de banco de dados
+* Servidor: Localhost via UNIX socket
+* Tipo de servidor: Percona Server
+* Conexão do servidor: O SSL não está sendo usado
+* Versão do servidor: 5.7.23-23 - Percona Server (GPL), Release 23, Revision 500fcf5
+* Versão de protocolo: 10
+* Usuário: cpses_aucrlxfxuk@localhost
+* Charset do servidor: UTF-8 Unicode (utf8)
+Servidor web
+* cpsrvd 11.110.0.55
+* Versão do cliente de banco de dados: libmysql - mysqlnd 8.1.32
+* Extensão do PHP: mysqli curl mbstring
+* Versão do PHP: 8.1.32
+phpMyAdmin
+* Informações da versão: 5.2.1
+"
+
+A embarcação terá as seguintes informações: tipo de embarcação, que poderá ser balsa simples, balsa motorizada e empurrador, tag, inscrição, nome da embarcação, armador, ano de fabricação, capacidade volumétrica e foto. 
+
+O implemento terá as seguintes informações: tipo (Semirreboque tanque 2 eixos, Semirreboque tanque 3 eixos, Semirreboque tanque com 5ª roda traseira 3 eixos, combio de abastecimento, baú e outro), vincular, tag, placa, fabricante, modelo, ano de fabricação, chassi, renavam, proprietário, tara, lotação, peso bruto total, capacidade máxima de tração, capacidade volumétrica, cor e foto. 
+
+O Tanque vai ter as seguinte informações: tag, fabricante/responsável técnico, ano de fabricação, localização, capacidade volumétrica e foto. 
+
+O veículo vai ter as seguinte informações: tipo(caminhão toco, cavalo mecânico eixo simples, cavalo mecânico trucado, veículo leve administrativo e veículo leve operacional), tag, placa, fabricante, modelo, ano de fabricação, chassi, renavam, proprietário, tara, lotação, peso bruto total, peso bruto total combinado, capacidade máxima de tração, cor e foto.
+
+As ordens de serviço terão, por enquanto, apenas a data e hora de inicio e a data e hora de finalização que serão usados para calcular alguns indicadores(mttr, mtbf, etc) que serão exibidos no index do sistema. 
+
+O sistema vai ter que ter um login que recebe apenas usuário(email) e senha. 
+
+O sistema deve seguir todas as boas práticas de programação vigentes. 
+
+O nome da empresa é Preditix e a paleta de cores é o branco, o #159969 e o ciano.
