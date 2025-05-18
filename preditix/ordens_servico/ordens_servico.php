@@ -18,9 +18,7 @@ $filtros = [
     'tipo_equipamento' => $_GET['tipo'] ?? null,
     'status' => $_GET['status'] ?? null,
     'prioridade' => $_GET['prioridade'] ?? null,
-    'data_inicio' => $_GET['data_inicio'] ?? null,
-    'data_fim' => $_GET['data_fim'] ?? null,
-    'busca' => $_GET['busca'] ?? null
+    'data_abertura' => $_GET['data_abertura'] ?? null
 ];
 
 // Constrói a query base
@@ -58,24 +56,9 @@ if ($filtros['prioridade']) {
     $params[':prioridade'] = $filtros['prioridade'];
 }
 
-if ($filtros['data_inicio']) {
-    $sql .= " AND os.data_abertura >= :data_inicio";
-    $params[':data_inicio'] = $filtros['data_inicio'] . ' 00:00:00';
-}
-
-if ($filtros['data_fim']) {
-    $sql .= " AND os.data_abertura <= :data_fim";
-    $params[':data_fim'] = $filtros['data_fim'] . ' 23:59:59';
-}
-
-if ($filtros['busca']) {
-    $sql .= " AND (
-        os.numero_os LIKE :busca 
-        OR os.tipo_equipamento LIKE :busca 
-        OR os.identificacao_equipamento LIKE :busca
-        OR u.nome LIKE :busca
-    )";
-    $params[':busca'] = '%' . $filtros['busca'] . '%';
+if ($filtros['data_abertura']) {
+    $sql .= " AND DATE(os.data_abertura) = :data_abertura";
+    $params[':data_abertura'] = $filtros['data_abertura'];
 }
 
 // Ordenação
@@ -254,64 +237,49 @@ require_once '../includes/header.php';
             <form method="GET" action="">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="tipo" class="form-label">Tipo de Equipamento</label>
+                                <label for="tipo" class="form-label">Ativo</label>
                                 <select name="tipo" id="tipo" class="form-select">
                                     <option value="">Todos</option>
-                                    <option value="embarcacao" <?php echo $filtros['tipo_equipamento'] === 'embarcacao' ? 'selected' : ''; ?>>Embarcação</option>
-                                    <option value="veiculo" <?php echo $filtros['tipo_equipamento'] === 'veiculo' ? 'selected' : ''; ?>>Veículo</option>
-                                    <option value="implemento" <?php echo $filtros['tipo_equipamento'] === 'implemento' ? 'selected' : ''; ?>>Implemento</option>
-                                    <option value="tanque" <?php echo $filtros['tipo_equipamento'] === 'tanque' ? 'selected' : ''; ?>>Tanque</option>
+                                    <option value="embarcacao" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'embarcacao' ? 'selected' : ''; ?>>Embarcação</option>
+                                    <option value="veiculo" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'veiculo' ? 'selected' : ''; ?>>Veículo</option>
+                                    <option value="implemento" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'implemento' ? 'selected' : ''; ?>>Implemento</option>
+                                    <option value="tanque" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'tanque' ? 'selected' : ''; ?>>Tanque</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 <select name="status" id="status" class="form-select">
                                     <option value="">Todos</option>
-                                    <option value="aberta" <?php echo $filtros['status'] === 'aberta' ? 'selected' : ''; ?>>Aberta</option>
-                                    <option value="em_andamento" <?php echo $filtros['status'] === 'em_andamento' ? 'selected' : ''; ?>>Em Andamento</option>
-                                    <option value="concluida" <?php echo $filtros['status'] === 'concluida' ? 'selected' : ''; ?>>Concluída</option>
-                                    <option value="cancelada" <?php echo $filtros['status'] === 'cancelada' ? 'selected' : ''; ?>>Cancelada</option>
+                                    <option value="aberta" <?php echo ($filtros['status'] ?? '') === 'aberta' ? 'selected' : ''; ?>>Aberta</option>
+                                    <option value="em_andamento" <?php echo ($filtros['status'] ?? '') === 'em_andamento' ? 'selected' : ''; ?>>Em Andamento</option>
+                                    <option value="concluida" <?php echo ($filtros['status'] ?? '') === 'concluida' ? 'selected' : ''; ?>>Concluída</option>
+                                    <option value="cancelada" <?php echo ($filtros['status'] ?? '') === 'cancelada' ? 'selected' : ''; ?>>Cancelada</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="prioridade" class="form-label">Prioridade</label>
                                 <select name="prioridade" id="prioridade" class="form-select">
                                     <option value="">Todas</option>
-                                    <option value="baixa" <?php echo $filtros['prioridade'] === 'baixa' ? 'selected' : ''; ?>>Baixa</option>
-                                    <option value="media" <?php echo $filtros['prioridade'] === 'media' ? 'selected' : ''; ?>>Média</option>
-                                    <option value="alta" <?php echo $filtros['prioridade'] === 'alta' ? 'selected' : ''; ?>>Alta</option>
-                                    <option value="urgente" <?php echo $filtros['prioridade'] === 'urgente' ? 'selected' : ''; ?>>Urgente</option>
+                                    <option value="baixa" <?php echo ($filtros['prioridade'] ?? '') === 'baixa' ? 'selected' : ''; ?>>Baixa</option>
+                                    <option value="media" <?php echo ($filtros['prioridade'] ?? '') === 'media' ? 'selected' : ''; ?>>Média</option>
+                                    <option value="alta" <?php echo ($filtros['prioridade'] ?? '') === 'alta' ? 'selected' : ''; ?>>Alta</option>
+                                    <option value="urgente" <?php echo ($filtros['prioridade'] ?? '') === 'urgente' ? 'selected' : ''; ?>>Urgente</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="data_inicio" class="form-label">Data Início</label>
-                                <input type="date" name="data_inicio" id="data_inicio" class="form-control" 
-                                       value="<?php echo $filtros['data_inicio']; ?>">
+                                <label for="data_abertura" class="form-label">Data de Abertura</label>
+                                <input type="date" name="data_abertura" id="data_abertura" class="form-control" 
+                                       value="<?php echo htmlspecialchars($filtros['data_abertura'] ?? ''); ?>">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="data_fim" class="form-label">Data Fim</label>
-                                <input type="date" name="data_fim" id="data_fim" class="form-control" 
-                                       value="<?php echo $filtros['data_fim']; ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="busca" class="form-label">Buscar</label>
-                        <input type="text" name="busca" id="busca" class="form-control" 
-                               placeholder="Número OS, tipo, equipamento ou usuário" 
-                               value="<?php echo htmlspecialchars($filtros['busca']); ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
