@@ -239,5 +239,3 @@ document.getElementById('modalOrdem').addEventListener('show.bs.modal', function
     }
 });
 </script>
-
-<?php require_once 'includes/footer.php'; ?> 

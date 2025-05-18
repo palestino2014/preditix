@@ -81,4 +81,3 @@ $veiculos = $veiculo->listar();
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
