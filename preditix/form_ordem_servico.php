@@ -130,7 +130,7 @@ require_once 'includes/header.php';
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1><?php echo $id ? 'Editar' : 'Nova'; ?> Ordem de Serviço</h1>
         <div>
-            <a href="ordens_servico.php" class="btn btn-secondary">Voltar</a>
+            <a href="ordens_servico/ordens_servico.php" class="btn btn-secondary">Voltar</a>
         </div>
     </div>
 

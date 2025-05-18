@@ -75,4 +75,8 @@ class Database {
             throw new Exception("Não foi possível salvar os dados. Por favor, verifique as informações e tente novamente.");
         }
     }
+
+    public function lastInsertId() {
+        return $this->pdo->lastInsertId();
+    }
 }

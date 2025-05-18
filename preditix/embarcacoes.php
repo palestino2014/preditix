@@ -67,6 +67,9 @@ $embarcacoes = $embarcacao->listar();
                                     <a href="form_embarcacao.php?id=<?php echo $e['id']; ?>" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil"></i>
                                     </a>
+                                    <a href="ordens_servico/os.php?tipo=embarcacao&id_equipamento=<?php echo $e['id']; ?>" class="btn btn-sm btn-success" title="Nova OS">
+                                        <i class="bi bi-clipboard-plus"></i>
+                                    </a>
                                     <a href="embarcacoes.php?excluir=<?php echo $e['id']; ?>" class="btn btn-danger btn-sm" 
                                         onclick="return confirm('Tem certeza que deseja excluir este ativo?')">
                                         <i class="bi bi-trash"></i>
