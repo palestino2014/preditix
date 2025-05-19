@@ -23,6 +23,68 @@ $base_url = '/preditix/preditix';
             });
         });
     </script>
+    <style>
+        /* Estilos comuns para tabelas de ativos */
+        .table-ativos {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 0;
+        }
+        .table-ativos th,
+        .table-ativos td {
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+        .table-cell-text {
+            max-width: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .table-cell-actions {
+            white-space: nowrap;
+            width: 160px;
+            padding-right: 1rem;
+        }
+        .table-cell-status {
+            width: 100px;
+            text-align: center;
+        }
+        .table-cell-number {
+            width: 120px;
+            text-align: right;
+        }
+        /* Ajustes específicos para cada tipo de coluna */
+        .col-tag { width: 12%; }
+        .col-placa { width: 10%; }
+        .col-nome { width: 18%; }
+        .col-fabricante { width: 18%; }
+        .col-modelo { width: 15%; }
+        .col-ano { width: 7%; }
+        .col-inscricao { width: 10%; }
+        .col-tipo { width: 12%; }
+        .col-localizacao { width: 18%; }
+        .col-armador { width: 18%; }
+
+        /* Ajustes para os botões de ação */
+        .btn-group {
+            gap: 0.25rem;
+        }
+        .btn-group .btn {
+            padding: 0.25rem 0.5rem;
+        }
+        .btn-group .btn i {
+            font-size: 0.875rem;
+        }
+
+        /* Ajuste para o container da tabela */
+        .table-responsive {
+            overflow-x: hidden;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+    </style>
 </head>
 <body>
     <header class="shadow-sm bg-white mb-4">

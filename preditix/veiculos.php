@@ -31,49 +31,49 @@ $veiculos = $veiculo->listar();
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover table-ativos">
                     <thead>
                         <tr>
-                            <th>Tag</th>
-                            <th>Tipo</th>
-                            <th>Placa</th>
-                            <th>Fabricante</th>
-                            <th>Modelo</th>
-                            <th>Ano</th>
-                            <th>Proprietário</th>
-                            <th>Status</th>
-                            <th>Ações</th>
+                            <th class="col-tag">Tag</th>
+                            <th class="col-placa">Placa</th>
+                            <th class="col-fabricante">Fabricante</th>
+                            <th class="col-modelo">Modelo</th>
+                            <th class="col-ano">Ano</th>
+                            <th class="table-cell-number">Capacidade</th>
+                            <th class="table-cell-status">Status</th>
+                            <th class="table-cell-actions">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($veiculos as $v): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($v['tag']); ?></td>
-                                <td><?php echo htmlspecialchars($v['tipo']); ?></td>
-                                <td><?php echo htmlspecialchars($v['placa']); ?></td>
-                                <td><?php echo htmlspecialchars($v['fabricante']); ?></td>
-                                <td><?php echo htmlspecialchars($v['modelo']); ?></td>
-                                <td><?php echo htmlspecialchars($v['ano_fabricacao']); ?></td>
-                                <td><?php echo htmlspecialchars($v['proprietario']); ?></td>
-                                <td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($v['tag'] ?? ''); ?>"><?php echo htmlspecialchars($v['tag'] ?? ''); ?></td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($v['placa'] ?? ''); ?>"><?php echo htmlspecialchars($v['placa'] ?? ''); ?></td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($v['fabricante'] ?? ''); ?>"><?php echo htmlspecialchars($v['fabricante'] ?? ''); ?></td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($v['modelo'] ?? ''); ?>"><?php echo htmlspecialchars($v['modelo'] ?? ''); ?></td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($v['ano_fabricacao'] ?? ''); ?>"><?php echo htmlspecialchars($v['ano_fabricacao'] ?? ''); ?></td>
+                                <td class="table-cell-number"><?php echo number_format($v['capacidade_volumetrica'] ?? 0, 2); ?> m³</td>
+                                <td class="table-cell-status">
                                     <span class="badge bg-<?php echo $v['status'] === 'ativo' ? 'success' : ($v['status'] === 'inativo' ? 'danger' : 'warning'); ?>">
-                                        <?php echo ucfirst($v['status']); ?>
+                                        <?php echo ucfirst($v['status'] ?? ''); ?>
                                     </span>
                                 </td>
-                                <td>
-                                    <a href="detalhes_veiculo.php?id=<?php echo $v['id']; ?>" class="btn btn-info btn-sm">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="form_veiculo.php?id=<?php echo $v['id']; ?>" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a href="ordens_servico/os.php?tipo=veiculo&id_equipamento=<?php echo $v['id']; ?>" class="btn btn-success btn-sm" title="Nova OS">
-                                        <i class="bi bi-clipboard-plus"></i>
-                                    </a>
-                                    <a href="veiculos.php?excluir=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" 
-                                       onclick="return confirm('Tem certeza que deseja excluir este ativo?')">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                <td class="table-cell-actions">
+                                    <div class="btn-group">
+                                        <a href="detalhes_veiculo.php?id=<?php echo $v['id']; ?>" class="btn btn-sm" title="Visualizar">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="form_veiculo.php?id=<?php echo $v['id']; ?>" class="btn btn-sm btn-warning" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="ordens_servico/os.php?tipo=veiculo&id_equipamento=<?php echo $v['id']; ?>" class="btn btn-sm btn-success" title="Nova OS">
+                                            <i class="bi bi-clipboard-plus"></i>
+                                        </a>
+                                        <a href="veiculos.php?excluir=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" 
+                                            onclick="return confirm('Tem certeza que deseja excluir este ativo?')" title="Excluir">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
