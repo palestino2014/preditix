@@ -159,27 +159,27 @@ require_once '../includes/header.php';
                 </div>
             <?php else: ?>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover table-ativos">
                         <thead>
                             <tr>
-                                <th>Número OS</th>
-                                <th>Tipo</th>
-                                <th>Equipamento</th>
-                                <th>Data Abertura</th>
-                                <th>Status</th>
-                                <th>Prioridade</th>
-                                <th>Aberto por</th>
-                                <th>Ações</th>
+                                <th class="col-numero">Número OS</th>
+                                <th class="col-tipo">Tipo</th>
+                                <th class="col-equipamento">Equipamento</th>
+                                <th class="col-data">Data Abertura</th>
+                                <th class="table-cell-status">Status</th>
+                                <th class="table-cell-status">Prioridade</th>
+                                <th class="col-usuario">Aberto por</th>
+                                <th class="table-cell-actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($ordens_servico as $os): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($os['numero_os']); ?></td>
-                                    <td><?php echo ucfirst($os['tipo_equipamento']); ?></td>
-                                    <td><?php echo htmlspecialchars($os['identificacao_equipamento']); ?></td>
-                                    <td><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
-                                    <td>
+                                    <td class="table-cell-text" title="<?php echo htmlspecialchars($os['numero_os']); ?>"><?php echo htmlspecialchars($os['numero_os']); ?></td>
+                                    <td class="table-cell-text" title="<?php echo ucfirst($os['tipo_equipamento']); ?>"><?php echo ucfirst($os['tipo_equipamento']); ?></td>
+                                    <td class="table-cell-text" title="<?php echo htmlspecialchars($os['identificacao_equipamento']); ?>"><?php echo htmlspecialchars($os['identificacao_equipamento']); ?></td>
+                                    <td class="table-cell-text" title="<?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?>"><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
+                                    <td class="table-cell-status">
                                         <span class="badge bg-<?php 
                                             echo match($os['status']) {
                                                 'aberta' => 'warning',
@@ -192,7 +192,7 @@ require_once '../includes/header.php';
                                             <?php echo ucfirst($os['status']); ?>
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="table-cell-status">
                                         <span class="badge bg-<?php 
                                             echo match($os['prioridade']) {
                                                 'baixa' => 'success',
@@ -205,14 +205,16 @@ require_once '../includes/header.php';
                                             <?php echo ucfirst($os['prioridade']); ?>
                                         </span>
                                     </td>
-                                    <td><?php echo htmlspecialchars($os['nome_usuario_abertura']); ?></td>
-                                    <td class="text-end">
-                                        <a href="os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-primary" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a href="visualiza_os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-info" title="Visualizar">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
+                                    <td class="table-cell-text" title="<?php echo htmlspecialchars($os['nome_usuario_abertura']); ?>"><?php echo htmlspecialchars($os['nome_usuario_abertura']); ?></td>
+                                    <td class="table-cell-actions">
+                                        <div class="btn-group">
+                                            <a href="os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-warning" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="visualiza_os.php?id=<?php echo $os['id']; ?>" class="btn btn-sm btn-info" title="Visualizar">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

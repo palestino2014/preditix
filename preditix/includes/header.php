@@ -65,6 +65,11 @@ $base_url = '/preditix/preditix';
         .col-tipo { width: 12%; }
         .col-localizacao { width: 18%; }
         .col-armador { width: 18%; }
+        /* Classes específicas para a tabela de ordens de serviço */
+        .col-numero { width: 10%; }
+        .col-equipamento { width: 20%; }
+        .col-data { width: 15%; }
+        .col-usuario { width: 15%; }
 
         /* Ajustes para os botões de ação */
         .btn-group {
