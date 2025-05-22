@@ -199,6 +199,7 @@ require_once '../includes/header.php';
                                                 'media' => 'info',
                                                 'alta' => 'warning',
                                                 'urgente' => 'danger',
+                                                'critica' => 'danger',
                                                 default => 'secondary'
                                             };
                                         ?>">
