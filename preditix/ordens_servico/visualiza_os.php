@@ -114,7 +114,7 @@ try {
 require_once '../includes/header.php';
 ?>
 
-<div class="container-fluid">
+<div class="container-fluid px-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Ordem de Serviço #<?php echo htmlspecialchars($os['numero_os']); ?></h1>
         <div>
@@ -149,6 +149,7 @@ require_once '../includes/header.php';
                                         'media' => 'info',
                                         'alta' => 'warning',
                                         'urgente' => 'danger',
+                                        'critica' => 'danger',
                                         default => 'secondary'
                                     };
                                 ?>">
@@ -273,6 +274,59 @@ require_once '../includes/header.php';
                 </div>
             </div>
         </div>
+
+        <!-- Itens da OS -->
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Itens da Ordem de Serviço</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    $sql_itens = "SELECT * FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
+                    $itens = $db->query($sql_itens, [':id_os' => $id_os]);
+                    
+                    if (!empty($itens)):
+                    ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Descrição</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Unitário</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    $total_geral = 0;
+                                    foreach ($itens as $item): 
+                                        $total_item = $item['quantidade'] * $item['valor_unitario'];
+                                        $total_geral += $total_item;
+                                    ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($item['descricao']); ?></td>
+                                            <td><?php echo number_format($item['quantidade'], 2, ',', '.'); ?></td>
+                                            <td>R$ <?php echo number_format($item['valor_unitario'], 2, ',', '.'); ?></td>
+                                            <td>R$ <?php echo number_format($total_item, 2, ',', '.'); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                        <td><strong>R$ <?php echo number_format($total_geral, 2, ',', '.'); ?></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-muted">Nenhum item registrado para esta ordem de serviço.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -316,11 +370,6 @@ require_once '../includes/header.php';
     border-radius: 4px;
 }
 </style>
-
-<!-- Scripts do Bootstrap e jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

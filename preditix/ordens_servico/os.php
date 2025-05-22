@@ -199,7 +199,7 @@ require_once '../includes/header.php';
                                                 <option value="">Selecione...</option>
                                                 <option value="preventiva" <?php echo ($modo_edicao && $os['tipo_manutencao'] === 'preventiva') ? 'selected' : ''; ?>>Preventiva</option>
                                                 <option value="corretiva" <?php echo ($modo_edicao && $os['tipo_manutencao'] === 'corretiva') ? 'selected' : ''; ?>>Corretiva</option>
-                                                <option value="predial" <?php echo ($modo_edicao && $os['tipo_manutencao'] === 'predial') ? 'selected' : ''; ?>>Predial</option>
+                                                <option value="preditiva" <?php echo ($modo_edicao && $os['tipo_manutencao'] === 'preditiva') ? 'selected' : ''; ?>>Preditiva</option>
                                             </select>
                                             <div class="invalid-feedback">
                                                 Por favor, selecione o tipo de manutenção.
@@ -395,6 +395,68 @@ require_once '../includes/header.php';
                             </div>
                         </div>
 
+                        <!-- Itens da OS -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <h4>Itens da Ordem de Serviço</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tabelaItens">
+                                        <thead>
+                                            <tr>
+                                                <th>Descrição</th>
+                                                <th>Quantidade</th>
+                                                <th>Valor Unitário</th>
+                                                <th>Total</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if ($modo_edicao): 
+                                                $sql_itens = "SELECT * FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
+                                                $itens = $db->query($sql_itens, [':id_os' => $id_os]);
+                                                foreach ($itens as $item):
+                                            ?>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" name="itens[descricao][]" class="form-control" value="<?php echo htmlspecialchars($item['descricao']); ?>" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="itens[quantidade][]" class="form-control quantidade" value="<?php echo $item['quantidade']; ?>" step="0.01" min="0" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" value="<?php echo $item['valor_unitario']; ?>" step="0.01" min="0" required>
+                                                    </td>
+                                                    <td>
+                                                        <span class="total-item"><?php echo number_format($item['quantidade'] * $item['valor_unitario'], 2, ',', '.'); ?></span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm remover-item">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; endif; ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <button type="button" class="btn btn-success btn-sm" id="adicionarItem">
+                                                        <i class="bi bi-plus"></i> Adicionar Item
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                                <td colspan="2">
+                                                    <span id="total-geral">R$ 0,00</span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Botões -->
                         <div class="row">
                             <div class="col-md-12">
@@ -408,72 +470,136 @@ require_once '../includes/header.php';
                     document.addEventListener('DOMContentLoaded', function() {
                         const form = document.getElementById('formOS');
                         const btnSalvar = document.getElementById('btnSalvar');
+                        const tabelaItens = document.getElementById('tabelaItens');
+                        const btnAdicionarItem = document.getElementById('adicionarItem');
+                        const totalGeral = document.getElementById('total-geral');
 
-                        // Log dos dados do formulário
-                        console.log('Dados iniciais do formulário:', {
-                            tipo_equipamento: form.querySelector('[name="tipo_equipamento"]').value,
-                            equipamento_id: form.querySelector('[name="equipamento_id"]').value,
-                            modo_edicao: <?php echo $modo_edicao ? 'true' : 'false'; ?>
-                        });
+                        // Função para validar os campos de um item
+                        function validarItem(row) {
+                            const quantidade = parseInt(row.querySelector('.quantidade').value);
+                            const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value);
+                            const descricao = row.querySelector('[name="itens[descricao][]"]').value.trim();
 
-                        form.addEventListener('submit', function(event) {
-                            event.preventDefault();
-                            
-                            // Coleta todos os dados do formulário
-                            const formData = new FormData(form);
-                            const formDataObj = {};
-                            formData.forEach((value, key) => {
-                                if (key.endsWith('[]')) {
-                                    const baseKey = key.slice(0, -2);
-                                    if (!formDataObj[baseKey]) {
-                                        formDataObj[baseKey] = [];
-                                    }
-                                    formDataObj[baseKey].push(value);
-                                } else {
-                                    formDataObj[key] = value;
-                                }
-                            });
-                            
-                            console.log('Dados do formulário antes do envio:', formDataObj);
-                            
-                            if (!form.checkValidity()) {
-                                event.stopPropagation();
-                                form.classList.add('was-validated');
-                                console.log('Formulário inválido');
-                                return;
+                            if (!descricao) {
+                                alert('A descrição do item é obrigatória.');
+                                return false;
                             }
 
-                            // Desabilita o botão para evitar duplo envio
-                            btnSalvar.disabled = true;
-                            btnSalvar.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Salvando...';
+                            if (isNaN(quantidade) || quantidade <= 0 || !Number.isInteger(quantidade)) {
+                                alert('A quantidade deve ser um número inteiro maior que zero.');
+                                return false;
+                            }
 
-                            // Envia o formulário usando fetch para ter mais controle
-                            fetch(form.action, {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => {
-                                console.log('Resposta do servidor:', response);
-                                if (!response.ok) {
-                                    throw new Error('Erro na resposta do servidor: ' + response.status);
+                            if (isNaN(valorUnitario) || valorUnitario <= 0) {
+                                alert('O valor unitário deve ser maior que zero.');
+                                return false;
+                            }
+
+                            return true;
+                        }
+
+                        // Função para validar todos os itens
+                        function validarItens() {
+                            const rows = tabelaItens.querySelectorAll('tbody tr');
+                            
+                            // Se não houver itens, retorna true (não é obrigatório ter itens)
+                            if (rows.length === 0) {
+                                return true;
+                            }
+
+                            // Valida apenas os itens que existem
+                            for (const row of rows) {
+                                if (!validarItem(row)) {
+                                    return false;
                                 }
-                                return response.text();
-                            })
-                            .then(text => {
-                                console.log('Resposta completa:', text);
-                                // Redireciona para a página principal de ordens de serviço
-                                window.location.href = 'ordens_servico.php';
-                            })
-                            .catch(error => {
-                                console.error('Erro ao enviar formulário:', error);
-                                alert('Erro ao salvar a OS. Por favor, tente novamente.');
-                                btnSalvar.disabled = false;
-                                btnSalvar.innerHTML = '<?php echo $modo_edicao ? 'Salvar Alterações' : 'Salvar OS'; ?>';
+                            }
+                            return true;
+                        }
+
+                        // Função para calcular o total de um item
+                        function calcularTotalItem(row) {
+                            const quantidade = parseInt(row.querySelector('.quantidade').value) || 0;
+                            const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
+                            const total = quantidade * valorUnitario;
+                            row.querySelector('.total-item').textContent = total.toLocaleString('pt-BR', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            });
+                            calcularTotalGeral();
+                        }
+
+                        // Função para calcular o total geral
+                        function calcularTotalGeral() {
+                            const totais = Array.from(document.querySelectorAll('.total-item')).map(el => {
+                                return parseFloat(el.textContent.replace('.', '').replace(',', '.')) || 0;
+                            });
+                            const total = totais.reduce((a, b) => a + b, 0);
+                            totalGeral.textContent = 'R$ ' + total.toLocaleString('pt-BR', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            });
+                        }
+
+                        // Adicionar novo item
+                        btnAdicionarItem.addEventListener('click', function() {
+                            const tbody = tabelaItens.querySelector('tbody');
+                            const novaLinha = document.createElement('tr');
+                            novaLinha.innerHTML = `
+                                <td>
+                                    <input type="text" name="itens[descricao][]" class="form-control" required>
+                                </td>
+                                <td>
+                                    <input type="number" name="itens[quantidade][]" class="form-control quantidade" step="1" min="1" required>
+                                </td>
+                                <td>
+                                    <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" step="0.01" min="0.01" required>
+                                </td>
+                                <td>
+                                    <span class="total-item">0,00</span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm remover-item">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            `;
+                            tbody.appendChild(novaLinha);
+
+                            // Adiciona eventos aos novos campos
+                            const inputs = novaLinha.querySelectorAll('input');
+                            inputs.forEach(input => {
+                                input.addEventListener('input', () => calcularTotalItem(novaLinha));
+                            });
+
+                            novaLinha.querySelector('.remover-item').addEventListener('click', function() {
+                                novaLinha.remove();
+                                calcularTotalGeral();
                             });
                         });
 
-                        // Log quando o formulário é carregado
-                        console.log('Formulário carregado:', form);
+                        // Adiciona eventos aos itens existentes
+                        document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
+                            const inputs = row.querySelectorAll('input');
+                            inputs.forEach(input => {
+                                input.addEventListener('input', () => calcularTotalItem(row));
+                            });
+
+                            row.querySelector('.remover-item').addEventListener('click', function() {
+                                row.remove();
+                                calcularTotalGeral();
+                            });
+                        });
+
+                        // Validação do formulário antes do envio
+                        form.addEventListener('submit', function(e) {
+                            if (!validarItens()) {
+                                e.preventDefault();
+                                return false;
+                            }
+                        });
+
+                        // Calcula o total inicial
+                        calcularTotalGeral();
                     });
                     </script>
                 </div>

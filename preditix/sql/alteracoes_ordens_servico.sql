@@ -7,4 +7,8 @@ ADD COLUMN usuario_conclusao_id INT AFTER usuario_abertura_id;
 -- Adiciona a chave estrangeira depois
 ALTER TABLE ordens_servico
 ADD CONSTRAINT fk_usuario_conclusao
-FOREIGN KEY (usuario_conclusao_id) REFERENCES usuarios(id); 
+FOREIGN KEY (usuario_conclusao_id) REFERENCES usuarios(id);
+
+-- Remove a coluna unidade da tabela itens_ordem_servico
+ALTER TABLE itens_ordem_servico
+DROP COLUMN unidade; 

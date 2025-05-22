@@ -79,4 +79,28 @@ class Database {
     public function lastInsertId() {
         return $this->pdo->lastInsertId();
     }
+
+    /**
+     * Inicia uma transação
+     * @return bool
+     */
+    public function beginTransaction() {
+        return $this->pdo->beginTransaction();
+    }
+
+    /**
+     * Confirma uma transação
+     * @return bool
+     */
+    public function commit() {
+        return $this->pdo->commit();
+    }
+
+    /**
+     * Desfaz uma transação
+     * @return bool
+     */
+    public function rollBack() {
+        return $this->pdo->rollBack();
+    }
 }

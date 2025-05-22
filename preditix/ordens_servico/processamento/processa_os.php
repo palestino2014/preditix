@@ -124,96 +124,170 @@ try {
             throw new Exception("Ordem de serviço não encontrada.");
         }
 
-        // Adiciona campos específicos da edição
-        if (!empty($_POST['data_prevista'])) {
-            $dados[':data_prevista'] = $_POST['data_prevista'];
+        // Inicia a transação
+        $db->beginTransaction();
+
+        try {
+            // Adiciona campos específicos da edição
+            if (!empty($_POST['data_prevista'])) {
+                $dados[':data_prevista'] = $_POST['data_prevista'];
+            }
+
+            if (($_POST['tipo_equipamento'] === 'veiculo' || $_POST['tipo_equipamento'] === 'implemento') && 
+                isset($_POST['odometro'])) {
+                $dados[':odometro'] = (int)$_POST['odometro'];
+            }
+
+            // Prepara a query de atualização
+            $sql = "UPDATE ordens_servico SET 
+                    tipo_equipamento = :tipo_equipamento,
+                    equipamento_id = :equipamento_id,
+                    tipo_manutencao = :tipo_manutencao,
+                    prioridade = :prioridade,
+                    observacoes = :observacoes,
+                    sistemas_afetados = :sistemas_afetados,
+                    sintomas_detectados = :sintomas_detectados,
+                    causas_defeitos = :causas_defeitos,
+                    tipo_intervencao = :tipo_intervencao,
+                    acoes_realizadas = :acoes_realizadas,
+                    data_prevista = :data_prevista,
+                    odometro = :odometro,
+                    status = :status,
+                    " . (isset($dados[':data_conclusao']) ? "data_conclusao = :data_conclusao," : "") . "
+                    " . (isset($dados[':usuario_conclusao_id']) ? "usuario_conclusao_id = :usuario_conclusao_id," : "") . "
+                    updated_at = NOW()
+                    WHERE id = :id";
+
+            // Adiciona o ID aos parâmetros
+            $dados[':id'] = $id_os;
+
+            error_log("SQL Update: " . $sql);
+            error_log("Parâmetros Update: " . print_r($dados, true));
+
+            // Executa a atualização
+            $db->execute($sql, $dados);
+
+            // Processa os itens da OS
+            if (isset($_POST['itens']) && is_array($_POST['itens'])) {
+                // Valida os itens apenas se existirem
+                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
+                    if (empty($descricao)) continue; // Pula itens vazios
+
+                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_INT);
+                    if ($quantidade === false || $quantidade <= 0) {
+                        throw new Exception("A quantidade deve ser um número inteiro maior que zero.");
+                    }
+
+                    $valor_unitario = filter_var($_POST['itens']['valor_unitario'][$index], FILTER_VALIDATE_FLOAT);
+                    if ($valor_unitario === false || $valor_unitario <= 0) {
+                        throw new Exception("O valor unitário deve ser maior que zero.");
+                    }
+                }
+
+                // Remove os itens existentes (em caso de edição)
+                if ($modo_edicao) {
+                    $sql_delete = "DELETE FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
+                    $db->execute($sql_delete, [':id_os' => $id_os]);
+                }
+
+                // Insere os novos itens
+                $sql_insert_item = "INSERT INTO itens_ordem_servico (ordem_servico_id, descricao, quantidade, valor_unitario) 
+                                  VALUES (:ordem_servico_id, :descricao, :quantidade, :valor_unitario)";
+                
+                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
+                    if (empty($descricao)) continue; // Pula itens vazios
+                    
+                    $db->execute($sql_insert_item, [
+                        ':ordem_servico_id' => $modo_edicao ? $id_os : $db->lastInsertId(),
+                        ':descricao' => $descricao,
+                        ':quantidade' => (int)$_POST['itens']['quantidade'][$index],
+                        ':valor_unitario' => (float)$_POST['itens']['valor_unitario'][$index]
+                    ]);
+                }
+            }
+
+            // Commit da transação
+            $db->commit();
+            error_log("OS atualizada com sucesso: " . $id_os);
+
+            $_SESSION['sucesso'] = "Ordem de serviço atualizada com sucesso!";
+            header('Location: ../visualiza_os.php?id=' . $id_os);
+            exit;
+
+        } catch (Exception $e) {
+            // Rollback em caso de erro
+            $db->rollBack();
+            throw $e;
         }
 
-        if (($_POST['tipo_equipamento'] === 'veiculo' || $_POST['tipo_equipamento'] === 'implemento') && 
-            isset($_POST['odometro'])) {
-            $dados[':odometro'] = (int)$_POST['odometro'];
-        }
-
-        // Prepara a query de atualização
-        $sql = "UPDATE ordens_servico SET 
-                tipo_equipamento = :tipo_equipamento,
-                equipamento_id = :equipamento_id,
-                tipo_manutencao = :tipo_manutencao,
-                prioridade = :prioridade,
-                observacoes = :observacoes,
-                sistemas_afetados = :sistemas_afetados,
-                sintomas_detectados = :sintomas_detectados,
-                causas_defeitos = :causas_defeitos,
-                tipo_intervencao = :tipo_intervencao,
-                acoes_realizadas = :acoes_realizadas,
-                data_prevista = :data_prevista,
-                odometro = :odometro,
-                status = :status,
-                " . (isset($dados[':data_conclusao']) ? "data_conclusao = :data_conclusao," : "") . "
-                " . (isset($dados[':usuario_conclusao_id']) ? "usuario_conclusao_id = :usuario_conclusao_id," : "") . "
-                updated_at = NOW()
-                WHERE id = :id";
-
-        // Adiciona o ID aos parâmetros
-        $dados[':id'] = $id_os;
-
-        error_log("SQL Update: " . $sql);
-        error_log("Parâmetros Update: " . print_r($dados, true));
-
-        // Executa a atualização
-        $db->execute($sql, $dados);
-        error_log("OS atualizada com sucesso: " . $id_os);
-
-        $_SESSION['sucesso'] = "Ordem de serviço atualizada com sucesso!";
-        header('Location: ../visualiza_os.php?id=' . $id_os);
-        exit;
     } else {
         // Modo criação
         error_log("Criando nova OS");
-        // Adiciona campos específicos para nova OS
-        $dados[':data_abertura'] = $_POST['data_abertura'];
-        $dados[':usuario_abertura_id'] = $_SESSION['usuario_id'];
-        $dados[':status'] = 'aberta';
-
-        // Se for veículo ou implemento, atualiza o odômetro
-        if (in_array($_POST['tipo_equipamento'], ['veiculo', 'implemento'])) {
-            $dados[':odometro'] = $_POST['odometro'] ?? null;
-        }
-
-        // Insere a nova OS
-        $sql = "INSERT INTO ordens_servico (
-                    numero_os, tipo_equipamento, equipamento_id, tipo_manutencao, prioridade,
-                    observacoes, sistemas_afetados, sintomas_detectados,
-                    causas_defeitos, tipo_intervencao, acoes_realizadas,
-                    data_abertura, usuario_abertura_id, status, data_prevista, 
-                    odometro, created_at, updated_at
-                ) VALUES (
-                    :numero_os, :tipo_equipamento, :equipamento_id, :tipo_manutencao, :prioridade,
-                    :observacoes, :sistemas_afetados, :sintomas_detectados,
-                    :causas_defeitos, :tipo_intervencao, :acoes_realizadas,
-                    :data_abertura, :usuario_abertura_id, :status, :data_prevista,
-                    :odometro, NOW(), NOW()
-                )";
-
-        error_log("SQL Insert: " . $sql);
-        error_log("Parâmetros Insert: " . print_r($dados, true));
         
+        // Inicia a transação
+        $db->beginTransaction();
+
         try {
+            // Adiciona campos específicos para nova OS
+            $dados[':data_abertura'] = $_POST['data_abertura'];
+            $dados[':usuario_abertura_id'] = $_SESSION['usuario_id'];
+            $dados[':status'] = 'aberta';
+
+            // Se for veículo ou implemento, atualiza o odômetro
+            if (in_array($_POST['tipo_equipamento'], ['veiculo', 'implemento'])) {
+                $dados[':odometro'] = $_POST['odometro'] ?? null;
+            }
+
+            // Insere a nova OS
+            $sql = "INSERT INTO ordens_servico (
+                        numero_os, tipo_equipamento, equipamento_id, tipo_manutencao, prioridade,
+                        observacoes, sistemas_afetados, sintomas_detectados,
+                        causas_defeitos, tipo_intervencao, acoes_realizadas,
+                        data_abertura, usuario_abertura_id, status, data_prevista, 
+                        odometro, created_at, updated_at
+                    ) VALUES (
+                        :numero_os, :tipo_equipamento, :equipamento_id, :tipo_manutencao, :prioridade,
+                        :observacoes, :sistemas_afetados, :sintomas_detectados,
+                        :causas_defeitos, :tipo_intervencao, :acoes_realizadas,
+                        :data_abertura, :usuario_abertura_id, :status, :data_prevista,
+                        :odometro, NOW(), NOW()
+                    )";
+
+            error_log("SQL Insert: " . $sql);
+            error_log("Parâmetros Insert: " . print_r($dados, true));
+            
             $db->execute($sql, $dados);
             $id_os = $db->lastInsertId();
+
+            // Processa os itens da OS
+            if (isset($_POST['itens']) && is_array($_POST['itens'])) {
+                $sql_insert_item = "INSERT INTO itens_ordem_servico (ordem_servico_id, descricao, quantidade, valor_unitario) 
+                                  VALUES (:ordem_servico_id, :descricao, :quantidade, :valor_unitario)";
+                
+                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
+                    if (empty($descricao)) continue; // Pula itens vazios
+                    
+                    $db->execute($sql_insert_item, [
+                        ':ordem_servico_id' => $id_os,
+                        ':descricao' => $descricao,
+                        ':quantidade' => $_POST['itens']['quantidade'][$index],
+                        ':valor_unitario' => $_POST['itens']['valor_unitario'][$index]
+                    ]);
+                }
+            }
+
+            // Commit da transação
+            $db->commit();
             error_log("Nova OS criada com sucesso. ID: " . $id_os);
 
-            header('Content-Type: application/json');
-            echo json_encode(['sucesso' => true, 'id' => $id_os]);
+            $_SESSION['sucesso'] = "Ordem de serviço criada com sucesso!";
+            header('Location: ../visualiza_os.php?id=' . $id_os);
             exit;
-        } catch (PDOException $e) {
-            error_log("Erro PDO ao inserir OS: " . $e->getMessage());
-            error_log("Código do erro: " . $e->getCode());
-            error_log("SQL State: " . $e->errorInfo[0]);
-            header('Content-Type: application/json');
-            http_response_code(500);
-            echo json_encode(['erro' => 'Erro ao salvar a OS no banco de dados']);
-            exit;
+
+        } catch (Exception $e) {
+            // Rollback em caso de erro
+            $db->rollBack();
+            throw $e;
         }
     }
 
