@@ -1,6 +1,6 @@
 <?php
 // Define a URL base do projeto
-$base_url = '/preditix/preditix';
+$base_url = '/preditix';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

@@ -592,7 +592,24 @@ require_once '../includes/header.php';
 
                         // Validação do formulário antes do envio
                         form.addEventListener('submit', function(e) {
+                            // Validação dos itens
                             if (!validarItens()) {
+                                e.preventDefault();
+                                return false;
+                            }
+                            // Validação do tipo de manutenção
+                            const tipoManutencao = document.getElementById('tipo_manutencao');
+                            if (!tipoManutencao.value) {
+                                alert('Por favor, selecione o tipo de manutenção.');
+                                tipoManutencao.focus();
+                                e.preventDefault();
+                                return false;
+                            }
+                            // Validação da prioridade
+                            const prioridade = document.getElementById('prioridade');
+                            if (!prioridade.value) {
+                                alert('Por favor, selecione a prioridade da OS.');
+                                prioridade.focus();
                                 e.preventDefault();
                                 return false;
                             }
