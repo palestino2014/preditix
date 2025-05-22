@@ -99,52 +99,52 @@ require_once '../includes/header.php';
     </div>
 
     <!-- Cards de Estatísticas -->
-    <div class="row mb-4">
-        <div class="col-md-2">
-            <div class="card bg-primary text-white">
+    <div class="row g-3 mb-4">
+        <div class="col">
+            <div class="card text-white bg-warning h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Total</h5>
-                    <p class="card-text display-6"><?php echo $stats['total']; ?></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h5 class="card-title">Abertas</h5>
+                    <h6 class="card-title">Abertas</h6>
                     <p class="card-text display-6"><?php echo $stats['abertas']; ?></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="card bg-info text-white">
+        <div class="col">
+            <div class="card text-white bg-info h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Em Andamento</h5>
+                    <h6 class="card-title">Em Andamento</h6>
                     <p class="card-text display-6"><?php echo $stats['em_andamento']; ?></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="card bg-success text-white">
+        <div class="col">
+            <div class="card text-white bg-danger h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Concluídas</h5>
+                    <h6 class="card-title">Prioridade Alta</h6>
+                    <p class="card-text display-6"><?php echo $stats['prioridade_alta']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body">
+                    <h6 class="card-title">Concluídas</h6>
                     <p class="card-text display-6"><?php echo $stats['concluidas']; ?></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="card bg-danger text-white">
+        <div class="col">
+            <div class="card text-white bg-secondary h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Canceladas</h5>
+                    <h6 class="card-title">Canceladas</h6>
                     <p class="card-text display-6"><?php echo $stats['canceladas']; ?></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="card bg-danger text-white">
+        <div class="col">
+            <div class="card text-white bg-primary h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Prioridade Alta</h5>
-                    <p class="card-text display-6"><?php echo $stats['prioridade_alta']; ?></p>
+                    <h6 class="card-title">Total</h6>
+                    <p class="card-text display-6"><?php echo $stats['total']; ?></p>
                 </div>
             </div>
         </div>
