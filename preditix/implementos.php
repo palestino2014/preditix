@@ -6,14 +6,6 @@ Auth::checkAuth();
 
 $implemento = new Implemento();
 
-// Processar exclusão
-if (isset($_GET['excluir'])) {
-    $id = $_GET['excluir'];
-    $implemento->excluir($id);
-    header('Location: implementos.php');
-    exit();
-}
-
 // Incluir o header apenas após todo o processamento
 include 'includes/header.php';
 
@@ -68,10 +60,6 @@ $implementos = $implemento->listar();
                                         </a>
                                         <a href="ordens_servico/os.php?tipo=implemento&id_equipamento=<?php echo $i['id']; ?>" class="btn btn-sm btn-success" title="Nova OS">
                                             <i class="bi bi-clipboard-plus"></i>
-                                        </a>
-                                        <a href="implementos.php?excluir=<?php echo $i['id']; ?>" class="btn btn-danger btn-sm" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este ativo?')" title="Excluir">
-                                            <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
                                 </td>

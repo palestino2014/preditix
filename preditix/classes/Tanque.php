@@ -83,10 +83,4 @@ class Tanque extends Ativo {
         
         return $this->db->execute($sql, $params);
     }
-    
-    public function excluir($id) {
-        $sql = "DELETE FROM tanques WHERE id = :id";
-        $params = [':id' => $id];
-        return $this->db->execute($sql, $params);
-    }
 }

@@ -1,6 +1,10 @@
 <?php
 // Define a URL base do projeto
-$base_url = '/preditix';
+if($ambienteIsRemoto){
+    $base_url = '/preditix';
+}else{
+    $base_url = '/preditix/preditix';
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

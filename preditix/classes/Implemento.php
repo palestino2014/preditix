@@ -98,12 +98,6 @@ class Implemento extends Ativo {
         
         return $this->db->execute($sql, $params);
     }
-    
-    public function excluir($id) {
-        $sql = "DELETE FROM implementos WHERE id = :id";
-        $params = [':id' => $id];
-        return $this->db->execute($sql, $params);
-    }
 
     public function buscar($id) {
         $sql = "SELECT * FROM implementos WHERE id = ?";

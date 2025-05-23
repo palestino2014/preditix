@@ -6,14 +6,6 @@ Auth::checkAuth();
 
 $veiculo = new Veiculo();
 
-// Processar exclusão
-if (isset($_GET['excluir'])) {
-    $id = $_GET['excluir'];
-    $veiculo->excluir($id);
-    header('Location: veiculos.php');
-    exit();
-}
-
 // Incluir o header apenas uma vez, após todo o processamento
 include 'includes/header.php';
 
@@ -68,10 +60,6 @@ $veiculos = $veiculo->listar();
                                         </a>
                                         <a href="ordens_servico/os.php?tipo=veiculo&id_equipamento=<?php echo $v['id']; ?>" class="btn btn-sm btn-success" title="Nova OS">
                                             <i class="bi bi-clipboard-plus"></i>
-                                        </a>
-                                        <a href="veiculos.php?excluir=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este ativo?')" title="Excluir">
-                                            <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
                                 </td>

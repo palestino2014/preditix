@@ -137,10 +137,4 @@ class Veiculo extends Ativo {
 
         return $this->db->execute($sql, $params);
     }
-
-    public function excluir($id) {
-        $sql = "DELETE FROM veiculos WHERE id = :id";
-        $params = [':id' => $id];
-        return $this->db->execute($sql, $params);
-    }
 }

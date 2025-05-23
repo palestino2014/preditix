@@ -12,7 +12,6 @@ abstract class Ativo {
     abstract public function listar();
     abstract public function buscarPorId($id);
     abstract public function atualizar($id, $dados);
-    abstract public function excluir($id);
     
     protected function uploadFoto($file) {
         if ($file['error'] === UPLOAD_ERR_OK) {

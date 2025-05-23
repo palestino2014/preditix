@@ -6,14 +6,6 @@ Auth::checkAuth();
 
 $tanque = new Tanque();
 
-// Processar exclusão
-if (isset($_GET['excluir'])) {
-    $id = $_GET['excluir'];
-    $tanque->excluir($id);
-    header('Location: tanques.php');
-    exit();
-}
-
 // Incluir o header apenas após todo o processamento
 include 'includes/header.php';
 
@@ -66,10 +58,6 @@ $tanques = $tanque->listar();
                                         </a>
                                         <a href="ordens_servico/os.php?tipo=tanque&id_equipamento=<?php echo $t['id']; ?>" class="btn btn-sm btn-success" title="Nova OS">
                                             <i class="bi bi-clipboard-plus"></i>
-                                        </a>
-                                        <a href="tanques.php?excluir=<?php echo $t['id']; ?>" class="btn btn-danger btn-sm" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este ativo?')" title="Excluir">
-                                            <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
                                 </td>
