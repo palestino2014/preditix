@@ -122,7 +122,10 @@ require_once '../includes/header.php';
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Ordem de Serviço #<?php echo htmlspecialchars($os['numero_os']); ?></h1>
         <div>
-            <a href="os.php?id=<?php echo $os['id']; ?>&tipo=<?php echo $os['tipo_equipamento']; ?>" class="btn btn-primary">
+            <button onclick="window.print()" class="btn btn-info me-2">
+                <i class="bi bi-printer"></i> Imprimir OS
+            </button>
+            <a href="os.php?id=<?php echo $os['id']; ?>&tipo=<?php echo $os['tipo_equipamento']; ?>" class="btn btn-primary me-2">
                 <i class="bi bi-pencil"></i> Editar OS
             </a>
             <a href="ordens_servico.php" class="btn btn-secondary">
@@ -336,6 +339,26 @@ require_once '../includes/header.php';
     </div>
 </div>
 
+<!-- Adiciona a seção de assinaturas para impressão -->
+<div class="assinaturas-print">
+    <div class="row mt-5">
+        <div class="col-6 text-center">
+            <div class="assinatura-box">
+                <div class="linha-assinatura"></div>
+                <p class="nome-assinatura">Gestor de Manutenção</p>
+                <p class="cargo-assinatura"><?php echo htmlspecialchars($os['nome_gestor'] ?? ''); ?></p>
+            </div>
+        </div>
+        <div class="col-6 text-center">
+            <div class="assinatura-box">
+                <div class="linha-assinatura"></div>
+                <p class="nome-assinatura">Responsável de Campo</p>
+                <p class="cargo-assinatura"><?php echo htmlspecialchars($os['nome_responsavel'] ?? ''); ?></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
 .timeline {
     position: relative;
@@ -375,7 +398,165 @@ require_once '../includes/header.php';
     padding: 15px;
     border-radius: 4px;
 }
+
+/* Estilos para impressão */
+@media print {
+    /* Esconde elementos que não devem ser impressos */
+    .btn, 
+    .no-print {
+        display: none !important;
+    }
+
+    /* Ajusta o layout para impressão */
+    .container-fluid {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Remove sombras e bordas desnecessárias */
+    .card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+
+    .card-header {
+        background-color: #f8f9fa !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* Ajusta cores para melhor visualização em preto e branco */
+    .badge {
+        border: 1px solid #000 !important;
+    }
+
+    .bg-success { background-color: #fff !important; color: #000 !important; }
+    .bg-info { background-color: #fff !important; color: #000 !important; }
+    .bg-warning { background-color: #fff !important; color: #000 !important; }
+    .bg-danger { background-color: #fff !important; color: #000 !important; }
+
+    /* Ajusta a timeline para impressão */
+    .timeline-marker {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+    }
+
+    .timeline-item:not(:last-child)::before {
+        background: #000 !important;
+    }
+
+    .timeline-content {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+    }
+
+    /* Ajusta tabelas para impressão */
+    .table {
+        border-collapse: collapse !important;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #ddd !important;
+    }
+
+    /* Adiciona cabeçalho e rodapé na impressão */
+    @page {
+        margin: 2cm;
+    }
+
+    /* Adiciona quebra de página quando necessário */
+    .card {
+        page-break-inside: avoid;
+    }
+
+    /* Ajusta o tamanho da fonte para impressão */
+    body {
+        font-size: 12pt;
+    }
+
+    h1 { font-size: 18pt; }
+    h5 { font-size: 14pt; }
+    h6 { font-size: 12pt; }
+
+    /* Adiciona informações do cabeçalho da OS */
+    .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+    }
+
+    .print-header h2 {
+        margin: 0;
+        font-size: 16pt;
+    }
+
+    .print-header p {
+        margin: 5px 0;
+        font-size: 10pt;
+    }
+
+    /* Estilos para a seção de assinaturas na impressão */
+    .assinaturas-print {
+        display: block !important;
+        margin-top: 50px;
+        page-break-inside: avoid;
+    }
+
+    .assinatura-box {
+        margin: 20px;
+        padding: 10px;
+    }
+
+    .linha-assinatura {
+        border-top: 1px solid #000;
+        width: 80%;
+        margin: 50px auto 10px;
+    }
+
+    .nome-assinatura {
+        font-weight: bold;
+        margin: 5px 0;
+        font-size: 12pt;
+    }
+
+    .cargo-assinatura {
+        font-size: 10pt;
+        color: #666;
+        margin: 0;
+    }
+
+    /* Garante que a seção de assinaturas fique sempre no final */
+    .assinaturas-print {
+        position: running(footer);
+    }
+
+    @page {
+        @bottom-center {
+            content: element(footer);
+        }
+    }
+}
+
+/* Adiciona cabeçalho específico para impressão */
+.print-header {
+    display: none;
+}
+
+/* Estilos para a seção de assinaturas */
+.assinaturas-print {
+    display: none;
+}
 </style>
+
+<!-- Adiciona o cabeçalho para impressão -->
+<div class="print-header">
+    <h2>Ordem de Serviço #<?php echo htmlspecialchars($os['numero_os']); ?></h2>
+    <p>Data de Emissão: <?php echo date('d/m/Y H:i'); ?></p>
+    <p>Sistema Preditix - Gestão de Manutenção</p>
+</div>
 
 </body>
 </html>
