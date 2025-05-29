@@ -44,7 +44,9 @@ try {
         'tipo_equipamento' => 'Tipo de Equipamento',
         'equipamento_id' => 'Equipamento',
         'tipo_manutencao' => 'Tipo de Manutenção',
-        'prioridade' => 'Prioridade'
+        'prioridade' => 'Prioridade',
+        'gestor_id' => 'Gestor',
+        'usuario_responsavel_id' => 'Responsável'
     ];
 
     if (!$modo_edicao) {
@@ -75,6 +77,8 @@ try {
         ':equipamento_id' => $_POST['equipamento_id'],
         ':tipo_manutencao' => $_POST['tipo_manutencao'],
         ':prioridade' => $_POST['prioridade'],
+        ':gestor_id' => $_POST['gestor_id'],
+        ':usuario_responsavel_id' => $_POST['usuario_responsavel_id'],
         ':observacoes' => $_POST['observacoes'] ?? '',
         ':sistemas_afetados' => json_encode($_POST['sistemas_afetados'] ?? []),
         ':sintomas_detectados' => json_encode($_POST['sintomas_detectados'] ?? []),
@@ -144,6 +148,8 @@ try {
                     equipamento_id = :equipamento_id,
                     tipo_manutencao = :tipo_manutencao,
                     prioridade = :prioridade,
+                    gestor_id = :gestor_id,
+                    usuario_responsavel_id = :usuario_responsavel_id,
                     observacoes = :observacoes,
                     sistemas_afetados = :sistemas_afetados,
                     sintomas_detectados = :sintomas_detectados,
@@ -241,13 +247,13 @@ try {
             // Insere a nova OS
             $sql = "INSERT INTO ordens_servico (
                         numero_os, tipo_equipamento, equipamento_id, tipo_manutencao, prioridade,
-                        observacoes, sistemas_afetados, sintomas_detectados,
+                        gestor_id, usuario_responsavel_id, observacoes, sistemas_afetados, sintomas_detectados,
                         causas_defeitos, tipo_intervencao, acoes_realizadas,
                         data_abertura, usuario_abertura_id, status, data_prevista, 
                         odometro, created_at, updated_at
                     ) VALUES (
                         :numero_os, :tipo_equipamento, :equipamento_id, :tipo_manutencao, :prioridade,
-                        :observacoes, :sistemas_afetados, :sintomas_detectados,
+                        :gestor_id, :usuario_responsavel_id, :observacoes, :sistemas_afetados, :sintomas_detectados,
                         :causas_defeitos, :tipo_intervencao, :acoes_realizadas,
                         :data_abertura, :usuario_abertura_id, :status, :data_prevista,
                         :odometro, NOW(), NOW()

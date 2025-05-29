@@ -25,6 +25,8 @@ try {
     // Busca os dados da OS
     $sql = "SELECT os.*, 
                    u.nome as nome_usuario_abertura,
+                   g.nome as nome_gestor,
+                   r.nome as nome_responsavel,
                    CASE 
                        WHEN os.tipo_equipamento = 'embarcacao' THEN e.nome
                        WHEN os.tipo_equipamento = 'veiculo' THEN v.placa
@@ -33,6 +35,8 @@ try {
                    END as identificacao_equipamento
             FROM ordens_servico os
             LEFT JOIN usuarios u ON u.id = os.usuario_abertura_id
+            LEFT JOIN usuarios g ON g.id = os.gestor_id
+            LEFT JOIN usuarios r ON r.id = os.usuario_responsavel_id
             LEFT JOIN embarcacoes e ON e.id = os.equipamento_id AND os.tipo_equipamento = 'embarcacao'
             LEFT JOIN veiculos v ON v.id = os.equipamento_id AND os.tipo_equipamento = 'veiculo'
             LEFT JOIN implementos i ON i.id = os.equipamento_id AND os.tipo_equipamento = 'implemento'
@@ -140,7 +144,9 @@ require_once '../includes/header.php';
                             <p><strong>Tipo de Equipamento:</strong> <?php echo ucfirst($os['tipo_equipamento']); ?></p>
                             <p><strong>Equipamento:</strong> <?php echo htmlspecialchars($os['identificacao_equipamento']); ?></p>
                             <p><strong>Data de Abertura:</strong> <?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></p>
-                            <p><strong>Aberto por:</strong> <?php echo htmlspecialchars($os['nome_usuario_abertura']); ?></p>
+                            <p><strong>Aberto por:</strong> <?php echo htmlspecialchars($os['nome_usuario_abertura'] ?? ''); ?></p>
+                            <p><strong>Gestor:</strong> <?php echo htmlspecialchars($os['nome_gestor'] ?? ''); ?></p>
+                            <p><strong>Responsável:</strong> <?php echo htmlspecialchars($os['nome_responsavel'] ?? ''); ?></p>
                             <p><strong>Tipo de Manutenção:</strong> <?php echo ucfirst($os['tipo_manutencao']); ?></p>
                             <p><strong>Prioridade:</strong> 
                                 <span class="badge bg-<?php 

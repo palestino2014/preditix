@@ -2,6 +2,10 @@
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once 'includes/config_campos.php';
+require_once '../classes/Database.php';
+
+// Inicializa a conexão com o banco de dados
+$db = new Database();
 
 // Verifica se o usuário está autenticado
 if (!isset($_SESSION['usuario_id'])) {
@@ -19,7 +23,6 @@ $id_equipamento = isset($_GET['id_equipamento']) ? (int)$_GET['id_equipamento'] 
 
 // Se for edição, busca os dados da OS
 if ($modo_edicao) {
-    $db = new Database();
     $sql = "SELECT os.*, 
                    CASE 
                        WHEN os.tipo_equipamento = 'embarcacao' THEN e.nome
@@ -89,6 +92,10 @@ switch ($tipo_equipamento) {
 if (!$dados_equipamento) {
     die('Equipamento não encontrado');
 }
+
+// Busca a lista de usuários para os campos de gestor e responsável
+$sql_usuarios = "SELECT id, nome FROM usuarios ORDER BY nome";
+$usuarios = $db->query($sql_usuarios);
 
 // Inclui o cabeçalho
 require_once '../includes/header.php';
@@ -252,6 +259,75 @@ require_once '../includes/header.php';
                                             </select>
                                             <div class="invalid-feedback">
                                                 Por favor, selecione o status da OS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="gestor_id">Gestor *</label>
+                                            <select name="gestor_id" id="gestor_id" class="form-control" required>
+                                                <option value="">Selecione...</option>
+                                                <?php foreach ($usuarios as $usuario): ?>
+                                                    <option value="<?php echo $usuario['id']; ?>"
+                                                        <?php echo ($modo_edicao && $os['gestor_id'] == $usuario['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o gestor.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="usuario_responsavel_id">Responsável *</label>
+                                            <select name="usuario_responsavel_id" id="usuario_responsavel_id" class="form-control" required>
+                                                <option value="">Selecione...</option>
+                                                <?php foreach ($usuarios as $usuario): ?>
+                                                    <option value="<?php echo $usuario['id']; ?>"
+                                                        <?php echo ($modo_edicao && $os['usuario_responsavel_id'] == $usuario['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o responsável.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php else: ?>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gestor_id">Gestor *</label>
+                                            <select name="gestor_id" id="gestor_id" class="form-control" required>
+                                                <option value="">Selecione...</option>
+                                                <?php foreach ($usuarios as $usuario): ?>
+                                                    <option value="<?php echo $usuario['id']; ?>">
+                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o gestor.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="usuario_responsavel_id">Responsável *</label>
+                                            <select name="usuario_responsavel_id" id="usuario_responsavel_id" class="form-control" required>
+                                                <option value="">Selecione...</option>
+                                                <?php foreach ($usuarios as $usuario): ?>
+                                                    <option value="<?php echo $usuario['id']; ?>">
+                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o responsável.
                                             </div>
                                         </div>
                                     </div>
