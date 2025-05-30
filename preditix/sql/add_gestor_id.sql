@@ -1,0 +1,1 @@
+ALTER TABLE ordens_servico ADD COLUMN gestor_id INT;
