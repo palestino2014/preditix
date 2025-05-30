@@ -18,6 +18,9 @@ if($ambienteIsRemoto){
 // define('BASE_URL', 'http://localhost/preditix_v1');
 define('UPLOAD_DIR', __DIR__ . '/../assets/uploads/');
 
+// Configura o nome da sessão baseado no banco de dados
+session_name('sess_' . DB_NAME);
+
 // Inicia a sessão
 session_start();
 
