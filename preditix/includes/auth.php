@@ -33,8 +33,26 @@ class Auth {
     
     public static function checkAuth() {
         if (!self::isLoggedIn()) {
-            header('Location: login.php');
-            exit();
+            // Verificar se headers já foram enviados
+            if (!headers_sent()) {
+                // Determinar o caminho correto para o login baseado no diretório atual
+                $current_dir = dirname($_SERVER['PHP_SELF']);
+                if (strpos($current_dir, '/indicadores') !== false) {
+                    header('Location: ../login.php');
+                } else {
+                    header('Location: login.php');
+                }
+                exit();
+            } else {
+                // Se headers já foram enviados, usar JavaScript para redirecionar
+                $current_dir = dirname($_SERVER['PHP_SELF']);
+                if (strpos($current_dir, '/indicadores') !== false) {
+                    echo '<script>window.location.href = "../login.php";</script>';
+                } else {
+                    echo '<script>window.location.href = "login.php";</script>';
+                }
+                exit();
+            }
         }
     }
 }

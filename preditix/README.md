@@ -3,6 +3,7 @@
 Este documento lista as etapas necessárias para tornar o sistema mais profissional, seguro e escalável.
 
 ## Índice
+- [Refatoração](#refatoração)
 - [Segurança](#segurança)
 - [Infraestrutura](#infraestrutura)
 - [Código](#código)
@@ -14,6 +15,168 @@ Este documento lista as etapas necessárias para tornar o sistema mais profissio
 - [Compliance](#compliance)
 - [Suporte](#suporte)
 - [Priorização](#priorização)
+
+## Refatoração
+
+### Análise da Estrutura Atual
+O sistema possui as seguintes áreas principais:
+1. **Gestão de Ativos**
+   - Veículos
+   - Tanques
+   - Implementos
+   - Embarcações
+2. **Ordens de Serviço**
+   - Criação/Edição
+   - Visualização
+   - Listagem
+   - Processamento
+3. **Sistema Base**
+   - Autenticação
+   - Configuração
+   - Classes Base
+   - API
+
+### Fase 1: Organização e Padronização (2-3 semanas)
+
+1. **Estrutura de Diretórios**
+   ```
+   /preditix
+     /ativos
+       /veiculos
+         /controllers
+         /models
+         /views
+       /tanques
+       /implementos
+       /embarcacoes
+     /ordens_servico
+       /controllers
+       /models
+       /views
+       /processamento
+     /core
+       /classes
+       /includes
+       /config
+     /assets
+       /css
+       /js
+       /img
+     /api
+     /sql
+   ```
+
+2. **Padronização de Arquivos**
+   - [ ] Mover arquivos para diretórios apropriados
+   - [ ] Renomear arquivos seguindo padrão (ex: `form_veiculo.php` → `veiculos/form.php`)
+   - [ ] Atualizar includes e requires
+   - [ ] Padronizar nomenclatura de funções e variáveis
+
+3. **Classes Base**
+   - [ ] Refatorar `Database.php` para usar PDO consistentemente
+   - [ ] Melhorar `Usuario.php` com métodos necessários
+   - [ ] Criar classe base `Ativo.php` para herança
+   - [ ] Implementar interfaces comuns
+
+### Fase 2: Refatoração de Código (3-4 semanas)
+
+1. **Gestão de Ativos**
+   - [ ] Refatorar classes de ativos (Veiculo, Tanque, etc)
+   - [ ] Implementar CRUD padronizado
+   - [ ] Separar lógica de negócio
+   - [ ] Padronizar formulários
+   - [ ] Implementar validação
+
+2. **Ordens de Serviço**
+   - [ ] Refatorar `OrdemServico.php`
+   - [ ] Separar lógica de processamento
+   - [ ] Implementar workflow
+   - [ ] Melhorar validações
+   - [ ] Padronizar formulários
+
+3. **Sistema Base**
+   - [ ] Melhorar autenticação
+   - [ ] Implementar controle de sessão
+   - [ ] Refatorar configurações
+   - [ ] Padronizar mensagens
+   - [ ] Implementar logging
+
+### Fase 3: Interface e Frontend (2-3 semanas)
+
+1. **Templates**
+   - [ ] Criar templates base
+   - [ ] Implementar header/footer reutilizáveis
+   - [ ] Padronizar formulários
+   - [ ] Criar componentes comuns
+   - [ ] Implementar mensagens
+
+2. **Assets**
+   - [ ] Organizar CSS
+   - [ ] Separar JavaScript
+   - [ ] Implementar validação client-side
+   - [ ] Melhorar UX
+   - [ ] Otimizar imagens
+
+### Fase 4: Banco de Dados (2-3 semanas)
+
+1. **Estrutura**
+   - [ ] Revisar e otimizar tabelas
+   - [ ] Implementar índices
+   - [ ] Adicionar foreign keys
+   - [ ] Normalizar dados
+   - [ ] Documentar schema
+
+2. **Queries**
+   - [ ] Converter para PDO
+   - [ ] Implementar prepared statements
+   - [ ] Otimizar consultas
+   - [ ] Adicionar transações
+   - [ ] Implementar cache
+
+### Fase 5: Segurança e Performance (2-3 semanas)
+
+1. **Segurança**
+   - [ ] Implementar CSRF
+   - [ ] Validar inputs
+   - [ ] Sanitizar outputs
+   - [ ] Melhorar autenticação
+   - [ ] Implementar logging
+
+2. **Performance**
+   - [ ] Otimizar queries
+   - [ ] Implementar cache
+   - [ ] Minificar assets
+   - [ ] Compressão
+   - [ ] Lazy loading
+
+### Prioridades Imediatas
+
+1. **Alta Prioridade**
+   - Refatorar classes base
+   - Implementar PDO
+   - Separar lógica de negócio
+   - Padronizar formulários
+
+2. **Média Prioridade**
+   - Organizar diretórios
+   - Melhorar templates
+   - Implementar validação
+   - Otimizar banco
+
+3. **Baixa Prioridade**
+   - Melhorias de interface
+   - Cache
+   - Documentação
+   - Recursos extras
+
+### Notas de Implementação
+- Manter compatibilidade com HostGator
+- Usar CDN para bibliotecas
+- Implementar autoload manual
+- Manter sistema funcional durante refatoração
+- Fazer commits frequentes
+- Testar cada mudança
+- Documentar alterações
 
 ## Segurança
 - [ ] Implementar HTTPS (SSL/TLS)

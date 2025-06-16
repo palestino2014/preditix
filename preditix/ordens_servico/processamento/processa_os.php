@@ -179,9 +179,9 @@ try {
                 foreach ($_POST['itens']['descricao'] as $index => $descricao) {
                     if (empty($descricao)) continue; // Pula itens vazios
 
-                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_INT);
+                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
                     if ($quantidade === false || $quantidade <= 0) {
-                        throw new Exception("A quantidade deve ser um número inteiro maior que zero.");
+                        throw new Exception("A quantidade deve ser um número maior que zero.");
                     }
 
                     $valor_unitario = filter_var($_POST['itens']['valor_unitario'][$index], FILTER_VALIDATE_FLOAT);
@@ -206,8 +206,8 @@ try {
                     $db->execute($sql_insert_item, [
                         ':ordem_servico_id' => $modo_edicao ? $id_os : $db->lastInsertId(),
                         ':descricao' => $descricao,
-                        ':quantidade' => (int)$_POST['itens']['quantidade'][$index],
-                        ':valor_unitario' => (float)$_POST['itens']['valor_unitario'][$index]
+                        ':quantidade' => $quantidade,
+                        ':valor_unitario' => $_POST['itens']['valor_unitario'][$index]
                     ]);
                 }
             }
@@ -273,10 +273,15 @@ try {
                 foreach ($_POST['itens']['descricao'] as $index => $descricao) {
                     if (empty($descricao)) continue; // Pula itens vazios
                     
+                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
+                    if ($quantidade === false || $quantidade <= 0) {
+                        throw new Exception("A quantidade deve ser um número maior que zero.");
+                    }
+                    
                     $db->execute($sql_insert_item, [
                         ':ordem_servico_id' => $id_os,
                         ':descricao' => $descricao,
-                        ':quantidade' => $_POST['itens']['quantidade'][$index],
+                        ':quantidade' => $quantidade,
                         ':valor_unitario' => $_POST['itens']['valor_unitario'][$index]
                     ]);
                 }

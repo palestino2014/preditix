@@ -146,6 +146,19 @@ if($ambienteIsRemoto){
                                 <i class="bi bi-clipboard-check me-1"></i> Ordens de Serviço
                             </a>
                         </li>
+
+                        <!-- Dashboard Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dashboardsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-speedometer2 me-1"></i> Dashboards
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dashboardsDropdown">
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_disponibilidade.php"><i class="bi bi-bar-chart-line me-2 text-success"></i> Disponibilidade</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_custo.php"><i class="bi bi-currency-dollar me-2 text-warning"></i> Custo</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_mttr.php"><i class="bi bi-arrow-repeat me-2 text-primary"></i> MTTR</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_mtbf.php"><i class="bi bi-activity me-2 text-danger"></i> MTBF</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     
                     <!-- Perfil do Usuário -->
