@@ -80,10 +80,17 @@ function renderGrafico(ctx, labels, valores, titulo, cor) {
             responsive: true,
             plugins: {
                 legend: { display: false },
-                title: { display: false }
+                title: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + Number(context.parsed.y).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' h';
+                        }
+                    }
+                }
             },
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Dias' } }
+                y: { beginAtZero: true, title: { display: true, text: 'Horas' } }
             }
         }
     });
