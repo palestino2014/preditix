@@ -65,9 +65,8 @@ try {
 
     if (!empty($erros)) {
         error_log("Erros de validação: " . implode(', ', $erros));
-        header('Content-Type: application/json');
-        http_response_code(400);
-        echo json_encode(['erro' => implode('<br>', $erros)]);
+        $_SESSION['erro'] = implode('<br>', $erros);
+        header('Location: ../os.php' . ($modo_edicao ? '?id=' . $_POST['id'] : ''));
         exit;
     }
 

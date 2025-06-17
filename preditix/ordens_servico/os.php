@@ -114,8 +114,8 @@ require_once '../includes/header.php';
                     </h3>
                 </div>
                 <div class="card-body">
-                    <?php if (isset($erro)): ?>
-                        <div class="alert alert-danger"><?php echo $erro; ?></div>
+                    <?php if (isset($_SESSION['erro'])): ?>
+                        <div class="alert alert-danger"><?php echo $_SESSION['erro']; unset($_SESSION['erro']); ?></div>
                     <?php endif; ?>
 
                     <?php
