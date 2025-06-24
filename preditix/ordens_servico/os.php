@@ -601,15 +601,16 @@ require_once '../includes/header.php';
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2
                             });
-                            calcularTotalGeral();
                         }
 
                         // Função para calcular o total geral
                         function calcularTotalGeral() {
-                            const totais = Array.from(document.querySelectorAll('.total-item')).map(el => {
-                                return parseFloat(el.textContent.replace('.', '').replace(',', '.')) || 0;
+                            let total = 0;
+                            document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
+                                const quantidade = parseInt(row.querySelector('.quantidade').value) || 0;
+                                const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
+                                total += quantidade * valorUnitario;
                             });
-                            const total = totais.reduce((a, b) => a + b, 0);
                             totalGeral.textContent = 'R$ ' + total.toLocaleString('pt-BR', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2
@@ -644,7 +645,10 @@ require_once '../includes/header.php';
                             // Adiciona eventos aos novos campos
                             const inputs = novaLinha.querySelectorAll('input');
                             inputs.forEach(input => {
-                                input.addEventListener('input', () => calcularTotalItem(novaLinha));
+                                input.addEventListener('input', () => {
+                                    calcularTotalItem(novaLinha);
+                                    calcularTotalGeral();
+                                });
                             });
 
                             novaLinha.querySelector('.remover-item').addEventListener('click', function() {
@@ -657,7 +661,10 @@ require_once '../includes/header.php';
                         document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
                             const inputs = row.querySelectorAll('input');
                             inputs.forEach(input => {
-                                input.addEventListener('input', () => calcularTotalItem(row));
+                                input.addEventListener('input', () => {
+                                    calcularTotalItem(row);
+                                    calcularTotalGeral();
+                                });
                             });
 
                             row.querySelector('.remover-item').addEventListener('click', function() {
@@ -669,7 +676,15 @@ require_once '../includes/header.php';
                         // Validação do formulário antes do envio
                         form.addEventListener('submit', function(e) {
                             // Validação dos itens
-                            if (!validarItens()) {
+                            let ok = true;
+                            document.querySelectorAll('.quantidade').forEach(function(input) {
+                                // Verifica se é inteiro positivo
+                                if (!input.value || isNaN(input.value) || parseInt(input.value) != input.value || parseInt(input.value) <= 0) {
+                                    ok = false;
+                                }
+                            });
+                            if (!ok) {
+                                alert('A quantidade de todos os itens deve ser um número inteiro maior que zero.');
                                 e.preventDefault();
                                 return false;
                             }

@@ -174,21 +174,6 @@ try {
 
             // Processa os itens da OS
             if (isset($_POST['itens']) && is_array($_POST['itens'])) {
-                // Valida os itens apenas se existirem
-                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
-                    if (empty($descricao)) continue; // Pula itens vazios
-
-                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
-                    if ($quantidade === false || $quantidade <= 0) {
-                        throw new Exception("A quantidade deve ser um número maior que zero.");
-                    }
-
-                    $valor_unitario = filter_var($_POST['itens']['valor_unitario'][$index], FILTER_VALIDATE_FLOAT);
-                    if ($valor_unitario === false || $valor_unitario <= 0) {
-                        throw new Exception("O valor unitário deve ser maior que zero.");
-                    }
-                }
-
                 // Remove os itens existentes (em caso de edição)
                 if ($modo_edicao) {
                     $sql_delete = "DELETE FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
@@ -202,11 +187,21 @@ try {
                 foreach ($_POST['itens']['descricao'] as $index => $descricao) {
                     if (empty($descricao)) continue; // Pula itens vazios
                     
+                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
+                    if ($quantidade === false || $quantidade <= 0) {
+                        throw new Exception("A quantidade deve ser um número maior que zero.");
+                    }
+
+                    $valor_unitario = filter_var($_POST['itens']['valor_unitario'][$index], FILTER_VALIDATE_FLOAT);
+                    if ($valor_unitario === false || $valor_unitario <= 0) {
+                        throw new Exception("O valor unitário deve ser maior que zero.");
+                    }
+                    
                     $db->execute($sql_insert_item, [
                         ':ordem_servico_id' => $modo_edicao ? $id_os : $db->lastInsertId(),
                         ':descricao' => $descricao,
                         ':quantidade' => $quantidade,
-                        ':valor_unitario' => $_POST['itens']['valor_unitario'][$index]
+                        ':valor_unitario' => $valor_unitario
                     ]);
                 }
             }
