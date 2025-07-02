@@ -1,82 +1,45 @@
 <?php
+header('Content-Type: application/json');
 require_once '../../includes/config.php';
-require_once '../../includes/auth.php';
 require_once '../../classes/Database.php';
 
-// Verifica se o usuário está autenticado
-if (!isset($_SESSION['usuario_id'])) {
-    http_response_code(401);
-    echo json_encode(['erro' => 'Não autorizado']);
-    exit;
-}
-
-// Verifica se o tipo de equipamento foi fornecido
-if (!isset($_GET['tipo'])) {
-    http_response_code(400);
-    echo json_encode(['erro' => 'Tipo de equipamento não fornecido']);
-    exit;
-}
-
-$tipo = $_GET['tipo'];
-$db = new Database();
-
 try {
+    $db = new Database();
+    $tipo = $_GET['tipo'] ?? '';
+    
+    if (!$tipo) {
+        throw new Exception('Tipo de equipamento não fornecido');
+    }
+    
+    // Busca equipamentos de um tipo específico
     switch ($tipo) {
         case 'embarcacao':
-            $sql = "SELECT id, nome FROM embarcacoes WHERE status = 'ativo' ORDER BY nome";
-            $result = $db->query($sql);
-            $equipamentos = array_map(function($item) {
-                return [
-                    'id' => $item['id'],
-                    'nome' => $item['nome']
-                ];
-            }, $result);
+            $sql = "SELECT id, nome as identificacao FROM embarcacoes ORDER BY nome";
             break;
-
         case 'veiculo':
-            $sql = "SELECT id, placa FROM veiculos WHERE status = 'ativo' ORDER BY placa";
-            $result = $db->query($sql);
-            $equipamentos = array_map(function($item) {
-                return [
-                    'id' => $item['id'],
-                    'placa' => $item['placa']
-                ];
-            }, $result);
+            $sql = "SELECT id, placa as identificacao FROM veiculos ORDER BY placa";
             break;
-
         case 'implemento':
-            $sql = "SELECT id, placa FROM implementos WHERE status = 'ativo' ORDER BY placa";
-            $result = $db->query($sql);
-            $equipamentos = array_map(function($item) {
-                return [
-                    'id' => $item['id'],
-                    'placa' => $item['placa']
-                ];
-            }, $result);
+            $sql = "SELECT id, placa as identificacao FROM implementos ORDER BY placa";
             break;
-
         case 'tanque':
-            $sql = "SELECT id, tag FROM tanques WHERE status = 'ativo' ORDER BY tag";
-            $result = $db->query($sql);
-            $equipamentos = array_map(function($item) {
-                return [
-                    'id' => $item['id'],
-                    'placa' => $item['tag']
-                ];
-            }, $result);
+            $sql = "SELECT id, tag as identificacao FROM tanques ORDER BY tag";
             break;
-
         default:
-            http_response_code(400);
-            echo json_encode(['erro' => 'Tipo de equipamento inválido']);
-            exit;
+            throw new Exception('Tipo de equipamento inválido');
     }
-
-    header('Content-Type: application/json');
-    echo json_encode($equipamentos);
-
+    
+    $equipamentos = $db->query($sql);
+    
+    echo json_encode([
+        'success' => true,
+        'equipamentos' => $equipamentos
+    ]);
+    
 } catch (Exception $e) {
-    error_log("Erro ao buscar equipamentos: " . $e->getMessage());
-    http_response_code(500);
-    echo json_encode(['erro' => 'Erro ao buscar equipamentos']);
-} 
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+}
+?> 

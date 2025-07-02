@@ -16,6 +16,7 @@ $db = new Database();
 // Obtém os filtros da URL
 $filtros = [
     'tipo_equipamento' => $_GET['tipo'] ?? null,
+    'ativo_id' => $_GET['ativo_id'] ?? null,
     'status' => $_GET['status'] ?? null,
     'prioridade' => $_GET['prioridade'] ?? null,
     'data_abertura' => $_GET['data_abertura'] ?? null
@@ -44,6 +45,11 @@ $params = [];
 if ($filtros['tipo_equipamento']) {
     $sql .= " AND os.tipo_equipamento = :tipo_equipamento";
     $params[':tipo_equipamento'] = $filtros['tipo_equipamento'];
+}
+
+if ($filtros['ativo_id']) {
+    $sql .= " AND os.equipamento_id = :ativo_id";
+    $params[':ativo_id'] = $filtros['ativo_id'];
 }
 
 if ($filtros['status']) {
@@ -240,13 +246,21 @@ require_once '../includes/header.php';
                     <div class="row">
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="tipo" class="form-label">Ativo</label>
+                                <label for="tipo" class="form-label">Tipo de Ativo</label>
                                 <select name="tipo" id="tipo" class="form-select">
                                     <option value="">Todos</option>
                                     <option value="embarcacao" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'embarcacao' ? 'selected' : ''; ?>>Embarcação</option>
                                     <option value="veiculo" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'veiculo' ? 'selected' : ''; ?>>Veículo</option>
                                     <option value="implemento" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'implemento' ? 'selected' : ''; ?>>Implemento</option>
                                     <option value="tanque" <?php echo ($filtros['tipo_equipamento'] ?? '') === 'tanque' ? 'selected' : ''; ?>>Tanque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="ativo_id" class="form-label">Ativo</label>
+                                <select name="ativo_id" id="ativo_id" class="form-select">
+                                    <option value="">Todos</option>
                                 </select>
                             </div>
                         </div>
@@ -274,6 +288,8 @@ require_once '../includes/header.php';
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="data_abertura" class="form-label">Data de Abertura</label>
@@ -291,3 +307,51 @@ require_once '../includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tipoSelect = document.getElementById('tipo');
+    const ativoSelect = document.getElementById('ativo_id');
+    
+    // Carrega ativos quando a página carrega
+    carregarAtivos();
+    
+    // Carrega ativos quando o tipo muda
+    tipoSelect.addEventListener('change', function() {
+        carregarAtivos();
+    });
+    
+    function carregarAtivos() {
+        const tipo = tipoSelect.value;
+        
+        // Limpa o select de ativos
+        ativoSelect.innerHTML = '<option value="">Todos</option>';
+        
+        if (!tipo) {
+            // Se nenhum tipo selecionado, desabilita o campo ativo
+            ativoSelect.disabled = true;
+            ativoSelect.innerHTML = '<option value="">Selecione um tipo de equipamento primeiro</option>';
+        } else {
+            // Habilita o campo ativo e carrega ativos do tipo específico
+            ativoSelect.disabled = false;
+            
+            fetch(`processamento/busca_equipamentos.php?tipo=${tipo}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        data.equipamentos.forEach(equipamento => {
+                            const option = document.createElement('option');
+                            option.value = equipamento.id;
+                            option.textContent = equipamento.identificacao;
+                            option.selected = equipamento.id == '<?php echo $filtros['ativo_id'] ?? ''; ?>';
+                            ativoSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar ativos:', error);
+                });
+        }
+    }
+});
+</script>
