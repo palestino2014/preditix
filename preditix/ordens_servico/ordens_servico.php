@@ -270,7 +270,7 @@ require_once '../includes/header.php';
                                     <option value="baixa" <?php echo ($filtros['prioridade'] ?? '') === 'baixa' ? 'selected' : ''; ?>>Baixa</option>
                                     <option value="media" <?php echo ($filtros['prioridade'] ?? '') === 'media' ? 'selected' : ''; ?>>Média</option>
                                     <option value="alta" <?php echo ($filtros['prioridade'] ?? '') === 'alta' ? 'selected' : ''; ?>>Alta</option>
-                                    <option value="urgente" <?php echo ($filtros['prioridade'] ?? '') === 'urgente' ? 'selected' : ''; ?>>Urgente</option>
+                                    <option value="critica" <?php echo ($filtros['prioridade'] ?? '') === 'critica' ? 'selected' : ''; ?>>Crítica</option>
                                 </select>
                             </div>
                         </div>
