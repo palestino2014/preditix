@@ -60,6 +60,8 @@ return [
     'pending_authorization' => 'Esperando Autorización',
     'technician' => 'Técnico',
     'all_technicians' => 'Todos los Técnicos',
+    'asset' => 'Activo',
+    'all_assets' => 'Todos los Activos',
     'clear_filters' => 'Limpiar Filtros',
     
     // Orden de Servicio

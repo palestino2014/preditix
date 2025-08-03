@@ -122,6 +122,23 @@ ob_start();
                     </select>
                 </div>
                 
+                <!-- Filtro por Ativo -->
+                <div class="form-group">
+                    <label class="form-label"><?= Language::t('asset') ?></label>
+                    <select id="filter-asset" class="form-control">
+                        <option value=""><?= Language::t('all_assets') ?></option>
+                        <?php 
+                        if (isset($assets) && !empty($assets)): 
+                            foreach ($assets as $asset): 
+                        ?>
+                            <option value="<?= htmlspecialchars($asset['tag']) ?>"><?= htmlspecialchars($asset['tag']) ?> - <?= htmlspecialchars($asset['modelo']) ?></option>
+                        <?php 
+                            endforeach; 
+                        endif; 
+                        ?>
+                    </select>
+                </div>
+                
                 <!-- Botão de Ação -->
                 <div class="form-group d-flex align-items-end">
                     <button type="button" class="btn btn-secondary w-full" onclick="clearFilters()">
@@ -170,6 +187,7 @@ ob_start();
                                     data-status="<?= htmlspecialchars($order['status']) ?>"
                                     data-authorized="<?= $order['autorizada'] ? '1' : '0' ?>"
                                     data-technician="<?= htmlspecialchars($order['created_by_name']) ?>"
+                                    data-asset="<?= htmlspecialchars($order['tag']) ?>"
                                 >
                                     <td>
                                         <div class="os-cell-content">
@@ -257,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilterButton();
     
     // Aplicar filtros em tempo real quando valores mudarem
-    const filterInputs = document.querySelectorAll('#filter-status, #filter-authorized, #filter-technician');
+    const filterInputs = document.querySelectorAll('#filter-status, #filter-authorized, #filter-technician, #filter-asset');
     filterInputs.forEach(input => {
         input.addEventListener('change', applyFilters);
     });
@@ -295,6 +313,7 @@ function applyFilters() {
     const statusFilter = document.getElementById('filter-status').value.toLowerCase();
     const authorizedFilter = document.getElementById('filter-authorized').value;
     const technicianFilter = document.getElementById('filter-technician').value.toLowerCase();
+    const assetFilter = document.getElementById('filter-asset').value.toLowerCase();
     
     const rows = document.querySelectorAll('#os-table tbody tr');
     let visibleCount = 0;
@@ -317,6 +336,11 @@ function applyFilters() {
             showRow = false;
         }
         
+        // Filtro por ativo
+        if (assetFilter && row.dataset.asset.toLowerCase() !== assetFilter) {
+            showRow = false;
+        }
+        
         if (showRow) {
             row.style.display = '';
             visibleCount++;
@@ -331,6 +355,7 @@ function clearFilters() {
     document.getElementById('filter-status').value = '';
     document.getElementById('filter-authorized').value = '';
     document.getElementById('filter-technician').value = '';
+    document.getElementById('filter-asset').value = '';
     
     // Mostrar todas as linhas
     const rows = document.querySelectorAll('#os-table tbody tr');

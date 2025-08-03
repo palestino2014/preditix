@@ -60,6 +60,8 @@ return [
     'pending_authorization' => 'Pending Authorization',
     'technician' => 'Technician',
     'all_technicians' => 'All Technicians',
+    'asset' => 'Asset',
+    'all_assets' => 'All Assets',
     'clear_filters' => 'Clear Filters',
     
     // Work Order

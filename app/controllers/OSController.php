@@ -11,9 +11,11 @@ class OSController extends BaseController {
         
         try {
             $ordersList = $this->getOrdersForUser($user);
+            $assetsList = $this->getVehicles(); // Buscar todos os ativos para o filtro
             
             $this->view('os/index', [
                 'orders' => $ordersList,
+                'assets' => $assetsList,
                 'userType' => $user['type']
             ]);
         } catch (Exception $e) {
