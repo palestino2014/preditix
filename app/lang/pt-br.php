@@ -1,0 +1,289 @@
+<?php
+/**
+ * Traduções em Português (Brasil)
+ * Sistema de Gerenciamento de Ordens de Serviço - Preditix
+ */
+
+return [
+    // Geral
+    'app_name' => 'Preditix OS Manager',
+    'welcome' => 'Bem-vindo',
+    'login' => 'Entrar',
+    'logout' => 'Sair',
+    'user' => 'Usuário',
+    'password' => 'Senha',
+    'email' => 'E-mail',
+    'name' => 'Nome',
+    'save' => 'Salvar',
+    'cancel' => 'Cancelar',
+    'edit' => 'Editar',
+    'delete' => 'Excluir',
+    'view' => 'Visualizar',
+    'back' => 'Voltar',
+    'next' => 'Avançar',
+    'previous' => 'Anterior',
+    'finish' => 'Finalizar',
+    'confirm' => 'Confirmar',
+    'yes' => 'Sim',
+    'no' => 'Não',
+    'ok' => 'OK',
+    'loading' => 'Carregando...',
+    'success' => 'Sucesso',
+    'error' => 'Erro',
+    'warning' => 'Atenção',
+    'info' => 'Informação',
+    
+    // Autenticação
+    'login_title' => 'Acesso ao Sistema',
+    'login_button' => 'Entrar',
+    'invalid_credentials' => 'Usuário ou senha inválidos',
+    'logout_success' => 'Você saiu do sistema com sucesso',
+    'session_expired' => 'Sua sessão expirou. Faça login novamente.',
+    
+    // Usuários
+    'user_type_tecnico' => 'Técnico',
+    'user_type_gestor' => 'Gestor',
+    
+    // Dashboard
+    'dashboard_title' => 'Ordens de Serviço',
+    'open_os' => 'Abrir OS',
+    'total_os' => 'Total de OS',
+    'pending_approval' => 'Aguardando Aprovação',
+    
+    // Filtros
+    'filter' => 'Filtros',
+    'filter_options' => 'Opções de Filtro',
+    'all_status' => 'Todos os Status',
+    'authorization' => 'Autorização',
+    'all_authorizations' => 'Todas as Autorizações',
+    'authorized' => 'Autorizada',
+    'pending_authorization' => 'Aguardando Autorização',
+    'technician' => 'Técnico',
+    'all_technicians' => 'Todos os Técnicos',
+    'clear_filters' => 'Limpar Filtros',
+    
+    // Ordem de Serviço
+    'os_number' => 'OS Nº',
+    'vehicle_tag' => 'Tag do Veículo',
+    'maintenance_type' => 'Tipo de Manutenção',
+    'priority' => 'Prioridade',
+    'status' => 'Status',
+    'manager' => 'Gestor',
+    'responsible' => 'Responsável',
+    'opening_date' => 'Data de Abertura',
+    'approval_date' => 'Data de Aprovação',
+    'completion_date' => 'Data de Conclusão',
+    'cancellation_date' => 'Data de Cancelamento',
+    'observations' => 'Observações',
+    
+    // Tipos de Manutenção
+    'maintenance_preventiva' => 'Preventiva',
+    'maintenance_corretiva' => 'Corretiva',
+    'maintenance_preditiva' => 'Preditiva',
+    
+    // Prioridades
+    'priority_baixa' => 'Baixa',
+    'priority_media' => 'Média',
+    'priority_alta' => 'Alta',
+    'priority_critica' => 'Crítica',
+    
+    // Status
+    'status_aberta' => 'Aberta',
+    'status_em_andamento' => 'Em Andamento',
+    'status_editada' => 'Editada',
+    'status_concluida' => 'Concluída',
+    'status_cancelada' => 'Cancelada',
+    'status_rejeitada' => 'Rejeitada',
+    
+    // Ações
+    'approve' => 'Aprovar',
+    'reject' => 'Rejeitar',
+    'complete' => 'Concluir',
+    'reopen_as_new' => 'Reabrir como Nova',
+    'try_again' => 'Tentar Novamente',
+    'give_up' => 'Desistir',
+    
+    // Sistemas Afetados
+    'affected_systems' => 'Sistemas Afetados',
+    'system_cabine' => 'Cabine',
+    'system_direcao' => 'Direção',
+    'system_combustivel' => 'Combustível',
+    'system_medicao_controle' => 'Medição e Controle',
+    'system_protecao_impactos' => 'Proteção contra Impactos',
+    'system_transmissao' => 'Transmissão',
+    'system_estrutural' => 'Estrutural',
+    'system_acoplamento' => 'Acoplamento',
+    'system_controle_eletronico' => 'Controle Eletrônico',
+    'system_exaustao' => 'Exaustão',
+    'system_propulsao' => 'Propulsão',
+    'system_protecao_incendio' => 'Proteção contra Incêndio',
+    'system_ventilacao' => 'Ventilação',
+    'system_tanque' => 'Tanque',
+    'system_arrefecimento' => 'Arrefecimento',
+    'system_descarga' => 'Descarga',
+    'system_freios' => 'Freios',
+    'system_protecao_ambiental' => 'Proteção Ambiental',
+    'system_suspensao' => 'Suspensão',
+    'system_eletrico' => 'Elétrico',
+    
+    // Sintomas Detectados
+    'detected_symptoms' => 'Sintomas Detectados',
+    'symptom_aberto' => 'Aberto',
+    'symptom_sujo' => 'Sujo',
+    'symptom_desvio_lateral' => 'Desvio Lateral',
+    'symptom_queimado' => 'Queimado',
+    'symptom_sem_freio' => 'Sem Freio',
+    'symptom_vazando' => 'Vazando',
+    'symptom_baixo_rendimento' => 'Baixo Rendimento',
+    'symptom_empenado' => 'Empenado',
+    'symptom_rompido' => 'Rompido',
+    'symptom_sem_velocidade' => 'Sem Velocidade',
+    'symptom_travado' => 'Travado',
+    'symptom_vibrando' => 'Vibrando',
+    'symptom_desarmado' => 'Desarmado',
+    'symptom_ruido_anormal' => 'Ruído Anormal',
+    'symptom_solto' => 'Solto',
+    'symptom_trincando' => 'Trincando',
+    
+    // Causas dos Defeitos
+    'defect_causes' => 'Causas dos Defeitos',
+    'cause_nao_identificada' => 'Não Identificada',
+    'cause_defeito_de_fabrica' => 'Defeito de Fábrica',
+    'cause_desnivelamento' => 'Desnivelamento',
+    'cause_destensionamento' => 'Destensionamento',
+    'cause_fissura' => 'Fissura',
+    'cause_gasto' => 'Gasto',
+    'cause_desalinhamento' => 'Desalinhamento',
+    'cause_falta_de_protecao' => 'Falta de Proteção',
+    'cause_engripamento' => 'Engripamento',
+    'cause_folga' => 'Folga',
+    'cause_sobrecarga_de_peso' => 'Sobrecarga de Peso',
+    'cause_subdimensionamento' => 'Subdimensionamento',
+    'cause_desbalanceamento' => 'Desbalanceamento',
+    'cause_desregulamento' => 'Desregulamento',
+    'cause_fadiga' => 'Fadiga',
+    'cause_fora_de_especificacao' => 'Fora de Especificação',
+    'cause_nivel_baixo' => 'Nível Baixo',
+    'cause_rompido' => 'Rompido',
+    'cause_sobrecarga_de_tensao' => 'Sobrecarga de Tensão',
+    
+    // Intervenções Realizadas
+    'interventions_performed' => 'Intervenções Realizadas',
+    'intervention_mecanica' => 'Mecânica',
+    'intervention_pintura' => 'Pintura',
+    'intervention_usinagem' => 'Usinagem',
+    'intervention_eletrica' => 'Elétrica',
+    'intervention_funilaria' => 'Funilaria',
+    'intervention_caldeiraria' => 'Caldeiraria',
+    'intervention_hidraulico' => 'Hidráulico',
+    'intervention_soldagem' => 'Soldagem',
+    
+    // Ações Realizadas
+    'actions_performed' => 'Ações Realizadas',
+    'action_acoplado' => 'Acoplado',
+    'action_desacoplado' => 'Desacoplado',
+    'action_instalado' => 'Instalado',
+    'action_rearmado' => 'Rearmado',
+    'action_soldado' => 'Soldado',
+    'action_ajustado' => 'Ajustado',
+    'action_fabricado' => 'Fabricado',
+    'action_limpeza' => 'Limpeza',
+    'action_recuperacao' => 'Recuperação',
+    'action_substituido' => 'Substituído',
+    'action_alinhado' => 'Alinhado',
+    'action_fixado' => 'Fixado',
+    'action_lubrificado' => 'Lubrificado',
+    'action_reposto' => 'Reposto',
+    'action_apertado' => 'Apertado',
+    'action_inspecionado' => 'Inspecionado',
+    'action_modificado' => 'Modificado',
+    'action_retirado' => 'Retirado',
+    
+    // Itens
+    'items' => 'Itens',
+    'item_description' => 'Descrição',
+    'quantity' => 'Quantidade',
+    'unit_value' => 'Valor Unitário',
+    'total' => 'Total',
+    'add_item' => 'Adicionar Item',
+    'remove_item' => 'Remover Item',
+    
+    // Paginação do formulário
+    'page_info' => 'Página %d de %d',
+    'step_basic_info' => 'Informações Básicas',
+    'step_affected_systems' => 'Sistemas Afetados',
+    'step_symptoms' => 'Sintomas Detectados',
+    'step_causes' => 'Causas dos Defeitos',
+    'step_interventions' => 'Intervenções Realizadas',
+    'step_actions' => 'Ações Realizadas',
+    'step_observations' => 'Observações',
+    'step_items' => 'Itens',
+    
+    // Mensagens de sucesso
+    'os_created_success' => 'Ordem de Serviço criada com sucesso.',
+    'os_created_pending' => 'Ordem de Serviço criada com sucesso.\nSujeita à aprovação.',
+    'os_updated_success' => 'Ordem de Serviço editada com sucesso.',
+    'os_updated_pending' => 'Ordem de Serviço editada com sucesso.\nSujeita à aprovação.',
+    'os_completed_success' => 'Ordem de Serviço concluída com sucesso.',
+    'os_completed_pending' => 'Ordem de Serviço concluída com sucesso.\nSujeita à aprovação.',
+    'os_cancelled_success' => 'Ordem de Serviço cancelada com sucesso.',
+    'os_cancelled_pending' => 'Ordem de Serviço cancelada com sucesso.\nSujeita à aprovação.',
+    'os_approved_success' => 'Ordem de Serviço aprovada com sucesso.',
+    'os_rejected_success' => 'Ordem de Serviço rejeitada com sucesso.',
+    
+    // Mensagens de confirmação
+    'confirm_cancel_form' => 'Tem certeza que deseja cancelar? Todos os dados serão perdidos.',
+    'confirm_finish_os' => 'Tem certeza que deseja finalizar esta Ordem de Serviço?',
+    'confirm_approve' => 'Tem certeza que deseja aprovar esta ação?',
+    'confirm_reject' => 'Tem certeza que deseja rejeitar esta ação?',
+    'confirm_complete' => 'Tem certeza que deseja concluir esta OS?',
+    'confirm_cancel_os' => 'Tem certeza que deseja cancelar esta OS?',
+    
+    // Timeline
+    'timeline_title' => 'Histórico da OS',
+    'action_abertura' => 'Abertura',
+    'action_aprovacao' => 'Aprovação',
+    'action_edicao' => 'Edição',
+    'action_conclusao' => 'Conclusão',
+    'action_cancelamento' => 'Cancelamento',
+    'action_rejeicao' => 'Rejeição',
+    
+    // Modal de rejeição
+    'reject_title' => 'Rejeitar %s',
+    'reject_reason' => 'Por que você está rejeitando?',
+    'reject_reason_required' => 'É obrigatório informar o motivo da rejeição.',
+    'speak' => 'Falar',
+    'type' => 'Digitar',
+    
+    // Veículo
+    'vehicle' => 'Veículo',
+    'tag' => 'Tag',
+    'model' => 'Modelo',
+    'color' => 'Cor',
+    'plate' => 'Placa',
+    'owner' => 'Proprietário',
+    'manufacturer' => 'Fabricante',
+    
+    // Offline
+    'offline_mode' => 'Modo Offline',
+    'sync_pending' => 'Sincronização Pendente',
+    'sync_success' => 'Dados sincronizados com sucesso',
+    'sync_error' => 'Erro na sincronização',
+    
+    // Notificações
+    'notification_os_approved' => 'Sua OS #%d foi aprovada',
+    'notification_os_rejected' => 'Sua OS #%d foi rejeitada',
+    'notification_os_pending' => 'Nova OS #%d precisa de aprovação',
+    
+    // Erros
+    'error_database' => 'Erro de conexão com o banco de dados',
+    'error_permission' => 'Você não tem permissão para esta ação',
+    'error_not_found' => 'Registro não encontrado',
+    'error_validation' => 'Dados inválidos',
+    'error_unknown' => 'Erro desconhecido',
+    
+    // Validações
+    'field_required' => 'Este campo é obrigatório',
+    'invalid_email' => 'E-mail inválido',
+    'password_min_length' => 'Senha deve ter pelo menos 6 caracteres',
+];

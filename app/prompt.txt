@@ -1,0 +1,151 @@
+Crie um sistema para gerenciamento de Ordens de Serviço.
+
+Requisitos técnicos:
+- Backend: PHP puro
+- Frontend: html, css e js puros
+- Banco de dados: MySQL
+- Será hospedado no Hostgator(Plano P)
+- MVC
+- PWA
+- Log
+- Mapeamento de cliques
+
+O sistema deverá funcionar como um Progressive Web App (PWA), com:
+    - Manifesto.
+    - Suporte a instalação em dispositivos móveis e desktops.
+    - Cache de páginas e recursos estáticos com Service Workers (uso básico de cache-first strategy).
+    - Suporte a abertura de OS offline, com armazenamento em IndexedDB e envio posterior automático quando reconectado.
+    - O botão de microfone e transcrição também devem funcionar offline se houver suporte no navegador.
+
+Push Notification:
+    - Usuário técnico receberá notificação sempre que uma OS for aprovada ou rejeitada pelo gestor da OS que ele é o responsável
+    - Usuário gestor receberá notificação sempre que uma OS for aberta, editada, concluida ou cancelada pelo técnico da OS em que ele é o gestor
+    - Ao clicar na notificação usuário é direcionado para a página de visualização da respectiva OS
+
+veiculo: {
+    id_ativo: int,
+    tag: LLNN(letra letra número número),
+    modelo: Até 25 alfanuméricos e caracter especial,
+    proprietario: string,
+    pbt: Até 7 dígitos numéricos,
+    pbtc: Até 7 dígitos numéricos,
+    cmt: Até 7 dígitos numéricos,
+    tipo: string,
+    ano_fabricacao: NNNN,
+    tara: Até 6 dígitos numéricos,
+    placa: LLL NLNN ou LLL NNNN,
+    chassi: 17 caracteres alfanuméricos,
+    lotacao: Até 6 dígitos numéricos,
+    cor: string,
+    fabricante: Até 25 alfanuméricos e caracter especial,
+    renavam: 11 dígitos numéricos,
+    capacidade_volumetrica: Até 7 dígitos numéricos,
+    inscricao: LLLNN,
+    armador: Até 30 alfanuméricos e caracter especial,
+    localizacao: Até 30 alfanuméricos e caracter especial,
+    status: string
+}
+
+item_os: {
+    descricao: string,
+    quantidade: int,
+    valor_unitario: float,
+    total: float
+}
+
+ordem_de_servico: {
+    id_os: int,
+    id_ativo: int,
+    tipo_manutencao: enum(preventiva, corretiva ou preditiva),
+    prioridade: enum(baixa, média, alta ou crítica),
+    data_abertura: data,
+    data_aprovacao: data,
+    data_conclusao: data,
+    data_cancelamento: data,
+    status: enum(aberta, em_andamento, editada, concluida ou cancelada),
+    autorizada: bool,
+    id_gestor: int,
+    id_responsavel: int,
+    sistemas_afetados: checkbox(cabine, direcao, combustivel, medicao_controle, protecao_impactos, transmissao, estrutural, acoplamento, controle_eletronico, exaustao, propulsao, protecao_incendio, ventilacao, tanque, arrefecimento, descarga, freios, protecao_ambiental, suspensao, eletrico),
+    sintomas_detectados: checkbox(aberto, sujo, desvio_lateral, queimado, sem_freio, vazando, baixo_rendimento, empenado, rompido, sem_velocidade, travado, vibrando, desarmado, ruido_anormal, solto, trincando),
+    causas_defeitos: checkbox(nao_identificada, defeito_de_fabrica, desnivelamento, destensionamento, fissura, gasto, desalinhamento, falta_de_protecao, engripamento, folga, sobrecarga_de_peso, subdimensionamento, desbalanceamento, desregulamento, fadiga, fora_de_especificacao, nivel_baixo, rompido, sobrecarga_de_tensao),
+    intervencoes_realizadas: checkbox(mecanica, pintura, usinagem, eletrica, funilaria, caldeiraria, hidraulico, soldagem),
+    acoes_realizadas: checkbox(acoplado, desacoplado, instalado, rearmado, soldado, ajustado, fabricado, limpeza, recuperacao, substituido, alinhado, fixado, lubrificado, reposto, apertado, inspecionado, modificado, retirado),
+    observacoes: string,
+    itens: array(item_os)
+}
+
+usuario: {
+    nome: string,
+    email: email,
+    senha: password,
+    acesso: enum(técnico ou gestor)
+}
+
+telas(todas terão o header em cima, exceto a de login):
+- login
+- inicial / listagem de OS's
+- abrir OS
+- visualizar / editar OS
+
+[TELA DE LOGIN]
+
+A primeira tela será de login, onde terá apenas usuário e senha.
+Por enquanto terão apenas 2 tipos de usuários: gestor e técnico.
+
+[HEADER]
+
+Logo da preditix no canto esquerdo, no meio um select com as imagens das bandeiras dos países dos idiomas disponíveis(Brasil:pt-br, Reino Unido:en-gb ou Espanha:sp-sp), onde o idioma correspondente ao país da bandeira que estiver selecionada vai ser o idioma do sistema, sendo brasil o default, ou seja, o sistema deve ser feito em português, inglês e espanhol e transitar entre esses idiomas conforme o select. Se o usuário estiver na página de visualização, vai ter um botão de filtro no meio, ao lado esquerdo do select de idiomas. E no canto direito terá um botão com o nome do usuário que, ao clicar abre um retângulo embaixo com dois labels, um com o email do usuário e outro com o tipo dele. Por último, no canto direito, terá um botão escrito sair, que deslogará o usuário e o direcionará para a página de login. Então, o header ficará nesse ordem(da esquerda para a direita): logo da preditix, botão de filtro(se estiver na página de visualização), botão de idiomas, botão com info do usuário, botão de sair.  
+
+[TELA INICIAL / LISTAGEM DE OS]
+
+Após o login, será a tela inicial que terá uma tabela com a listagem das OS's.
+Se for web, a tabela terá as colunas id_os, tag, modelo, cor, placa e status. Ao passar o mouse por cima da célula, o cursor muda para pointer e a cor fica levemente mais acentuada. Se for mobile, terá apenas duas colunas: a da os e a do status e as células terão uma altura maior para que o click com o dedo seja mais fácil.
+A cor da célula se refere ao status(aberta: cinza, em_andamento: azul, editada: amarelo, concluida: verde, cancelada: vermelho) e ao clicar nela o usuário é direcionado para a página de visualização de OS. Embaixo da tabela terá um botão redondo(se for mobile, se for web será retangular) escrito "Abrir OS". Se o usuário for técnico, aparecerá todas as OS's em que ele é o responsável, se for gestor, aparecerá todas as OS's em que ele é o gestor. Se a flag autorizada for false a célula ficará piscando levemente, num efeito meio de pulsar, quer dizer que o gestor precisa aprovar, se for true, não vai piscar.
+
+[TELA DE ABRIR OS]
+
+A tela de abrir OS vai ser um formulário paginado, a primeira página vai ter tag_veiculo, tipo_manutencao e prioridade, e, embaixo dois botões, um botão de avançar(que irá para a próxima página) e outro de cancelar(que irá cancelar o formulário). Data de abertura e status(aberto) serão preenchidos depois que a OS for aprovada pelo gestor(se o usuário que estiver abrindo for um técnico) ou depois que a OS for aberta(se o usuário for um gestor), os outros campos de data serão preenchidos conforme andamento no fluxo, e, consequentemente, o status vai sendo alterado. Se o usuário que estiver abrindo a OS for um técnico, terá o campo gestor(select com todos os usuários gestores) para preencher, e não terá o campo responsável, que será o próprio usuário que está abrindo a OS. Se o usuário que estiver abrindo a OS for gestor, terá o campo responsável(select com todos os usuários técnicos) para preencher e não terá o campo gestor que será o próprio usuário que está abrindo a OS.
+A segunda página será de sistemas afetados e terá todos os checkboxes do campo de sistemas afetados para o usuário clicar e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A terceira página será de sintomas detectados e terá todos os checkboxes de sintomas detectados para o usuário clicar e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A quarta página será de causas dos defeitos e terá todos os checkboxes de causas dos defeitos para o usuário clicar e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A quinta página será de intervenções realizadas e terá todos os checkboxes de intervenções realizadas para o usuário clicar e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A sexta página será de ações realizadas e terá todos os checkboxes de ações realizadas para o usuário clicar e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A sétima página será de observações e terá um textfield com um botão(com a imagem de um microfone) ao lado que, ao clicar, o usuário poderá falar no microfone e o texto será transcrito em tempo real para o textfield e embaixo, um botão de avançar(que irá para a próxima página), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+A oitava e última página será de itens e terá uma tabela com as colunas de descrição, quantidade, valor unitário, total(quantidade * valor_unitario) e ações(botão de deletar item) com um botão de adicionar item(que irá criar as linhas para o usuário preencher a tabela incrementalmente) embaixo. No fim da página vai ter um botão de finalizar(que irá abrir um modal confirmando a finalização da abertura da OS), um de cancelar(que irá cancelar o formulário) e outro de voltar(que irá voltar para a página anterior).
+O botão de cancelar de todas as páginas abrirá um modal confimando o cancelamento da abertura da OS.
+Em todas as telas terá um label indicando o número da página e total de páginas(por exemplo, "1/8" se for a primeira página, "4/8" se for a quarta página e "8/8" se for a última página).
+Após todo o processo, ao confirmar a abertura da OS e se quem abriu foi um técnico, o Log registra a abertura e a OS é criada com status "aberta", a flag autorizada é setada como "false", data_abertura será setado com data e hora do momento. Se quem abriu foi um gestor, o Log registra uma instancia de abertura e uma de andamento da OS e o status vai para "em_andamento", a flag autorizada é setada como "true", data_abertura e data_aprovacao são setadas com data e hora do momento.
+Para os usuários técnicos, se o processo de abrir OS ocorreu com sucesso, o sistema vai direcionar o usuário para a tela inicial e vai aparecer uma janela dizendo "Ordem de Serviço aberta com sucesso.\nSujeita à aprovação." com um botão escrito "Ok" que vai fechar a janela. Se ocorrer algum erro, vai mostrar uma janela dizendo o erro gerado pela classe de erros do sistema com um botão escrito "Ok" que vai fechar a janela e não vai direcionar para nenhuma tela, vai permanecer na tela de abertura sem limpar os campos do formulário.
+Para os usuários gestores, se o processo de abrir OS ocorreu com sucesso, o sistema vai direcionar o usuário para a tela inicial e vai aparecer uma janela dizendo "Ordem de Serviço aberta com sucesso." com um botão escrito "Ok" que vai fechar a janela. Se ocorrer algum erro, vai mostrar uma janela dizendo o erro gerado pela classe de erros do sistema com um botão escrito "Ok" que vai fechar a janela e não vai direcionar para nenhuma tela, vai permanecer na tela de abertura sem limpar os campos do formulário.
+
+[TELA DE VISUALIZAÇÃO]
+
+A tela de visualização mostrará todos os itens da OS sem paginação, ou seja, vai ser tudo em uma página só. Se o usuário for técnico, os campos data_abertura, data_aprovacao, data_cancelamento e data_conclusao só aparecem se não estiverem vazios e não podem ser editados em nenhuma circunstância. Status, autorizada, gestor e responsável também não podem ser editados sob nenhuma circunstância. Se o usuário for gestor aparecem todos os campos e todos os campos são editáveis, mas apenas se ele tiver clicado em "editar".
+Gestor e Responsável aparecem como os nomes dos usuários que têm o id igual a id_gestor e id_responsavel.
+**
+Embaixo dos itens da OS vai ter uma timeline vertical(de cima para baixo, em ordem de data_hora) em que cada evento vai ser representado por uma bolinha do lado esquerdo com um texto(tipo_evento) e a data(data_hora) ao lado. O texto em cima com mais destaque(preto) e a data embaixo com menos destaque(cinza). A data aparecerá no formato "dd/mm/YYYY às HH:MM". Se a timeline da OS tiver mais de um registro, as bolinhas serão ligadas por uma linha e a cor das bolinhas e das linhas serão da cor do evento mais recente. As cores seguirão o mesmo padrão das células, porém na timeline não aparecerão os eventos de edição.
+**
+No fim da tela terão os botões.
+
+[TÉCNICO]
+Para o usuário técnico, se o status estiver como aberta vai ter apenas um botão de sair no fim da página que vai redirecionar para a página inicial.
+Se o status for igual a em_andamento, quer dizer que a OS foi aprovada, então no fim da página vai ter o botão de sair , um de editar, um de concluir e um de cancelar.
+O botão de editar vai fazer com que os itens que podem ser editados passem a ser editáveis e no fim da página vai ter apenas um botão de cancelar( que vai exibir um modal para confirmar o cancelamento e cancelar a edição após a confirmação) e um de concluir, que vai exibir um modal para confirmar a edição e, se confirmado, o Log registra a edição. Vai alterar o status para editada, setar a flag autorizada como false e voltar para a visualização só que os campos que foram alterados vão ter uma duplicação embaixo com o valor antigo (para que o usuário possa ver os valores antigos e novos) e no fim vai ter só um botão de sair no fim da página. Se o processo de editar OS ocorreu com sucesso, vai aparecer uma janela dizendo "Ordem de Serviço editada com sucesso.\nSujeita à aprovação." com um botão escrito "Ok" que vai fechar a janela. Se ocorrer algum erro, vai mostrar uma janela dizendo o erro gerado pela classe de erros do sistema com um botão escrito "Ok" que vai fechar a janela e não vai direcionar para nenhuma tela, vai permanecer na edição sem limpar os campos do formulário.
+O botão de concluir vai exibir um modal para confirmar a conclusão e, se confirmado, vai alterar o status para concluida, o Log registra a conclusão, setar a flag autorizada como false e vai voltar a ter apenas um botão de sair no fim da página. Se o processo de concluir OS ocorreu com sucesso, vai aparecer uma janela dizendo "Ordem de Serviço concluida com sucesso.\nSujeita à aprovação." com um botão escrito "Ok" que vai fechar a janela. Se ocorrer algum erro, vai mostrar uma janela dizendo o erro gerado pela classe de erros do sistema com um botão escrito "Ok" que vai fechar a janela e não vai direcionar para nenhuma tela, vai permanecer na visualização.
+O botão de cancelar vai exibir um modal para confirmar o cancelamento e, se confirmado, vai alterar o status para cancelada, o Log registra o cancelamento, setar autorizada como false e vai voltar a ter apenas um botão de sair no fim da página. Se o processo de cancelar OS ocorreu com sucesso, vai aparecer uma janela dizendo "Ordem de Serviço cancelada com sucesso.\nSujeita à aprovação." com um botão escrito "Ok" que vai fechar a janela. Se ocorrer algum erro, vai mostrar uma janela dizendo o erro gerado pela classe de erros do sistema com um botão escrito "Ok" que vai fechar a janela e não vai direcionar para nenhuma tela, vai permanecer na visualização.
+
+[GESTOR]
+Para o usuário gestor, se o status estiver como aberta vai ter o botão de sair, um de aprovar e um de rejeitar no fim da página.
+O botão de aprovar vai abrir um modal confirmando a aprovação e, após a confirmação vai alterar o status para em_andamento, o Log vai registrar a aprovação de abertura, a flag autorizada será setada como true, a data_aprovacao será setada com a data e hora do momento.
+
+Se o status for igual a em_andamento, então no fim da página vai ter o botão de sair, um de editar, um de concluir e um de cancelar. O botão de editar vai fazer com que os itens passem a ser editáveis e no fim da página vai ter apenas um botão de cancelar( que vai exibir um modal para confirmar o cancelamento da edição e cancelar a edição após a confirmação) e um de concluir, que vai exibir um modal para confirmar a edição e, se confirmado, vai setar a flag autorizada como true e voltar para a visualização só que os campos que foram alterados vão ter uma duplicação embaixo com o valor antigo (para que o usuário possa ver os valores antigos e novos) e no fim vai ter só um botão de sair no fim da página. O botão de concluir vai exibir um modal confirmado a conclusão da OS e, se confirmado, vai alterar o status para concluida, a data_conclusao será setada com a data e hora do momento, setar a flag autorizada como true e vai voltar a ter apenas um botão de sair no fim da página. O botão de cancelar vai abrir um modal confirmando o cancelamento e, se confirmado, vai alterar o status para cancelada, a data_cancelamento será setada com a data e hora do momento, setar autorizada como true e vai voltar a ter apenas um botão de sair no fim da página.
+
+Se o status estiver como editada vai ter um botão de sair, um de aprovar(que vai abrir um modal confirmando a aprovação da edição e, após a confirmação o label de baixo de cada campo, que representava o valor antigo, vai sumir, ficando apenas o valor novo, o status será alterado para em_andamento, a flag autorizada será setada como true) e um de rejeitar(**) no fim da página.
+
+Se o status estiver como concluida vai ter um botão de sair, um de aprovar(que vai abrir um modal confirmando a aprovação da conclusão e, após a confirmação, o status será alterado para concluida, a flag autorizada será setada como true) e um de rejeitar(**) no fim da página.
+
+Se o status estiver como cancelada vai ter um botão de sair, um de aprovar(que vai abrir um modal confirmando a aprovação do cancelamento e, após a confirmação, o status será alterado para cancelada, a flag autorizada será setada como true) e um de rejeitar(**) no fim da página.
+
+[TÉCNICO + GESTOR]
+As OS's concluídas e canceladas terão um botão a mais no fim da tela de visualização escrito "Reabrir como nova" que vai para a tela de abrir uma nova OS com os dados de sistemas_afetados, sintomas_detectados, causas_defeitos, intervencoes_realizadas, acoes_realizadas e itens preenchidos iguais ao da OS em que o botão foi clicado. 

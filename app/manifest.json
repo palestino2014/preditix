@@ -1,0 +1,22 @@
+{
+    "name": "Preditix OS Manager",
+    "short_name": "Preditix",
+    "description": "Sistema de Gerenciamento de Ordens de Serviço",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#495057",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "logo_preditix.jpeg",
+            "sizes": "any",
+            "type": "image/jpeg",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["productivity", "utilities"],
+    "lang": "pt-BR",
+    "dir": "ltr"
+}
