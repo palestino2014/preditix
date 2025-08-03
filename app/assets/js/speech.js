@@ -1,15 +1,35 @@
 /**
  * Reconhecimento de Voz (Speech Recognition)
  * Sistema de Gerenciamento de Ordens de Serviço - Preditix
+ * 
+ * Compatibilidade testada:
+ * - Chrome/Chromium no Ubuntu: ✅ (com possíveis erros de rede que são ignorados)
+ * - Firefox: ❌ (não suportado)
+ * - Safari: ✅ 
+ * - Edge: ✅
  */
+
+// Debug para Ubuntu/Chromium
+if (navigator.userAgent.includes('Ubuntu') || navigator.userAgent.includes('Chromium')) {
+    console.log('🐧 Sistema Ubuntu/Chromium detectado - aplicando configurações específicas');
+    console.log('ℹ️ Erros de rede podem ser normais e serão ignorados automaticamente');
+}
 
 window.speechRecognition = {
     recognition: null,
     isListening: false,
     currentTarget: null,
+    isInitialized: false,
+    lastError: null,
+    manualStop: false,
+    retryCount: 0,
     
     // Inicialização
     init() {
+        if (this.isInitialized) {
+            return true;
+        }
+        
         // Verificar suporte do navegador
         if ('webkitSpeechRecognition' in window) {
             this.recognition = new webkitSpeechRecognition();
@@ -21,7 +41,8 @@ window.speechRecognition = {
         }
         
         this.setupRecognition();
-        console.log('Speech Recognition initialized');
+        this.isInitialized = true;
+        console.log('Speech Recognition initialized successfully');
         return true;
     },
     
@@ -45,12 +66,26 @@ window.speechRecognition = {
         
         // Event listeners
         this.recognition.onstart = () => {
-            console.log('Speech recognition started');
+            console.log('✅ Speech recognition started successfully');
             this.isListening = true;
+            this.lastError = null;
+            this.retryCount = 0; // Reset retry count quando iniciar com sucesso
             this.updateMicButton(true);
             
-            if (window.app) {
-                window.app.showNotification('Fale agora...', 'info', 2000);
+            // Disparar evento customizado
+            document.dispatchEvent(new CustomEvent('speechstart', { 
+                detail: { target: this.currentTarget } 
+            }));
+            
+            // Mostrar notificação apenas uma vez
+            if (window.app && !this.notificationShown) {
+                this.notificationShown = true;
+                window.app.showNotification('🎤 Fale agora...', 'info', 3000);
+                
+                // Reset flag após um tempo
+                setTimeout(() => {
+                    this.notificationShown = false;
+                }, 4000);
             }
         };
         
@@ -91,36 +126,150 @@ window.speechRecognition = {
         };
         
         this.recognition.onerror = (event) => {
-            console.error('Speech recognition error:', event.error);
+            console.log('Speech recognition error event:', event.error, event);
+            
+            // Tratamento especial para erro de rede no Ubuntu/Chromium
+            if (event.error === 'network' && 
+                (navigator.userAgent.includes('Ubuntu') || navigator.userAgent.includes('Chromium'))) {
+                
+                console.log('🐧 Erro de rede no Ubuntu/Chromium detectado - preparando para retry...');
+                
+                // Definir erro para que o onend possa detectar
+                this.lastError = 'network';
+                
+                // Mostrar notificação informativa
+                if (window.app && !this.notificationShown) {
+                    this.notificationShown = true;
+                    window.app.showNotification('🔄 Reconhecimento continuará automaticamente', 'info', 2000);
+                }
+                
+                // Não fazer cleanup aqui - deixar para o onend
+                return;
+            }
+            
+            // Para outros erros, processar normalmente
+            console.error('Speech recognition error (processing):', event.error);
             this.isListening = false;
             this.updateMicButton(false);
             
-            let errorMessage = 'Erro no reconhecimento de voz';
+            // Evitar mostrar múltiplas mensagens do mesmo erro
+            if (this.lastError === event.error) {
+                console.log('Erro duplicado ignorado:', event.error);
+                return;
+            }
+            
+            this.lastError = event.error;
+            let errorMessage = '';
+            let shouldShowError = true;
             
             switch (event.error) {
                 case 'no-speech':
-                    errorMessage = 'Nenhuma fala detectada. Tente novamente.';
+                    errorMessage = '🔇 Nenhuma fala detectada. Tente novamente.';
                     break;
                 case 'audio-capture':
-                    errorMessage = 'Erro no microfone. Verifique as permissões.';
+                    errorMessage = '🎤 Erro no microfone. Verifique as permissões.';
                     break;
                 case 'not-allowed':
-                    errorMessage = 'Permissão de microfone negada.';
+                    errorMessage = '🚫 Permissão de microfone negada. Clique no ícone de microfone na barra de endereços.';
                     break;
                 case 'network':
-                    errorMessage = 'Erro de rede. Verifique sua conexão.';
+                    // Este caso já foi tratado acima para Ubuntu/Chromium
+                    errorMessage = '🌐 Erro de rede. Verifique sua conexão.';
                     break;
+                case 'service-not-allowed':
+                    errorMessage = '⚠️ Serviço de reconhecimento não disponível. Tente usar Chrome ou Edge.';
+                    break;
+                case 'aborted':
+                    // Erro comum ao parar manualmente - não mostrar
+                    shouldShowError = false;
+                    break;
+                default:
+                    errorMessage = `❌ Erro no reconhecimento de voz: ${event.error}`;
             }
             
-            if (window.app) {
-                window.app.showNotification(errorMessage, 'error');
+            if (window.app && shouldShowError && errorMessage) {
+                // Delay para evitar conflito com outras mensagens
+                setTimeout(() => {
+                    window.app.showNotification(errorMessage, 'error', 4000);
+                }, 100);
             }
+            
+            // Reset error after timeout
+            setTimeout(() => {
+                this.lastError = null;
+            }, 5000);
         };
         
         this.recognition.onend = () => {
-            console.log('Speech recognition ended');
+            console.log('🔚 Speech recognition ended');
+            
+            // Se terminou por erro de rede no Ubuntu/Chromium, tentar reiniciar
+            if (this.lastError === 'network' && 
+                (navigator.userAgent.includes('Ubuntu') || navigator.userAgent.includes('Chromium')) &&
+                this.currentTarget && !this.manualStop && this.retryCount < 3) {
+                
+                this.retryCount++;
+                console.log(`🔄 Tentativa de restart ${this.retryCount}/3 após erro de rede...`);
+                
+                // Disparar evento de retry para feedback visual
+                document.dispatchEvent(new CustomEvent('speechretry', { 
+                    detail: { 
+                        attempt: this.retryCount,
+                        target: this.currentTarget 
+                    } 
+                }));
+                
+                // Delay progressivo antes de reiniciar
+                const delay = this.retryCount * 500; // 500ms, 1s, 1.5s
+                
+                setTimeout(() => {
+                    if (this.currentTarget && !this.manualStop) {
+                        console.log(`🔄 Reiniciando reconhecimento (tentativa ${this.retryCount})...`);
+                        this.lastError = null;
+                        
+                        try {
+                            this.recognition.start();
+                            
+                            // Mostrar feedback de retry
+                            if (window.app) {
+                                window.app.showNotification(`🔄 Reconectando... (${this.retryCount}/3)`, 'info', 1500);
+                            }
+                            
+                            return; // Não executar o resto se conseguiu reiniciar
+                        } catch (error) {
+                            console.log(`❌ Falha ao reiniciar (tentativa ${this.retryCount}):`, error);
+                            
+                            // Se foi a última tentativa, mostrar erro
+                            if (this.retryCount >= 3 && window.app) {
+                                window.app.showNotification('❌ Reconhecimento de voz indisponível', 'error', 3000);
+                            }
+                        }
+                    }
+                    
+                    // Se chegou aqui, o restart falhou - limpar estado
+                    this.isListening = false;
+                    this.updateMicButton(false);
+                    this.manualStop = false;
+                    this.retryCount = 0;
+                    
+                    // Disparar evento customizado
+                    document.dispatchEvent(new CustomEvent('speechend', { 
+                        detail: { target: this.currentTarget } 
+                    }));
+                }, delay);
+                
+                return; // Não executar cleanup ainda
+            }
+            
+            // Cleanup normal
             this.isListening = false;
             this.updateMicButton(false);
+            this.manualStop = false;
+            
+            // Disparar evento customizado
+            document.dispatchEvent(new CustomEvent('speechend', { 
+                detail: { target: this.currentTarget } 
+            }));
             
             // Limpar placeholder temporário
             if (this.currentTarget) {
@@ -134,35 +283,60 @@ window.speechRecognition = {
     
     // Iniciar reconhecimento
     start(targetElementId) {
+        console.log('Tentando iniciar reconhecimento de voz para:', targetElementId);
+        
         if (!this.recognition) {
             if (!this.init()) {
                 if (window.app) {
-                    window.app.showNotification('Reconhecimento de voz não disponível', 'error');
+                    window.app.showNotification('❌ Reconhecimento de voz não disponível neste navegador', 'error');
                 }
                 return false;
             }
         }
         
         if (this.isListening) {
+            console.log('Já está ouvindo - parando primeiro');
             this.stop();
             return false;
         }
         
         this.currentTarget = targetElementId;
         
-        // Salvar placeholder original
+        // Verificar se o elemento existe
         const field = document.getElementById(targetElementId);
-        if (field) {
-            field.dataset.originalPlaceholder = field.placeholder;
+        if (!field) {
+            console.error('Campo de destino não encontrado:', targetElementId);
+            if (window.app) {
+                window.app.showNotification('❌ Campo de texto não encontrado', 'error');
+            }
+            return false;
         }
         
+        // Salvar placeholder original
+        field.dataset.originalPlaceholder = field.placeholder;
+        
+        // Reset flags
+        this.lastError = null;
+        this.notificationShown = false;
+        this.manualStop = false;
+        this.retryCount = 0;
+        
         try {
+            console.log('Iniciando reconhecimento...');
             this.recognition.start();
             return true;
         } catch (error) {
             console.error('Error starting speech recognition:', error);
+            
+            let errorMsg = '❌ Erro ao iniciar reconhecimento';
+            if (error.name === 'InvalidStateError') {
+                errorMsg = '⚠️ Reconhecimento já está ativo. Tente novamente em alguns segundos.';
+            } else if (error.name === 'NotAllowedError') {
+                errorMsg = '🚫 Permissão de microfone necessária. Verifique as configurações.';
+            }
+            
             if (window.app) {
-                window.app.showNotification('Erro ao iniciar reconhecimento de voz', 'error');
+                window.app.showNotification(errorMsg, 'error', 4000);
             }
             return false;
         }
@@ -171,6 +345,8 @@ window.speechRecognition = {
     // Parar reconhecimento
     stop() {
         if (this.recognition && this.isListening) {
+            console.log('🛑 Parando reconhecimento manualmente');
+            this.manualStop = true;
             this.recognition.stop();
         }
     },
@@ -222,34 +398,30 @@ function stopSpeechRecognition() {
     window.speechRecognition.stop();
 }
 
-// Event listener para botões de microfone
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('mic-button')) {
-        const targetId = e.target.dataset.target || 
-                        e.target.getAttribute('onclick')?.match(/startSpeechRecognition\('([^']+)'\)/)?.[1];
-        
-        if (targetId) {
-            if (window.speechRecognition.isListening) {
-                window.speechRecognition.stop();
-            } else {
-                window.speechRecognition.start(targetId);
-            }
-        }
-    }
-});
+// Controle de inicialização - previne múltiplas inicializações
+let speechInitialized = false;
 
 // Inicializar quando DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
+    if (speechInitialized) return;
+    speechInitialized = true;
+    
+    console.log('Inicializando sistema de reconhecimento de voz...');
+    
     if (window.speechRecognition.isSupported()) {
-        window.speechRecognition.init();
+        // Não inicializar automaticamente, apenas preparar
+        console.log('Speech Recognition suportado - pronto para uso');
     } else {
         console.log('Speech Recognition não suportado - ocultando botões de microfone');
         
         // Ocultar botões de microfone se não suportado
-        const micButtons = document.querySelectorAll('.mic-button');
-        micButtons.forEach(button => {
-            button.style.display = 'none';
-        });
+        setTimeout(() => {
+            const micButtons = document.querySelectorAll('.mic-button');
+            micButtons.forEach(button => {
+                button.style.display = 'none';
+                button.title = 'Reconhecimento de voz não suportado neste navegador';
+            });
+        }, 100);
     }
 });
 
