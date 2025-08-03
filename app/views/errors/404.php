@@ -32,7 +32,7 @@ ob_start();
         
         <!-- Botões de ação -->
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="/dashboard" class="btn btn-primary" style="text-decoration: none;">
+            <a href="dashboard" class="btn btn-primary" style="text-decoration: none;">
                 🏠 Ir para Dashboard
             </a>
             

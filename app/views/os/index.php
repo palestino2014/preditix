@@ -153,7 +153,7 @@ ob_start();
     <div class="card">
         <div class="card-header d-flex justify-between items-center">
             <h3><?= Language::t('dashboard_title') ?></h3>
-            <a href="/os/create" class="btn btn-primary btn-mobile-round">
+            <a href="os/create" class="btn btn-primary btn-mobile-round">
                 ➕ <?= Language::t('open_os') ?>
             </a>
         </div>

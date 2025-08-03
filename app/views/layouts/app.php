@@ -11,12 +11,12 @@
     <title><?= $pageTitle ?? Language::t('app_name') ?></title>
     
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/jpeg" href="logo_preditix.jpeg">
-    <link rel="apple-touch-icon" href="logo_preditix.jpeg">
+    <link rel="manifest" href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/manifest.json">
+    <link rel="icon" type="image/jpeg" href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/logo_preditix.jpeg">
+    <link rel="apple-touch-icon" href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/logo_preditix.jpeg">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/assets/css/app.css">
     <?php if (isset($additionalCSS)): ?>
         <?php foreach ($additionalCSS as $css): ?>
             <link rel="stylesheet" href="<?= $css ?>">
@@ -97,9 +97,9 @@
         })();
     </script>
     
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/offline.js"></script>
-    <script src="assets/js/speech.js"></script>
+    <script src="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/assets/js/app.js"></script>
+    <script src="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/assets/js/offline.js"></script>
+    <script src="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/assets/js/speech.js"></script>
     
     <?php if (isset($additionalJS)): ?>
         <?php foreach ($additionalJS as $js): ?>
@@ -111,7 +111,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
+                navigator.serviceWorker.register('<?= dirname($_SERVER['SCRIPT_NAME']) ?>/sw.js')
                     .then(registration => {
                         console.log('SW registered: ', registration);
                     })

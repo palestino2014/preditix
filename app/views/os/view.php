@@ -296,7 +296,7 @@ ob_start();
         <div class="actions-grid" style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
             
             <!-- Botão Voltar (sempre presente) -->
-            <a href="/dashboard" class="btn btn-secondary">
+                            <a href="dashboard" class="btn btn-secondary">
                 ← <?= Language::t('back') ?>
             </a>
             
