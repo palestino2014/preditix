@@ -244,15 +244,15 @@ function adjustTableForMobile() {
 document.addEventListener('DOMContentLoaded', adjustTableForMobile);
 window.addEventListener('resize', adjustTableForMobile);
 
-// Auto-refresh a cada 30 segundos para ver novas OS
-setInterval(() => {
-    if (document.visibilityState === 'visible') {
-        // Apenas recarregar se não houver modais abertos
-        if (!document.querySelector('.modal.active')) {
-            location.reload();
-        }
-    }
-}, 30000);
+// Auto-refresh desabilitado - causava recarregamentos indesejados
+// setInterval(() => {
+//     if (document.visibilityState === 'visible') {
+//         // Apenas recarregar se não houver modais abertos
+//         if (!document.querySelector('.modal.active')) {
+//             location.reload();
+//         }
+//     }
+// }, 30000);
 
 // Indicador de sincronização offline
 window.addEventListener('online', () => {

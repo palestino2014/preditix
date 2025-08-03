@@ -19,8 +19,9 @@ window.app = {
         // Escutar mensagens do Service Worker para cache updates
         navigator.serviceWorker?.addEventListener('message', event => {
             if (event.data?.type === 'CACHE_UPDATED') {
-                console.log('Cache atualizado pelo Service Worker, recarregando...');
-                setTimeout(() => window.location.reload(), 1000);
+                console.log('Cache atualizado pelo Service Worker');
+                // Refresh automático desabilitado - causava recarregamentos indesejados
+                // setTimeout(() => window.location.reload(), 1000);
             }
         });
     },
