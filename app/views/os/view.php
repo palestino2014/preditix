@@ -264,7 +264,7 @@ ob_start();
                 <h3><?= Language::t('timeline_title') ?></h3>
             </div>
             <div class="card-body">
-                <div class="timeline">
+                <div class="timeline <?= count($timeline) === 1 ? 'timeline-single' : '' ?>">
                     <?php foreach ($timeline as $index => $event): ?>
                         <div class="timeline-item">
                             <div class="timeline-dot <?= $index === count($timeline) - 1 ? 'recent' : '' ?>"></div>
@@ -296,7 +296,7 @@ ob_start();
         <div class="actions-grid" style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
             
             <!-- Botão Voltar (sempre presente) -->
-                            <a href="dashboard" class="btn btn-secondary">
+                            <a href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/dashboard" class="btn btn-secondary">
                 ← <?= Language::t('back') ?>
             </a>
             
