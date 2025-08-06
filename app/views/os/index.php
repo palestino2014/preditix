@@ -153,7 +153,7 @@ ob_start();
     <div class="card">
         <div class="card-header d-flex justify-between items-center">
             <h3><?= Language::t('dashboard_title') ?></h3>
-            <a href="os/create" class="btn btn-primary btn-mobile-round">
+            <a href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/create" class="btn btn-primary btn-mobile-round">
                 ➕ <?= Language::t('open_os') ?>
             </a>
         </div>
@@ -222,9 +222,7 @@ ob_start();
 </div>
 
 <script>
-function viewOrder(osId) {
-    window.location.href = `/os/view?id=${osId}`;
-}
+// Esta função já foi definida mais abaixo, removendo duplicata
 
 // Responsividade da tabela
 function adjustTableForMobile() {
@@ -368,7 +366,7 @@ function clearFilters() {
 
 // Função global para abrir OS (já existente, mantendo)
 function viewOrder(id) {
-    window.location.href = 'os/view?id=' + id;
+    window.location.href = '<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/view?id=' + id;
 }
 </script>
 

@@ -15,7 +15,7 @@ ob_start();
     </div>
     
     <div class="card-body">
-        <form method="POST" action="os/store" id="create-os-form">
+        <form method="POST" action="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/store" id="create-os-form">
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
             
             <!-- Página 1: Informações Básicas -->

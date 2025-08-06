@@ -508,7 +508,7 @@ function giveUp(osId) {
 }
 
 function reopenAsNew(osId) {
-    window.location.href = `/os/create?reopen=${osId}`;
+    window.location.href = '<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/create?reopen=' + osId;
 }
 
 function showSuccess(message) {
