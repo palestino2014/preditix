@@ -489,7 +489,7 @@ function completeOS(osId) {
 }
 
 function cancelOS(osId) {
-    if (confirm('<?= Language::t('confirm_cancel_os') ?>')) {
+    if (confirm('<?= Language::t('confirm_cancel_active_os') ?>')) {
         // Implementar lógica de cancelamento
         console.log('Cancel OS:', osId);
     }
@@ -501,7 +501,7 @@ function tryAgain(osId) {
 }
 
 function giveUp(osId) {
-    if (confirm('<?= Language::t('confirm_cancel_os') ?>')) {
+    if (confirm('<?= Language::t('confirm_cancel_active_os') ?>')) {
         // Implementar lógica de desistir
         console.log('Give up OS:', osId);
     }

@@ -139,6 +139,8 @@ return [
     
     // Mensajes de Confirmación
     'confirm_cancel_form' => '¿Estás seguro de que quieres cancelar? Se perderán todos los datos.',
+    'confirm_cancel_os' => '¿Estás seguro de que quieres cancelar la creación de esta Orden de Servicio? Se perderán todos los datos.',
+    'confirm_cancel_active_os' => '¿Estás seguro de que quieres cancelar esta Orden de Servicio en progreso?',
     'confirm_approve' => '¿Estás seguro de que quieres aprobar esta acción?',
     'confirm_reject' => '¿Estás seguro de que quieres rechazar esta acción?',
     

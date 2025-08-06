@@ -175,6 +175,8 @@ return [
     
     // Confirmation Messages
     'confirm_cancel_form' => 'Are you sure you want to cancel? All data will be lost.',
+    'confirm_cancel_os' => 'Are you sure you want to cancel the creation of this Work Order? All data will be lost.',
+    'confirm_cancel_active_os' => 'Are you sure you want to cancel this Work Order in progress?',
     'confirm_approve' => 'Are you sure you want to approve this action?',
     'confirm_reject' => 'Are you sure you want to reject this action?',
     

@@ -290,6 +290,7 @@ return [
     'item_description' => 'Descrição do item',
     'cancel_os' => 'Cancelar OS',
     'confirm_cancel_os' => 'Tem certeza que deseja cancelar a criação desta OS? Todos os dados serão perdidos.',
+    'confirm_cancel_active_os' => 'Tem certeza que deseja cancelar esta OS em andamento?',
     'finish_os' => 'Finalizar OS',
     'confirm_finish_os' => 'Tem certeza que deseja finalizar a criação desta OS?',
     'add_at_least_one_item' => 'Adicione pelo menos um item antes de finalizar.',
