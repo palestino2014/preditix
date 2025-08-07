@@ -294,6 +294,8 @@ return [
     'finish_os' => 'Finalizar OS',
     'confirm_finish_os' => 'Tem certeza que deseja finalizar a criação desta OS?',
     'add_at_least_one_item' => 'Adicione pelo menos um item antes de finalizar.',
+    'fill_item_fields' => 'Preencha todos os campos dos itens (descrição, quantidade e valor unitário).',
+    'manager_cannot_be_changed' => 'O gestor não pode ser alterado por técnicos.',
     'speech_not_supported' => 'Reconhecimento de voz não suportado neste navegador. Use Chrome, Edge ou Safari para melhor compatibilidade.',
     'cannot_edit_os' => 'Esta OS não pode ser editada no status atual.',
     'access_denied' => 'Acesso negado. Você não tem permissão para esta ação.',
@@ -315,6 +317,7 @@ return [
     'responsible' => 'Responsável',
     'edit_basic_info' => 'Edite as informações básicas',
     'confirm_save_changes' => 'Tem certeza que deseja salvar as alterações?',
+    'no_changes_to_save' => 'Nenhuma alteração para salvar',
     
     // Sistemas
     'system_cabine' => 'Cabine',

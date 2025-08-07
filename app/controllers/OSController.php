@@ -234,11 +234,19 @@ class OSController extends BaseController {
     }
     
     private function validateOrderData($data) {
+        $user = $this->getCurrentUser();
+        
         $required = [
             'id_ativo' => 'vehicle',
             'tipo_manutencao' => 'maintenance_type',
             'prioridade' => 'priority'
         ];
+        
+        // Adicionar validação específica baseada no tipo de usuário
+        if ($user['type'] === 'gestor') {
+            $required['id_responsavel'] = 'responsible';
+        }
+        // Para técnicos, não validamos o id_gestor pois ele não pode ser alterado
         
         return $this->validateRequired($required, $data);
     }
@@ -252,14 +260,14 @@ class OSController extends BaseController {
                 $idGestor = (int)$data['id_gestor'];
                 $idResponsavel = $user['id'];
                 $status = 'aberta';
-                $autorizada = false;
+                $autorizada = 0; // false como integer
                 $dataAbertura = null;
                 $dataAprovacao = null;
             } else {
                 $idGestor = $user['id'];
                 $idResponsavel = (int)$data['id_responsavel'];
                 $status = 'em_andamento';
-                $autorizada = true;
+                $autorizada = 1; // true como integer
                 $dataAbertura = date('Y-m-d H:i:s');
                 $dataAprovacao = date('Y-m-d H:i:s');
             }
@@ -314,15 +322,27 @@ class OSController extends BaseController {
     }
     
     private function insertOrderItems($osId, $items) {
+        if (empty($items) || !is_array($items)) {
+            return;
+        }
+        
         $sql = "INSERT INTO os_itens (id_os, descricao, quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
         
         foreach ($items as $item) {
-            if (!empty($item['descricao'])) {
+            if (!is_array($item)) {
+                continue;
+            }
+            
+            $descricao = trim($item['descricao'] ?? '');
+            $quantidade = (int)($item['quantidade'] ?? 1);
+            $valorUnitario = (float)($item['valor_unitario'] ?? 0);
+            
+            if (!empty($descricao) && $quantidade > 0) {
                 $this->db->query($sql, [
                     $osId,
-                    $item['descricao'],
-                    (int)($item['quantidade'] ?? 1),
-                    (float)($item['valor_unitario'] ?? 0)
+                    $descricao,
+                    $quantidade,
+                    $valorUnitario
                 ]);
             }
         }
@@ -373,7 +393,7 @@ class OSController extends BaseController {
     
     private function approveAction($order, $user) {
         $newStatus = $this->getApprovalStatus($order['status']);
-        $updates = ['autorizada' => true];
+        $updates = ['autorizada' => 1]; // true como integer
         
         // Adicionar datas específicas baseadas no status
         switch ($order['status']) {
@@ -511,6 +531,146 @@ class OSController extends BaseController {
             error_log("Error editing order: " . $e->getMessage());
             $_SESSION['error_message'] = Language::t('error_unknown');
             $this->redirect('/dashboard');
+        }
+    }
+    
+    public function update() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/dashboard');
+        }
+        
+        $this->validateCsrf();
+        
+        $user = $this->getCurrentUser();
+        $data = $this->sanitizeInput($_POST);
+        $osId = (int)($data['id_os'] ?? 0);
+        
+        if (!$osId) {
+            $this->redirect('/dashboard');
+        }
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $_SESSION['error_message'] = Language::t('error_not_found');
+                $this->redirect('/dashboard');
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $_SESSION['error_message'] = Language::t('access_denied');
+                $this->redirect('/dashboard');
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $_SESSION['error_message'] = Language::t('access_denied');
+                $this->redirect('/dashboard');
+            }
+            
+            // Verificar se a OS pode ser editada
+            if (!in_array($order['status'], ['em_andamento', 'editada'])) {
+                $_SESSION['error_message'] = Language::t('cannot_edit_os');
+                $this->redirect('/os/view?id=' . $osId);
+            }
+            
+            // Validar dados obrigatórios
+            error_log("Validating data for OS update: " . json_encode($data));
+            $errors = $this->validateOrderData($data);
+            if (!empty($errors)) {
+                error_log("Validation errors: " . json_encode($errors));
+                $_SESSION['form_errors'] = $errors;
+                $_SESSION['form_data'] = $data;
+                $this->redirect('/os/edit?id=' . $osId);
+            }
+            
+            $result = $this->updateOrder($osId, $data, $user);
+            
+            if ($result) {
+                if ($user['type'] === 'tecnico') {
+                    $_SESSION['success_message'] = Language::t('os_updated_pending');
+                } else {
+                    $_SESSION['success_message'] = Language::t('os_updated_success');
+                }
+                $this->redirect('/dashboard');
+            } else {
+                throw new Exception("Failed to update order");
+            }
+        } catch (Exception $e) {
+            error_log("Error updating order: " . $e->getMessage() . " - Stack trace: " . $e->getTraceAsString());
+            $_SESSION['form_error'] = Language::t('error_unknown') . " - " . $e->getMessage();
+            $_SESSION['form_data'] = $data;
+            $this->redirect('/os/edit?id=' . $osId);
+        }
+    }
+    
+    private function updateOrder($osId, $data, $user) {
+        $this->db->getConnection()->beginTransaction();
+        
+        try {
+            // Determinar gestor e responsável baseado no tipo de usuário
+            if ($user['type'] === 'tecnico') {
+                $idGestor = (int)($data['id_gestor'] ?? 0);
+                $idResponsavel = $user['id'];
+            } else {
+                $idGestor = $user['id'];
+                $idResponsavel = (int)($data['id_responsavel'] ?? 0);
+            }
+            
+            // Determinar status e autorização baseado no tipo de usuário
+            if ($user['type'] === 'tecnico') {
+                $status = 'editada';
+                $autorizada = 0; // false como integer
+            } else {
+                $status = 'editada';
+                $autorizada = 1; // true como integer
+            }
+            
+            // Atualizar ordem de serviço
+            $sql = "UPDATE ordem_servico SET 
+                        id_ativo = ?, tipo_manutencao = ?, prioridade = ?,
+                        id_gestor = ?, id_responsavel = ?,
+                        sistemas_afetados = ?, sintomas_detectados = ?, causas_defeitos = ?,
+                        intervencoes_realizadas = ?, acoes_realizadas = ?, observacoes = ?,
+                        status = ?, autorizada = ?, updated_at = CURRENT_TIMESTAMP
+                    WHERE id_os = ?";
+            
+            $this->db->query($sql, [
+                $data['id_ativo'],
+                $data['tipo_manutencao'],
+                $data['prioridade'],
+                $idGestor,
+                $idResponsavel,
+                json_encode($data['sistemas_afetados'] ?? []),
+                json_encode($data['sintomas_detectados'] ?? []),
+                json_encode($data['causas_defeitos'] ?? []),
+                json_encode($data['intervencoes_realizadas'] ?? []),
+                json_encode($data['acoes_realizadas'] ?? []),
+                $data['observacoes'] ?? '',
+                $status,
+                $autorizada,
+                $osId
+            ]);
+            
+            // Atualizar itens se existirem
+            if (isset($data['itens'])) {
+                // Remover itens existentes
+                $this->db->query("DELETE FROM os_itens WHERE id_os = ?", [$osId]);
+                
+                // Inserir novos itens
+                if (!empty($data['itens'])) {
+                    $this->insertOrderItems($osId, $data['itens']);
+                }
+            }
+            
+            // Registrar no histórico
+            $this->logAction($osId, 'edicao', null, 'editada');
+            
+            $this->db->getConnection()->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->getConnection()->rollback();
+            throw $e;
         }
     }
 }

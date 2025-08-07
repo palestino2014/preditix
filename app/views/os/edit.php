@@ -15,6 +15,39 @@ ob_start();
     </div>
     
     <div class="card-body">
+        <!-- Mensagens de erro -->
+        <?php if (isset($_SESSION['form_error'])): ?>
+            <div class="alert alert-error mb-3" style="
+                background: #fee; 
+                border: 1px solid var(--danger); 
+                color: var(--danger); 
+                padding: 15px; 
+                border-radius: var(--border-radius);
+                margin-bottom: 20px;
+            ">
+                <?= htmlspecialchars($_SESSION['form_error']) ?>
+            </div>
+            <?php unset($_SESSION['form_error']); ?>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['form_errors']) && is_array($_SESSION['form_errors'])): ?>
+            <div class="alert alert-error mb-3" style="
+                background: #fee; 
+                border: 1px solid var(--danger); 
+                color: var(--danger); 
+                padding: 15px; 
+                border-radius: var(--border-radius);
+                margin-bottom: 20px;
+            ">
+                <ul style="margin: 0; padding-left: 20px;">
+                    <?php foreach ($_SESSION['form_errors'] as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php unset($_SESSION['form_errors']); ?>
+        <?php endif; ?>
+        
         <form method="POST" action="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/update" id="edit-os-form">
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
             <input type="hidden" name="id_os" value="<?= $order['id_os'] ?>">
@@ -70,17 +103,14 @@ ob_start();
                     </div>
                     
                     <?php if ($userType === 'tecnico'): ?>
-                    <!-- Gestor (apenas para técnicos) -->
+                    <!-- Gestor (somente leitura para técnicos) -->
                     <div class="form-group">
-                        <label for="id_gestor" class="form-label required">
+                        <label for="id_gestor" class="form-label">
                             <?= Language::t('manager') ?>
                         </label>
-                        <select name="id_gestor" id="id_gestor" class="form-control" required>
-                            <option value=""><?= Language::t('select_manager') ?></option>
-                            <?php foreach ($users as $user): ?>
-                                <option value="<?= $user['id'] ?>" <?= $order['id_gestor'] == $user['id'] ? 'selected' : '' ?>><?= htmlspecialchars($user['nome']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="hidden" name="id_gestor" value="<?= $order['id_gestor'] ?>">
+                        <input type="text" class="form-control" value="<?= htmlspecialchars($order['gestor_nome']) ?>" readonly style="background-color: #f8f9fa; cursor: not-allowed;">
+                        <small style="color: var(--gray); font-size: 12px;"><?= Language::t('manager_cannot_be_changed') ?></small>
                     </div>
                     <?php else: ?>
                     <!-- Responsável (apenas para gestores) -->
@@ -106,7 +136,7 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $sistemas = ['cabine', 'direcao', 'combustivel', 'medicao_controle', 'protecao_impactos', 'transmissao', 'estrutural', 'acoplamento', 'controle_eletronico', 'exaustao', 'propulsao', 'protecao_incendio', 'ventilacao', 'tanque', 'arrefecimento', 'descarga', 'freios', 'protecao_ambiental', 'suspensao', 'eletrico'];
-                    $sistemasAtivos = explode(',', $order['sistemas_afetados'] ?? '');
+                    $sistemasAtivos = json_decode($order['sistemas_afetados'] ?? '[]', true) ?: [];
                     foreach ($sistemas as $sistema): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
                             <input type="checkbox" name="sistemas_afetados[]" value="<?= $sistema ?>" style="margin: 0;" <?= in_array($sistema, $sistemasAtivos) ? 'checked' : '' ?>>
@@ -123,7 +153,7 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $sintomas = ['aberto', 'sujo', 'desvio_lateral', 'queimado', 'sem_freio', 'vazando', 'baixo_rendimento', 'empenado', 'rompido', 'sem_velocidade', 'travado', 'vibrando', 'desarmado', 'ruido_anormal', 'solto', 'trincando'];
-                    $sintomasAtivos = explode(',', $order['sintomas_detectados'] ?? '');
+                    $sintomasAtivos = json_decode($order['sintomas_detectados'] ?? '[]', true) ?: [];
                     foreach ($sintomas as $sintoma): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
                             <input type="checkbox" name="sintomas_detectados[]" value="<?= $sintoma ?>" style="margin: 0;" <?= in_array($sintoma, $sintomasAtivos) ? 'checked' : '' ?>>
@@ -140,7 +170,7 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $causas = ['nao_identificada', 'defeito_de_fabrica', 'desnivelamento', 'destensionamento', 'fissura', 'gasto', 'desalinhamento', 'falta_de_protecao', 'engripamento', 'folga', 'sobrecarga_de_peso', 'subdimensionamento', 'desbalanceamento', 'desregulamento', 'fadiga', 'fora_de_especificacao', 'nivel_baixo', 'rompido', 'sobrecarga_de_tensao'];
-                    $causasAtivas = explode(',', $order['causas_defeitos'] ?? '');
+                    $causasAtivas = json_decode($order['causas_defeitos'] ?? '[]', true) ?: [];
                     foreach ($causas as $causa): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
                             <input type="checkbox" name="causas_defeitos[]" value="<?= $causa ?>" style="margin: 0;" <?= in_array($causa, $causasAtivas) ? 'checked' : '' ?>>
@@ -157,7 +187,7 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $intervencoes = ['mecanica', 'pintura', 'usinagem', 'eletrica', 'funilaria', 'caldeiraria', 'hidraulico', 'soldagem'];
-                    $intervencoesAtivas = explode(',', $order['intervencoes_realizadas'] ?? '');
+                    $intervencoesAtivas = json_decode($order['intervencoes_realizadas'] ?? '[]', true) ?: [];
                     foreach ($intervencoes as $intervencao): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
                             <input type="checkbox" name="intervencoes_realizadas[]" value="<?= $intervencao ?>" style="margin: 0;" <?= in_array($intervencao, $intervencoesAtivas) ? 'checked' : '' ?>>
@@ -174,7 +204,7 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $acoes = ['acoplado', 'desacoplado', 'instalado', 'rearmado', 'soldado', 'ajustado', 'fabricado', 'limpeza', 'recuperacao', 'substituido', 'alinhado', 'fixado', 'lubrificado', 'reposto', 'apertado', 'inspecionado', 'modificado', 'retirado'];
-                    $acoesAtivas = explode(',', $order['acoes_realizadas'] ?? '');
+                    $acoesAtivas = json_decode($order['acoes_realizadas'] ?? '[]', true) ?: [];
                     foreach ($acoes as $acao): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
                             <input type="checkbox" name="acoes_realizadas[]" value="<?= $acao ?>" style="margin: 0;" <?= in_array($acao, $acoesAtivas) ? 'checked' : '' ?>>
@@ -473,11 +503,10 @@ function validateCurrentPage() {
     if (currentPage === 1) {
         // Validar campos obrigatórios da página 1
         const requiredFields = ['id_ativo', 'tipo_manutencao', 'prioridade'];
-        <?php if ($userType === 'tecnico'): ?>
-        requiredFields.push('id_gestor');
-        <?php else: ?>
+        <?php if ($userType === 'gestor'): ?>
         requiredFields.push('id_responsavel');
         <?php endif; ?>
+        // Para técnicos, não validamos o id_gestor pois ele não pode ser alterado
         
         for (let field of requiredFields) {
             const element = document.getElementById(field);
@@ -502,10 +531,10 @@ function addItem() {
             <input type="text" name="itens[${itemCount}][descricao]" class="form-control" placeholder="<?= Language::t('item_description') ?>" required>
         </td>
         <td>
-            <input type="number" name="itens[${itemCount}][quantidade]" class="form-control" min="1" step="1" value="1" onchange="calculateTotal(${itemCount})" required>
+            <input type="number" name="itens[${itemCount}][quantidade]" class="form-control" min="1" step="1" value="1" onchange="calculateTotal(${itemCount}); detectChanges();" required>
         </td>
         <td>
-            <input type="number" name="itens[${itemCount}][valor_unitario]" class="form-control" min="0" step="0.01" placeholder="0,00" onchange="calculateTotal(${itemCount})" required>
+            <input type="number" name="itens[${itemCount}][valor_unitario]" class="form-control" min="0" step="0.01" placeholder="0,00" onchange="calculateTotal(${itemCount}); detectChanges();" required>
         </td>
         <td>
             <input type="number" name="itens[${itemCount}][total]" class="form-control" readonly>
@@ -518,10 +547,24 @@ function addItem() {
     `;
     
     tbody.appendChild(row);
+    
+    // Adicionar event listeners para detectar mudanças nos novos campos
+    const newInputs = row.querySelectorAll('input[type="text"], input[type="number"]');
+    newInputs.forEach(input => {
+        if (!input.readOnly) {
+            input.addEventListener('input', detectChanges);
+            input.addEventListener('change', detectChanges);
+        }
+    });
+    
+    // Detectar mudança por adicionar item
+    detectChanges();
 }
 
 function removeItem(button) {
     button.closest('tr').remove();
+    // Detectar mudança por remover item
+    detectChanges();
 }
 
 function calculateTotal(itemId) {
@@ -535,6 +578,14 @@ function calculateTotal(itemId) {
 
 // Modais de confirmação
 function confirmFinish() {
+    // Verificar se há mudanças antes de confirmar
+    detectChanges();
+    
+    if (!hasChanges) {
+        alert('<?= Language::t('no_changes_to_save') ?>');
+        return false;
+    }
+    
     showModal(
         '<?= Language::t('save_changes') ?>', 
         '<?= Language::t('confirm_save_changes') ?>', 
@@ -568,6 +619,24 @@ function confirmAction() {
             return;
         }
         
+        // Validar se os itens têm dados preenchidos
+        let hasValidItems = false;
+        items.forEach(item => {
+            const descricao = item.querySelector('input[name*="[descricao]"]')?.value?.trim();
+            const quantidade = item.querySelector('input[name*="[quantidade]"]')?.value;
+            const valorUnitario = item.querySelector('input[name*="[valor_unitario]"]')?.value;
+            
+            if (descricao && quantidade && valorUnitario) {
+                hasValidItems = true;
+            }
+        });
+        
+        if (!hasValidItems) {
+            closeModal();
+            alert('<?= Language::t('fill_item_fields') ?>');
+            return;
+        }
+        
         // Submeter formulário
         const form = document.getElementById('edit-os-form');
         const btnFinish = document.getElementById('btn-finish');
@@ -584,6 +653,208 @@ function confirmAction() {
     closeModal();
 }
 
+// Variáveis para controle de mudanças
+let originalFormData = {};
+let hasChanges = false;
+
+// Função para capturar dados originais do formulário
+function captureOriginalData() {
+    const form = document.getElementById('edit-os-form');
+    const formData = new FormData(form);
+    originalFormData = {};
+    
+    // Capturar campos de texto e select
+    for (let [key, value] of formData.entries()) {
+        if (originalFormData[key]) {
+            // Se já existe, converter para array
+            if (Array.isArray(originalFormData[key])) {
+                originalFormData[key].push(value);
+            } else {
+                originalFormData[key] = [originalFormData[key], value];
+            }
+        } else {
+            originalFormData[key] = value;
+        }
+    }
+    
+    // Capturar checkboxes desmarcados também
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        const name = checkbox.name.replace('[]', '');
+        if (!originalFormData[name]) {
+            originalFormData[name] = [];
+        }
+        if (checkbox.checked && Array.isArray(originalFormData[name])) {
+            if (!originalFormData[name].includes(checkbox.value)) {
+                originalFormData[name].push(checkbox.value);
+            }
+        }
+    });
+    
+    console.log('Dados originais capturados:', originalFormData);
+}
+
+// Função para detectar mudanças
+function detectChanges() {
+    const form = document.getElementById('edit-os-form');
+    const currentFormData = new FormData(form);
+    let currentData = {};
+    
+    // Capturar dados atuais
+    for (let [key, value] of currentFormData.entries()) {
+        if (currentData[key]) {
+            if (Array.isArray(currentData[key])) {
+                currentData[key].push(value);
+            } else {
+                currentData[key] = [currentData[key], value];
+            }
+        } else {
+            currentData[key] = value;
+        }
+    }
+    
+    // Capturar checkboxes atuais
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        const name = checkbox.name.replace('[]', '');
+        if (!currentData[name]) {
+            currentData[name] = [];
+        }
+        if (checkbox.checked && Array.isArray(currentData[name])) {
+            if (!currentData[name].includes(checkbox.value)) {
+                currentData[name].push(checkbox.value);
+            }
+        }
+    });
+    
+    // Comparar dados
+    let changed = false;
+    
+    // Verificar campos de texto e select
+    for (let key in originalFormData) {
+        if (key.includes('_afetados') || key.includes('_detectados') || key.includes('_defeitos') || key.includes('_realizadas')) {
+            // Para arrays de checkboxes
+            const original = Array.isArray(originalFormData[key]) ? originalFormData[key].sort() : [];
+            const current = Array.isArray(currentData[key]) ? currentData[key].sort() : [];
+            
+            if (JSON.stringify(original) !== JSON.stringify(current)) {
+                changed = true;
+                console.log(`Mudança detectada em ${key}:`, { original, current });
+                break;
+            }
+        } else {
+            // Para campos simples
+            // Ignorar campos que não devem ser considerados mudanças
+            if (key === 'csrf_token' || key === 'id_os') {
+                continue;
+            }
+            
+            if (originalFormData[key] !== currentData[key]) {
+                changed = true;
+                console.log(`Mudança detectada em ${key}:`, { original: originalFormData[key], current: currentData[key] });
+                break;
+            }
+        }
+    }
+    
+    // Verificar se há novos campos
+    for (let key in currentData) {
+        if (!originalFormData.hasOwnProperty(key) && currentData[key] !== '') {
+            changed = true;
+            console.log(`Novo campo detectado: ${key}`, currentData[key]);
+            break;
+        }
+    }
+    
+    // Verificação específica para itens
+    const originalItems = {};
+    const currentItems = {};
+    
+    // Organizar itens originais
+    for (let key in originalFormData) {
+        if (key.includes('itens[')) {
+            const match = key.match(/itens\[(\d+)\]\[(\w+)\]/);
+            if (match) {
+                const itemId = match[1];
+                const field = match[2];
+                if (!originalItems[itemId]) originalItems[itemId] = {};
+                originalItems[itemId][field] = originalFormData[key];
+            }
+        }
+    }
+    
+    // Organizar itens atuais
+    for (let key in currentData) {
+        if (key.includes('itens[')) {
+            const match = key.match(/itens\[(\d+)\]\[(\w+)\]/);
+            if (match) {
+                const itemId = match[1];
+                const field = match[2];
+                if (!currentItems[itemId]) currentItems[itemId] = {};
+                currentItems[itemId][field] = currentData[key];
+            }
+        }
+    }
+    
+    // Comparar itens
+    const originalItemKeys = Object.keys(originalItems);
+    const currentItemKeys = Object.keys(currentItems);
+    
+    // Verificar se número de itens mudou
+    if (originalItemKeys.length !== currentItemKeys.length) {
+        changed = true;
+        console.log('Mudança detectada: número de itens alterado', { 
+            original: originalItemKeys.length, 
+            current: currentItemKeys.length 
+        });
+    } else {
+        // Verificar se conteúdo dos itens mudou
+        for (let itemId of currentItemKeys) {
+            if (!originalItems[itemId]) {
+                changed = true;
+                console.log('Mudança detectada: novo item adicionado', itemId);
+                break;
+            }
+            
+            const originalItem = originalItems[itemId];
+            const currentItem = currentItems[itemId];
+            
+            if (JSON.stringify(originalItem) !== JSON.stringify(currentItem)) {
+                changed = true;
+                console.log('Mudança detectada: conteúdo do item alterado', { 
+                    itemId, 
+                    original: originalItem, 
+                    current: currentItem 
+                });
+                break;
+            }
+        }
+    }
+    
+    hasChanges = changed;
+    updateSaveButton();
+    
+    return changed;
+}
+
+// Função para atualizar o estado do botão salvar
+function updateSaveButton() {
+    const btnFinish = document.getElementById('btn-finish');
+    const finishText = document.getElementById('finish-text');
+    
+    if (hasChanges) {
+        btnFinish.disabled = false;
+        btnFinish.style.opacity = '1';
+        btnFinish.style.cursor = 'pointer';
+        finishText.textContent = '✓ <?= Language::t('save_changes') ?>';
+    } else {
+        btnFinish.disabled = true;
+        btnFinish.style.opacity = '0.5';
+        btnFinish.style.cursor = 'not-allowed';
+        finishText.textContent = '<?= Language::t('no_changes_to_save') ?>';
+    }
+}
+
 // Inicializar página
 document.addEventListener('DOMContentLoaded', function() {
     updateNavigationButtons();
@@ -596,6 +867,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Carregar itens existentes da OS
     loadExistingItems();
+    
+    // Capturar dados originais após carregar tudo
+    setTimeout(() => {
+        captureOriginalData();
+        updateSaveButton(); // Desabilitar botão inicialmente
+        
+        // Adicionar event listeners para detectar mudanças
+        const form = document.getElementById('edit-os-form');
+        
+        // Event listeners para campos de texto e select
+        const textFields = form.querySelectorAll('input[type="text"], input[type="number"], select, textarea');
+        textFields.forEach(field => {
+            field.addEventListener('input', detectChanges);
+            field.addEventListener('change', detectChanges);
+        });
+        
+        // Event listeners para checkboxes
+        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', detectChanges);
+        });
+        
+        console.log('Event listeners para detecção de mudanças adicionados');
+    }, 100);
     
     // Configurar botão de microfone - implementação unificada
     setTimeout(function() {
@@ -686,9 +981,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Função para carregar itens existentes da OS
 function loadExistingItems() {
-    // Aqui você pode carregar os itens existentes da OS
-    // Por enquanto, adiciona um item vazio para edição
-    addItem();
+    // Carregar itens existentes do servidor seria implementado aqui
+    // Por enquanto, não adiciona nenhum item automaticamente
+    // A lista começa vazia e o usuário pode adicionar itens conforme necessário
+    console.log('Lista de itens iniciada vazia');
 }
 </script>
 

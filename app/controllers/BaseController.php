@@ -135,7 +135,7 @@ class BaseController {
         $errors = [];
         
         foreach ($fields as $field => $label) {
-            if (empty($data[$field])) {
+            if (!isset($data[$field]) || $data[$field] === '' || $data[$field] === null) {
                 $errors[$field] = sprintf(Language::t('field_required'), Language::t($label));
             }
         }
