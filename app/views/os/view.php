@@ -478,7 +478,7 @@ function confirmReject() {
 }
 
 function editOS(osId) {
-    window.location.href = `/os/edit?id=${osId}`;
+    window.location.href = '<?= dirname($_SERVER['SCRIPT_NAME']) ?>/os/edit?id=' + osId;
 }
 
 function completeOS(osId) {

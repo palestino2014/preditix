@@ -223,10 +223,10 @@ class OSController extends BaseController {
     private function getUsers($currentUserType) {
         if ($currentUserType === 'tecnico') {
             // Técnico vê apenas gestores
-            $sql = "SELECT id, nome FROM usuario WHERE acesso = 'gestor' AND ativo = 1 ORDER BY nome";
+            $sql = "SELECT id, nome, acesso FROM usuario WHERE acesso = 'gestor' AND ativo = 1 ORDER BY nome";
         } else {
             // Gestor vê apenas técnicos
-            $sql = "SELECT id, nome FROM usuario WHERE acesso = 'tecnico' AND ativo = 1 ORDER BY nome";
+            $sql = "SELECT id, nome, acesso FROM usuario WHERE acesso = 'tecnico' AND ativo = 1 ORDER BY nome";
         }
         
         $stmt = $this->db->query($sql);
@@ -453,6 +453,64 @@ class OSController extends BaseController {
         } catch (Exception $e) {
             $this->db->getConnection()->rollback();
             throw $e;
+        }
+    }
+    
+    public function edit() {
+        $osId = (int)($_GET['id'] ?? 0);
+        
+        if (!$osId) {
+            $this->redirect('/dashboard');
+        }
+        
+        $user = $this->getCurrentUser();
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $_SESSION['error_message'] = Language::t('error_not_found');
+                $this->redirect('/dashboard');
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $_SESSION['error_message'] = Language::t('access_denied');
+                $this->redirect('/dashboard');
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $_SESSION['error_message'] = Language::t('access_denied');
+                $this->redirect('/dashboard');
+            }
+            
+            // Verificar se a OS pode ser editada
+            if (!in_array($order['status'], ['em_andamento', 'editada'])) {
+                $_SESSION['error_message'] = Language::t('cannot_edit_os');
+                $this->redirect('/os/view?id=' . $osId);
+            }
+            
+            // Buscar dados necessários
+            $vehicles = $this->getVehicles();
+            $users = $this->getUsers($user['type']);
+            $timeline = $this->getOrderTimeline($osId);
+            
+            // Preparar dados para a view
+            $data = [
+                'order' => $order,
+                'vehicles' => $vehicles,
+                'users' => $users,
+                'timeline' => $timeline,
+                'userType' => $user['type'],
+                'csrf_token' => $_SESSION['csrf_token']
+            ];
+            
+            $this->view('os/edit', $data);
+            
+        } catch (Exception $e) {
+            error_log("Error editing order: " . $e->getMessage());
+            $_SESSION['error_message'] = Language::t('error_unknown');
+            $this->redirect('/dashboard');
         }
     }
 }
