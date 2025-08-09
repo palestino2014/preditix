@@ -407,7 +407,8 @@ let currentOSId = null;
 
 function approveOS(osId) {
     if (confirm('<?= Language::t('confirm_approve') ?>')) {
-        fetch('/os/approve', {
+        const basePath = window.appConfig?.basePath || '';
+        fetch(basePath + '/os/approve', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -454,7 +455,8 @@ function confirmReject() {
         return;
     }
     
-    fetch('/os/reject', {
+    const basePath = window.appConfig?.basePath || '';
+    fetch(basePath + '/os/reject', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

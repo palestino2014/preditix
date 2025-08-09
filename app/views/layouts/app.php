@@ -65,6 +65,7 @@
             language: '<?= $currentLang ?>',
             userType: '<?= $currentUser['type'] ?? '' ?>',
             csrfToken: '<?= $_SESSION['csrf_token'] ?? '' ?>',
+            basePath: '<?= dirname($_SERVER['SCRIPT_NAME']) ?>',
             translations: {
                 loading: '<?= Language::t('loading') ?>',
                 error: '<?= Language::t('error') ?>',

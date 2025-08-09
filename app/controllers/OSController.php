@@ -423,7 +423,7 @@ class OSController extends BaseController {
     private function getApprovalStatus($currentStatus) {
         $statusMap = [
             'aberta' => 'em_andamento',
-            'editada' => 'em_andamento',
+            'editada' => 'em_andamento', // OS editada por técnico vai para em_andamento quando aprovada
             'concluida' => 'concluida',
             'cancelada' => 'cancelada'
         ];
@@ -619,10 +619,12 @@ class OSController extends BaseController {
             
             // Determinar status e autorização baseado no tipo de usuário
             if ($user['type'] === 'tecnico') {
+                // Técnico: OS vai para estado "editada" e precisa de aprovação
                 $status = 'editada';
                 $autorizada = 0; // false como integer
             } else {
-                $status = 'editada';
+                // Gestor: OS permanece no estado "em_andamento" e é automaticamente autorizada
+                $status = 'em_andamento';
                 $autorizada = 1; // true como integer
             }
             
@@ -664,7 +666,7 @@ class OSController extends BaseController {
             }
             
             // Registrar no histórico
-            $this->logAction($osId, 'edicao', null, 'editada');
+            $this->logAction($osId, 'edicao', null, $status);
             
             $this->db->getConnection()->commit();
             return true;

@@ -260,7 +260,8 @@ window.offlineSync = {
             formData.append('csrf_token', window.app.config.csrfToken);
         }
         
-        const response = await fetch('/os/store', {
+        const basePath = window.appConfig?.basePath || '';
+        const response = await fetch(basePath + '/os/store', {
             method: 'POST',
             body: formData
         });
