@@ -485,27 +485,105 @@ function editOS(osId) {
 
 function completeOS(osId) {
     if (confirm('<?= Language::t('confirm_complete') ?>')) {
-        // Implementar lógica de conclusão
-        console.log('Complete OS:', osId);
+        const basePath = window.appConfig?.basePath || '';
+        fetch(basePath + '/os/finish', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `os_id=${osId}&csrf_token=${window.appConfig.csrfToken}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showError(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('<?= Language::t('error_unknown') ?>');
+        });
     }
 }
 
 function cancelOS(osId) {
     if (confirm('<?= Language::t('confirm_cancel_active_os') ?>')) {
-        // Implementar lógica de cancelamento
-        console.log('Cancel OS:', osId);
+        const basePath = window.appConfig?.basePath || '';
+        fetch(basePath + '/os/cancel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `os_id=${osId}&csrf_token=${window.appConfig.csrfToken}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showError(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('<?= Language::t('error_unknown') ?>');
+        });
     }
 }
 
 function tryAgain(osId) {
-    // Implementar lógica de tentar novamente
-    console.log('Try again OS:', osId);
+    if (confirm('<?= Language::t('confirm_try_again') ?>')) {
+        const basePath = window.appConfig?.basePath || '';
+        fetch(basePath + '/os/try-again', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `os_id=${osId}&csrf_token=${window.appConfig.csrfToken}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showError(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('<?= Language::t('error_unknown') ?>');
+        });
+    }
 }
 
 function giveUp(osId) {
-    if (confirm('<?= Language::t('confirm_cancel_active_os') ?>')) {
-        // Implementar lógica de desistir
-        console.log('Give up OS:', osId);
+    if (confirm('<?= Language::t('confirm_give_up') ?>')) {
+        const basePath = window.appConfig?.basePath || '';
+        fetch(basePath + '/os/give-up', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `os_id=${osId}&csrf_token=${window.appConfig.csrfToken}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess(data.message);
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                showError(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('<?= Language::t('error_unknown') ?>');
+        });
     }
 }
 
@@ -514,14 +592,93 @@ function reopenAsNew(osId) {
 }
 
 function showSuccess(message) {
-    // Implementar notificação de sucesso
-    alert(message); 
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-success notification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        animation: slideIn 0.3s ease-out;
+    `;
+    notification.textContent = message;
+    
+    // Adicionar ao body
+    document.body.appendChild(notification);
+    
+    // Remover após 3 segundos
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
 }
 
 function showError(message) {
-    // Implementar notificação de erro
-    alert(message);
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-danger notification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        animation: slideIn 0.3s ease-out;
+    `;
+    notification.textContent = message;
+    
+    // Adicionar ao body
+    document.body.appendChild(notification);
+    
+    // Remover após 5 segundos
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 5000);
 }
+
+// Adicionar estilos CSS para animações
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Função de reconhecimento de voz (será implementada no speech.js)
 function startSpeechRecognition(targetId) {

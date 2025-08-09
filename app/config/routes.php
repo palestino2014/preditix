@@ -21,6 +21,8 @@ class Router {
         'os/reject' => ['controller' => 'OS', 'action' => 'reject'],
         'os/finish' => ['controller' => 'OS', 'action' => 'finish'],
         'os/cancel' => ['controller' => 'OS', 'action' => 'cancel'],
+        'os/try-again' => ['controller' => 'OS', 'action' => 'tryAgain'],
+        'os/give-up' => ['controller' => 'OS', 'action' => 'giveUp'],
         'api/sync' => ['controller' => 'API', 'action' => 'sync'],
         'api/save-offline' => ['controller' => 'API', 'action' => 'saveOffline'],
     ];

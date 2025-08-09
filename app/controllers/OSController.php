@@ -193,6 +193,202 @@ class OSController extends BaseController {
         }
     }
     
+    public function finish() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->jsonResponse(['error' => 'Invalid method'], 405);
+            return;
+        }
+        
+        $this->validateCsrf();
+        
+        $osId = (int)($_POST['os_id'] ?? 0);
+        $user = $this->getCurrentUser();
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $this->jsonResponse(['error' => Language::t('error_not_found')], 404);
+                return;
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            // Verificar se a OS pode ser concluída
+            if (!in_array($order['status'], ['em_andamento', 'editada'])) {
+                $this->jsonResponse(['error' => Language::t('cannot_complete_os')], 400);
+                return;
+            }
+            
+            $result = $this->completeOrder($order, $user);
+            
+            if ($result) {
+                $this->jsonResponse(['success' => true, 'message' => Language::t('os_completed_success')]);
+            } else {
+                $this->jsonResponse(['error' => Language::t('error_unknown')], 500);
+            }
+        } catch (Exception $e) {
+            error_log("Error completing order: " . $e->getMessage());
+            $this->jsonResponse(['error' => Language::t('error_database')], 500);
+        }
+    }
+    
+    public function cancel() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->jsonResponse(['error' => 'Invalid method'], 405);
+            return;
+        }
+        
+        $this->validateCsrf();
+        
+        $osId = (int)($_POST['os_id'] ?? 0);
+        $user = $this->getCurrentUser();
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $this->jsonResponse(['error' => Language::t('error_not_found')], 404);
+                return;
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            // Verificar se a OS pode ser cancelada
+            if (!in_array($order['status'], ['aberta', 'em_andamento', 'editada'])) {
+                $this->jsonResponse(['error' => Language::t('cannot_cancel_os')], 400);
+                return;
+            }
+            
+            $result = $this->cancelOrder($order, $user);
+            
+            if ($result) {
+                $this->jsonResponse(['success' => true, 'message' => Language::t('os_cancelled_success')]);
+            } else {
+                $this->jsonResponse(['error' => Language::t('error_unknown')], 500);
+            }
+        } catch (Exception $e) {
+            error_log("Error cancelling order: " . $e->getMessage());
+            $this->jsonResponse(['error' => Language::t('error_database')], 500);
+        }
+    }
+    
+    public function tryAgain() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->jsonResponse(['error' => 'Invalid method'], 405);
+            return;
+        }
+        
+        $this->validateCsrf();
+        
+        $osId = (int)($_POST['os_id'] ?? 0);
+        $user = $this->getCurrentUser();
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $this->jsonResponse(['error' => Language::t('error_not_found')], 404);
+                return;
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            // Verificar se a OS pode ser tentada novamente
+            if ($order['status'] !== 'rejeitada') {
+                $this->jsonResponse(['error' => Language::t('cannot_try_again')], 400);
+                return;
+            }
+            
+            $result = $this->tryAgainOrder($order, $user);
+            
+            if ($result) {
+                $this->jsonResponse(['success' => true, 'message' => Language::t('os_try_again_success')]);
+            } else {
+                $this->jsonResponse(['error' => Language::t('error_unknown')], 500);
+            }
+        } catch (Exception $e) {
+            error_log("Error trying again order: " . $e->getMessage());
+            $this->jsonResponse(['error' => Language::t('error_database')], 500);
+        }
+    }
+    
+    public function giveUp() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->jsonResponse(['error' => 'Invalid method'], 405);
+            return;
+        }
+        
+        $this->validateCsrf();
+        
+        $osId = (int)($_POST['os_id'] ?? 0);
+        $user = $this->getCurrentUser();
+        
+        try {
+            $order = $this->getOrderById($osId);
+            
+            if (!$order) {
+                $this->jsonResponse(['error' => Language::t('error_not_found')], 404);
+                return;
+            }
+            
+            // Verificar permissões
+            if ($user['type'] === 'tecnico' && $order['id_responsavel'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            if ($user['type'] === 'gestor' && $order['id_gestor'] != $user['id']) {
+                $this->jsonResponse(['error' => Language::t('error_permission')], 403);
+                return;
+            }
+            
+            // Verificar se a OS pode ser desistida
+            if ($order['status'] !== 'rejeitada') {
+                $this->jsonResponse(['error' => Language::t('cannot_give_up')], 400);
+                return;
+            }
+            
+            $result = $this->giveUpOrder($order, $user);
+            
+            if ($result) {
+                $this->jsonResponse(['success' => true, 'message' => Language::t('os_give_up_success')]);
+            } else {
+                $this->jsonResponse(['error' => Language::t('error_unknown')], 500);
+            }
+        } catch (Exception $e) {
+            error_log("Error giving up order: " . $e->getMessage());
+            $this->jsonResponse(['error' => Language::t('error_database')], 500);
+        }
+    }
+    
     private function getOrdersForUser($user) {
         if ($user['type'] === 'tecnico') {
             $sql = "SELECT os.*, v.tag, v.modelo, v.cor, v.placa 
@@ -474,6 +670,76 @@ class OSController extends BaseController {
             $this->db->getConnection()->rollback();
             throw $e;
         }
+    }
+    
+    private function completeOrder($order, $user) {
+        $updates = [
+            'data_conclusao' => date('Y-m-d H:i:s')
+        ];
+        
+        // Se for técnico, precisa de aprovação
+        if ($user['type'] === 'tecnico') {
+            $newStatus = 'concluida';
+            $updates['autorizada'] = 0; // Precisa de aprovação
+        } else {
+            // Se for gestor, é automaticamente aprovada
+            $newStatus = 'concluida';
+            $updates['autorizada'] = 1; // Automática
+        }
+        
+        return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'conclusao');
+    }
+    
+    private function cancelOrder($order, $user) {
+        $updates = [
+            'data_cancelamento' => date('Y-m-d H:i:s')
+        ];
+        
+        // Se for técnico, precisa de aprovação
+        if ($user['type'] === 'tecnico') {
+            $newStatus = 'cancelada';
+            $updates['autorizada'] = 0; // Precisa de aprovação
+        } else {
+            // Se for gestor, é automaticamente aprovada
+            $newStatus = 'cancelada';
+            $updates['autorizada'] = 1; // Automática
+        }
+        
+        return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'cancelamento');
+    }
+    
+    private function tryAgainOrder($order, $user) {
+        // Voltar para o status anterior ou 'em_andamento' se não houver status anterior
+        $newStatus = $order['status_anterior'] ?? 'em_andamento';
+        $updates = [
+            'status_anterior' => null,
+            'acao_rejeitada' => null
+        ];
+        
+        // Determinar se precisa de aprovação baseado no status e tipo de usuário
+        if ($user['type'] === 'tecnico') {
+            // Técnico precisa de aprovação para certos status
+            if (in_array($newStatus, ['aberta', 'concluida', 'cancelada'])) {
+                $updates['autorizada'] = 0; // Precisa de aprovação
+            } else {
+                $updates['autorizada'] = 1; // Automática
+            }
+        } else {
+            // Gestor sempre aprova automaticamente
+            $updates['autorizada'] = 1;
+        }
+        
+        return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'tentar_novamente');
+    }
+    
+    private function giveUpOrder($order, $user) {
+        // Manter como rejeitada, mas marcar como desistida
+        $updates = [
+            'acao_rejeitada' => 'desistencia',
+            'autorizada' => 1 // Desistência é sempre aprovada
+        ];
+        
+        return $this->updateOrderStatus($order['id_os'], 'rejeitada', $updates, $user, 'desistencia');
     }
     
     public function edit() {

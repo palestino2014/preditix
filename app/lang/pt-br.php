@@ -232,6 +232,8 @@ return [
     'os_cancelled_pending' => 'Ordem de Serviço cancelada com sucesso.\nSujeita à aprovação.',
     'os_approved_success' => 'Ordem de Serviço aprovada com sucesso.',
     'os_rejected_success' => 'Ordem de Serviço rejeitada com sucesso.',
+    'os_try_again_success' => 'Ordem de Serviço reaberta com sucesso.',
+    'os_give_up_success' => 'Ordem de Serviço marcada como desistida.',
     
     // Mensagens de confirmação
     'confirm_cancel_form' => 'Tem certeza que deseja cancelar? Todos os dados serão perdidos.',
@@ -239,7 +241,8 @@ return [
     'confirm_approve' => 'Tem certeza que deseja aprovar esta ação?',
     'confirm_reject' => 'Tem certeza que deseja rejeitar esta ação?',
     'confirm_complete' => 'Tem certeza que deseja concluir esta OS?',
-
+    'confirm_try_again' => 'Tem certeza que deseja tentar novamente esta OS?',
+    'confirm_give_up' => 'Tem certeza que deseja desistir desta OS?',
     
     // Timeline
     'timeline_title' => 'Histórico da OS',
@@ -439,4 +442,8 @@ return [
     'field_required' => 'Este campo é obrigatório',
     'invalid_email' => 'E-mail inválido',
     'password_min_length' => 'Senha deve ter pelo menos 6 caracteres',
+    'cannot_complete_os' => 'Esta OS não pode ser concluída no status atual.',
+    'cannot_cancel_os' => 'Esta OS não pode ser cancelada no status atual.',
+    'cannot_try_again' => 'Esta OS não pode ser tentada novamente no status atual.',
+    'cannot_give_up' => 'Esta OS não pode ser desistida no status atual.',
 ];
