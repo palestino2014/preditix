@@ -53,7 +53,7 @@
         </div>
         
         <!-- Botão de sair -->
-                        <a href="logout" class="btn btn-secondary">
+        <a href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/logout" class="btn btn-secondary">
             🚪 <?= Language::t('logout') ?>
         </a>
     </div>
@@ -100,7 +100,8 @@ function changeLanguage(lang) {
     form.method = 'POST';
     
     // Usar caminho correto para mudança de idioma
-    form.action = '/preditix/app/change-language';
+    const basePath = window.appConfig?.basePath || '';
+    form.action = basePath + '/change-language';
     form.style.display = 'none';
     
     const langInput = document.createElement('input');
