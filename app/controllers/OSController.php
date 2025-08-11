@@ -610,7 +610,8 @@ class OSController extends BaseController {
     private function rejectAction($order, $user, $justification) {
         $updates = [
             'status_anterior' => $order['status'],
-            'acao_rejeitada' => $this->getActionFromStatus($order['status'])
+            'acao_rejeitada' => $this->getActionFromStatus($order['status']),
+            'autorizada' => 1 // Rejeição é sempre autorizada (decisão final do gestor)
         ];
         
         return $this->updateOrderStatus($order['id_os'], 'rejeitada', $updates, $user, 'rejeicao', $justification);
