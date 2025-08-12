@@ -571,7 +571,12 @@ function giveUp(osId) {
             },
             body: `os_id=${osId}&csrf_token=${window.appConfig.csrfToken}`
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 showSuccess(data.message);

@@ -119,12 +119,31 @@ CREATE TABLE os_itens (
     INDEX idx_os (id_os)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tabela de backup para dados originais antes de edições
+CREATE TABLE os_backup (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_os INT NOT NULL,
+    tipo_manutencao ENUM('preventiva', 'corretiva', 'preditiva') NOT NULL,
+    prioridade ENUM('baixa', 'media', 'alta', 'critica') NOT NULL,
+    sistemas_afetados JSON,
+    sintomas_detectados JSON,
+    causas_defeitos JSON,
+    intervencoes_realizadas JSON,
+    acoes_realizadas JSON,
+    observacoes TEXT,
+    data_backup TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (id_os) REFERENCES ordem_servico(id_os) ON DELETE CASCADE,
+    INDEX idx_os (id_os),
+    INDEX idx_data_backup (data_backup)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Tabela de histórico/log
 CREATE TABLE os_historico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_os INT NOT NULL,
     usuario_id INT NOT NULL,
-    acao ENUM('abertura', 'edicao', 'conclusao', 'cancelamento', 'aprovacao', 'rejeicao') NOT NULL,
+    acao ENUM('abertura', 'edicao', 'conclusao', 'cancelamento', 'aprovacao', 'rejeicao', 'tentar_novamente', 'desistencia') NOT NULL,
     status_de VARCHAR(20),
     status_para VARCHAR(20),
     justificativa TEXT, -- obrigatória para rejeições

@@ -149,13 +149,20 @@ class BaseController {
         $sql = "INSERT INTO os_historico (id_os, usuario_id, acao, status_de, status_para, justificativa, data_hora) 
                 VALUES (?, ?, ?, ?, ?, ?, NOW())";
         
-        $this->db->query($sql, [
+        $params = [
             $osId,
             $user['id'],
             $action,
             $statusFrom,
             $statusTo,
             $justification
-        ]);
+        ];
+        
+        try {
+            $this->db->query($sql, $params);
+        } catch (Exception $e) {
+            error_log("Error logging action: " . $e->getMessage());
+            throw $e;
+        }
     }
 }

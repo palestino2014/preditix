@@ -608,13 +608,35 @@ class OSController extends BaseController {
     }
     
     private function rejectAction($order, $user, $justification) {
+        // Determinar para qual status voltar baseado na ação rejeitada
+        $newStatus = 'em_andamento'; // Sempre volta para em_andamento
+        
         $updates = [
-            'status_anterior' => $order['status'],
-            'acao_rejeitada' => $this->getActionFromStatus($order['status']),
-            'autorizada' => 1 // Rejeição é sempre autorizada (decisão final do gestor)
+            'status_anterior' => null, // Limpar status anterior
+            'acao_rejeitada' => null, // Limpar ação rejeitada
+            'autorizada' => 1 // Aprovação automática ao voltar
         ];
         
-        return $this->updateOrderStatus($order['id_os'], 'rejeitada', $updates, $user, 'rejeicao', $justification);
+        // Se a OS foi editada, precisamos restaurar os valores originais
+        if ($order['acao_rejeitada'] === 'edicao') {
+            // Buscar a versão original da OS (antes da edição)
+            $originalOrder = $this->getOriginalOrderData($order['id_os']);
+            if ($originalOrder) {
+                // Restaurar valores originais
+                $updates = array_merge($updates, [
+                    'tipo_manutencao' => $originalOrder['tipo_manutencao'],
+                    'prioridade' => $originalOrder['prioridade'],
+                    'sistemas_afetados' => $originalOrder['sistemas_afetados'],
+                    'sintomas_detectados' => $originalOrder['sintomas_detectados'],
+                    'causas_defeitos' => $originalOrder['causas_defeitos'],
+                    'intervencoes_realizadas' => $originalOrder['intervencoes_realizadas'],
+                    'acoes_realizadas' => $originalOrder['acoes_realizadas'],
+                    'observacoes' => $originalOrder['observacoes']
+                ]);
+            }
+        }
+        
+        return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'rejeicao', $justification);
     }
     
     private function getApprovalStatus($currentStatus) {
@@ -710,37 +732,44 @@ class OSController extends BaseController {
     }
     
     private function tryAgainOrder($order, $user) {
-        // Voltar para o status anterior ou 'em_andamento' se não houver status anterior
-        $newStatus = $order['status_anterior'] ?? 'em_andamento';
+        // Sempre voltar para em_andamento com aprovação automática
+        $newStatus = 'em_andamento';
         $updates = [
             'status_anterior' => null,
-            'acao_rejeitada' => null
+            'acao_rejeitada' => null,
+            'autorizada' => 1 // Aprovação automática
         ];
         
-        // Determinar se precisa de aprovação baseado no status e tipo de usuário
-        if ($user['type'] === 'tecnico') {
-            // Técnico precisa de aprovação para certos status
-            if (in_array($newStatus, ['aberta', 'concluida', 'cancelada'])) {
-                $updates['autorizada'] = 0; // Precisa de aprovação
-            } else {
-                $updates['autorizada'] = 1; // Automática
+        // Se a OS foi editada e rejeitada, restaurar valores originais
+        if ($order['acao_rejeitada'] === 'edicao') {
+            $originalOrder = $this->getOriginalOrderData($order['id_os']);
+            if ($originalOrder) {
+                // Restaurar valores originais
+                $updates = array_merge($updates, [
+                    'tipo_manutencao' => $originalOrder['tipo_manutencao'],
+                    'prioridade' => $originalOrder['prioridade'],
+                    'sistemas_afetados' => $originalOrder['sistemas_afetados'],
+                    'sintomas_detectados' => $originalOrder['sintomas_detectados'],
+                    'causas_defeitos' => $originalOrder['causas_defeitos'],
+                    'intervencoes_realizadas' => $originalOrder['intervencoes_realizadas'],
+                    'acoes_realizadas' => $originalOrder['acoes_realizadas'],
+                    'observacoes' => $originalOrder['observacoes']
+                ]);
             }
-        } else {
-            // Gestor sempre aprova automaticamente
-            $updates['autorizada'] = 1;
         }
         
         return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'tentar_novamente');
     }
     
     private function giveUpOrder($order, $user) {
-        // Manter como rejeitada, mas marcar como desistida
+        // Desistência = Cancelamento da OS
+        // Precisa de aprovação do gestor
         $updates = [
-            'acao_rejeitada' => 'desistencia',
-            'autorizada' => 1 // Desistência é sempre aprovada
+            'data_cancelamento' => date('Y-m-d H:i:s'),
+            'autorizada' => 0 // Precisa de aprovação do gestor
         ];
         
-        return $this->updateOrderStatus($order['id_os'], 'rejeitada', $updates, $user, 'desistencia');
+        return $this->updateOrderStatus($order['id_os'], 'cancelada', $updates, $user, 'desistencia');
     }
     
     public function edit() {
@@ -875,6 +904,11 @@ class OSController extends BaseController {
         $this->db->getConnection()->beginTransaction();
         
         try {
+            // Se for técnico editando, fazer backup dos dados originais antes da edição
+            if ($user['type'] === 'tecnico') {
+                $this->backupOriginalData($osId);
+            }
+            
             // Determinar gestor e responsável baseado no tipo de usuário
             if ($user['type'] === 'tecnico') {
                 $idGestor = (int)($data['id_gestor'] ?? 0);
@@ -942,4 +976,42 @@ class OSController extends BaseController {
             throw $e;
         }
     }
+    
+    private function getOriginalOrderData($osId) {
+        // Buscar os dados originais da OS do backup
+        $sql = "SELECT * FROM os_backup WHERE id_os = ? ORDER BY data_backup DESC LIMIT 1";
+        $stmt = $this->db->query($sql, [$osId]);
+        return $stmt->fetch();
+    }
+    
+    private function backupOriginalData($osId) {
+        // Buscar dados atuais da OS
+        $sql = "SELECT tipo_manutencao, prioridade, sistemas_afetados, sintomas_detectados, 
+                       causas_defeitos, intervencoes_realizadas, acoes_realizadas, observacoes
+                FROM ordem_servico WHERE id_os = ?";
+        $stmt = $this->db->query($sql, [$osId]);
+        $currentData = $stmt->fetch();
+        
+        if ($currentData) {
+            // Inserir backup dos dados originais
+            $sql = "INSERT INTO os_backup (id_os, tipo_manutencao, prioridade, sistemas_afetados, 
+                                          sintomas_detectados, causas_defeitos, intervencoes_realizadas, 
+                                          acoes_realizadas, observacoes)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $this->db->query($sql, [
+                $osId,
+                $currentData['tipo_manutencao'],
+                $currentData['prioridade'],
+                $currentData['sistemas_afetados'],
+                $currentData['sintomas_detectados'],
+                $currentData['causas_defeitos'],
+                $currentData['intervencoes_realizadas'],
+                $currentData['acoes_realizadas'],
+                $currentData['observacoes']
+            ]);
+        }
+    }
+
+
 }
