@@ -391,16 +391,18 @@ class OSController extends BaseController {
     
     private function getOrdersForUser($user) {
         if ($user['type'] === 'tecnico') {
-            $sql = "SELECT os.*, v.tag, v.modelo, v.cor, v.placa 
+            $sql = "SELECT os.*, v.tag, v.modelo, v.cor, v.placa, u.nome as created_by_name
                     FROM ordem_servico os 
                     JOIN veiculo v ON os.id_ativo = v.id_ativo 
+                    LEFT JOIN usuario u ON os.id_responsavel = u.id
                     WHERE os.id_responsavel = ? 
                     ORDER BY os.created_at DESC";
             $params = [$user['id']];
         } else {
-            $sql = "SELECT os.*, v.tag, v.modelo, v.cor, v.placa 
+            $sql = "SELECT os.*, v.tag, v.modelo, v.cor, v.placa, u.nome as created_by_name
                     FROM ordem_servico os 
                     JOIN veiculo v ON os.id_ativo = v.id_ativo 
+                    LEFT JOIN usuario u ON os.id_responsavel = u.id
                     WHERE os.id_gestor = ? 
                     ORDER BY os.created_at DESC";
             $params = [$user['id']];
@@ -608,20 +610,38 @@ class OSController extends BaseController {
     }
     
     private function rejectAction($order, $user, $justification) {
+        error_log("rejectAction chamado para OS: " . $order['id_os']);
+        error_log("Status atual: " . $order['status'] . ", Ação rejeitada: " . ($order['acao_rejeitada'] ?? 'Nenhuma'));
+        
         // Determinar para qual status voltar baseado na ação rejeitada
         $newStatus = 'em_andamento'; // Sempre volta para em_andamento
         
         $updates = [
             'status_anterior' => null, // Limpar status anterior
-            'acao_rejeitada' => null, // Limpar ação rejeitada
             'autorizada' => 1 // Aprovação automática ao voltar
         ];
         
+        // Se a OS está no status 'editada', significa que foi editada por técnico
+        // e precisa ter acao_rejeitada definida como 'edicao'
+        if ($order['status'] === 'editada') {
+            error_log("OS está no status 'editada', definindo acao_rejeitada = 'edicao'");
+            $updates['acao_rejeitada'] = 'edicao';
+        } else {
+            error_log("OS não está no status 'editada', limpando acao_rejeitada");
+            $updates['acao_rejeitada'] = null;
+        }
+        
+        error_log("Updates iniciais: " . json_encode($updates));
+        
         // Se a OS foi editada, precisamos restaurar os valores originais
-        if ($order['acao_rejeitada'] === 'edicao') {
+        if ($order['status'] === 'editada') {
+            error_log("OS foi editada, restaurando dados originais...");
+            
             // Buscar a versão original da OS (antes da edição)
             $originalOrder = $this->getOriginalOrderData($order['id_os']);
             if ($originalOrder) {
+                error_log("Dados originais encontrados, restaurando...");
+                
                 // Restaurar valores originais
                 $updates = array_merge($updates, [
                     'tipo_manutencao' => $originalOrder['tipo_manutencao'],
@@ -633,9 +653,16 @@ class OSController extends BaseController {
                     'acoes_realizadas' => $originalOrder['acoes_realizadas'],
                     'observacoes' => $originalOrder['observacoes']
                 ]);
+                
+                error_log("Updates finais com restauração: " . json_encode($updates));
+            } else {
+                error_log("ERRO: Dados originais não encontrados para restauração!");
             }
+        } else {
+            error_log("OS não foi editada, apenas mudando status");
         }
         
+        error_log("Chamando updateOrderStatus com status: $newStatus");
         return $this->updateOrderStatus($order['id_os'], $newStatus, $updates, $user, 'rejeicao', $justification);
     }
     
@@ -979,18 +1006,39 @@ class OSController extends BaseController {
     
     private function getOriginalOrderData($osId) {
         // Buscar os dados originais da OS do backup
-        $sql = "SELECT * FROM os_backup WHERE id_os = ? ORDER BY data_backup DESC LIMIT 1";
+        // Precisamos do backup ANTES da edição que está sendo rejeitada
+        // Por isso buscamos o penúltimo backup (o último é a edição atual)
+        
+        $sql = "SELECT * FROM os_backup WHERE id_os = ? ORDER BY data_backup DESC LIMIT 1,1";
         $stmt = $this->db->query($sql, [$osId]);
-        return $stmt->fetch();
+        $originalData = $stmt->fetch();
+        
+        // Se não encontrar o penúltimo, buscar o mais antigo
+        if (!$originalData) {
+            $sql = "SELECT * FROM os_backup WHERE id_os = ? ORDER BY data_backup ASC LIMIT 1";
+            $stmt = $this->db->query($sql, [$osId]);
+            $originalData = $stmt->fetch();
+        }
+        
+        error_log("getOriginalOrderData para OS $osId - Dados originais: " . json_encode($originalData));
+        
+        return $originalData;
     }
     
     private function backupOriginalData($osId) {
+        error_log("backupOriginalData chamado para OS: $osId");
+        
         // Buscar dados atuais da OS
         $sql = "SELECT tipo_manutencao, prioridade, sistemas_afetados, sintomas_detectados, 
                        causas_defeitos, intervencoes_realizadas, acoes_realizadas, observacoes
                 FROM ordem_servico WHERE id_os = ?";
+        
+        error_log("SQL backup: $sql");
+        
         $stmt = $this->db->query($sql, [$osId]);
         $currentData = $stmt->fetch();
+        
+        error_log("Dados atuais encontrados: " . json_encode($currentData));
         
         if ($currentData) {
             // Inserir backup dos dados originais
@@ -999,7 +1047,8 @@ class OSController extends BaseController {
                                           acoes_realizadas, observacoes)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
-            $this->db->query($sql, [
+            error_log("SQL insert backup: $sql");
+            error_log("Valores para backup: " . json_encode([
                 $osId,
                 $currentData['tipo_manutencao'],
                 $currentData['prioridade'],
@@ -1009,7 +1058,27 @@ class OSController extends BaseController {
                 $currentData['intervencoes_realizadas'],
                 $currentData['acoes_realizadas'],
                 $currentData['observacoes']
-            ]);
+            ]));
+            
+            try {
+                $this->db->query($sql, [
+                    $osId,
+                    $currentData['tipo_manutencao'],
+                    $currentData['prioridade'],
+                    $currentData['sistemas_afetados'],
+                    $currentData['sintomas_detectados'],
+                    $currentData['causas_defeitos'],
+                    $currentData['intervencoes_realizadas'],
+                    $currentData['acoes_realizadas'],
+                    $currentData['observacoes']
+                ]);
+                error_log("Backup criado com sucesso para OS: $osId");
+            } catch (Exception $e) {
+                error_log("Erro ao criar backup: " . $e->getMessage());
+                throw $e;
+            }
+        } else {
+            error_log("Nenhum dado encontrado para backup da OS: $osId");
         }
     }
 

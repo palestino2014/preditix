@@ -114,7 +114,7 @@ ob_start();
                     <select id="filter-technician" class="form-control">
                         <option value=""><?= Language::t('all_technicians') ?></option>
                         <?php 
-                        $technicians = array_unique(array_column($orders, 'created_by_name'));
+                        $technicians = array_unique(array_filter(array_column($orders, 'created_by_name')));
                         foreach ($technicians as $tech): 
                         ?>
                             <option value="<?= htmlspecialchars($tech) ?>"><?= htmlspecialchars($tech) ?></option>
@@ -186,7 +186,7 @@ ob_start();
                                     data-os-id="<?= $order['id_os'] ?>"
                                     data-status="<?= htmlspecialchars($order['status']) ?>"
                                     data-authorized="<?= $order['autorizada'] ? '1' : '0' ?>"
-                                    data-technician="<?= htmlspecialchars($order['created_by_name']) ?>"
+                                    data-technician="<?= htmlspecialchars($order['created_by_name'] ?? 'N/A') ?>"
                                     data-asset="<?= htmlspecialchars($order['tag']) ?>"
                                 >
                                     <td>
