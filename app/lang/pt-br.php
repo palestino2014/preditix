@@ -102,6 +102,7 @@ return [
     'reject' => 'Rejeitar',
     'complete' => 'Concluir',
     'reopen_as_new' => 'Reabrir como Nova',
+    'reopening_os_description' => 'Reabrindo uma OS existente com os mesmos dados. Você pode modificar os campos conforme necessário.',
     'try_again' => 'Tentar Novamente',
     'give_up' => 'Desistir',
     

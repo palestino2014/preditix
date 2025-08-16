@@ -34,11 +34,28 @@ class OSController extends BaseController {
             $vehicles = $this->getVehicles();
             $users = $this->getUsers($user['type']);
             
+            // Verificar se é para reabrir uma OS existente
+            $reopenData = null;
+            if (isset($_GET['reopen']) && !empty($_GET['reopen'])) {
+                $reopenOsId = (int)$_GET['reopen'];
+                $reopenData = $this->getOrderById($reopenOsId);
+                
+                // Verificar se a OS existe e se o usuário tem permissão para vê-la
+                if ($reopenData && $this->canViewOrder($reopenData, $user)) {
+                    // Buscar itens da OS original se existirem
+                    $reopenItems = $this->getOrderItems($reopenOsId);
+                    $reopenData['items'] = $reopenItems;
+                } else {
+                    $reopenData = null; // Não tem permissão ou OS não existe
+                }
+            }
+            
             $this->view('os/create', [
                 'vehicles' => $vehicles,
                 'users' => $users,
                 'userType' => $user['type'],
-                'csrf_token' => $this->generateCsrf()
+                'csrf_token' => $this->generateCsrf(),
+                'reopenData' => $reopenData
             ]);
         } catch (Exception $e) {
             error_log("Error loading create form: " . $e->getMessage());
@@ -112,7 +129,8 @@ class OSController extends BaseController {
                 'items' => $items,
                 'userType' => $user['type'],
                 'canEdit' => $this->canEditOrder($order, $user),
-                'csrf_token' => $this->generateCsrf()
+                'csrf_token' => $this->generateCsrf(),
+                'currentUser' => $user
             ]);
         } catch (Exception $e) {
             error_log("Error viewing order: " . $e->getMessage());

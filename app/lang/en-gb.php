@@ -102,6 +102,7 @@ return [
     'reject' => 'Reject',
     'complete' => 'Complete',
     'reopen_as_new' => 'Reopen as New',
+    'reopening_os_description' => 'Reopening an existing work order with the same data. You can modify the fields as needed.',
     'try_again' => 'Try Again',
     'give_up' => 'Give Up',
     

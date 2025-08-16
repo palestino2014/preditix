@@ -5,9 +5,19 @@ ob_start();
 
 <div class="card" style="max-width: 900px; margin: 20px auto;">
     <div class="card-header">
-        <h2><?= Language::t('open_os') ?></h2>
+        <h2>
+            <?php if (isset($reopenData)): ?>
+                🔄 <?= Language::t('reopen_as_new') ?> - OS #<?= $reopenData['id_os'] ?>
+            <?php else: ?>
+                <?= Language::t('open_os') ?>
+            <?php endif; ?>
+        </h2>
         <p style="color: var(--gray); margin: 5px 0 0 0;">
-            <?= Language::t('fill_basic_info') ?>
+            <?php if (isset($reopenData)): ?>
+                <?= Language::t('reopening_os_description') ?>
+            <?php else: ?>
+                <?= Language::t('fill_basic_info') ?>
+            <?php endif; ?>
         </p>
         <div class="page-indicator" style="float: right; background: var(--primary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: bold;">
             <span id="current-page">1</span>/8
@@ -31,7 +41,7 @@ ob_start();
                         <select name="id_ativo" id="id_ativo" class="form-control" required>
                             <option value=""><?= Language::t('select_vehicle') ?></option>
                             <?php foreach ($vehicles as $vehicle): ?>
-                                <option value="<?= $vehicle['id_ativo'] ?>">
+                                <option value="<?= $vehicle['id_ativo'] ?>" <?= (isset($reopenData) && $reopenData['id_ativo'] == $vehicle['id_ativo']) ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($vehicle['tag']) ?> - <?= htmlspecialchars($vehicle['modelo']) ?>
                                     <?php if (!empty($vehicle['placa'])): ?>
                                         (<?= htmlspecialchars($vehicle['placa']) ?>)
@@ -48,9 +58,9 @@ ob_start();
                         </label>
                         <select name="tipo_manutencao" id="tipo_manutencao" class="form-control" required>
                             <option value=""><?= Language::t('select_maintenance_type') ?></option>
-                            <option value="preventiva"><?= Language::t('maintenance_preventiva') ?></option>
-                            <option value="corretiva"><?= Language::t('maintenance_corretiva') ?></option>
-                            <option value="preditiva"><?= Language::t('maintenance_preditiva') ?></option>
+                            <option value="preventiva" <?= (isset($reopenData) && $reopenData['tipo_manutencao'] == 'preventiva') ? 'selected' : '' ?>><?= Language::t('maintenance_preventiva') ?></option>
+                            <option value="corretiva" <?= (isset($reopenData) && $reopenData['tipo_manutencao'] == 'corretiva') ? 'selected' : '' ?>><?= Language::t('maintenance_corretiva') ?></option>
+                            <option value="preditiva" <?= (isset($reopenData) && $reopenData['tipo_manutencao'] == 'preditiva') ? 'selected' : '' ?>><?= Language::t('maintenance_preditiva') ?></option>
                         </select>
                     </div>
                     
@@ -61,10 +71,10 @@ ob_start();
                         </label>
                         <select name="prioridade" id="prioridade" class="form-control" required>
                             <option value=""><?= Language::t('select_priority') ?></option>
-                            <option value="baixa"><?= Language::t('priority_baixa') ?></option>
-                            <option value="media"><?= Language::t('priority_media') ?></option>
-                            <option value="alta"><?= Language::t('priority_alta') ?></option>
-                            <option value="critica"><?= Language::t('priority_critica') ?></option>
+                            <option value="baixa" <?= (isset($reopenData) && $reopenData['prioridade'] == 'baixa') ? 'selected' : '' ?>><?= Language::t('priority_baixa') ?></option>
+                            <option value="media" <?= (isset($reopenData) && $reopenData['prioridade'] == 'media') ? 'selected' : '' ?>><?= Language::t('priority_media') ?></option>
+                            <option value="alta" <?= (isset($reopenData) && $reopenData['prioridade'] == 'alta') ? 'selected' : '' ?>><?= Language::t('priority_alta') ?></option>
+                            <option value="critica" <?= (isset($reopenData) && $reopenData['prioridade'] == 'critica') ? 'selected' : '' ?>><?= Language::t('priority_critica') ?></option>
                         </select>
                     </div>
                     
@@ -76,8 +86,8 @@ ob_start();
                         </label>
                         <select name="id_gestor" id="id_gestor" class="form-control" required>
                             <option value=""><?= Language::t('select_manager') ?></option>
-                            <?php foreach ($users as $user): ?>
-                                <option value="<?= $user['id'] ?>"><?= htmlspecialchars($user['nome']) ?></option>
+                            <?php foreach ($users as $userItem): ?>
+                                <option value="<?= $userItem['id'] ?>" <?= (isset($reopenData) && $reopenData['id_gestor'] == $userItem['id']) ? 'selected' : '' ?>><?= htmlspecialchars($userItem['nome']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -89,8 +99,8 @@ ob_start();
                         </label>
                         <select name="id_responsavel" id="id_responsavel" class="form-control" required>
                             <option value=""><?= Language::t('select_responsible') ?></option>
-                            <?php foreach ($users as $user): ?>
-                                <option value="<?= $user['id'] ?>"><?= htmlspecialchars($user['nome']) ?></option>
+                            <?php foreach ($users as $userItem): ?>
+                                <option value="<?= $userItem['id'] ?>" <?= (isset($reopenData) && $reopenData['id_responsavel'] == $userItem['id']) ? 'selected' : '' ?>><?= htmlspecialchars($userItem['nome']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -105,9 +115,10 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $sistemas = ['cabine', 'direcao', 'combustivel', 'medicao_controle', 'protecao_impactos', 'transmissao', 'estrutural', 'acoplamento', 'controle_eletronico', 'exaustao', 'propulsao', 'protecao_incendio', 'ventilacao', 'tanque', 'arrefecimento', 'descarga', 'freios', 'protecao_ambiental', 'suspensao', 'eletrico'];
+                    $sistemasSelecionados = isset($reopenData) && !empty($reopenData['sistemas_afetados']) ? json_decode($reopenData['sistemas_afetados'], true) : [];
                     foreach ($sistemas as $sistema): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
-                            <input type="checkbox" name="sistemas_afetados[]" value="<?= $sistema ?>" style="margin: 0;">
+                            <input type="checkbox" name="sistemas_afetados[]" value="<?= $sistema ?>" <?= in_array($sistema, $sistemasSelecionados) ? 'checked' : '' ?> style="margin: 0;">
                             <span><?= Language::t('system_' . $sistema) ?></span>
                         </label>
                     <?php endforeach; ?>
@@ -121,9 +132,10 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $sintomas = ['aberto', 'sujo', 'desvio_lateral', 'queimado', 'sem_freio', 'vazando', 'baixo_rendimento', 'empenado', 'rompido', 'sem_velocidade', 'travado', 'vibrando', 'desarmado', 'ruido_anormal', 'solto', 'trincando'];
+                    $sintomasSelecionados = isset($reopenData) && !empty($reopenData['sintomas_detectados']) ? json_decode($reopenData['sintomas_detectados'], true) : [];
                     foreach ($sintomas as $sintoma): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
-                            <input type="checkbox" name="sintomas_detectados[]" value="<?= $sintoma ?>" style="margin: 0;">
+                            <input type="checkbox" name="sintomas_detectados[]" value="<?= $sintoma ?>" <?= in_array($sintoma, $sintomasSelecionados) ? 'checked' : '' ?> style="margin: 0;">
                             <span><?= Language::t('symptom_' . $sintoma) ?></span>
                         </label>
                     <?php endforeach; ?>
@@ -137,9 +149,10 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $causas = ['nao_identificada', 'defeito_de_fabrica', 'desnivelamento', 'destensionamento', 'fissura', 'gasto', 'desalinhamento', 'falta_de_protecao', 'engripamento', 'folga', 'sobrecarga_de_peso', 'subdimensionamento', 'desbalanceamento', 'desregulamento', 'fadiga', 'fora_de_especificacao', 'nivel_baixo', 'rompido', 'sobrecarga_de_tensao'];
+                    $causasSelecionadas = isset($reopenData) && !empty($reopenData['causas_defeitos']) ? json_decode($reopenData['causas_defeitos'], true) : [];
                     foreach ($causas as $causa): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
-                            <input type="checkbox" name="causas_defeitos[]" value="<?= $causa ?>" style="margin: 0;">
+                            <input type="checkbox" name="causas_defeitos[]" value="<?= $causa ?>" <?= in_array($causa, $causasSelecionadas) ? 'checked' : '' ?> style="margin: 0;">
                             <span><?= Language::t('cause_' . $causa) ?></span>
                         </label>
                     <?php endforeach; ?>
@@ -153,9 +166,10 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $intervencoes = ['mecanica', 'pintura', 'usinagem', 'eletrica', 'funilaria', 'caldeiraria', 'hidraulico', 'soldagem'];
+                    $intervencoesSelecionadas = isset($reopenData) && !empty($reopenData['intervencoes_realizadas']) ? json_decode($reopenData['intervencoes_realizadas'], true) : [];
                     foreach ($intervencoes as $intervencao): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
-                            <input type="checkbox" name="intervencoes_realizadas[]" value="<?= $intervencao ?>" style="margin: 0;">
+                            <input type="checkbox" name="intervencoes_realizadas[]" value="<?= $intervencao ?>" <?= in_array($intervencao, $intervencoesSelecionadas) ? 'checked' : '' ?> style="margin: 0;">
                             <span><?= Language::t('intervention_' . $intervencao) ?></span>
                         </label>
                     <?php endforeach; ?>
@@ -169,9 +183,10 @@ ob_start();
                 <div class="checkbox-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <?php
                     $acoes = ['acoplado', 'desacoplado', 'instalado', 'rearmado', 'soldado', 'ajustado', 'fabricado', 'limpeza', 'recuperacao', 'substituido', 'alinhado', 'fixado', 'lubrificado', 'reposto', 'apertado', 'inspecionado', 'modificado', 'retirado'];
+                    $acoesSelecionadas = isset($reopenData) && !empty($reopenData['acoes_realizadas']) ? json_decode($reopenData['acoes_realizadas'], true) : [];
                     foreach ($acoes as $acao): ?>
                         <label class="checkbox-item" style="display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--light-gray); border-radius: 6px; cursor: pointer;">
-                            <input type="checkbox" name="acoes_realizadas[]" value="<?= $acao ?>" style="margin: 0;">
+                            <input type="checkbox" name="acoes_realizadas[]" value="<?= $acao ?>" <?= in_array($acao, $acoesSelecionadas) ? 'checked' : '' ?> style="margin: 0;">
                             <span><?= Language::t('action_' . $acao) ?></span>
                         </label>
                     <?php endforeach; ?>
@@ -190,7 +205,7 @@ ob_start();
                         rows="8"
                         placeholder="<?= Language::t('describe_problem') ?>"
                         style="padding-right: 60px;"
-                    ></textarea>
+                    ><?= isset($reopenData) && !empty($reopenData['observacoes']) ? htmlspecialchars($reopenData['observacoes']) : '' ?></textarea>
                     
                     <!-- Botão de microfone sempre visível -->
                     <button 
@@ -514,6 +529,34 @@ function addItem() {
     tbody.appendChild(row);
 }
 
+function addItemWithData(itemData) {
+    itemCount++;
+    const tbody = document.querySelector('#itens-table tbody');
+    const row = document.createElement('tr');
+    
+    row.innerHTML = `
+        <td>
+            <input type="text" name="itens[${itemCount}][descricao]" class="form-control" value="${itemData.descricao || ''}" placeholder="<?= Language::t('item_description') ?>" required>
+        </td>
+        <td>
+            <input type="number" name="itens[${itemCount}][quantidade]" class="form-control" min="1" step="1" value="${itemData.quantidade || 1}" onchange="calculateTotal(${itemCount})" required>
+        </td>
+        <td>
+            <input type="number" name="itens[${itemCount}][valor_unitario]" class="form-control" min="0" step="0.01" value="${itemData.valor_unitario || ''}" placeholder="0,00" onchange="calculateTotal(${itemCount})" required>
+        </td>
+        <td>
+            <input type="number" name="itens[${itemCount}][total]" class="form-control" value="${itemData.total || ''}" readonly>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeItem(this)">
+                🗑️
+            </button>
+        </td>
+    `;
+    
+    tbody.appendChild(row);
+}
+
 function removeItem(button) {
     button.closest('tr').remove();
 }
@@ -618,6 +661,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Adicionar primeiro item automaticamente na página 8
     addItem();
+    
+    // Se for para reabrir uma OS, preencher os itens existentes
+    <?php if (isset($reopenData) && !empty($reopenData['items'])): ?>
+    const reopenItems = <?= json_encode($reopenData['items']) ?>;
+    if (reopenItems && reopenItems.length > 0) {
+        // Remover o item vazio inicial
+        const tbody = document.querySelector('#itens-table tbody');
+        tbody.innerHTML = '';
+        
+        // Adicionar os itens da OS original
+        reopenItems.forEach(function(item) {
+            addItemWithData(item);
+        });
+    }
+    <?php endif; ?>
     
     // Configurar botão de microfone - implementação unificada
     setTimeout(function() {

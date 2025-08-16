@@ -102,6 +102,7 @@ return [
     'reject' => 'Rechazar',
     'complete' => 'Completar',
     'reopen_as_new' => 'Reabrir como Nueva',
+    'reopening_os_description' => 'Reabriendo una orden de servicio existente con los mismos datos. Puedes modificar los campos según sea necesario.',
     'try_again' => 'Intentar de Nuevo',
     'give_up' => 'Desistir',
     
