@@ -15,6 +15,15 @@ if (navigator.userAgent.includes('Ubuntu') || navigator.userAgent.includes('Chro
     console.log('ℹ️ Erros de rede podem ser normais e serão ignorados automaticamente');
 }
 
+// Inicialização prévia para reduzir delay
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar speech recognition em background para reduzir delay
+    if (window.speechRecognition && window.speechRecognition.isSupported()) {
+        console.log('🚀 Inicializando speech recognition em background...');
+        window.speechRecognition.init();
+    }
+});
+
 window.speechRecognition = {
     recognition: null,
     isListening: false,
@@ -50,12 +59,24 @@ window.speechRecognition = {
     setupRecognition() {
         if (!this.recognition) return;
         
-        // Configurações
-        this.recognition.continuous = false;
-        this.recognition.interimResults = true;
+        // Configurações otimizadas para frases longas e resposta rápida
+        this.recognition.continuous = true; // Permite frases mais longas
+        this.recognition.interimResults = true; // Mostra resultados em tempo real
         this.recognition.maxAlternatives = 1;
         
-        // Definir idioma baseado na configuração
+        // Configurações para melhorar captura de frases longas
+        if (this.recognition.grammars) {
+            // Definir gramática para melhorar reconhecimento
+            this.recognition.grammars = null; // Usar gramática padrão do navegador
+        }
+        
+        // Configurações para frases longas
+        if (this.recognition.serviceURI) {
+            // Usar serviço padrão do navegador para melhor compatibilidade
+            this.recognition.serviceURI = null;
+        }
+        
+        // Definir idioma baseado na configuração (otimizado)
         const lang = window.app?.config?.language || 'pt-br';
         const langMap = {
             'pt-br': 'pt-BR',
@@ -63,6 +84,11 @@ window.speechRecognition = {
             'es-es': 'es-ES'
         };
         this.recognition.lang = langMap[lang] || 'pt-BR';
+        
+        // Configurações adicionais para reduzir delay
+        if (this.recognition.audioContext) {
+            this.recognition.audioContext.resume();
+        }
         
         // Event listeners
         this.recognition.onstart = () => {
@@ -93,13 +119,20 @@ window.speechRecognition = {
             let finalTranscript = '';
             let interimTranscript = '';
             
+            // Processar todos os resultados para frases longas
             for (let i = event.resultIndex; i < event.results.length; i++) {
                 const transcript = event.results[i][0].transcript;
+                const confidence = event.results[i][0].confidence;
                 
                 if (event.results[i].isFinal) {
+                    // Para frases longas, acumular o texto final
+                    if (finalTranscript && !finalTranscript.endsWith(' ')) {
+                        finalTranscript += ' ';
+                    }
                     finalTranscript += transcript;
                 } else {
-                    interimTranscript += transcript;
+                    // Manter apenas o último resultado temporário
+                    interimTranscript = transcript;
                 }
             }
             
@@ -108,16 +141,26 @@ window.speechRecognition = {
                 const field = document.getElementById(this.currentTarget);
                 if (field) {
                     if (finalTranscript) {
-                        // Adicionar ao texto existente se houver
+                        // Para frases longas, substituir o texto existente
+                        // ou adicionar ao final dependendo do contexto
                         const currentText = field.value;
-                        const separator = currentText && !currentText.endsWith(' ') ? ' ' : '';
-                        field.value = currentText + separator + finalTranscript;
+                        
+                        // Se o usuário está falando uma nova frase, substituir
+                        // Se está continuando, adicionar ao final
+                        if (currentText && !currentText.endsWith('.') && !currentText.endsWith('!') && !currentText.endsWith('?')) {
+                            // Continuando a frase - adicionar espaço se necessário
+                            const separator = currentText.endsWith(' ') ? '' : ' ';
+                            field.value = currentText + separator + finalTranscript;
+                        } else {
+                            // Nova frase - substituir
+                            field.value = finalTranscript;
+                        }
                         
                         // Trigger evento de input para validações
                         field.dispatchEvent(new Event('input', { bubbles: true }));
                     }
                     
-                    // Mostrar texto temporário
+                    // Mostrar texto temporário em tempo real
                     if (interimTranscript) {
                         field.placeholder = interimTranscript;
                     }
@@ -203,6 +246,28 @@ window.speechRecognition = {
         this.recognition.onend = () => {
             console.log('🔚 Speech recognition ended');
             
+            // Para frases longas, tentar continuar se não foi parado manualmente
+            if (!this.manualStop && this.currentTarget && this.retryCount < 2) {
+                // Verificar se há texto no campo para determinar se deve continuar
+                const field = document.getElementById(this.currentTarget);
+                if (field && field.value && field.value.length > 0) {
+                    console.log('🔄 Continuando reconhecimento para frase longa...');
+                    this.retryCount++;
+                    
+                    // Pequeno delay antes de continuar
+                    setTimeout(() => {
+                        if (!this.manualStop && this.currentTarget) {
+                            try {
+                                this.recognition.start();
+                                return; // Não executar cleanup se conseguiu continuar
+                            } catch (error) {
+                                console.log('❌ Falha ao continuar reconhecimento:', error);
+                            }
+                        }
+                    }, 300);
+                }
+            }
+            
             // Se terminou por erro de rede no Ubuntu/Chromium, tentar reiniciar
             if (this.lastError === 'network' && 
                 (navigator.userAgent.includes('Ubuntu') || navigator.userAgent.includes('Chromium')) &&
@@ -265,10 +330,11 @@ window.speechRecognition = {
             this.isListening = false;
             this.updateMicButton(false);
             this.manualStop = false;
+            this.currentTarget = null; // Limpar target atual
             
             // Disparar evento customizado
             document.dispatchEvent(new CustomEvent('speechend', { 
-                detail: { target: this.currentTarget } 
+                detail: { target: null } 
             }));
             
             // Limpar placeholder temporário
@@ -294,6 +360,7 @@ window.speechRecognition = {
             }
         }
         
+        // Se já está ouvindo, parar primeiro e retornar
         if (this.isListening) {
             console.log('Já está ouvindo - parando primeiro');
             this.stop();
@@ -323,6 +390,12 @@ window.speechRecognition = {
         
         try {
             console.log('Iniciando reconhecimento...');
+            
+            // Inicialização otimizada para reduzir delay
+            if (this.recognition.audioContext && this.recognition.audioContext.state === 'suspended') {
+                this.recognition.audioContext.resume();
+            }
+            
             this.recognition.start();
             return true;
         } catch (error) {
@@ -331,6 +404,8 @@ window.speechRecognition = {
             let errorMsg = '❌ Erro ao iniciar reconhecimento';
             if (error.name === 'InvalidStateError') {
                 errorMsg = '⚠️ Reconhecimento já está ativo. Tente novamente em alguns segundos.';
+                // Forçar limpeza do estado
+                this.forceCleanup();
             } else if (error.name === 'NotAllowedError') {
                 errorMsg = '🚫 Permissão de microfone necessária. Verifique as configurações.';
             }
@@ -344,15 +419,47 @@ window.speechRecognition = {
     
     // Parar reconhecimento
     stop() {
-        if (this.recognition && this.isListening) {
-            console.log('🛑 Parando reconhecimento manualmente');
-            this.manualStop = true;
-            this.recognition.stop();
+        console.log('🛑 Parando reconhecimento...');
+        
+        // Sempre limpar o estado
+        this.isListening = false;
+        this.manualStop = true;
+        this.updateMicButton(false);
+        
+        // Tentar parar o reconhecimento se estiver disponível
+        if (this.recognition) {
+            try {
+                this.recognition.stop();
+            } catch (error) {
+                console.log('Erro ao parar reconhecimento:', error);
+                // Se falhar ao parar, forçar limpeza
+                this.forceCleanup();
+            }
         }
     },
     
     // Atualizar botão do microfone
     updateMicButton(isRecording) {
+        // Atualizar botão específico se houver target atual
+        if (this.currentTarget) {
+            const specificButton = document.querySelector(`.mic-button[onclick*="${this.currentTarget}"]`);
+            if (specificButton) {
+                if (isRecording) {
+                    specificButton.classList.add('recording');
+                    specificButton.innerHTML = '⏹️'; // Stop icon
+                    specificButton.title = 'Parar gravação';
+                    specificButton.style.background = '#dc3545'; // Vermelho quando gravando
+                } else {
+                    specificButton.classList.remove('recording');
+                    specificButton.innerHTML = '🎤'; // Mic icon
+                    specificButton.title = 'Começar gravação de voz';
+                    specificButton.style.background = '#007bff'; // Azul quando parado
+                }
+                return;
+            }
+        }
+        
+        // Fallback: atualizar todos os botões
         const buttons = document.querySelectorAll('.mic-button');
         
         buttons.forEach(button => {
@@ -360,10 +467,12 @@ window.speechRecognition = {
                 button.classList.add('recording');
                 button.innerHTML = '⏹️'; // Stop icon
                 button.title = 'Parar gravação';
+                button.style.background = '#dc3545'; // Vermelho quando gravando
             } else {
                 button.classList.remove('recording');
                 button.innerHTML = '🎤'; // Mic icon
                 button.title = 'Começar gravação de voz';
+                button.style.background = '#007bff'; // Azul quando parado
             }
         });
     },
@@ -371,6 +480,26 @@ window.speechRecognition = {
     // Verificar suporte
     isSupported() {
         return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+    },
+    
+    // Forçar limpeza do estado
+    forceCleanup() {
+        console.log('🧹 Forçando limpeza do estado...');
+        this.isListening = false;
+        this.manualStop = false;
+        this.currentTarget = null;
+        this.retryCount = 0;
+        this.lastError = null;
+        this.updateMicButton(false);
+        
+        // Tentar parar o reconhecimento se estiver ativo
+        if (this.recognition) {
+            try {
+                this.recognition.stop();
+            } catch (error) {
+                console.log('Erro ao forçar parada:', error);
+            }
+        }
     },
     
     // Alternar idioma

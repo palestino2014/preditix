@@ -211,7 +211,7 @@ ob_start();
                     <button 
                         type="button" 
                         class="mic-button" 
-                        data-target="observacoes" 
+                        onclick="startSpeechRecognition('observacoes')"
                         title="<?= Language::t('voice_input') ?>"
                         style="position: absolute !important; right: 10px !important; top: 10px !important; width: 40px !important; height: 40px !important; background: #007bff !important; color: white !important; border: none !important; border-radius: 50% !important; z-index: 9999 !important; display: block !important; cursor: pointer !important; font-size: 16px !important;"
                     >
@@ -662,92 +662,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     <?php endif; ?>
     
-    // Configurar botão de microfone - implementação unificada
-    setTimeout(function() {
-        const micButton = document.querySelector('.mic-button[data-target="observacoes"]');
-        if (micButton) {
-            console.log('Configurando botão de microfone da página OS');
-            
-            // Remover event listeners duplicados se existirem
-            micButton.removeEventListener('click', micButton._clickHandler);
-            
-            // Criar novo handler
-            micButton._clickHandler = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const targetId = this.getAttribute('data-target');
-                console.log('🎤 Clique no microfone para campo:', targetId);
-                
-                // Verificar se Speech Recognition está disponível
-                if (window.speechRecognition && window.speechRecognition.isSupported()) {
-                    if (window.speechRecognition.isListening) {
-                        console.log('🛑 Parando reconhecimento de voz...');
-                        window.speechRecognition.stop();
-                    } else {
-                        console.log('🎙️ Iniciando reconhecimento de voz...');
-                        
-                        // Feedback visual imediato
-                        this.style.background = '#17a2b8';
-                        this.innerHTML = '⏳';
-                        this.disabled = true;
-                        
-                        // Tentar iniciar após pequeno delay
-                        setTimeout(() => {
-                            const success = window.speechRecognition.start(targetId);
-                            if (!success) {
-                                // Reverter visual se falhou
-                                this.style.background = '#007bff';
-                                this.innerHTML = '🎤';
-                                this.disabled = false;
-                            }
-                        }, 200);
-                    }
-                } else {
-                    // Fallback para navegadores sem suporte
-                    console.warn('Speech Recognition não suportado');
-                    if (window.app) {
-                        window.app.showNotification('<?= Language::t('speech_not_supported') ?>', 'warning', 3000);
-                    } else {
-                        alert('<?= Language::t('speech_not_supported') ?>');
-                    }
-                }
-            };
-            
-            // Adicionar event listener
-            micButton.addEventListener('click', micButton._clickHandler);
-            
-            // Event listeners para feedback visual
-            document.addEventListener('speechstart', function() {
-                console.log('🎤 Visual: Reconhecimento iniciado');
-                micButton.style.background = '#dc3545';
-                micButton.innerHTML = '⏹️';
-                micButton.title = 'Clique para parar';
-                micButton.disabled = false;
-            });
-            
-            document.addEventListener('speechend', function() {
-                console.log('🔚 Visual: Reconhecimento finalizado');
-                micButton.style.background = '#007bff';
-                micButton.innerHTML = '🎤';
-                micButton.title = 'Clique para iniciar gravação de voz';
-                micButton.disabled = false;
-            });
-            
-            // Listener adicional para retry feedback
-            document.addEventListener('speechretry', function(e) {
-                console.log('🔄 Visual: Tentando reconectar...');
-                micButton.style.background = '#ffc107';
-                micButton.innerHTML = '🔄';
-                micButton.title = `Reconectando... (${e.detail.attempt}/3)`;
-                micButton.disabled = true;
-            });
-            
-        } else {
-            console.error('❌ Botão de microfone não encontrado na página');
-        }
-    }, 500); // Delay reduzido
+    // Configuração do botão de microfone removida - agora usa implementação unificada
 });
+
+// Função de reconhecimento de voz (implementação unificada)
+function startSpeechRecognition(targetId) {
+    console.log('🎤 startSpeechRecognition chamado para:', targetId);
+    
+    if (window.speechRecognition) {
+        // Verificar se já está ativo
+        if (window.speechRecognition.isListening) {
+            console.log('🛑 Já está ativo, parando primeiro...');
+            window.speechRecognition.stop();
+            
+            // Aguardar um pouco e tentar novamente
+            setTimeout(() => {
+                console.log('🔄 Tentando iniciar novamente...');
+                const result = window.speechRecognition.start(targetId);
+                if (!result) {
+                    console.log('❌ Falha ao reiniciar speech recognition');
+                    alert('Erro ao reiniciar reconhecimento de voz. Tente novamente.');
+                }
+            }, 300);
+            return;
+        }
+        
+        console.log('✅ Speech recognition disponível, iniciando...');
+        const result = window.speechRecognition.start(targetId);
+        console.log('📊 Resultado do start:', result);
+        
+        if (!result) {
+            console.log('❌ Falha ao iniciar speech recognition');
+            alert('Erro ao iniciar reconhecimento de voz. Tente novamente.');
+        }
+    } else {
+        console.log('❌ Speech recognition não disponível');
+        alert('Reconhecimento de voz não disponível');
+    }
+}
 </script>
 
 <?php
