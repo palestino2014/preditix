@@ -625,14 +625,6 @@ function confirmAction() {
         console.log('Redirecionando para:', '<?= dirname($_SERVER['SCRIPT_NAME']) ?>/dashboard');
         window.location.href = '<?= dirname($_SERVER['SCRIPT_NAME']) ?>/dashboard';
     } else if (action === 'finishOS') {
-        // Validar se há pelo menos um item na página 8
-        const items = document.querySelectorAll('#itens-table tbody tr');
-        if (items.length === 0) {
-            closeModal();
-            alert('<?= Language::t('add_at_least_one_item') ?>');
-            return;
-        }
-        
         // Submeter formulário
         const form = document.getElementById('create-os-form');
         const btnFinish = document.getElementById('btn-finish');
@@ -659,17 +651,10 @@ document.addEventListener('DOMContentLoaded', function() {
         firstField.focus();
     }
     
-    // Adicionar primeiro item automaticamente na página 8
-    addItem();
-    
     // Se for para reabrir uma OS, preencher os itens existentes
     <?php if (isset($reopenData) && !empty($reopenData['items'])): ?>
     const reopenItems = <?= json_encode($reopenData['items']) ?>;
     if (reopenItems && reopenItems.length > 0) {
-        // Remover o item vazio inicial
-        const tbody = document.querySelector('#itens-table tbody');
-        tbody.innerHTML = '';
-        
         // Adicionar os itens da OS original
         reopenItems.forEach(function(item) {
             addItemWithData(item);
