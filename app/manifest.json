@@ -8,15 +8,51 @@
     "theme_color": "#495057",
     "orientation": "portrait-primary",
     "scope": "/",
+    "lang": "pt-BR",
+    "dir": "ltr",
+    "categories": ["productivity", "utilities"],
     "icons": [
         {
             "src": "logo_preditix.jpeg",
-            "sizes": "any",
+            "sizes": "192x192",
+            "type": "image/jpeg",
+            "purpose": "any"
+        },
+        {
+            "src": "logo_preditix.jpeg",
+            "sizes": "512x512",
             "type": "image/jpeg",
             "purpose": "any maskable"
         }
     ],
-    "categories": ["productivity", "utilities"],
-    "lang": "pt-BR",
-    "dir": "ltr"
+    "shortcuts": [
+        {
+            "name": "Nova OS",
+            "short_name": "Nova OS",
+            "description": "Criar nova ordem de serviço",
+            "url": "/os/create",
+            "icons": [
+                {
+                    "src": "logo_preditix.jpeg",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Listar OS",
+            "short_name": "Listar OS",
+            "description": "Visualizar ordens de serviço",
+            "url": "/os",
+            "icons": [
+                {
+                    "src": "logo_preditix.jpeg",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ],
+    "prefer_related_applications": false,
+    "edge_side_panel": {
+        "preferred_width": 400
+    }
 }

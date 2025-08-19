@@ -849,3 +849,197 @@ body {
         margin-bottom: 10px;
     }
 }
+
+/* === RESPONSIVIDADE MOBILE === */
+@media (max-width: 768px) {
+    /* Layout principal */
+    .main-content {
+        padding: 15px;
+    }
+    
+    /* Header mobile */
+    .app-header {
+        padding: 10px 15px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .header-left {
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    /* Formulários mobile */
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-control {
+        font-size: 16px; /* Evita zoom no iOS */
+        padding: 12px;
+        border-radius: var(--border-radius);
+    }
+    
+    /* Botões mobile */
+    .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        min-height: 44px; /* Tamanho mínimo para touch */
+        border-radius: var(--border-radius);
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        margin-bottom: 5px;
+        border-radius: var(--border-radius);
+    }
+    
+    /* Tabelas mobile */
+    .table-responsive {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+    
+    .table th,
+    .table td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+    
+    /* Cards mobile */
+    .card {
+        margin-bottom: 15px;
+        border-radius: var(--border-radius);
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    /* Modais mobile */
+    .modal-content {
+        margin: 10px;
+        border-radius: var(--border-radius);
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 15px;
+    }
+    
+    /* Navegação mobile */
+    .nav-tabs {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .nav-tabs .nav-link {
+        flex: 1;
+        text-align: center;
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    
+    /* Filtros mobile */
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Status badges mobile */
+    .status-badge {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    /* Microfone mobile */
+    .mic-button {
+        width: 44px;
+        height: 44px;
+        min-height: 44px;
+    }
+    
+    /* Indicador offline mobile */
+    .offline-indicator {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* === TABLET === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-content {
+        padding: 20px;
+        max-width: 100%;
+    }
+    
+    .filter-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+}
+
+/* === ORIENTAÇÃO LANDSCAPE MOBILE === */
+@media (max-width: 768px) and (orientation: landscape) {
+    .app-header {
+        padding: 8px 15px;
+    }
+    
+    .main-content {
+        padding: 10px 15px;
+    }
+    
+    .form-control {
+        padding: 10px;
+    }
+    
+    .btn {
+        padding: 10px 16px;
+        min-height: 40px;
+    }
+}
+
+/* === TOUCH IMPROVEMENTS === */
+@media (hover: none) and (pointer: coarse) {
+    /* Melhorar feedback visual para touch */
+    .btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .card:active {
+        transform: scale(0.99);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Aumentar área de toque para elementos pequenos */
+    .status-badge {
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    /* Melhorar scroll em mobile */
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* === SAFE AREA (iPhone X e similares) === */
+@supports (padding: max(0px)) {
+    .app-container {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+    
+    .app-header {
+        padding-left: max(15px, env(safe-area-inset-left) + 15px);
+        padding-right: max(15px, env(safe-area-inset-right) + 15px);
+    }
+}
