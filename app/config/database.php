@@ -8,23 +8,40 @@ class Database {
     private static $instance = null;
     private $connection;
     
-    // Configurações do banco (ajustar para Hostgator)
-    private $host = 'localhost';
-    private $database = 'preditix_os';
-    private $username = 'preditix_user';
-    private $password = 'preditix_pass_2024';
-    private $charset = 'utf8mb4';
+    // ===== CONFIGURAÇÃO DE AMBIENTE =====
+    // Altere esta variável para mudar entre ambientes
+    private static $ambiente = 'remoto'; // 'local' ou 'remoto'
+    
+    // Configurações por ambiente
+    private static $configs = [
+        'local' => [
+            'host' => 'localhost',
+            'database' => 'preditix_v1',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8mb4'
+        ],
+        'remoto' => [
+            'host' => 'localhost',
+            'database' => 'autode51_preditix_v5',
+            'username' => 'autode51_adm',
+            'password' => 'bUd@36581259',
+            'charset' => 'utf8mb4'
+        ]
+    ];
     
     private function __construct() {
         try {
-            $dsn = "mysql:host={$this->host};dbname={$this->database};charset={$this->charset}";
+            $config = self::$configs[self::$ambiente];
+            
+            $dsn = "mysql:host={$config['host']};dbname={$config['database']};charset={$config['charset']}";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false,
             ];
             
-            $this->connection = new PDO($dsn, $this->username, $this->password, $options);
+            $this->connection = new PDO($dsn, $config['username'], $config['password'], $options);
         } catch (PDOException $e) {
             error_log("Erro de conexão: " . $e->getMessage());
             throw new Exception("Erro de conexão com o banco de dados");
