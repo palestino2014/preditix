@@ -74,7 +74,7 @@ function getDefaultPeriod() {
     const fim = '2025-08';
     return {inicio, fim};
 }
-function renderGrafico(ctx, labels, valores, titulo, cor) {
+function renderGrafico(ctx, labels, valores, titulo, cor, unidade = 'Horas') {
     return new Chart(ctx, {
         type: 'line',
         data: {
@@ -96,13 +96,28 @@ function renderGrafico(ctx, labels, valores, titulo, cor) {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return context.dataset.label + ': ' + Number(context.parsed.y).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' h';
+                            if (unidade === 'R$') {
+                                return context.dataset.label + ': R$ ' + Number(context.parsed.y).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            } else {
+                                return context.dataset.label + ': ' + Number(context.parsed.y).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' ' + unidade.toLowerCase();
+                            }
                         }
                     }
                 }
             },
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Horas' } }
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: unidade === 'R$' ? 'Valor (R$)' : unidade },
+                    ticks: {
+                        callback: function(value) {
+                            if (unidade === 'R$') {
+                                return 'R$ ' + value.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                            return value;
+                        }
+                    }
+                }
             }
         }
     });
@@ -191,7 +206,8 @@ async function atualizarGraficos(inicio, fim, embarcacaoId = '') {
             ], m.titulo);
         } else {
             // Para outras métricas, usar gráfico de linha
-            window.graficos[m.id] = renderGrafico(ctx, data.labels, data.valores, m.titulo, m.cor);
+            const unidade = m.metrica === 'custo' ? 'R$' : 'Horas';
+            window.graficos[m.id] = renderGrafico(ctx, data.labels, data.valores, m.titulo, m.cor, unidade);
         }
     }
 }
