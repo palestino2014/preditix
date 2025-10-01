@@ -10,6 +10,7 @@ $metrica = $_GET['metrica'] ?? '';
 $tipo_ativo = $_GET['tipo_ativo'] ?? '';
 $inicio = $_GET['inicio'] ?? '';
 $fim = $_GET['fim'] ?? '';
+$equipamento_id = $_GET['equipamento_id'] ?? '';
 
 $validas_metricas = ['disponibilidade', 'custo', 'mttr', 'mtbf'];
 $validos_tipos = ['embarcacao', 'implemento', 'tanque', 'veiculo'];
@@ -32,16 +33,43 @@ if ($metrica === 'disponibilidade') {
         echo json_encode(['erro' => 'Tipo de ativo inválido']);
         exit;
     }
-    $sql = "SELECT status, COUNT(*) as total FROM $tabela GROUP BY status";
-    $res = $db->query($sql);
-    $out = ['ativo' => 0, 'manutencao' => 0, 'inativo' => 0];
-    foreach ($res as $row) {
-        $status = strtolower($row['status']);
-        if (isset($out[$status])) {
-            $out[$status] = (int)$row['total'];
+    
+    // Gerar meses para disponibilidade também
+    $labels = gerarMeses($inicio, $fim);
+    $valores = [];
+    
+    foreach ($labels as $mes) {
+        $sql = "SELECT status, COUNT(*) as total FROM $tabela 
+                WHERE DATE_FORMAT(created_at, '%Y-%m') = :mes";
+        $params = [':mes' => $mes];
+        
+        if ($equipamento_id) {
+            $sql .= " AND id = :equipamento_id";
+            $params[':equipamento_id'] = $equipamento_id;
         }
+        
+        $sql .= " GROUP BY status";
+        $res = $db->query($sql, $params);
+        $out = ['ativo' => 0, 'manutencao' => 0, 'inativo' => 0];
+        foreach ($res as $row) {
+            $status = strtolower($row['status']);
+            if (isset($out[$status])) {
+                $out[$status] = (int)$row['total'];
+            }
+        }
+        $valores[] = $out;
     }
-    echo json_encode($out);
+    
+    // Formatar labels para m/Y
+    $labels_fmt = array_map(function($m) {
+        $dt = DateTime::createFromFormat('Y-m', $m);
+        return $dt ? $dt->format('m/Y') : $m;
+    }, $labels);
+    
+    echo json_encode([
+        'labels' => $labels_fmt,
+        'valores' => $valores
+    ]);
     exit;
 }
 if (!in_array($metrica, $validas_metricas) || !in_array($tipo_ativo, $validos_tipos) || !$inicio || !$fim) {
@@ -75,7 +103,14 @@ switch ($metrica) {
                     WHERE os.tipo_equipamento = :tipo
                       AND os.status = 'concluida'
                       AND DATE_FORMAT(os.data_conclusao, '%Y-%m') = :mes";
-            $res = $db->query($sql, [':tipo' => $tipo_ativo, ':mes' => $mes]);
+            $params = [':tipo' => $tipo_ativo, ':mes' => $mes];
+            
+            if ($equipamento_id) {
+                $sql .= " AND os.equipamento_id = :equipamento_id";
+                $params[':equipamento_id'] = $equipamento_id;
+            }
+            
+            $res = $db->query($sql, $params);
             $valores[] = isset($res[0]['custo']) && $res[0]['custo'] !== null ? round($res[0]['custo'], 2) : 0;
         }
         break;
@@ -87,7 +122,14 @@ switch ($metrica) {
                     WHERE os.tipo_equipamento = :tipo
                       AND os.status = 'concluida'
                       AND DATE_FORMAT(os.data_conclusao, '%Y-%m') = :mes";
-            $res = $db->query($sql, [':tipo' => $tipo_ativo, ':mes' => $mes]);
+            $params = [':tipo' => $tipo_ativo, ':mes' => $mes];
+            
+            if ($equipamento_id) {
+                $sql .= " AND os.equipamento_id = :equipamento_id";
+                $params[':equipamento_id'] = $equipamento_id;
+            }
+            
+            $res = $db->query($sql, $params);
             $valores[] = isset($res[0]['mttr']) && $res[0]['mttr'] !== null ? round($res[0]['mttr'], 2) : 0;
         }
         break;
@@ -97,9 +139,16 @@ switch ($metrica) {
             $sql = "SELECT equipamento_id, MIN(os.data_abertura) as primeira, MAX(os.data_abertura) as ultima, COUNT(*) as total
                     FROM ordens_servico os
                     WHERE os.tipo_equipamento = :tipo
-                      AND DATE_FORMAT(os.data_abertura, '%Y-%m') = :mes
-                    GROUP BY equipamento_id";
-            $res = $db->query($sql, [':tipo' => $tipo_ativo, ':mes' => $mes]);
+                      AND DATE_FORMAT(os.data_abertura, '%Y-%m') = :mes";
+            $params = [':tipo' => $tipo_ativo, ':mes' => $mes];
+            
+            if ($equipamento_id) {
+                $sql .= " AND os.equipamento_id = :equipamento_id";
+                $params[':equipamento_id'] = $equipamento_id;
+            }
+            
+            $sql .= " GROUP BY equipamento_id";
+            $res = $db->query($sql, $params);
             $mtbf_mes = 0;
             $equip_count = 0;
             foreach ($res as $row) {
