@@ -43,26 +43,26 @@ Auth::checkAuth();
     <div class="row g-4">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">MTTR - Embarcação</div>
+                <div class="card-header">MTTR</div>
                 <div class="card-body"><canvas id="graficoMTTR"></canvas></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">MTBF - Embarcação</div>
+                <div class="card-header">MTBF</div>
                 <div class="card-body"><canvas id="graficoMTBF"></canvas></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Custo - Embarcação</div>
+                <div class="card-header">Custo</div>
                 <div class="card-body"><canvas id="graficoCusto"></canvas></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Disponibilidade - Embarcação</div>
-                <div class="card-body"><canvas id="graficoDisponibilidade"></canvas></div>
+                <div class="card-header">Taxa de Falhas</div>
+                <div class="card-body"><canvas id="graficoTaxaFalhas"></canvas></div>
             </div>
         </div>
     </div>
@@ -172,7 +172,7 @@ async function atualizarGraficos(inicio, fim, embarcacaoId = '') {
         {metrica: 'mttr', id: 'graficoMTTR', cor: '#198754', titulo: 'MTTR - Embarcação'},
         {metrica: 'mtbf', id: 'graficoMTBF', cor: '#0d6efd', titulo: 'MTBF - Embarcação'},
         {metrica: 'custo', id: 'graficoCusto', cor: '#fd7e14', titulo: 'Custo - Embarcação'},
-        {metrica: 'disponibilidade', id: 'graficoDisponibilidade', cor: '#6f42c1', titulo: 'Disponibilidade - Embarcação'}
+        {metrica: 'taxa_falhas', id: 'graficoTaxaFalhas', cor: '#dc3545', titulo: 'Taxa de Falhas - Embarcação'}
     ];
     
     window.graficos = window.graficos || {};
@@ -184,31 +184,45 @@ async function atualizarGraficos(inicio, fim, embarcacaoId = '') {
         }
         
         console.log(`Fazendo requisição para: ${url}`);
-        const resp = await fetch(url);
-        const data = await resp.json();
+        const resp = await fetch(url, {
+            credentials: 'same-origin'
+        });
+        
+        // Verificar se a resposta é válida
+        if (!resp.ok) {
+            console.error(`Erro HTTP ${resp.status} para ${m.metrica}`);
+            return;
+        }
+        
+        const text = await resp.text();
+        console.log(`Resposta bruta para ${m.metrica}:`, text);
+        
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.error(`Erro ao fazer parse do JSON para ${m.metrica}:`, e);
+            console.error('Texto recebido:', text);
+            return;
+        }
+        
         console.log(`Resposta para ${m.metrica}:`, data);
+        
+        // Debug específico para taxa de falhas
+        if (m.metrica === 'taxa_falhas') {
+            console.log('Dados de taxa de falhas:', {
+                labels: data.labels,
+                valores: data.valores
+            });
+        }
         
         if (window.graficos[m.id]) window.graficos[m.id].destroy();
         const ctx = document.getElementById(m.id).getContext('2d');
         
-        // Tratar formato diferente para disponibilidade
-        if (m.metrica === 'disponibilidade') {
-            // Para disponibilidade, criar gráfico de linha com múltiplas séries
-            const labels = data.labels;
-            const ativo = data.valores.map(v => v.ativo || 0);
-            const manutencao = data.valores.map(v => v.manutencao || 0);
-            const inativo = data.valores.map(v => v.inativo || 0);
-            
-            window.graficos[m.id] = renderGraficoMultiplo(ctx, labels, [
-                {label: 'Ativo', data: ativo, cor: '#198754'},
-                {label: 'Manutenção', data: manutencao, cor: '#fd7e14'},
-                {label: 'Inativo', data: inativo, cor: '#dc3545'}
-            ], m.titulo);
-        } else {
-            // Para outras métricas, usar gráfico de linha
-            const unidade = m.metrica === 'custo' ? 'R$' : 'Horas';
-            window.graficos[m.id] = renderGrafico(ctx, data.labels, data.valores, m.titulo, m.cor, unidade);
-        }
+        // Para todas as métricas, usar gráfico de linha
+        const unidade = m.metrica === 'custo' ? 'R$' : 
+                       m.metrica === 'taxa_falhas' ? 'Falhas' : 'Horas';
+        window.graficos[m.id] = renderGrafico(ctx, data.labels, data.valores, m.titulo, m.cor, unidade);
     }
 }
 const periodo = getDefaultPeriod();
