@@ -251,9 +251,9 @@ END$$
 DELIMITER ;
 
 -- Criar evento para executar a procedure diariamente às 02:00
-DROP EVENT IF EXISTS CalcularIndicadoresDiario;
+DROP EVENT IF EXISTS EventoCalcularIndicadoresDiarios;
 
-CREATE EVENT CalcularIndicadoresDiario
+CREATE EVENT EventoCalcularIndicadoresDiarios
 ON SCHEDULE EVERY 1 DAY
 STARTS '2025-01-01 02:00:00'
 DO
