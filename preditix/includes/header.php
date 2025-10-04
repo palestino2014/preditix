@@ -153,10 +153,10 @@ if($ambienteIsRemoto){
                                 <i class="bi bi-speedometer2 me-1"></i> Dashboards
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dashboardsDropdown">
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_disponibilidade.php"><i class="bi bi-bar-chart-line me-2 text-success"></i> Disponibilidade</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_custo.php"><i class="bi bi-currency-dollar me-2 text-warning"></i> Custo</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_mttr.php"><i class="bi bi-arrow-repeat me-2 text-primary"></i> MTTR</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_mtbf.php"><i class="bi bi-activity me-2 text-danger"></i> MTBF</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_embarcacao.php"><i class="bi bi-water me-2 text-primary"></i> Embarcações</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_implemento.php"><i class="bi bi-truck me-2 text-success"></i> Implementos</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_tanque.php"><i class="bi bi-droplet me-2 text-info"></i> Tanques</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>/indicadores/dashboard_veiculo.php"><i class="bi bi-car-front me-2 text-warning"></i> Veículos</a></li>
                             </ul>
                         </li>
                     </ul>

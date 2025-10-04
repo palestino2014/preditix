@@ -18,7 +18,7 @@ Auth::checkAuth();
 <div class="container-fluid mt-4">
     <div class="row mb-4">
         <div class="col-12 d-flex align-items-center justify-content-between">
-            <h2><i class="bi bi-arrow-repeat me-2 text-primary"></i> Embarcações</h2>
+            <h2><i class="bi bi-water me-2 text-primary"></i> Embarcações</h2>
             <div class="d-flex align-items-center gap-3">
                 <select class="form-select" id="embarcacao_id" style="width: 200px;">
                     <option value="">Todos</option>
