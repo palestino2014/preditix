@@ -23,9 +23,16 @@ $equipamento_id = $_GET['equipamento_id'] ?? '';
 $validas_metricas = ['taxa_falhas', 'custo', 'mttr', 'mtbf'];
 $validos_tipos = ['embarcacao', 'implemento', 'tanque', 'veiculo'];
 
-if (!in_array($metrica, $validas_metricas) || !in_array($tipo_ativo, $validos_tipos) || !$inicio || !$fim) {
+if (!in_array($metrica, $validas_metricas) || !in_array($tipo_ativo, $validos_tipos)) {
     http_response_code(400);
     echo json_encode(['erro' => 'Parâmetros inválidos']);
+    exit;
+}
+
+// Para métricas que precisam de período (custo e taxa_falhas)
+if (in_array($metrica, ['custo', 'taxa_falhas']) && (!$inicio || !$fim)) {
+    http_response_code(400);
+    echo json_encode(['erro' => 'Período obrigatório para esta métrica']);
     exit;
 }
 
@@ -41,12 +48,11 @@ function gerarMeses($inicio, $fim) {
     return $meses;
 }
 
-$labels = gerarMeses($inicio, $fim);
-$valores = [];
-
 switch ($metrica) {
     case 'taxa_falhas':
         // Taxa de falhas: contagem de OS corretivas por mês
+        $labels = gerarMeses($inicio, $fim);
+        $valores = [];
         foreach ($labels as $mes) {
             $sql = "SELECT COUNT(*) as falhas
                     FROM ordens_servico os
@@ -66,6 +72,8 @@ switch ($metrica) {
         break;
     case 'custo':
         // Custo: soma dos custos dos itens das OS concluídas do tipo naquele mês
+        $labels = gerarMeses($inicio, $fim);
+        $valores = [];
         foreach ($labels as $mes) {
             $sql = "SELECT SUM(ii.quantidade * ii.valor_unitario) as custo
                     FROM ordens_servico os
@@ -85,53 +93,122 @@ switch ($metrica) {
         }
         break;
     case 'mttr':
-        // MTTR: média de dias entre data_abertura e data_conclusao das OS concluídas do tipo naquele mês
-        foreach ($labels as $mes) {
-            $sql = "SELECT AVG(DATEDIFF(os.data_conclusao, os.data_abertura)) as mttr
-                    FROM ordens_servico os
-                    WHERE os.tipo_equipamento = :tipo
-                      AND os.status = 'concluida'
-                      AND DATE_FORMAT(os.data_conclusao, '%Y-%m') = :mes";
-            $params = [':tipo' => $tipo_ativo, ':mes' => $mes];
-            
-            if ($equipamento_id) {
-                $sql .= " AND os.equipamento_id = :equipamento_id";
-                $params[':equipamento_id'] = $equipamento_id;
-            }
-            
-            $res = $db->query($sql, $params);
-            $valores[] = isset($res[0]['mttr']) && $res[0]['mttr'] !== null ? round($res[0]['mttr'], 2) : 0;
+        // MTTR: buscar dados da tabela específica do tipo de ativo
+        $tabela_mttr = "mttr_{$tipo_ativo}";
+        
+        if ($equipamento_id) {
+            // Para equipamento específico
+            $sql = "SELECT mttr, num_os, data_registro 
+                    FROM {$tabela_mttr} 
+                    WHERE id_ativo = :equipamento_id 
+                    ORDER BY data_registro DESC 
+                    LIMIT 1";
+            $params = [':equipamento_id' => $equipamento_id];
+        } else {
+            // Para todos os equipamentos - média ponderada
+            $sql = "SELECT AVG(mttr) as mttr, SUM(num_os) as total_os, MAX(data_registro) as data_registro
+                    FROM {$tabela_mttr}";
+            $params = [];
         }
+        
+        $res = $db->query($sql, $params);
+        $mttr_atual = isset($res[0]['mttr']) && $res[0]['mttr'] !== null ? round($res[0]['mttr'], 2) : 0;
+        $total_os = isset($res[0]['total_os']) ? (int)$res[0]['total_os'] : 0;
+        
+        // Calcular MTTR do período anterior para comparação
+        if ($equipamento_id) {
+            $sql_anterior = "SELECT mttr 
+                            FROM {$tabela_mttr} 
+                            WHERE id_ativo = :equipamento_id 
+                              AND data_registro < DATE_SUB(NOW(), INTERVAL 3 MONTH)
+                            ORDER BY data_registro DESC 
+                            LIMIT 1";
+            $params_anterior = [':equipamento_id' => $equipamento_id];
+        } else {
+            $sql_anterior = "SELECT AVG(mttr) as mttr 
+                            FROM {$tabela_mttr} 
+                            WHERE data_registro < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+            $params_anterior = [];
+        }
+        
+        $res_anterior = $db->query($sql_anterior, $params_anterior);
+        $mttr_anterior = isset($res_anterior[0]['mttr']) && $res_anterior[0]['mttr'] !== null ? round($res_anterior[0]['mttr'], 2) : 0;
+        
+        // Determinar tendência
+        $tendencia = 'estavel';
+        if ($mttr_anterior > 0) {
+            $diferenca = (($mttr_atual - $mttr_anterior) / $mttr_anterior) * 100;
+            if ($diferenca > 10) $tendencia = 'piorando';
+            elseif ($diferenca < -10) $tendencia = 'melhorando';
+        }
+        
+        echo json_encode([
+            'valor_atual' => $mttr_atual,
+            'valor_anterior' => $mttr_anterior,
+            'total_os' => $total_os,
+            'tendencia' => $tendencia,
+            'unidade' => 'horas'
+        ]);
+        exit;
         break;
     case 'mtbf':
-        // MTBF: média de dias entre aberturas de OS do tipo naquele mês (por equipamento)
-        foreach ($labels as $mes) {
-            $sql = "SELECT equipamento_id, MIN(os.data_abertura) as primeira, MAX(os.data_abertura) as ultima, COUNT(*) as total
-                    FROM ordens_servico os
-                    WHERE os.tipo_equipamento = :tipo
-                      AND DATE_FORMAT(os.data_abertura, '%Y-%m') = :mes";
-            $params = [':tipo' => $tipo_ativo, ':mes' => $mes];
-            
-            if ($equipamento_id) {
-                $sql .= " AND os.equipamento_id = :equipamento_id";
-                $params[':equipamento_id'] = $equipamento_id;
-            }
-            
-            $sql .= " GROUP BY equipamento_id";
-            $res = $db->query($sql, $params);
-            $mtbf_mes = 0;
-            $equip_count = 0;
-            foreach ($res as $row) {
-                if ($row['total'] > 1) {
-                    $dias = (strtotime($row['ultima']) - strtotime($row['primeira'])) / 86400;
-                    $intervalos = $row['total'] - 1;
-                    $mtbf = $intervalos > 0 ? $dias / $intervalos : 0;
-                    $mtbf_mes += $mtbf;
-                    $equip_count++;
-                }
-            }
-            $valores[] = $equip_count > 0 ? round($mtbf_mes / $equip_count, 2) : 0;
+        // MTBF: buscar dados da tabela específica do tipo de ativo
+        $tabela_mtbf = "mtbf_{$tipo_ativo}";
+        
+        if ($equipamento_id) {
+            // Para equipamento específico
+            $sql = "SELECT mtbf, num_os, data_registro 
+                    FROM {$tabela_mtbf} 
+                    WHERE id_ativo = :equipamento_id 
+                    ORDER BY data_registro DESC 
+                    LIMIT 1";
+            $params = [':equipamento_id' => $equipamento_id];
+        } else {
+            // Para todos os equipamentos - média ponderada
+            $sql = "SELECT AVG(mtbf) as mtbf, SUM(num_os) as total_os, MAX(data_registro) as data_registro
+                    FROM {$tabela_mtbf}";
+            $params = [];
         }
+        
+        $res = $db->query($sql, $params);
+        $mtbf_atual = isset($res[0]['mtbf']) && $res[0]['mtbf'] !== null ? round($res[0]['mtbf'], 2) : 0;
+        $total_os = isset($res[0]['total_os']) ? (int)$res[0]['total_os'] : 0;
+        
+        // Calcular MTBF do período anterior para comparação
+        if ($equipamento_id) {
+            $sql_anterior = "SELECT mtbf 
+                            FROM {$tabela_mtbf} 
+                            WHERE id_ativo = :equipamento_id 
+                              AND data_registro < DATE_SUB(NOW(), INTERVAL 3 MONTH)
+                            ORDER BY data_registro DESC 
+                            LIMIT 1";
+            $params_anterior = [':equipamento_id' => $equipamento_id];
+        } else {
+            $sql_anterior = "SELECT AVG(mtbf) as mtbf 
+                            FROM {$tabela_mtbf} 
+                            WHERE data_registro < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+            $params_anterior = [];
+        }
+        
+        $res_anterior = $db->query($sql_anterior, $params_anterior);
+        $mtbf_anterior = isset($res_anterior[0]['mtbf']) && $res_anterior[0]['mtbf'] !== null ? round($res_anterior[0]['mtbf'], 2) : 0;
+        
+        // Determinar tendência
+        $tendencia = 'estavel';
+        if ($mtbf_anterior > 0) {
+            $diferenca = (($mtbf_atual - $mtbf_anterior) / $mtbf_anterior) * 100;
+            if ($diferenca > 10) $tendencia = 'melhorando'; // MTBF maior = melhor
+            elseif ($diferenca < -10) $tendencia = 'piorando'; // MTBF menor = pior
+        }
+        
+        echo json_encode([
+            'valor_atual' => $mtbf_atual,
+            'valor_anterior' => $mtbf_anterior,
+            'total_intervalos' => $total_os,
+            'tendencia' => $tendencia,
+            'unidade' => 'horas'
+        ]);
+        exit;
         break;
 }
 

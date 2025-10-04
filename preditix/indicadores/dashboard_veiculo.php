@@ -43,14 +43,22 @@ Auth::checkAuth();
     <div class="row g-4">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">MTTR</div>
-                <div class="card-body"><canvas id="graficoMTTR"></canvas></div>
+                <div class="card-header">
+                    <span>MTTR</span>
+                </div>
+                <div class="card-body text-center">
+                    <div class="display-4 text-primary mb-2" id="valorMTTR">-</div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">MTBF</div>
-                <div class="card-body"><canvas id="graficoMTBF"></canvas></div>
+                <div class="card-header">
+                    <span>MTBF</span>
+                </div>
+                <div class="card-body text-center">
+                    <div class="display-4 text-success mb-2" id="valorMTBF">-</div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -168,16 +176,18 @@ function renderGraficoMultiplo(ctx, labels, series, titulo) {
     });
 }
 async function atualizarGraficos(inicio, fim, veiculoId = '') {
-    const metricas = [
-        {metrica: 'mttr', id: 'graficoMTTR', cor: '#198754', titulo: 'MTTR - Veículo'},
-        {metrica: 'mtbf', id: 'graficoMTBF', cor: '#0d6efd', titulo: 'MTBF - Veículo'},
+    // Atualizar cards de MTTR e MTBF
+    await atualizarCardsMTTRMTBF(veiculoId);
+    
+    // Atualizar gráficos de Custo e Taxa de Falhas
+    const metricasGraficos = [
         {metrica: 'custo', id: 'graficoCusto', cor: '#fd7e14', titulo: 'Custo - Veículo'},
         {metrica: 'taxa_falhas', id: 'graficoTaxaFalhas', cor: '#dc3545', titulo: 'Taxa de Falhas - Veículo'}
     ];
     
     window.graficos = window.graficos || {};
     
-    for (const m of metricas) {
+    for (const m of metricasGraficos) {
         let url = `api_dashboard.php?metrica=${m.metrica}&tipo_ativo=veiculo&inicio=${inicio}&fim=${fim}`;
         if (veiculoId) {
             url += `&equipamento_id=${veiculoId}`;
@@ -188,7 +198,6 @@ async function atualizarGraficos(inicio, fim, veiculoId = '') {
             credentials: 'same-origin'
         });
         
-        // Verificar se a resposta é válida
         if (!resp.ok) {
             console.error(`Erro HTTP ${resp.status} para ${m.metrica}`);
             return;
@@ -208,21 +217,66 @@ async function atualizarGraficos(inicio, fim, veiculoId = '') {
         
         console.log(`Resposta para ${m.metrica}:`, data);
         
-        // Debug específico para taxa de falhas
-        if (m.metrica === 'taxa_falhas') {
-            console.log('Dados de taxa de falhas:', {
-                labels: data.labels,
-                valores: data.valores
-            });
-        }
-        
         if (window.graficos[m.id]) window.graficos[m.id].destroy();
         const ctx = document.getElementById(m.id).getContext('2d');
         
-        // Para todas as métricas, usar gráfico de linha
-        const unidade = m.metrica === 'custo' ? 'R$' : 
-                       m.metrica === 'taxa_falhas' ? 'Falhas' : 'Horas';
+        const unidade = m.metrica === 'custo' ? 'R$' : 'Falhas';
         window.graficos[m.id] = renderGrafico(ctx, data.labels, data.valores, m.titulo, m.cor, unidade);
+    }
+}
+
+async function atualizarCardsMTTRMTBF(veiculoId = '') {
+    // Atualizar MTTR
+    let url = `api_dashboard.php?metrica=mttr&tipo_ativo=veiculo`;
+    if (veiculoId) {
+        url += `&equipamento_id=${veiculoId}`;
+    }
+    
+    try {
+        const resp = await fetch(url, { credentials: 'same-origin' });
+        const data = await resp.json();
+        
+        document.getElementById('valorMTTR').textContent = data.valor_atual + ' horas';
+        
+    } catch (e) {
+        console.error('Erro ao carregar MTTR:', e);
+        document.getElementById('valorMTTR').textContent = 'Erro';
+    }
+    
+    // Atualizar MTBF
+    url = `api_dashboard.php?metrica=mtbf&tipo_ativo=veiculo`;
+    if (veiculoId) {
+        url += `&equipamento_id=${veiculoId}`;
+    }
+    
+    try {
+        const resp = await fetch(url, { credentials: 'same-origin' });
+        const data = await resp.json();
+        
+        document.getElementById('valorMTBF').textContent = data.valor_atual + ' horas';
+        
+    } catch (e) {
+        console.error('Erro ao carregar MTBF:', e);
+        document.getElementById('valorMTBF').textContent = 'Erro';
+    }
+}
+
+function getTendenciaTexto(tendencia) {
+    switch(tendencia) {
+        case 'melhorando': return '↗️ Melhorando';
+        case 'piorando': return '↘️ Piorando';
+        default: return '→ Estável';
+    }
+}
+
+function getTendenciaClasse(tendencia, tipo) {
+    switch(tendencia) {
+        case 'melhorando': 
+            return tipo === 'mttr' ? 'bg-danger' : 'bg-success'; // MTTR menor = melhor, MTBF maior = melhor
+        case 'piorando': 
+            return tipo === 'mttr' ? 'bg-success' : 'bg-danger'; // MTTR maior = pior, MTBF menor = pior
+        default: 
+            return 'bg-secondary';
     }
 }
 const periodo = getDefaultPeriod();
