@@ -253,7 +253,7 @@ require_once '../includes/header.php';
                         'sistemas_afetados' => 'Sistemas Afetados',
                         'sintomas_detectados' => 'Sintomas Detectados',
                         'causas_defeitos' => 'Causas dos Defeitos',
-                        'intervencoes_realizadas' => 'Intervenções Realizadas',
+                        'tipo_intervencao' => 'Intervenções Realizadas',
                         'acoes_realizadas' => 'Ações Realizadas'
                     ];
 
