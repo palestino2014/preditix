@@ -399,7 +399,7 @@ require_once '../includes/header.php';
     border-radius: 4px;
 }
 
-/* Estilos para impressão */
+/* Estilos para impressão harmoniosa */
 @media print {
     /* Esconde elementos que não devem ser impressos */
     .btn, 
@@ -407,137 +407,281 @@ require_once '../includes/header.php';
         display: none !important;
     }
 
-    /* Ajusta o layout para impressão */
-    .container-fluid {
-        width: 100%;
-        padding: 0;
-        margin: 0;
+    /* Configuração da página */
+    @page {
+        margin: 1.5cm;
+        size: A4;
     }
 
-    /* Remove sombras e bordas desnecessárias */
+    /* Layout geral harmonioso */
+    body {
+        font-family: 'Arial', sans-serif !important;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
+        color: #333 !important;
+        background: white !important;
+    }
+
+    /* Container principal */
+    .container-fluid {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Títulos harmoniosos */
+    h1 { 
+        font-size: 16pt !important; 
+        font-weight: bold !important;
+        color: #2c3e50 !important;
+        margin: 0 0 15px 0 !important;
+        text-align: center !important;
+        border-bottom: 2px solid #3498db !important;
+        padding-bottom: 8px !important;
+    }
+    
+    h5 { 
+        font-size: 12pt !important; 
+        font-weight: bold !important;
+        color: #34495e !important;
+        margin: 0 0 8px 0 !important;
+        border-bottom: 1px solid #ecf0f1 !important;
+        padding-bottom: 4px !important;
+    }
+    
+    h6 { 
+        font-size: 11pt !important; 
+        font-weight: bold !important;
+        color: #2c3e50 !important;
+        margin: 0 0 5px 0 !important;
+    }
+
+    /* Cards elegantes */
     .card {
-        border: 1px solid #ddd !important;
+        border: 1px solid #bdc3c7 !important;
         box-shadow: none !important;
+        margin-bottom: 12px !important;
+        border-radius: 4px !important;
+        overflow: hidden !important;
     }
 
     .card-header {
-        background-color: #f8f9fa !important;
-        border-bottom: 1px solid #ddd !important;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border-bottom: 2px solid #3498db !important;
+        padding: 8px 12px !important;
+        margin: 0 !important;
     }
 
-    /* Ajusta cores para melhor visualização em preto e branco */
+    .card-body {
+        padding: 12px !important;
+        background: white !important;
+    }
+
+    /* Informações organizadas */
+    .row {
+        margin: 0 !important;
+    }
+
+    .col-md-6, .col-md-8, .col-md-4, .col-md-12 {
+        padding: 0 8px !important;
+    }
+
+    /* Parágrafos com espaçamento harmonioso */
+    p {
+        margin: 0 0 6px 0 !important;
+        font-size: 10pt !important;
+    }
+
+    /* Badges elegantes */
     .badge {
-        border: 1px solid #000 !important;
+        border: 1px solid #34495e !important;
+        font-size: 9pt !important;
+        padding: 3px 6px !important;
+        border-radius: 3px !important;
+        font-weight: bold !important;
     }
 
-    .bg-success { background-color: #fff !important; color: #000 !important; }
-    .bg-info { background-color: #fff !important; color: #000 !important; }
-    .bg-warning { background-color: #fff !important; color: #000 !important; }
-    .bg-danger { background-color: #fff !important; color: #000 !important; }
+    .bg-success { 
+        background-color: #d5f4e6 !important; 
+        color: #27ae60 !important; 
+        border-color: #27ae60 !important;
+    }
+    .bg-info { 
+        background-color: #d6eaf8 !important; 
+        color: #3498db !important; 
+        border-color: #3498db !important;
+    }
+    .bg-warning { 
+        background-color: #fdeaa7 !important; 
+        color: #f39c12 !important; 
+        border-color: #f39c12 !important;
+    }
+    .bg-danger { 
+        background-color: #fadbd8 !important; 
+        color: #e74c3c !important; 
+        border-color: #e74c3c !important;
+    }
 
-    /* Ajusta a timeline para impressão */
+    /* Tabelas elegantes */
+    .table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        font-size: 10pt !important;
+        margin: 8px 0 !important;
+        border-radius: 4px !important;
+        overflow: hidden !important;
+    }
+
+    .table th {
+        background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%) !important;
+        color: white !important;
+        font-weight: bold !important;
+        padding: 8px 6px !important;
+        border: 1px solid #2c3e50 !important;
+        text-align: left !important;
+    }
+
+    .table td {
+        padding: 6px !important;
+        border: 1px solid #bdc3c7 !important;
+        background: white !important;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f8f9fa !important;
+    }
+
+    /* Timeline elegante */
+    .timeline {
+        padding: 10px 0 !important;
+        position: relative !important;
+    }
+
+    .timeline-item {
+        padding-left: 25px !important;
+        margin-bottom: 8px !important;
+        position: relative !important;
+    }
+
     .timeline-marker {
-        border: 1px solid #000 !important;
-        background: #fff !important;
+        width: 8px !important;
+        height: 8px !important;
+        border: 2px solid #3498db !important;
+        background: white !important;
+        border-radius: 50% !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 2px !important;
     }
 
     .timeline-item:not(:last-child)::before {
-        background: #000 !important;
+        content: '' !important;
+        position: absolute !important;
+        left: 3px !important;
+        top: 8px !important;
+        height: calc(100% + 8px) !important;
+        width: 2px !important;
+        background: #bdc3c7 !important;
     }
 
     .timeline-content {
-        background: #fff !important;
-        border: 1px solid #ddd !important;
+        background: #f8f9fa !important;
+        border: 1px solid #e9ecef !important;
+        padding: 8px !important;
+        border-radius: 4px !important;
+        font-size: 10pt !important;
     }
 
-    /* Ajusta tabelas para impressão */
-    .table {
-        border-collapse: collapse !important;
+    /* Listas organizadas */
+    .list-unstyled {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    .table th,
-    .table td {
-        border: 1px solid #ddd !important;
+    .list-unstyled li {
+        margin-bottom: 3px !important;
+        font-size: 10pt !important;
+        padding-left: 15px !important;
+        position: relative !important;
     }
 
-    /* Adiciona cabeçalho e rodapé na impressão */
-    @page {
-        margin: 2cm;
+    .list-unstyled li::before {
+        content: '•' !important;
+        color: #3498db !important;
+        font-weight: bold !important;
+        position: absolute !important;
+        left: 0 !important;
     }
 
-    /* Adiciona quebra de página quando necessário */
-    .card {
-        page-break-inside: avoid;
-    }
-
-    /* Ajusta o tamanho da fonte para impressão */
-    body {
-        font-size: 12pt;
-    }
-
-    h1 { font-size: 18pt; }
-    h5 { font-size: 14pt; }
-    h6 { font-size: 12pt; }
-
-    /* Adiciona informações do cabeçalho da OS */
-    .print-header {
-        display: block !important;
-        text-align: center;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #000;
-        padding-bottom: 10px;
-    }
-
-    .print-header h2 {
-        margin: 0;
-        font-size: 16pt;
-    }
-
-    .print-header p {
-        margin: 5px 0;
-        font-size: 10pt;
-    }
-
-    /* Estilos para a seção de assinaturas na impressão */
+    /* Assinaturas elegantes */
     .assinaturas-print {
         display: block !important;
-        margin-top: 50px;
-        page-break-inside: avoid;
+        margin-top: 30px !important;
+        padding-top: 20px !important;
+        border-top: 2px solid #bdc3c7 !important;
     }
 
     .assinatura-box {
-        margin: 20px;
-        padding: 10px;
+        margin: 15px !important;
+        padding: 10px !important;
+        text-align: center !important;
     }
 
     .linha-assinatura {
-        border-top: 1px solid #000;
-        width: 80%;
-        margin: 50px auto 10px;
+        border-top: 1px solid #2c3e50 !important;
+        width: 200px !important;
+        margin: 30px auto 8px !important;
     }
 
     .nome-assinatura {
-        font-weight: bold;
-        margin: 5px 0;
-        font-size: 12pt;
+        font-weight: bold !important;
+        margin: 5px 0 !important;
+        font-size: 11pt !important;
+        color: #2c3e50 !important;
     }
 
     .cargo-assinatura {
-        font-size: 10pt;
-        color: #666;
-        margin: 0;
+        font-size: 9pt !important;
+        color: #7f8c8d !important;
+        margin: 0 !important;
     }
 
-    /* Garante que a seção de assinaturas fique sempre no final */
-    .assinaturas-print {
-        position: running(footer);
+    /* Cabeçalho da impressão */
+    .print-header {
+        display: block !important;
+        text-align: center !important;
+        margin-bottom: 20px !important;
+        padding: 15px !important;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border: 1px solid #bdc3c7 !important;
+        border-radius: 4px !important;
     }
 
-    @page {
-        @bottom-center {
-            content: element(footer);
-        }
+    .print-header h2 {
+        margin: 0 0 5px 0 !important;
+        font-size: 14pt !important;
+        color: #2c3e50 !important;
+        font-weight: bold !important;
     }
+
+    .print-header p {
+        margin: 2px 0 !important;
+        font-size: 9pt !important;
+        color: #7f8c8d !important;
+    }
+
+    /* Evita quebras de página */
+    .card, .table, .timeline {
+        page-break-inside: avoid !important;
+    }
+
+    /* Remove espaçamentos desnecessários */
+    .mb-4 { margin-bottom: 12px !important; }
+    .mb-3 { margin-bottom: 8px !important; }
+    .mb-2 { margin-bottom: 6px !important; }
+    .mt-4 { margin-top: 12px !important; }
+    .mt-3 { margin-top: 8px !important; }
+    .mt-2 { margin-top: 6px !important; }
 }
 
 /* Adiciona cabeçalho específico para impressão */
