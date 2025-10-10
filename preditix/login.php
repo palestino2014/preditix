@@ -29,7 +29,7 @@ if (Auth::isLoggedIn()) {
 </head>
 <body>
     <div class="login-container">
-        <h1>Sistema de Manutenção</h1>
+        <h1><img src="assets/img/preditix_full_logo.png" alt="Preditix" style="width: 200px;"></h1>
         <?php if (isset($erro)): ?>
             <div class="alert alert-danger"><?php echo $erro; ?></div>
         <?php endif; ?>

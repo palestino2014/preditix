@@ -100,8 +100,7 @@ if($ambienteIsRemoto){
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" href="<?php echo $base_url; ?>/index.php">
-                    <i class="bi bi-gear-fill text-primary me-2" style="font-size: 1.5rem;"></i>
-                    <span class="fw-bold">Preditix</span>
+                    <img src="<?php echo $base_url; ?>/assets/img/preditix_full_logo.png" alt="Preditix" style="width: 100px;">
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
