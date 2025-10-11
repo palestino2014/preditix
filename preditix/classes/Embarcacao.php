@@ -3,11 +3,17 @@ require_once __DIR__ . '/Ativo.php';
 
 class Embarcacao extends Ativo {
     public function cadastrar($dados) {
-        $sql = "INSERT INTO embarcacoes (tipo, tag, inscricao, nome, armador, ano_fabricacao, capacidade_volumetrica, status, foto) 
-                VALUES (:tipo, :tag, :inscricao, :nome, :armador, :ano_fabricacao, :capacidade_volumetrica, :status, :foto)";
+        // Validar subtipo_balsa para balsas
+        if (($dados['tipo'] === 'balsa_simples' || $dados['tipo'] === 'balsa_motorizada') && empty($dados['subtipo_balsa'])) {
+            throw new Exception("Subtipo da balsa é obrigatório.");
+        }
+        
+        $sql = "INSERT INTO embarcacoes (tipo, subtipo_balsa, tag, inscricao, nome, armador, ano_fabricacao, capacidade_volumetrica, status, foto) 
+                VALUES (:tipo, :subtipo_balsa, :tag, :inscricao, :nome, :armador, :ano_fabricacao, :capacidade_volumetrica, :status, :foto)";
         
         $params = [
             ':tipo' => $dados['tipo'],
+            ':subtipo_balsa' => $dados['subtipo_balsa'] ?? null,
             ':tag' => $dados['tag'],
             ':inscricao' => $dados['inscricao'],
             ':nome' => $dados['nome'],
@@ -42,8 +48,14 @@ class Embarcacao extends Ativo {
             throw new Exception("Embarcação não encontrada.");
         }
         
+        // Validar subtipo_balsa para balsas
+        if (($dados['tipo'] === 'balsa_simples' || $dados['tipo'] === 'balsa_motorizada') && empty($dados['subtipo_balsa'])) {
+            throw new Exception("Subtipo da balsa é obrigatório.");
+        }
+        
         $sql = "UPDATE embarcacoes SET 
                 tipo = :tipo,
+                subtipo_balsa = :subtipo_balsa,
                 tag = :tag,
                 inscricao = :inscricao,
                 nome = :nome,
@@ -57,6 +69,7 @@ class Embarcacao extends Ativo {
         $params = [
             ':id' => $id,
             ':tipo' => $dados['tipo'],
+            ':subtipo_balsa' => $dados['subtipo_balsa'] ?? null,
             ':tag' => $dados['tag'],
             ':inscricao' => $dados['inscricao'],
             ':nome' => $dados['nome'],

@@ -42,7 +42,12 @@ $embarcacoes = $embarcacao->listar();
                             <tr>
                                 <td class="table-cell-text" title="<?php echo htmlspecialchars($e['nome'] ?? ''); ?>"><?php echo htmlspecialchars($e['nome'] ?? ''); ?></td>
                                 <td class="table-cell-text" title="<?php echo htmlspecialchars($e['inscricao'] ?? ''); ?>"><?php echo htmlspecialchars($e['inscricao'] ?? ''); ?></td>
-                                <td class="table-cell-text" title="<?php echo htmlspecialchars($e['tipo'] ?? ''); ?>"><?php echo htmlspecialchars($e['tipo'] ?? ''); ?></td>
+                                <td class="table-cell-text" title="<?php echo htmlspecialchars($e['tipo'] ?? ''); ?>">
+                                    <?php echo htmlspecialchars($e['tipo'] ?? ''); ?>
+                                    <?php if (($e['tipo'] === 'balsa_simples' || $e['tipo'] === 'balsa_motorizada') && !empty($e['subtipo_balsa'])): ?>
+                                        <br><small class="text-muted"><?php echo ucfirst($e['subtipo_balsa']); ?></small>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="table-cell-text" title="<?php echo htmlspecialchars($e['tag'] ?? ''); ?>"><?php echo htmlspecialchars($e['tag'] ?? ''); ?></td>
                                 <td class="table-cell-text" title="<?php echo htmlspecialchars($e['ano_fabricacao'] ?? ''); ?>"><?php echo htmlspecialchars($e['ano_fabricacao'] ?? ''); ?></td>
                                 <td class="table-cell-number"><?php echo number_format($e['capacidade_volumetrica'] ?? 0, 2); ?> m³</td>

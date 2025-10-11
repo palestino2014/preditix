@@ -47,7 +47,12 @@ if (!$dados) {
                             </tr>
                             <tr>
                                 <th class="text-center" style="width: 30%;">Tipo</th>
-                                <td><?php echo htmlspecialchars($dados['tipo'] ?? ''); ?></td>
+                                <td>
+                                    <?php echo htmlspecialchars($dados['tipo'] ?? ''); ?>
+                                    <?php if (($dados['tipo'] === 'balsa_simples' || $dados['tipo'] === 'balsa_motorizada') && !empty($dados['subtipo_balsa'])): ?>
+                                        <br><small class="text-muted">Subtipo: <?php echo ucfirst($dados['subtipo_balsa']); ?></small>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th class="text-center" style="width: 30%;">Inscrição</th>

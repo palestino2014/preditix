@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $dados = [
             'tipo' => $_POST['tipo'],
+            'subtipo_balsa' => $_POST['subtipo_balsa'] ?? null,
             'tag' => $_POST['tag'],
             'inscricao' => $_POST['inscricao'],
             'nome' => $_POST['nome'],
@@ -96,6 +97,16 @@ require_once 'includes/header.php';
                             </select>
                         </div>
 
+                        <div class="mb-3" id="subtipo_balsa_field" style="display: none;">
+                            <label for="subtipo_balsa" class="form-label">Subtipo da Balsa *</label>
+                            <select name="subtipo_balsa" id="subtipo_balsa" class="form-select">
+                                <option value="">Selecione...</option>
+                                <option value="docagem" <?php echo ($dados['subtipo_balsa'] ?? '') === 'docagem' ? 'selected' : ''; ?>>Docagem</option>
+                                <option value="comboio" <?php echo ($dados['subtipo_balsa'] ?? '') === 'comboio' ? 'selected' : ''; ?>>Comboio</option>
+                                <option value="outros" <?php echo ($dados['subtipo_balsa'] ?? '') === 'outros' ? 'selected' : ''; ?>>Outros</option>
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="tag" class="form-label">Tag *</label>
                             <input type="text" name="tag" id="tag" class="form-control" 
@@ -155,4 +166,29 @@ require_once 'includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tipoSelect = document.getElementById('tipo');
+    const subtipoField = document.getElementById('subtipo_balsa_field');
+    const subtipoSelect = document.getElementById('subtipo_balsa');
+    
+    function toggleSubtipoField() {
+        if (tipoSelect.value === 'balsa_simples' || tipoSelect.value === 'balsa_motorizada') {
+            subtipoField.style.display = 'block';
+            subtipoSelect.required = true;
+        } else {
+            subtipoField.style.display = 'none';
+            subtipoSelect.required = false;
+            subtipoSelect.value = '';
+        }
+    }
+    
+    // Verificar estado inicial
+    toggleSubtipoField();
+    
+    // Adicionar listener para mudanças
+    tipoSelect.addEventListener('change', toggleSubtipoField);
+});
+</script>
 
