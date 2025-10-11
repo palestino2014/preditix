@@ -1,0 +1,1 @@
+ALTER TABLE embarcacoes ADD COLUMN subtipo_balsa VARCHAR(50) NULL after tipo;
