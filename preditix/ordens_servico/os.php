@@ -3,6 +3,7 @@ require_once '../includes/config.php';
 require_once '../includes/auth.php';
 require_once 'includes/config_campos.php';
 require_once '../classes/Database.php';
+require_once '../classes/Cliente.php';
 
 // Inicializa a conexão com o banco de dados
 $db = new Database();
@@ -96,6 +97,10 @@ if (!$dados_equipamento) {
 // Busca a lista de usuários para os campos de gestor e responsável
 $sql_usuarios = "SELECT id, nome FROM usuarios ORDER BY nome";
 $usuarios = $db->query($sql_usuarios);
+
+// Busca a lista de clientes
+$cliente = new Cliente();
+$clientes = $cliente->buscarAtivos();
 
 // Inclui o cabeçalho
 require_once '../includes/header.php';
@@ -201,6 +206,34 @@ require_once '../includes/header.php';
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label for="tipo_proprietario">Tipo de Proprietário</label>
+                                            <select name="tipo_proprietario" id="tipo_proprietario" class="form-control" required>
+                                                <option value="proprio" <?php echo (!$modo_edicao || empty($os['cliente_id'])) ? 'selected' : ''; ?>>Próprio</option>
+                                                <option value="terceiro" <?php echo ($modo_edicao && !empty($os['cliente_id'])) ? 'selected' : ''; ?>>Terceiro</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Por favor, selecione o tipo de proprietário.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group" id="cliente_terceiro_field" style="display: <?php echo ($modo_edicao && !empty($os['cliente_id'])) ? 'block' : 'none'; ?>;">
+                                            <label for="cliente_id">Cliente Terceiro</label>
+                                            <select name="cliente_id" id="cliente_id" class="form-control">
+                                                <option value="">Selecione o cliente...</option>
+                                                <?php foreach ($clientes as $c): ?>
+                                                    <option value="<?php echo $c['id']; ?>" <?php echo ($modo_edicao && $os['cliente_id'] == $c['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($c['nome']); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <small class="text-muted">
+                                                <a href="../clientes.php" target="_blank">Gerenciar clientes</a>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label for="tipo_manutencao">Tipo de Manutenção</label>
                                             <select name="tipo_manutencao" id="tipo_manutencao" class="form-control" required>
                                                 <option value="">Selecione...</option>
@@ -213,6 +246,8 @@ require_once '../includes/header.php';
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="prioridade">Prioridade</label>
@@ -708,6 +743,28 @@ require_once '../includes/header.php';
 
                         // Calcula o total inicial
                         calcularTotalGeral();
+                        
+                        // Controle do campo cliente terceiro
+                        const tipoProprietario = document.getElementById('tipo_proprietario');
+                        const clienteField = document.getElementById('cliente_terceiro_field');
+                        const clienteSelect = document.getElementById('cliente_id');
+                        
+                        function toggleClienteField() {
+                            if (tipoProprietario.value === 'terceiro') {
+                                clienteField.style.display = 'block';
+                                clienteSelect.required = true;
+                            } else {
+                                clienteField.style.display = 'none';
+                                clienteSelect.required = false;
+                                clienteSelect.value = '';
+                            }
+                        }
+                        
+                        // Verificar estado inicial
+                        toggleClienteField();
+                        
+                        // Adicionar listener para mudanças
+                        tipoProprietario.addEventListener('change', toggleClienteField);
                     });
                     </script>
                 </div>

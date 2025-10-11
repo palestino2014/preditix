@@ -25,6 +25,7 @@ $filtros = [
 // Constrói a query base
 $sql = "SELECT os.*, 
                u.nome as nome_usuario_abertura,
+               c.nome as nome_cliente,
                CASE 
                    WHEN os.tipo_equipamento = 'embarcacao' THEN e.nome
                    WHEN os.tipo_equipamento = 'veiculo' THEN v.placa
@@ -33,6 +34,7 @@ $sql = "SELECT os.*,
                END as identificacao_equipamento
         FROM ordens_servico os
         LEFT JOIN usuarios u ON u.id = os.usuario_abertura_id
+        LEFT JOIN clientes c ON c.id = os.cliente_id
         LEFT JOIN embarcacoes e ON e.id = os.equipamento_id AND os.tipo_equipamento = 'embarcacao'
         LEFT JOIN veiculos v ON v.id = os.equipamento_id AND os.tipo_equipamento = 'veiculo'
         LEFT JOIN implementos i ON i.id = os.equipamento_id AND os.tipo_equipamento = 'implemento'
@@ -173,6 +175,7 @@ require_once '../includes/header.php';
                                 <th class="col-equipamento">Equipamento</th>
                                 <th class="col-data">Data Abertura</th>
                                 <th class="col-data">Data Conclusão</th>
+                                <th class="col-usuario">Cliente</th>
                                 <th class="table-cell-status">Status</th>
                                 <th class="table-cell-status">Prioridade</th>
                                 <th class="col-usuario">Aberto por</th>
@@ -188,6 +191,13 @@ require_once '../includes/header.php';
                                     <td class="table-cell-text" title="<?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?>"><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
                                     <td class="table-cell-text" title="<?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '-'; ?>">
                                         <?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '<span class="text-muted">-</span>'; ?>
+                                    </td>
+                                    <td class="table-cell-text">
+                                        <?php if (!empty($os['nome_cliente'])): ?>
+                                            <span class="badge bg-info"><?php echo htmlspecialchars($os['nome_cliente']); ?></span>
+                                        <?php else: ?>
+                                            <span class="badge bg-success">Próprio</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td class="table-cell-status">
                                         <span class="badge bg-<?php 

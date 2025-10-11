@@ -70,6 +70,18 @@ try {
         exit;
     }
 
+    // Validação específica para cliente terceiro
+    if ($_POST['tipo_proprietario'] === 'terceiro' && empty($_POST['cliente_id'])) {
+        $erros[] = "O campo Cliente Terceiro é obrigatório quando o tipo for terceiro.";
+    }
+
+    if (!empty($erros)) {
+        error_log("Erros de validação: " . implode(', ', $erros));
+        $_SESSION['erro'] = implode('<br>', $erros);
+        header('Location: ../os.php' . ($modo_edicao ? '?id=' . $_POST['id'] : ''));
+        exit;
+    }
+
     // Prepara os dados para inserção/atualização
     $dados = [
         ':tipo_equipamento' => $_POST['tipo_equipamento'],
@@ -78,6 +90,7 @@ try {
         ':prioridade' => $_POST['prioridade'],
         ':gestor_id' => $_POST['gestor_id'],
         ':usuario_responsavel_id' => $_POST['usuario_responsavel_id'],
+        ':cliente_id' => ($_POST['tipo_proprietario'] === 'terceiro') ? $_POST['cliente_id'] : null,
         ':observacoes' => $_POST['observacoes'] ?? '',
         ':sistemas_afetados' => json_encode($_POST['sistemas_afetados'] ?? []),
         ':sintomas_detectados' => json_encode($_POST['sintomas_detectados'] ?? []),
@@ -149,6 +162,7 @@ try {
                     prioridade = :prioridade,
                     gestor_id = :gestor_id,
                     usuario_responsavel_id = :usuario_responsavel_id,
+                    cliente_id = :cliente_id,
                     observacoes = :observacoes,
                     sistemas_afetados = :sistemas_afetados,
                     sintomas_detectados = :sintomas_detectados,
@@ -241,13 +255,13 @@ try {
             // Insere a nova OS
             $sql = "INSERT INTO ordens_servico (
                         numero_os, tipo_equipamento, equipamento_id, tipo_manutencao, prioridade,
-                        gestor_id, usuario_responsavel_id, observacoes, sistemas_afetados, sintomas_detectados,
+                        gestor_id, usuario_responsavel_id, cliente_id, observacoes, sistemas_afetados, sintomas_detectados,
                         causas_defeitos, tipo_intervencao, acoes_realizadas,
                         data_abertura, usuario_abertura_id, status, data_prevista, 
                         odometro, created_at, updated_at
                     ) VALUES (
                         :numero_os, :tipo_equipamento, :equipamento_id, :tipo_manutencao, :prioridade,
-                        :gestor_id, :usuario_responsavel_id, :observacoes, :sistemas_afetados, :sintomas_detectados,
+                        :gestor_id, :usuario_responsavel_id, :cliente_id, :observacoes, :sistemas_afetados, :sintomas_detectados,
                         :causas_defeitos, :tipo_intervencao, :acoes_realizadas,
                         :data_abertura, :usuario_abertura_id, :status, :data_prevista,
                         :odometro, NOW(), NOW()

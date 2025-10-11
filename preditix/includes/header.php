@@ -147,6 +147,13 @@ if($ambienteIsRemoto){
                             </a>
                         </li>
 
+                        <!-- Clientes -->
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'clientes.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/clientes.php">
+                                <i class="bi bi-people me-1"></i> Clientes
+                            </a>
+                        </li>
+
                         <!-- Dashboard Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dashboardsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

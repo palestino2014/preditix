@@ -24,6 +24,7 @@ $db = new Database();
 // Busca as ordens de serviço
 $sql = "SELECT os.*, 
                u.nome as nome_usuario_abertura,
+               c.nome as nome_cliente,
                CASE 
                    WHEN os.tipo_equipamento = 'embarcacao' THEN e.nome
                    WHEN os.tipo_equipamento = 'veiculo' THEN v.placa
@@ -32,6 +33,7 @@ $sql = "SELECT os.*,
                END as identificacao_equipamento
         FROM ordens_servico os
         LEFT JOIN usuarios u ON u.id = os.usuario_abertura_id
+        LEFT JOIN clientes c ON c.id = os.cliente_id
         LEFT JOIN embarcacoes e ON e.id = os.equipamento_id AND os.tipo_equipamento = 'embarcacao'
         LEFT JOIN veiculos v ON v.id = os.equipamento_id AND os.tipo_equipamento = 'veiculo'
         LEFT JOIN implementos i ON i.id = os.equipamento_id AND os.tipo_equipamento = 'implemento'
@@ -73,6 +75,7 @@ require_once '../includes/header.php';
                         <th>Equipamento</th>
                         <th>Data Abertura</th>
                         <th>Data Conclusão</th>
+                        <th>Cliente</th>
                         <th>Status</th>
                         <th>Prioridade</th>
                         <th>Aberto por</th>
@@ -87,6 +90,13 @@ require_once '../includes/header.php';
                             <td><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
                             <td>
                                 <?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '<span class="text-muted">-</span>'; ?>
+                            </td>
+                            <td>
+                                <?php if (!empty($os['nome_cliente'])): ?>
+                                    <span class="badge bg-info"><?php echo htmlspecialchars($os['nome_cliente']); ?></span>
+                                <?php else: ?>
+                                    <span class="badge bg-success">Próprio</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <span class="badge bg-<?php 
