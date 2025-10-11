@@ -172,6 +172,7 @@ require_once '../includes/header.php';
                                 <th class="col-tipo">Tipo</th>
                                 <th class="col-equipamento">Equipamento</th>
                                 <th class="col-data">Data Abertura</th>
+                                <th class="col-data">Data Conclusão</th>
                                 <th class="table-cell-status">Status</th>
                                 <th class="table-cell-status">Prioridade</th>
                                 <th class="col-usuario">Aberto por</th>
@@ -185,6 +186,9 @@ require_once '../includes/header.php';
                                     <td class="table-cell-text" title="<?php echo ucfirst($os['tipo_equipamento']); ?>"><?php echo ucfirst($os['tipo_equipamento']); ?></td>
                                     <td class="table-cell-text" title="<?php echo htmlspecialchars($os['identificacao_equipamento']); ?>"><?php echo htmlspecialchars($os['identificacao_equipamento']); ?></td>
                                     <td class="table-cell-text" title="<?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?>"><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
+                                    <td class="table-cell-text" title="<?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '-'; ?>">
+                                        <?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '<span class="text-muted">-</span>'; ?>
+                                    </td>
                                     <td class="table-cell-status">
                                         <span class="badge bg-<?php 
                                             echo match($os['status']) {

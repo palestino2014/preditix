@@ -72,6 +72,7 @@ require_once '../includes/header.php';
                         <th>Número OS</th>
                         <th>Equipamento</th>
                         <th>Data Abertura</th>
+                        <th>Data Conclusão</th>
                         <th>Status</th>
                         <th>Prioridade</th>
                         <th>Aberto por</th>
@@ -84,6 +85,9 @@ require_once '../includes/header.php';
                             <td><?php echo htmlspecialchars($os['numero_os']); ?></td>
                             <td><?php echo htmlspecialchars($os['identificacao_equipamento']); ?></td>
                             <td><?php echo date('d/m/Y H:i', strtotime($os['data_abertura'])); ?></td>
+                            <td>
+                                <?php echo !empty($os['data_conclusao']) ? date('d/m/Y H:i', strtotime($os['data_conclusao'])) : '<span class="text-muted">-</span>'; ?>
+                            </td>
                             <td>
                                 <span class="badge bg-<?php 
                                     echo match($os['status']) {

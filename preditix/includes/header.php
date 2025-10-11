@@ -47,8 +47,8 @@ if($ambienteIsRemoto){
         }
         .table-cell-actions {
             white-space: nowrap;
-            width: 160px;
-            padding-right: 1rem;
+            width: 90px;
+            padding-right: 0;
         }
         .table-cell-status {
             width: 100px;
@@ -70,10 +70,11 @@ if($ambienteIsRemoto){
         .col-localizacao { width: 18%; }
         .col-armador { width: 18%; }
         /* Classes específicas para a tabela de ordens de serviço */
-        .col-numero { width: 10%; }
-        .col-equipamento { width: 20%; }
-        .col-data { width: 15%; }
-        .col-usuario { width: 15%; }
+        .col-numero { width: 14%; }
+        .col-tipo { width: 12%; }
+        .col-equipamento { width: 24%; }
+        .col-data { width: 22%; }
+        .col-usuario { width: 18%; }
 
         /* Ajustes para os botões de ação */
         .btn-group {
