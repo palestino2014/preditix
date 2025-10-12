@@ -77,9 +77,13 @@ Auth::checkAuth();
 </div>
 <script>
 function getDefaultPeriod() {
-    // Usar período onde há dados reais (2025-07 a 2025-08)
-    const inicio = '2025-07';
-    const fim = '2025-08';
+    const agora = new Date();
+    const anoAtual = agora.getFullYear();
+    const mesAtual = String(agora.getMonth() + 1).padStart(2, '0');
+    
+    const inicio = `${anoAtual}-01`; // Janeiro do ano atual
+    const fim = `${anoAtual}-${mesAtual}`; // Mês atual do ano atual
+    
     return {inicio, fim};
 }
 function renderGrafico(ctx, labels, valores, titulo, cor, unidade = 'Horas') {
