@@ -47,7 +47,7 @@ if($ambienteIsRemoto){
         }
         .table-cell-actions {
             white-space: nowrap;
-            width: 90px;
+            width: 120px;
             padding-right: 0;
         }
         .table-cell-status {
