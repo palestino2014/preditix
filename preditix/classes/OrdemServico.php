@@ -12,14 +12,25 @@ class OrdemServico
 
     public function cadastrar($dados)
     {
+        // Processar PDF se enviado
+        $pdf_conteudo = null;
+        
+        if (isset($_FILES['pdf_os']) && $_FILES['pdf_os']['error'] === UPLOAD_ERR_OK) {
+            if ($_FILES['pdf_os']['type'] === 'application/pdf') {
+                $pdf_conteudo = file_get_contents($_FILES['pdf_os']['tmp_name']);
+            } else {
+                throw new Exception("Apenas arquivos PDF são aceitos.");
+            }
+        }
+
         $sql = "INSERT INTO ordens_servico (
                 numero_os, equipamento_id, data_abertura,
                 data_prevista, descricao_problema, status, prioridade,
-                custo_estimado, usuario_abertura_id, usuario_responsavel_id
+                custo_estimado, usuario_abertura_id, usuario_responsavel_id, pdf
             ) VALUES (
                 :numero_os, :equipamento_id, :data_abertura,
                 :data_prevista, :descricao_problema, :status, :prioridade,
-                :custo_estimado, :usuario_abertura_id, :usuario_responsavel_id
+                :custo_estimado, :usuario_abertura_id, :usuario_responsavel_id, :pdf
             )";
 
         $params = [
@@ -32,7 +43,8 @@ class OrdemServico
             ':prioridade' => $dados['prioridade'] ?? 'media',
             ':custo_estimado' => $dados['custo_estimado'],
             ':usuario_abertura_id' => $dados['usuario_abertura_id'],
-            ':usuario_responsavel_id' => $dados['usuario_responsavel_id']
+            ':usuario_responsavel_id' => $dados['usuario_responsavel_id'],
+            ':pdf' => $pdf_conteudo
         ];
 
         return $this->db->execute($sql, $params);
@@ -63,6 +75,19 @@ class OrdemServico
 
     public function atualizar($id, $dados)
     {
+        // Processar PDF se enviado
+        $pdf_conteudo = null;
+        $sql_pdf = "";
+        
+        if (isset($_FILES['pdf_os']) && $_FILES['pdf_os']['error'] === UPLOAD_ERR_OK) {
+            if ($_FILES['pdf_os']['type'] === 'application/pdf') {
+                $pdf_conteudo = file_get_contents($_FILES['pdf_os']['tmp_name']);
+                $sql_pdf = ", pdf = :pdf";
+            } else {
+                throw new Exception("Apenas arquivos PDF são aceitos.");
+            }
+        }
+
         $sql = "UPDATE ordens_servico SET 
                 data_prevista = :data_prevista,
                 data_conclusao = :data_conclusao,
@@ -71,6 +96,7 @@ class OrdemServico
                 prioridade = :prioridade,
                 custo_final = :custo_final,
                 usuario_responsavel_id = :usuario_responsavel_id
+                $sql_pdf
                 WHERE id = :id";
 
         $params = [
@@ -83,6 +109,10 @@ class OrdemServico
             ':custo_final' => $dados['custo_final'],
             ':usuario_responsavel_id' => $dados['usuario_responsavel_id']
         ];
+
+        if ($pdf_conteudo !== null) {
+            $params[':pdf'] = $pdf_conteudo;
+        }
 
         return $this->db->execute($sql, $params);
     }

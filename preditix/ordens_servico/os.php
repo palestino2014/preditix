@@ -130,7 +130,7 @@ require_once '../includes/header.php';
                     }
                     ?>
 
-                    <form method="POST" action="processamento/processa_os.php" id="formOS" class="needs-validation" novalidate>
+                    <form method="POST" action="processamento/processa_os.php" id="formOS" class="needs-validation" novalidate enctype="multipart/form-data">
                         <?php if ($modo_edicao): ?>
                             <input type="hidden" name="id" value="<?php echo $id_os; ?>">
                         <?php endif; ?>
@@ -568,6 +568,35 @@ require_once '../includes/header.php';
                             </div>
                         </div>
 
+                        <!-- Upload de PDF -->
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="pdf_os">PDF da OS</label>
+                                    <input type="file" name="pdf_os" id="pdf_os" class="form-control" accept=".pdf">
+                                    <small class="form-text text-muted">Apenas arquivos PDF são aceitos (máximo 16MB)</small>
+                                    <?php if ($modo_edicao && !empty($os['pdf'])): ?>
+                                        <div class="mt-2" id="pdf-existente">
+                                            <small class="text-primary">
+                                                <i class="bi bi-file-pdf"></i> 
+                                                <a href="../visualizar_os_pdf.php?id=<?php echo $os['id']; ?>" 
+                                                   target="_blank" 
+                                                   class="text-primary text-decoration-none">
+                                                   OS_<?php echo $os['numero_os']; ?>.pdf
+                                                </a>
+                                                <span class="ms-2 text-primary" 
+                                                      style="cursor: pointer;" 
+                                                      onclick="removerPDF()" 
+                                                      title="Remover PDF">
+                                                    <i class="bi bi-x"></i>
+                                                </span>
+                                            </small>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Botões -->
                         <div class="row">
                             <div class="col-md-12">
@@ -765,6 +794,21 @@ require_once '../includes/header.php';
                         
                         // Adicionar listener para mudanças
                         tipoProprietario.addEventListener('change', toggleClienteField);
+                        
+                        // Função para remover PDF
+                        window.removerPDF = function() {
+                            if (confirm('Tem certeza que deseja remover o PDF anexado?')) {
+                                // Esconde o texto do PDF
+                                document.getElementById('pdf-existente').style.display = 'none';
+                                
+                                // Adiciona campo hidden para indicar remoção
+                                const hiddenInput = document.createElement('input');
+                                hiddenInput.type = 'hidden';
+                                hiddenInput.name = 'remover_pdf';
+                                hiddenInput.value = '1';
+                                form.appendChild(hiddenInput);
+                            }
+                        };
                     });
                     </script>
                 </div>

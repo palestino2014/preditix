@@ -122,6 +122,11 @@ require_once '../includes/header.php';
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Ordem de Serviço #<?php echo htmlspecialchars($os['numero_os']); ?></h1>
         <div>
+            <?php if (!empty($os['pdf'])): ?>
+                <a href="../download_os_pdf.php?id=<?php echo $os['id']; ?>" class="btn btn-success me-2">
+                    <i class="bi bi-download"></i> Download PDF
+                </a>
+            <?php endif; ?>
             <button onclick="window.print()" class="btn btn-info me-2">
                 <i class="bi bi-printer"></i> Imprimir OS
             </button>

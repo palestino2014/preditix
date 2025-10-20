@@ -186,6 +186,23 @@ try {
             // Executa a atualização
             $db->execute($sql, $dados);
 
+            // Processa PDF se enviado ou removido
+            if (isset($_POST['remover_pdf']) && $_POST['remover_pdf'] === '1') {
+                // Remove o PDF
+                $sql_remove_pdf = "UPDATE ordens_servico SET pdf = NULL WHERE id = ?";
+                $db->execute($sql_remove_pdf, [$id_os]);
+                error_log("PDF removido para OS ID: " . $id_os);
+            } elseif (isset($_FILES['pdf_os']) && $_FILES['pdf_os']['error'] === UPLOAD_ERR_OK) {
+                if ($_FILES['pdf_os']['type'] === 'application/pdf') {
+                    $pdf_conteudo = file_get_contents($_FILES['pdf_os']['tmp_name']);
+                    $sql_pdf = "UPDATE ordens_servico SET pdf = ? WHERE id = ?";
+                    $db->execute($sql_pdf, [$pdf_conteudo, $id_os]);
+                    error_log("PDF atualizado para OS ID: " . $id_os);
+                } else {
+                    error_log("Tipo de arquivo inválido para PDF: " . $_FILES['pdf_os']['type']);
+                }
+            }
+
             // Processa os itens da OS
             if (isset($_POST['itens']) && is_array($_POST['itens'])) {
                 // Remove os itens existentes (em caso de edição)
@@ -272,6 +289,18 @@ try {
             
             $db->execute($sql, $dados);
             $id_os = $db->lastInsertId();
+
+            // Processa PDF se enviado
+            if (isset($_FILES['pdf_os']) && $_FILES['pdf_os']['error'] === UPLOAD_ERR_OK) {
+                if ($_FILES['pdf_os']['type'] === 'application/pdf') {
+                    $pdf_conteudo = file_get_contents($_FILES['pdf_os']['tmp_name']);
+                    $sql_pdf = "UPDATE ordens_servico SET pdf = ? WHERE id = ?";
+                    $db->execute($sql_pdf, [$pdf_conteudo, $id_os]);
+                    error_log("PDF adicionado para nova OS ID: " . $id_os);
+                } else {
+                    error_log("Tipo de arquivo inválido para PDF: " . $_FILES['pdf_os']['type']);
+                }
+            }
 
             // Processa os itens da OS
             if (isset($_POST['itens']) && is_array($_POST['itens'])) {
