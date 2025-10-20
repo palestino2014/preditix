@@ -1,0 +1,1 @@
+ALTER TABLE ordens_servico ADD COLUMN pdf MEDIUMBLOB NULL;
