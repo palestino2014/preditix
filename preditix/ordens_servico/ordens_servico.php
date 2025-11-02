@@ -19,6 +19,7 @@ $filtros = [
     'ativo_id' => $_GET['ativo_id'] ?? null,
     'status' => $_GET['status'] ?? null,
     'prioridade' => $_GET['prioridade'] ?? null,
+    'tipo_manutencao' => $_GET['tipo_manutencao'] ?? null,
     'data_abertura' => $_GET['data_abertura'] ?? null
 ];
 
@@ -62,6 +63,11 @@ if ($filtros['status']) {
 if ($filtros['prioridade']) {
     $sql .= " AND os.prioridade = :prioridade";
     $params[':prioridade'] = $filtros['prioridade'];
+}
+
+if ($filtros['tipo_manutencao']) {
+    $sql .= " AND os.tipo_manutencao = :tipo_manutencao";
+    $params[':tipo_manutencao'] = $filtros['tipo_manutencao'];
 }
 
 if ($filtros['data_abertura']) {
@@ -258,7 +264,7 @@ require_once '../includes/header.php';
             <form method="GET" action="">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo de Ativo</label>
                                 <select name="tipo" id="tipo" class="form-select">
@@ -270,7 +276,7 @@ require_once '../includes/header.php';
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="ativo_id" class="form-label">Ativo</label>
                                 <select name="ativo_id" id="ativo_id" class="form-select">
@@ -278,7 +284,7 @@ require_once '../includes/header.php';
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 <select name="status" id="status" class="form-select">
@@ -290,7 +296,9 @@ require_once '../includes/header.php';
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="prioridade" class="form-label">Prioridade</label>
                                 <select name="prioridade" id="prioridade" class="form-select">
@@ -302,9 +310,18 @@ require_once '../includes/header.php';
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="tipo_manutencao" class="form-label">Tipo de Manutenção</label>
+                                <select name="tipo_manutencao" id="tipo_manutencao" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="preventiva" <?php echo ($filtros['tipo_manutencao'] ?? '') === 'preventiva' ? 'selected' : ''; ?>>Preventiva</option>
+                                    <option value="corretiva" <?php echo ($filtros['tipo_manutencao'] ?? '') === 'corretiva' ? 'selected' : ''; ?>>Corretiva</option>
+                                    <option value="preditiva" <?php echo ($filtros['tipo_manutencao'] ?? '') === 'preditiva' ? 'selected' : ''; ?>>Preditiva</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="data_abertura" class="form-label">Data de Abertura</label>
                                 <input type="date" name="data_abertura" id="data_abertura" class="form-control" 
