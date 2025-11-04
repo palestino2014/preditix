@@ -121,14 +121,30 @@ if [ -z "$USUARIO" ] && [ -f ".env" ]; then
     USUARIO=${FTP_USERNAME:-""}
 fi
 
-# Se não foi fornecido usuário, solicitar
+# Verificar variáveis de ambiente (útil para CI/CD)
 if [ -z "$USUARIO" ]; then
+    USUARIO=${FTP_USERNAME:-""}
+fi
+
+SENHA=${FTP_PASSWORD:-""}
+
+# Se não foi fornecido usuário, solicitar (apenas se não for modo não-interativo)
+if [ -z "$USUARIO" ] && [ -t 0 ]; then
     read -p "Digite o usuário FTP: " USUARIO
 fi
 
-# Solicitar senha FTP
-read -s -p "Digite a senha FTP: " SENHA
-echo ""
+# Solicitar senha FTP (apenas se não for modo não-interativo e não estiver em variável de ambiente)
+if [ -z "$SENHA" ] && [ -t 0 ]; then
+    read -s -p "Digite a senha FTP: " SENHA
+    echo ""
+fi
+
+# Verificar se tem credenciais
+if [ -z "$USUARIO" ] || [ -z "$SENHA" ]; then
+    print_message "❌ Erro: Usuário ou senha FTP não fornecidos!" $RED
+    print_message "💡 Dica: Configure FTP_USERNAME e FTP_PASSWORD no arquivo .env ou como variáveis de ambiente" $YELLOW
+    exit 1
+fi
 
 # Criar arquivo temporário com credenciais FTP
 FTP_CONFIG=$(mktemp)

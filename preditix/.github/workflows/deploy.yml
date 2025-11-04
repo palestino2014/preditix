@@ -1,0 +1,42 @@
+name: Deploy to HostGator
+
+on:
+  push:
+    branches:
+      - main  # Altere para a branch que você quer usar para deploy
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - 'README.md'
+      - 'deploy/**.md'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar ambiente de deploy
+        run: |
+          chmod +x deploy/deploy.sh
+      
+      - name: Deploy para produção
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST || 'ftp.hostgator.com' }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          CLIENTE: ${{ secrets.CLIENTE }}
+        run: |
+          export FTP_HOST="$FTP_HOST"
+          export FTP_USERNAME="$FTP_USERNAME"
+          export FTP_PASSWORD="$FTP_PASSWORD"
+          ./deploy/deploy.sh $CLIENTE true $FTP_HOST $FTP_USERNAME
+      
+      - name: Verificar status do deploy
+        if: failure()
+        run: |
+          echo "❌ Deploy falhou! Verifique os logs acima."
+          exit 1
+
