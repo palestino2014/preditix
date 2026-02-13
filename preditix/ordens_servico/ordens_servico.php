@@ -181,7 +181,7 @@ require_once '../includes/header.php';
                                 <th class="col-equipamento">Equipamento</th>
                                 <th class="col-data">Data Abertura</th>
                                 <th class="col-data">Data Conclusão</th>
-                                <th class="col-usuario">Cliente</th>
+                                <th class="col-usuario">Executor</th>
                                 <th class="table-cell-status">Status</th>
                                 <th class="table-cell-status">Prioridade</th>
                                 <th class="col-usuario">Aberto por</th>

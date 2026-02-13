@@ -5,7 +5,7 @@ require_once 'classes/Cliente.php';
 Auth::checkAuth();
 
 $cliente = new Cliente();
-$titulo = 'Clientes';
+$titulo = 'Executores';
 
 include 'includes/header.php';
 
@@ -16,7 +16,7 @@ $clientes = $cliente->listar();
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1><?php echo $titulo; ?></h1>
         <a href="form_cliente.php" class="btn btn-primary">
-            <i class="bi bi-plus"></i> Novo Cliente
+            <i class="bi bi-plus"></i> Novo Executor
         </a>
     </div>
 

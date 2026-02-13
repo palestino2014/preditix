@@ -75,7 +75,7 @@ require_once '../includes/header.php';
                         <th>Equipamento</th>
                         <th>Data Abertura</th>
                         <th>Data Conclusão</th>
-                        <th>Cliente</th>
+                        <th>Executor</th>
                         <th>Status</th>
                         <th>Prioridade</th>
                         <th>Aberto por</th>

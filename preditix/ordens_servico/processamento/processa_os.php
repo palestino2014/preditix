@@ -72,7 +72,7 @@ try {
 
     // Validação específica para cliente terceiro
     if ($_POST['tipo_proprietario'] === 'terceiro' && empty($_POST['cliente_id'])) {
-        $erros[] = "O campo Cliente Terceiro é obrigatório quando o tipo for terceiro.";
+        $erros[] = "O campo Executor Terceiro é obrigatório quando o tipo for terceiro.";
     }
 
     if (!empty($erros)) {

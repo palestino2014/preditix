@@ -37,7 +37,7 @@ class Cliente {
     public function atualizar($id, $dados) {
         $cliente = $this->buscarPorId($id);
         if (!$cliente) {
-            throw new Exception("Cliente não encontrado.");
+            throw new Exception("Executor não encontrado.");
         }
         
         $sql = "UPDATE clientes SET 

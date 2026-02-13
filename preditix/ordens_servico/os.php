@@ -218,9 +218,9 @@ require_once '../includes/header.php';
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group" id="cliente_terceiro_field" style="display: <?php echo ($modo_edicao && !empty($os['cliente_id'])) ? 'block' : 'none'; ?>;">
-                                            <label for="cliente_id">Cliente Terceiro</label>
+                                            <label for="cliente_id">Executor Terceiro</label>
                                             <select name="cliente_id" id="cliente_id" class="form-control">
-                                                <option value="">Selecione o cliente...</option>
+                                                <option value="">Selecione o executor...</option>
                                                 <?php foreach ($clientes as $c): ?>
                                                     <option value="<?php echo $c['id']; ?>" <?php echo ($modo_edicao && $os['cliente_id'] == $c['id']) ? 'selected' : ''; ?>>
                                                         <?php echo htmlspecialchars($c['nome']); ?>
@@ -228,7 +228,7 @@ require_once '../includes/header.php';
                                                 <?php endforeach; ?>
                                             </select>
                                             <small class="text-muted">
-                                                <a href="../clientes.php" target="_blank">Gerenciar clientes</a>
+                                                <a href="../clientes.php" target="_blank">Gerenciar executores</a>
                                             </small>
                                         </div>
                                     </div>

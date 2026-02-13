@@ -10,19 +10,19 @@ $erro = null;
 
 // Verifica se o ID foi fornecido
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    $erro = "ID do cliente não fornecido.";
+    $erro = "ID do executor não fornecido.";
 } else {
     try {
         $dados = $cliente->buscarPorId($_GET['id']);
         if (!$dados) {
-            $erro = "Cliente não encontrado.";
+            $erro = "Executor não encontrado.";
         }
     } catch (Exception $e) {
         $erro = $e->getMessage();
     }
 }
 
-$titulo = $dados ? 'Detalhes do Cliente: ' . $dados['nome'] : 'Cliente não encontrado';
+$titulo = $dados ? 'Detalhes do Executor: ' . $dados['nome'] : 'Executor não encontrado';
 
 include 'includes/header.php';
 ?>

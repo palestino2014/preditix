@@ -147,10 +147,10 @@ if($ambienteIsRemoto){
                             </a>
                         </li>
 
-                        <!-- Clientes -->
+                        <!-- Executores -->
                         <li class="nav-item">
                             <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'clientes.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/clientes.php">
-                                <i class="bi bi-people me-1"></i> Clientes
+                                <i class="bi bi-people me-1"></i> Executores
                             </a>
                         </li>
 

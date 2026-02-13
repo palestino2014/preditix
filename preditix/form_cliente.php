@@ -7,7 +7,7 @@ Auth::checkAuth();
 $cliente = new Cliente();
 $dados = [];
 $acao = 'cadastrar';
-$titulo = 'Novo Cliente';
+$titulo = 'Novo Executor';
 $erro = null;
 $sucesso = null;
 
@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
         $dados = $cliente->buscarPorId($_GET['id']);
         if ($dados) {
             $acao = 'atualizar';
-            $titulo = 'Editar Cliente';
+            $titulo = 'Editar Executor';
         }
     } catch (Exception $e) {
         $erro = $e->getMessage();
@@ -27,8 +27,13 @@ if (isset($_GET['id'])) {
 // Processamento do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        $nome = trim($_POST['nome'] ?? '');
+        if ($nome === '') {
+            throw new Exception('O nome do executor é obrigatório.');
+        }
+
         $dados = [
-            'nome' => $_POST['nome'],
+            'nome' => $nome,
             'cnpj' => $_POST['cnpj'],
             'telefone' => $_POST['telefone'],
             'email' => $_POST['email'],
@@ -37,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($_POST['action'] === 'cadastrar') {
             $cliente->cadastrar($dados);
-            $sucesso = "Cliente cadastrado com sucesso!";
+            $sucesso = "Executor cadastrado com sucesso!";
         } else {
             $cliente->atualizar($_POST['id'], $dados);
-            $sucesso = "Cliente atualizado com sucesso!";
+            $sucesso = "Executor atualizado com sucesso!";
         }
 
         // Redireciona apenas se não houver erro
