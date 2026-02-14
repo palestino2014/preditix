@@ -5,6 +5,9 @@ if($ambienteIsRemoto){
 }else{
     $base_url = '/preditix/preditix';
 }
+
+$nivel_acesso = $_SESSION['usuario_nivel_acesso'] ?? '';
+$usuario_gestor = in_array($nivel_acesso, ['gestor', 'admin'], true);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -151,6 +154,13 @@ if($ambienteIsRemoto){
                         <li class="nav-item">
                             <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'clientes.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/clientes.php">
                                 <i class="bi bi-people me-1"></i> Executores
+                            </a>
+                        </li>
+
+                        <!-- Usuários -->
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'usuarios.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/usuarios.php">
+                                <i class="bi bi-person-gear me-1"></i> Usuários
                             </a>
                         </li>
 

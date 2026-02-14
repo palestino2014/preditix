@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    nivel_acesso ENUM('admin', 'usuario') DEFAULT 'usuario',
+    nivel_acesso ENUM('gestor', 'responsavel') DEFAULT 'responsavel',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -148,4 +148,4 @@ CREATE TABLE IF NOT EXISTS itens_ordem_servico (
 
 -- Inserção do usuário administrador padrão
 INSERT INTO usuarios (nome, email, senha, nivel_acesso) VALUES 
-('Administrador', 'admin@preditix.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+('Administrador', 'admin@preditix.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gestor');

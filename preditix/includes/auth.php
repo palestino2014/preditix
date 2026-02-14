@@ -6,7 +6,7 @@ class Auth {
     public static function login($email, $senha) {
         $db = new Database();
         
-        $sql = "SELECT id, nome, email, senha FROM usuarios WHERE email = :email";
+        $sql = "SELECT id, nome, email, senha, nivel_acesso FROM usuarios WHERE email = :email";
         $result = $db->query($sql, [':email' => $email]);
         
         if ($result && count($result) === 1) {
@@ -15,6 +15,7 @@ class Auth {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_email'] = $usuario['email'];
+                $_SESSION['usuario_nivel_acesso'] = self::normalizarNivelAcesso($usuario['nivel_acesso'] ?? 'responsavel');
                 return true;
             }
         }
@@ -29,6 +30,22 @@ class Auth {
     
     public static function isLoggedIn() {
         return isset($_SESSION['usuario_id']);
+    }
+
+    public static function getNivelAcesso() {
+        return $_SESSION['usuario_nivel_acesso'] ?? 'responsavel';
+    }
+
+    public static function isGestor() {
+        return self::getNivelAcesso() === 'gestor';
+    }
+
+    public static function checkGestor() {
+        self::checkAuth();
+        if (!self::isGestor()) {
+            header('Location: index.php');
+            exit();
+        }
     }
     
     public static function checkAuth() {
@@ -54,5 +71,15 @@ class Auth {
                 exit();
             }
         }
+    }
+
+    private static function normalizarNivelAcesso($nivel) {
+        if ($nivel === 'admin') {
+            return 'gestor';
+        }
+        if ($nivel === 'usuario') {
+            return 'responsavel';
+        }
+        return $nivel;
     }
 }

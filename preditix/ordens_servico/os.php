@@ -14,6 +14,8 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
+$usuario_gestor = Auth::isGestor();
+
 // Determina se é edição ou criação
 $modo_edicao = isset($_GET['id']);
 $id_os = $modo_edicao ? (int)$_GET['id'] : null;
@@ -95,8 +97,11 @@ if (!$dados_equipamento) {
 }
 
 // Busca a lista de usuários para os campos de gestor e responsável
-$sql_usuarios = "SELECT id, nome FROM usuarios ORDER BY nome";
-$usuarios = $db->query($sql_usuarios);
+$sql_gestores = "SELECT id, nome FROM usuarios WHERE nivel_acesso IN ('gestor', 'admin') ORDER BY nome";
+$gestores = $db->query($sql_gestores);
+
+$sql_responsaveis = "SELECT id, nome FROM usuarios WHERE nivel_acesso IN ('responsavel', 'usuario') ORDER BY nome";
+$responsaveis = $db->query($sql_responsaveis);
 
 // Busca a lista de clientes
 $cliente = new Cliente();
@@ -269,7 +274,7 @@ require_once '../includes/header.php';
                                             <?php if ($modo_edicao): ?>
                                                 <input type="datetime-local" name="data_abertura" id="data_abertura" class="form-control" 
                                                        value="<?php echo date('Y-m-d\TH:i', strtotime($os['data_abertura'])); ?>" 
-                                                       readonly>
+                                                       <?php echo $usuario_gestor ? '' : 'readonly'; ?>>
                                             <?php else: ?>
                                                 <input type="datetime-local" name="data_abertura" id="data_abertura" class="form-control" 
                                                        value="<?php echo date('Y-m-d\TH:i'); ?>" 
@@ -302,10 +307,10 @@ require_once '../includes/header.php';
                                             <label for="gestor_id">Gestor *</label>
                                             <select name="gestor_id" id="gestor_id" class="form-control" required>
                                                 <option value="">Selecione...</option>
-                                                <?php foreach ($usuarios as $usuario): ?>
-                                                    <option value="<?php echo $usuario['id']; ?>"
-                                                        <?php echo ($modo_edicao && $os['gestor_id'] == $usuario['id']) ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                <?php foreach ($gestores as $gestor): ?>
+                                                    <option value="<?php echo $gestor['id']; ?>"
+                                                        <?php echo ($modo_edicao && $os['gestor_id'] == $gestor['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($gestor['nome']); ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -319,10 +324,10 @@ require_once '../includes/header.php';
                                             <label for="usuario_responsavel_id">Responsável *</label>
                                             <select name="usuario_responsavel_id" id="usuario_responsavel_id" class="form-control" required>
                                                 <option value="">Selecione...</option>
-                                                <?php foreach ($usuarios as $usuario): ?>
-                                                    <option value="<?php echo $usuario['id']; ?>"
-                                                        <?php echo ($modo_edicao && $os['usuario_responsavel_id'] == $usuario['id']) ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                <?php foreach ($responsaveis as $responsavel): ?>
+                                                    <option value="<?php echo $responsavel['id']; ?>"
+                                                        <?php echo ($modo_edicao && $os['usuario_responsavel_id'] == $responsavel['id']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($responsavel['nome']); ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -339,9 +344,9 @@ require_once '../includes/header.php';
                                             <label for="gestor_id">Gestor *</label>
                                             <select name="gestor_id" id="gestor_id" class="form-control" required>
                                                 <option value="">Selecione...</option>
-                                                <?php foreach ($usuarios as $usuario): ?>
-                                                    <option value="<?php echo $usuario['id']; ?>">
-                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                <?php foreach ($gestores as $gestor): ?>
+                                                    <option value="<?php echo $gestor['id']; ?>">
+                                                        <?php echo htmlspecialchars($gestor['nome']); ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>
@@ -355,9 +360,9 @@ require_once '../includes/header.php';
                                             <label for="usuario_responsavel_id">Responsável *</label>
                                             <select name="usuario_responsavel_id" id="usuario_responsavel_id" class="form-control" required>
                                                 <option value="">Selecione...</option>
-                                                <?php foreach ($usuarios as $usuario): ?>
-                                                    <option value="<?php echo $usuario['id']; ?>">
-                                                        <?php echo htmlspecialchars($usuario['nome']); ?>
+                                                <?php foreach ($responsaveis as $responsavel): ?>
+                                                    <option value="<?php echo $responsavel['id']; ?>">
+                                                        <?php echo htmlspecialchars($responsavel['nome']); ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>

@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `nivel_acesso` enum('admin','usuario') DEFAULT 'usuario',
+  `nivel_acesso` enum('gestor','responsavel') DEFAULT 'responsavel',
   `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `nivel_acesso`, `data_criacao`, `data_atualizacao`) VALUES
-(1, 'Administrador', 'admin@preditix.com', '$2a$12$z2GuWOMGQ44dWk0LqaskVO8sQnKc1yIIw7fqD0T8V3ENdf3r7JiZS', 'admin', '2025-04-06 20:25:54', '2025-04-29 23:40:18');
+(1, 'Administrador', 'admin@preditix.com', '$2a$12$z2GuWOMGQ44dWk0LqaskVO8sQnKc1yIIw7fqD0T8V3ENdf3r7JiZS', 'gestor', '2025-04-06 20:25:54', '2025-04-29 23:40:18');
 
 -- --------------------------------------------------------
 
