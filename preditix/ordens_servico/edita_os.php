@@ -157,7 +157,7 @@ require_once '../includes/header.php';
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="data_prevista" class="form-label">Data Prevista</label>
+                                    <label for="data_prevista" class="form-label">Estimativa de Conclusão</label>
                                     <input type="date" class="form-control" id="data_prevista" name="data_prevista" 
                                            value="<?php echo $os['data_prevista'] ? date('Y-m-d', strtotime($os['data_prevista'])) : ''; ?>">
                                 </div>

@@ -285,6 +285,13 @@ require_once '../includes/header.php';
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="data_prevista">Estimativa de Conclusão</label>
+                                            <input type="date" name="data_prevista" id="data_prevista" class="form-control"
+                                                   value="<?php echo (!empty($os['data_prevista']) ? date('Y-m-d', strtotime($os['data_prevista'])) : ''); ?>">
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php if ($modo_edicao): ?>
                                 <div class="row mt-3">

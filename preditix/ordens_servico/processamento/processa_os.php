@@ -101,6 +101,10 @@ try {
         ':odometro' => null
     ];
 
+    if (!empty($_POST['data_prevista'])) {
+        $dados[':data_prevista'] = $_POST['data_prevista'];
+    }
+
     if ($modo_edicao) {
         $dados[':status'] = $_POST['status'];
         
@@ -145,10 +149,6 @@ try {
 
         try {
             // Adiciona campos específicos da edição
-            if (!empty($_POST['data_prevista'])) {
-                $dados[':data_prevista'] = $_POST['data_prevista'];
-            }
-
             if (($_POST['tipo_equipamento'] === 'veiculo' || $_POST['tipo_equipamento'] === 'implemento') && 
                 isset($_POST['odometro'])) {
                 $dados[':odometro'] = (int)$_POST['odometro'];

@@ -171,7 +171,7 @@ require_once '../includes/header.php';
                                 </span>
                             </p>
                             <?php if ($os['data_prevista']): ?>
-                                <p><strong>Data Prevista:</strong> <?php echo date('d/m/Y', strtotime($os['data_prevista'])); ?></p>
+                                <p><strong>Estimativa de Conclusão:</strong> <?php echo date('d/m/Y', strtotime($os['data_prevista'])); ?></p>
                             <?php endif; ?>
                             <?php if (($os['tipo_equipamento'] === 'veiculo' || $os['tipo_equipamento'] === 'implemento') && isset($os['odometro'])): ?>
                                 <p><strong>Odômetro:</strong> <?php echo number_format($os['odometro'], 0, ',', '.'); ?> km</p>
