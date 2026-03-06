@@ -35,6 +35,144 @@ try {
 }
 
 try {
+    $processar_itens_os = function ($db, $ordem_servico_id, $itens_post, $repor_estoque) {
+        if ($repor_estoque) {
+            $itens_existentes = $db->query(
+                "SELECT almoxarifado_item_id, quantidade FROM itens_ordem_servico WHERE ordem_servico_id = :id_os AND almoxarifado_item_id IS NOT NULL",
+                [':id_os' => $ordem_servico_id]
+            );
+
+            foreach ($itens_existentes as $item_existente) {
+                $db->execute(
+                    "UPDATE almoxarifado_itens SET quantidade = quantidade + :quantidade WHERE id = :id",
+                    [
+                        ':quantidade' => $item_existente['quantidade'],
+                        ':id' => $item_existente['almoxarifado_item_id']
+                    ]
+                );
+            }
+
+            $db->execute(
+                "DELETE FROM itens_ordem_servico WHERE ordem_servico_id = :id_os",
+                [':id_os' => $ordem_servico_id]
+            );
+        }
+
+        if (empty($itens_post) || !is_array($itens_post) || empty($itens_post['item_id'])) {
+            return;
+        }
+
+        $itens_selecionados = [];
+        foreach ($itens_post['item_id'] as $index => $item_id_raw) {
+            $item_id = is_numeric($item_id_raw) ? (int)$item_id_raw : 0;
+            $quantidade_raw = $itens_post['quantidade'][$index] ?? null;
+            $quantidade = filter_var($quantidade_raw, FILTER_VALIDATE_INT);
+            $descricao = trim($itens_post['descricao'][$index] ?? '');
+            $valor_unitario = filter_var($itens_post['valor_unitario'][$index] ?? null, FILTER_VALIDATE_FLOAT);
+
+            if ($item_id === 0 && $item_id_raw !== 'outro') {
+                continue;
+            }
+
+            if ($quantidade === false || $quantidade <= 0) {
+                throw new Exception("A quantidade deve ser um número inteiro maior que zero.");
+            }
+
+            if ($item_id_raw === 'outro') {
+                if ($descricao === '') {
+                    throw new Exception("Informe a descrição do material.");
+                }
+                if ($valor_unitario === false || $valor_unitario < 0) {
+                    throw new Exception("O valor unitário deve ser maior ou igual a zero.");
+                }
+                $itens_selecionados[] = [
+                    'almox_id' => null,
+                    'descricao' => $descricao,
+                    'quantidade' => $quantidade,
+                    'valor_unitario' => $valor_unitario
+                ];
+            } else {
+                $itens_selecionados[] = [
+                    'almox_id' => $item_id,
+                    'quantidade' => $quantidade
+                ];
+            }
+        }
+
+        $ids = [];
+        foreach ($itens_selecionados as $item) {
+            if ($item['almox_id']) {
+                $ids[] = $item['almox_id'];
+            }
+        }
+        $ids = array_values(array_unique($ids));
+
+        $mapa_itens = [];
+        if (!empty($ids)) {
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            $sql_itens = "SELECT id, nome, valor_unitario, quantidade FROM almoxarifado_itens WHERE id IN ($placeholders)";
+            $itens_almox = $db->query($sql_itens, $ids);
+            foreach ($itens_almox as $almox_item) {
+                $mapa_itens[$almox_item['id']] = $almox_item;
+            }
+
+            foreach ($ids as $id_item) {
+                if (!isset($mapa_itens[$id_item])) {
+                    throw new Exception("Item do almoxarifado não encontrado.");
+                }
+            }
+        }
+
+        $estoque_disponivel = [];
+        foreach ($mapa_itens as $id_item => $almox_item) {
+            $estoque_disponivel[$id_item] = (float)$almox_item['quantidade'];
+        }
+
+        foreach ($itens_selecionados as $item) {
+            if ($item['almox_id']) {
+                $id_item = $item['almox_id'];
+                $quantidade = $item['quantidade'];
+
+                if ($estoque_disponivel[$id_item] < $quantidade) {
+                    throw new Exception("Estoque insuficiente para o item selecionado.");
+                }
+
+                $estoque_disponivel[$id_item] -= $quantidade;
+
+                $db->execute(
+                    "UPDATE almoxarifado_itens SET quantidade = quantidade - :quantidade WHERE id = :id",
+                    [
+                        ':quantidade' => $quantidade,
+                        ':id' => $id_item
+                    ]
+                );
+
+                $db->execute(
+                    "INSERT INTO itens_ordem_servico (ordem_servico_id, almoxarifado_item_id, descricao, quantidade, valor_unitario)
+                     VALUES (:ordem_servico_id, :almoxarifado_item_id, :descricao, :quantidade, :valor_unitario)",
+                    [
+                        ':ordem_servico_id' => $ordem_servico_id,
+                        ':almoxarifado_item_id' => $id_item,
+                        ':descricao' => $mapa_itens[$id_item]['nome'],
+                        ':quantidade' => $quantidade,
+                        ':valor_unitario' => $mapa_itens[$id_item]['valor_unitario']
+                    ]
+                );
+            } else {
+                $db->execute(
+                    "INSERT INTO itens_ordem_servico (ordem_servico_id, almoxarifado_item_id, descricao, quantidade, valor_unitario)
+                     VALUES (:ordem_servico_id, NULL, :descricao, :quantidade, :valor_unitario)",
+                    [
+                        ':ordem_servico_id' => $ordem_servico_id,
+                        ':descricao' => $item['descricao'],
+                        ':quantidade' => $item['quantidade'],
+                        ':valor_unitario' => $item['valor_unitario']
+                    ]
+                );
+            }
+        }
+    };
+
     // Determina se é uma criação ou edição
     $modo_edicao = isset($_POST['id']);
     error_log("Modo edição: " . ($modo_edicao ? 'Sim' : 'Não'));
@@ -101,10 +239,6 @@ try {
         ':odometro' => null
     ];
 
-    if (!empty($_POST['data_prevista'])) {
-        $dados[':data_prevista'] = $_POST['data_prevista'];
-    }
-
     if ($modo_edicao) {
         $dados[':status'] = $_POST['status'];
         
@@ -149,6 +283,10 @@ try {
 
         try {
             // Adiciona campos específicos da edição
+            if (!empty($_POST['data_prevista'])) {
+                $dados[':data_prevista'] = $_POST['data_prevista'];
+            }
+
             if (($_POST['tipo_equipamento'] === 'veiculo' || $_POST['tipo_equipamento'] === 'implemento') && 
                 isset($_POST['odometro'])) {
                 $dados[':odometro'] = (int)$_POST['odometro'];
@@ -204,38 +342,7 @@ try {
             }
 
             // Processa os itens da OS
-            if (isset($_POST['itens']) && is_array($_POST['itens'])) {
-                // Remove os itens existentes (em caso de edição)
-                if ($modo_edicao) {
-                    $sql_delete = "DELETE FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
-                    $db->execute($sql_delete, [':id_os' => $id_os]);
-                }
-
-                // Insere os novos itens
-                $sql_insert_item = "INSERT INTO itens_ordem_servico (ordem_servico_id, descricao, quantidade, valor_unitario) 
-                                  VALUES (:ordem_servico_id, :descricao, :quantidade, :valor_unitario)";
-                
-                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
-                    if (empty($descricao)) continue; // Pula itens vazios
-                    
-                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
-                    if ($quantidade === false || $quantidade <= 0) {
-                        throw new Exception("A quantidade deve ser um número maior que zero.");
-                    }
-
-                    $valor_unitario = filter_var($_POST['itens']['valor_unitario'][$index], FILTER_VALIDATE_FLOAT);
-                    if ($valor_unitario === false || $valor_unitario <= 0) {
-                        throw new Exception("O valor unitário deve ser maior que zero.");
-                    }
-                    
-                    $db->execute($sql_insert_item, [
-                        ':ordem_servico_id' => $modo_edicao ? $id_os : $db->lastInsertId(),
-                        ':descricao' => $descricao,
-                        ':quantidade' => $quantidade,
-                        ':valor_unitario' => $valor_unitario
-                    ]);
-                }
-            }
+            $processar_itens_os($db, $id_os, $_POST['itens'] ?? [], true);
 
             // Commit da transação
             $db->commit();
@@ -303,26 +410,7 @@ try {
             }
 
             // Processa os itens da OS
-            if (isset($_POST['itens']) && is_array($_POST['itens'])) {
-                $sql_insert_item = "INSERT INTO itens_ordem_servico (ordem_servico_id, descricao, quantidade, valor_unitario) 
-                                  VALUES (:ordem_servico_id, :descricao, :quantidade, :valor_unitario)";
-                
-                foreach ($_POST['itens']['descricao'] as $index => $descricao) {
-                    if (empty($descricao)) continue; // Pula itens vazios
-                    
-                    $quantidade = filter_var($_POST['itens']['quantidade'][$index], FILTER_VALIDATE_FLOAT);
-                    if ($quantidade === false || $quantidade <= 0) {
-                        throw new Exception("A quantidade deve ser um número maior que zero.");
-                    }
-                    
-                    $db->execute($sql_insert_item, [
-                        ':ordem_servico_id' => $id_os,
-                        ':descricao' => $descricao,
-                        ':quantidade' => $quantidade,
-                        ':valor_unitario' => $_POST['itens']['valor_unitario'][$index]
-                    ]);
-                }
-            }
+            $processar_itens_os($db, $id_os, $_POST['itens'] ?? [], false);
 
             // Commit da transação
             $db->commit();

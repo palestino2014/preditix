@@ -101,6 +101,25 @@ INSERT INTO `implementos` (`id`, `tipo`, `tag`, `placa`, `fabricante`, `modelo`,
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `almoxarifado_itens`
+--
+
+DROP TABLE IF EXISTS `almoxarifado_itens`;
+CREATE TABLE IF NOT EXISTS `almoxarifado_itens` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `codigo_barras` varchar(100) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `quantidade` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `valor_unitario` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_barras` (`codigo_barras`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `itens_ordem_servico`
 --
 
@@ -108,36 +127,37 @@ DROP TABLE IF EXISTS `itens_ordem_servico`;
 CREATE TABLE IF NOT EXISTS `itens_ordem_servico` (
   `id` int NOT NULL AUTO_INCREMENT,
   `ordem_servico_id` int NOT NULL,
+  `almoxarifado_item_id` int DEFAULT NULL,
   `descricao` text NOT NULL,
   `quantidade` decimal(10,2) NOT NULL,
-  `unidade` varchar(20) NOT NULL,
   `valor_unitario` decimal(10,2) NOT NULL,
   `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `ordem_servico_id` (`ordem_servico_id`)
+  KEY `ordem_servico_id` (`ordem_servico_id`),
+  KEY `almoxarifado_item_id` (`almoxarifado_item_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `itens_ordem_servico`
 --
 
-INSERT INTO `itens_ordem_servico` (`id`, `ordem_servico_id`, `descricao`, `quantidade`, `unidade`, `valor_unitario`, `data_criacao`, `data_atualizacao`) VALUES
-(30, 1, 'Kit de manutenção do motor', 1.00, 'unidade', 1500.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(31, 1, 'Óleo lubrificante', 5.00, 'litros', 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(32, 1, 'Mão de obra especializada', 8.00, 'horas', 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(33, 4, 'Tinta para casco', 10.00, 'litros', 80.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(34, 4, 'Selante', 3.00, 'unidades', 45.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(35, 4, 'Mão de obra especializada', 16.00, 'horas', 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(36, 7, 'Kit de reparo hidráulico', 1.00, 'unidade', 1200.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(37, 7, 'Óleo hidráulico', 4.00, 'litros', 60.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(38, 7, 'Mão de obra especializada', 6.00, 'horas', 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(39, 11, 'Kit de válvulas', 1.00, 'unidade', 800.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(40, 11, 'Juntas e vedantes', 5.00, 'unidades', 30.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(41, 11, 'Mão de obra especializada', 7.00, 'horas', 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(42, 16, 'Kit de óleo e filtros', 1.00, 'unidade', 200.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(43, 16, 'Óleo lubrificante', 1.00, 'litro', 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
-(44, 16, 'Mão de obra', 3.00, 'horas', 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19');
+INSERT INTO `itens_ordem_servico` (`id`, `ordem_servico_id`, `almoxarifado_item_id`, `descricao`, `quantidade`, `valor_unitario`, `data_criacao`, `data_atualizacao`) VALUES
+(30, 1, NULL, 'Kit de manutenção do motor', 1.00, 1500.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(31, 1, NULL, 'Óleo lubrificante', 5.00, 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(32, 1, NULL, 'Mão de obra especializada', 8.00, 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(33, 4, NULL, 'Tinta para casco', 10.00, 80.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(34, 4, NULL, 'Selante', 3.00, 45.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(35, 4, NULL, 'Mão de obra especializada', 16.00, 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(36, 7, NULL, 'Kit de reparo hidráulico', 1.00, 1200.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(37, 7, NULL, 'Óleo hidráulico', 4.00, 60.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(38, 7, NULL, 'Mão de obra especializada', 6.00, 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(39, 11, NULL, 'Kit de válvulas', 1.00, 800.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(40, 11, NULL, 'Juntas e vedantes', 5.00, 30.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(41, 11, NULL, 'Mão de obra especializada', 7.00, 100.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(42, 16, NULL, 'Kit de óleo e filtros', 1.00, 200.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(43, 16, NULL, 'Óleo lubrificante', 1.00, 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19'),
+(44, 16, NULL, 'Mão de obra', 3.00, 50.00, '2025-05-17 17:13:19', '2025-05-17 17:13:19');
 
 -- --------------------------------------------------------
 

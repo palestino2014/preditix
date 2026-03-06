@@ -51,29 +51,29 @@ VALUES
 ('OS-2024-028', 'veiculo', 2, '2024-03-08', '2024-03-10', NULL, 'Manutenção preventiva', 'aberta', 'media', 900.00, 1, 1);
 
 -- Inserir itens para algumas ordens de serviço
-INSERT INTO itens_ordem_servico (ordem_servico_id, descricao, quantidade, unidade, valor_unitario)
+INSERT INTO itens_ordem_servico (ordem_servico_id, almoxarifado_item_id, descricao, quantidade, valor_unitario)
 VALUES 
 -- Itens para a primeira ordem de serviço da embarcação 1
-(1, 'Kit de manutenção do motor', 1, 'unidade', 1500.00),
-(1, 'Óleo lubrificante', 5, 'litros', 50.00),
-(1, 'Mão de obra especializada', 8, 'horas', 100.00),
+(1, NULL, 'Kit de manutenção do motor', 1, 1500.00),
+(1, NULL, 'Óleo lubrificante', 5, 50.00),
+(1, NULL, 'Mão de obra especializada', 8, 100.00),
 
 -- Itens para a primeira ordem de serviço da embarcação 2
-(4, 'Tinta para casco', 10, 'litros', 80.00),
-(4, 'Selante', 3, 'unidades', 45.00),
-(4, 'Mão de obra especializada', 16, 'horas', 100.00),
+(4, NULL, 'Tinta para casco', 10, 80.00),
+(4, NULL, 'Selante', 3, 45.00),
+(4, NULL, 'Mão de obra especializada', 16, 100.00),
 
 -- Itens para a primeira ordem de serviço do implemento 1
-(7, 'Kit de reparo hidráulico', 1, 'unidade', 1200.00),
-(7, 'Óleo hidráulico', 4, 'litros', 60.00),
-(7, 'Mão de obra especializada', 6, 'horas', 100.00),
+(7, NULL, 'Kit de reparo hidráulico', 1, 1200.00),
+(7, NULL, 'Óleo hidráulico', 4, 60.00),
+(7, NULL, 'Mão de obra especializada', 6, 100.00),
 
 -- Itens para a primeira ordem de serviço do tanque 1
-(11, 'Kit de válvulas', 1, 'unidade', 800.00),
-(11, 'Juntas e vedantes', 5, 'unidades', 30.00),
-(11, 'Mão de obra especializada', 7, 'horas', 100.00),
+(11, NULL, 'Kit de válvulas', 1, 800.00),
+(11, NULL, 'Juntas e vedantes', 5, 30.00),
+(11, NULL, 'Mão de obra especializada', 7, 100.00),
 
 -- Itens para a primeira ordem de serviço do veículo 1
-(16, 'Kit de óleo e filtros', 1, 'unidade', 200.00),
-(16, 'Óleo lubrificante', 1, 'litro', 50.00),
-(16, 'Mão de obra', 3, 'horas', 50.00); 
+(16, NULL, 'Kit de óleo e filtros', 1, 200.00),
+(16, NULL, 'Óleo lubrificante', 1, 50.00),
+(16, NULL, 'Mão de obra', 3, 50.00);

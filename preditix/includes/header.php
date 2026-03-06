@@ -157,6 +157,13 @@ $usuario_gestor = in_array($nivel_acesso, ['gestor', 'admin'], true);
                             </a>
                         </li>
 
+                        <!-- Almoxarifado -->
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'almoxarifado.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/almoxarifado.php">
+                                <i class="bi bi-box-seam me-1"></i> Almoxarifado
+                            </a>
+                        </li>
+
                         <!-- Usuários -->
                         <li class="nav-item">
                             <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'usuarios.php') !== false ? 'active' : ''; ?>" href="<?php echo $base_url; ?>/usuarios.php">

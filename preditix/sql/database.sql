@@ -133,15 +133,28 @@ CREATE TABLE IF NOT EXISTS ordens_servico (
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Tabela de itens do almoxarifado
+CREATE TABLE IF NOT EXISTS almoxarifado_itens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_barras VARCHAR(100) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    quantidade DECIMAL(10,2) NOT NULL DEFAULT 0,
+    valor_unitario DECIMAL(10,2) NOT NULL DEFAULT 0,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY codigo_barras (codigo_barras)
+);
+
 -- Tabela de itens da ordem de serviço
 CREATE TABLE IF NOT EXISTS itens_ordem_servico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ordem_servico_id INT NOT NULL,
+    almoxarifado_item_id INT NULL,
     descricao TEXT NOT NULL,
     quantidade DECIMAL(10,2) NOT NULL,
-    unidade VARCHAR(20) NOT NULL,
     valor_unitario DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (ordem_servico_id) REFERENCES ordens_servico(id),
+    FOREIGN KEY (almoxarifado_item_id) REFERENCES almoxarifado_itens(id),
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

@@ -120,18 +120,16 @@ class OrdemServico
     public function adicionarItem($ordem_servico_id, $dados)
     {
         $sql = "INSERT INTO itens_ordem_servico (
-                ordem_servico_id, descricao, quantidade,
-                unidade, valor_unitario
+                ordem_servico_id, almoxarifado_item_id, descricao, quantidade, valor_unitario
             ) VALUES (
-                :ordem_servico_id, :descricao, :quantidade,
-                :unidade, :valor_unitario
+                :ordem_servico_id, :almoxarifado_item_id, :descricao, :quantidade, :valor_unitario
             )";
 
         $params = [
             ':ordem_servico_id' => $ordem_servico_id,
+            ':almoxarifado_item_id' => $dados['almoxarifado_item_id'] ?? null,
             ':descricao' => $dados['descricao'],
             ':quantidade' => $dados['quantidade'],
-            ':unidade' => $dados['unidade'],
             ':valor_unitario' => $dados['valor_unitario']
         ];
 
@@ -165,17 +163,17 @@ class OrdemServico
 
     public function atualizarItem($id, $dados) {
         $sql = "UPDATE itens_ordem_servico SET 
+                almoxarifado_item_id = :almoxarifado_item_id,
                 descricao = :descricao,
                 quantidade = :quantidade,
-                unidade = :unidade,
                 valor_unitario = :valor_unitario
                 WHERE id = :id";
 
         $params = [
             ':id' => $id,
+            ':almoxarifado_item_id' => $dados['almoxarifado_item_id'] ?? null,
             ':descricao' => $dados['descricao'],
             ':quantidade' => $dados['quantidade'],
-            ':unidade' => $dados['unidade'],
             ':valor_unitario' => $dados['valor_unitario']
         ];
 

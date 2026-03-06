@@ -107,6 +107,17 @@ $responsaveis = $db->query($sql_responsaveis);
 $cliente = new Cliente();
 $clientes = $cliente->buscarAtivos();
 
+// Busca itens do almoxarifado
+$almoxarifado_itens = $db->query(
+    "SELECT id, codigo_barras, nome, quantidade, valor_unitario
+     FROM almoxarifado_itens
+     ORDER BY nome"
+);
+$estoque_por_item = [];
+foreach ($almoxarifado_itens as $item) {
+    $estoque_por_item[$item['id']] = (float)$item['quantidade'];
+}
+
 // Inclui o cabeçalho
 require_once '../includes/header.php';
 ?>
@@ -283,13 +294,6 @@ require_once '../includes/header.php';
                                             <div class="invalid-feedback">
                                                 Por favor, selecione a data e hora de abertura.
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="data_prevista">Estimativa de Conclusão</label>
-                                            <input type="date" name="data_prevista" id="data_prevista" class="form-control"
-                                                   value="<?php echo (!empty($os['data_prevista']) ? date('Y-m-d', strtotime($os['data_prevista'])) : ''); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -526,7 +530,9 @@ require_once '../includes/header.php';
                                     <table class="table table-bordered" id="tabelaItens">
                                         <thead>
                                             <tr>
-                                                <th>Descrição</th>
+                                                <th>Item</th>
+                                                <th>Detalhe (Outro)</th>
+                                                <th>Estoque</th>
                                                 <th>Quantidade</th>
                                                 <th>Valor Unitário</th>
                                                 <th>Total</th>
@@ -535,41 +541,74 @@ require_once '../includes/header.php';
                                         </thead>
                                         <tbody>
                                             <?php if ($modo_edicao): 
-                                                $sql_itens = "SELECT * FROM itens_ordem_servico WHERE ordem_servico_id = :id_os";
+                                                $sql_itens = "SELECT io.*, ai.quantidade as estoque_atual, ai.codigo_barras, ai.nome
+                                                              FROM itens_ordem_servico io
+                                                              LEFT JOIN almoxarifado_itens ai ON ai.id = io.almoxarifado_item_id
+                                                              WHERE io.ordem_servico_id = :id_os";
                                                 $itens = $db->query($sql_itens, [':id_os' => $id_os]);
                                                 foreach ($itens as $item):
+                                                    $item_id = (int)($item['almoxarifado_item_id'] ?? 0);
+                                                    $estoque_disponivel = ($estoque_por_item[$item_id] ?? 0) + (float)$item['quantidade'];
+                                                    $is_outro = $item_id === 0;
                                             ?>
                                                 <tr>
                                                     <td>
-                                                        <input type="text" name="itens[descricao][]" class="form-control" value="<?php echo htmlspecialchars($item['descricao']); ?>" required>
+                                                        <select name="itens[item_id][]" class="form-control item-select" required>
+                                                            <option value="">Selecione...</option>
+                                                            <?php foreach ($almoxarifado_itens as $almox_item): ?>
+                                                                <?php
+                                                                $selecionado = $item_id === (int)$almox_item['id'];
+                                                                $estoque_opcao = $selecionado ? $estoque_disponivel : (float)$almox_item['quantidade'];
+                                                                ?>
+                                                                <option value="<?php echo $almox_item['id']; ?>"
+                                                                        data-nome="<?php echo htmlspecialchars($almox_item['nome']); ?>"
+                                                                        data-valor="<?php echo number_format((float)$almox_item['valor_unitario'], 2, '.', ''); ?>"
+                                                                        data-estoque="<?php echo number_format((float)$estoque_opcao, 2, '.', ''); ?>"
+                                                                        <?php echo $selecionado ? 'selected' : ''; ?>>
+                                                                    <?php echo htmlspecialchars($almox_item['codigo_barras'] ? ($almox_item['codigo_barras'] . ' - ' . $almox_item['nome']) : $almox_item['nome']); ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                            <option value="outro" <?php echo $is_outro ? 'selected' : ''; ?>>Outro</option>
+                                                        </select>
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="itens[quantidade][]" class="form-control quantidade" value="<?php echo $item['quantidade']; ?>" step="0.01" min="0" required>
+                                                        <input type="text" name="itens[descricao][]" class="form-control descricao-item"
+                                                               value="<?php echo $is_outro ? htmlspecialchars($item['descricao'] ?? '') : ''; ?>"
+                                                               <?php echo $is_outro ? '' : 'disabled'; ?>
+                                                               placeholder="Descreva o material">
+                                                    </td>
+                                                    <td>
+                                                        <span class="estoque-item">
+                                                            <?php echo $is_outro ? '-' : number_format($estoque_disponivel, 2, ',', '.'); ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="itens[quantidade][]" class="form-control quantidade" value="<?php echo (int)$item['quantidade']; ?>" step="1" min="1" required>
                                                     </td>
                                                     <td>
                                                         <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" value="<?php echo $item['valor_unitario']; ?>" step="0.01" min="0" required>
                                                     </td>
-                                                    <td>
-                                                        <span class="total-item"><?php echo number_format($item['quantidade'] * $item['valor_unitario'], 2, ',', '.'); ?></span>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger btn-sm remover-item">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </td>
+                                                <td>
+                                                    <span class="total-item"><?php echo number_format($item['quantidade'] * $item['valor_unitario'], 2, ',', '.'); ?></span>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm remover-item">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
                                                 </tr>
                                             <?php endforeach; endif; ?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="5">
+                                                <td colspan="7">
                                                     <button type="button" class="btn btn-success btn-sm" id="adicionarItem">
                                                         <i class="bi bi-plus"></i> Adicionar Item
                                                     </button>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                                <td colspan="5" class="text-end"><strong>Total:</strong></td>
                                                 <td colspan="2">
                                                     <span id="total-geral">R$ 0,00</span>
                                                 </td>
@@ -625,15 +664,47 @@ require_once '../includes/header.php';
                         const tabelaItens = document.getElementById('tabelaItens');
                         const btnAdicionarItem = document.getElementById('adicionarItem');
                         const totalGeral = document.getElementById('total-geral');
+                        const opcoesItens = <?php
+                            $opcoes = '<option value="">Selecione...</option>';
+                            foreach ($almoxarifado_itens as $almox_item) {
+                                $valor = number_format((float)$almox_item['valor_unitario'], 2, '.', '');
+                                $estoque = number_format((float)$almox_item['quantidade'], 2, '.', '');
+                                $nome = htmlspecialchars($almox_item['nome']);
+                                $label = $almox_item['codigo_barras']
+                                    ? htmlspecialchars($almox_item['codigo_barras']) . ' - ' . $nome
+                                    : $nome;
+                                $opcoes .= '<option value="' . (int)$almox_item['id'] . '" data-nome="' . $nome . '" data-valor="' . $valor . '" data-estoque="' . $estoque . '">' . $label . '</option>';
+                            }
+                            $opcoes .= '<option value="outro">Outro</option>';
+                            echo json_encode($opcoes);
+                        ?>;
+                        const temItensDisponiveis = <?php echo !empty($almoxarifado_itens) ? 'true' : 'false'; ?>;
+
+                        function parseNumber(value) {
+                            if (value === null || value === undefined) {
+                                return 0;
+                            }
+                            const normalized = String(value).replace(',', '.');
+                            const parsed = parseFloat(normalized);
+                            return Number.isNaN(parsed) ? 0 : parsed;
+                        }
 
                         // Função para validar os campos de um item
                         function validarItem(row) {
-                            const quantidade = parseInt(row.querySelector('.quantidade').value);
+                            const quantidade = parseFloat(row.querySelector('.quantidade').value);
                             const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value);
-                            const descricao = row.querySelector('[name="itens[descricao][]"]').value.trim();
+                            const itemSelect = row.querySelector('.item-select');
+                            const itemId = itemSelect ? itemSelect.value : '';
+                            const descricao = row.querySelector('.descricao-item').value.trim();
+                            const estoque = parseNumber(itemSelect?.selectedOptions[0]?.dataset.estoque);
 
-                            if (!descricao) {
-                                alert('A descrição do item é obrigatória.');
+                            if (!itemId) {
+                                alert('Selecione um item do almoxarifado ou "Outro".');
+                                return false;
+                            }
+
+                            if (itemId === 'outro' && !descricao) {
+                                alert('Informe a descrição do material.');
                                 return false;
                             }
 
@@ -642,8 +713,13 @@ require_once '../includes/header.php';
                                 return false;
                             }
 
-                            if (isNaN(valorUnitario) || valorUnitario <= 0) {
-                                alert('O valor unitário deve ser maior que zero.');
+                            if (itemId !== 'outro' && quantidade > estoque) {
+                                alert('A quantidade não pode ser maior que o estoque disponível.');
+                                return false;
+                            }
+
+                            if (isNaN(valorUnitario) || valorUnitario < 0) {
+                                alert('O valor unitário deve ser maior ou igual a zero.');
                                 return false;
                             }
 
@@ -670,7 +746,7 @@ require_once '../includes/header.php';
 
                         // Função para calcular o total de um item
                         function calcularTotalItem(row) {
-                            const quantidade = parseInt(row.querySelector('.quantidade').value) || 0;
+                            const quantidade = parseFloat(row.querySelector('.quantidade').value) || 0;
                             const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
                             const total = quantidade * valorUnitario;
                             row.querySelector('.total-item').textContent = total.toLocaleString('pt-BR', {
@@ -683,7 +759,7 @@ require_once '../includes/header.php';
                         function calcularTotalGeral() {
                             let total = 0;
                             document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
-                                const quantidade = parseInt(row.querySelector('.quantidade').value) || 0;
+                                const quantidade = parseFloat(row.querySelector('.quantidade').value) || 0;
                                 const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
                                 total += quantidade * valorUnitario;
                             });
@@ -693,19 +769,53 @@ require_once '../includes/header.php';
                             });
                         }
 
+                        function aplicarItemSelecionado(row) {
+                            const select = row.querySelector('.item-select');
+                            const descricaoInput = row.querySelector('.descricao-item');
+                            const valorInput = row.querySelector('.valor-unitario');
+                            const estoqueSpan = row.querySelector('.estoque-item');
+
+                            const selected = select.selectedOptions[0];
+                            const isOutro = select.value === 'outro';
+                            const estoque = parseNumber(selected?.dataset?.estoque);
+                            const valor = parseNumber(selected?.dataset?.valor);
+                            if (isOutro) {
+                                descricaoInput.disabled = false;
+                                estoqueSpan.textContent = '-';
+                            } else {
+                                descricaoInput.disabled = true;
+                                descricaoInput.value = '';
+                                estoqueSpan.textContent = estoque.toLocaleString('pt-BR', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                                if (!Number.isNaN(valor)) {
+                                    valorInput.value = valor.toFixed(2);
+                                }
+                            }
+                        }
+
                         // Adicionar novo item
                         btnAdicionarItem.addEventListener('click', function() {
                             const tbody = tabelaItens.querySelector('tbody');
                             const novaLinha = document.createElement('tr');
                             novaLinha.innerHTML = `
                                 <td>
-                                    <input type="text" name="itens[descricao][]" class="form-control" required>
+                                    <select name="itens[item_id][]" class="form-control item-select" required>
+                                        ${opcoesItens}
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="itens[descricao][]" class="form-control descricao-item" placeholder="Descreva o material" disabled>
+                                </td>
+                                <td>
+                                    <span class="estoque-item">-</span>
                                 </td>
                                 <td>
                                     <input type="number" name="itens[quantidade][]" class="form-control quantidade" step="1" min="1" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" step="0.01" min="0.01" required>
+                                    <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" step="0.01" min="0" required>
                                 </td>
                                 <td>
                                     <span class="total-item">0,00</span>
@@ -718,13 +828,19 @@ require_once '../includes/header.php';
                             `;
                             tbody.appendChild(novaLinha);
 
-                            // Adiciona eventos aos novos campos
                             const inputs = novaLinha.querySelectorAll('input');
                             inputs.forEach(input => {
                                 input.addEventListener('input', () => {
                                     calcularTotalItem(novaLinha);
                                     calcularTotalGeral();
                                 });
+                            });
+
+                            const select = novaLinha.querySelector('.item-select');
+                            select.addEventListener('change', () => {
+                                aplicarItemSelecionado(novaLinha);
+                                calcularTotalItem(novaLinha);
+                                calcularTotalGeral();
                             });
 
                             novaLinha.querySelector('.remover-item').addEventListener('click', function() {
@@ -743,6 +859,16 @@ require_once '../includes/header.php';
                                 });
                             });
 
+                            const select = row.querySelector('.item-select');
+                            if (select) {
+                                select.addEventListener('change', () => {
+                                    aplicarItemSelecionado(row);
+                                    calcularTotalItem(row);
+                                    calcularTotalGeral();
+                                });
+                                aplicarItemSelecionado(row);
+                            }
+
                             row.querySelector('.remover-item').addEventListener('click', function() {
                                 row.remove();
                                 calcularTotalGeral();
@@ -752,15 +878,7 @@ require_once '../includes/header.php';
                         // Validação do formulário antes do envio
                         form.addEventListener('submit', function(e) {
                             // Validação dos itens
-                            let ok = true;
-                            document.querySelectorAll('.quantidade').forEach(function(input) {
-                                // Verifica se é inteiro positivo
-                                if (!input.value || isNaN(input.value) || parseInt(input.value) != input.value || parseInt(input.value) <= 0) {
-                                    ok = false;
-                                }
-                            });
-                            if (!ok) {
-                                alert('A quantidade de todos os itens deve ser um número inteiro maior que zero.');
+                            if (!validarItens()) {
                                 e.preventDefault();
                                 return false;
                             }
