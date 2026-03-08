@@ -370,6 +370,9 @@ try {
             $dados[':data_abertura'] = $_POST['data_abertura'];
             $dados[':usuario_abertura_id'] = $_SESSION['usuario_id'];
             $dados[':status'] = 'aberta';
+            if (!empty($_POST['data_prevista'])) {
+                $dados[':data_prevista'] = $_POST['data_prevista'];
+            }
 
             // Se for veículo ou implemento, atualiza o odômetro
             if (in_array($_POST['tipo_equipamento'], ['veiculo', 'implemento'])) {

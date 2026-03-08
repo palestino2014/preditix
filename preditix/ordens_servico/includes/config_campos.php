@@ -98,7 +98,8 @@ $sistemas_veiculo = [
     'freios' => 'Freios',
     'protecao_ambiental' => 'Proteção ambiental',
     'suspensao' => 'Suspensão',
-    'eletrico' => 'Elétrico'
+    'eletrico' => 'Elétrico',
+    'pneumatico' => 'Pneumático'
 ];
 
 // Definição do array principal
@@ -115,7 +116,8 @@ $config_campos = [
             'tanque' => 'Tanque de armazenamento',
             'hidraulico' => 'Sistema hidráulico',
             'motor' => 'Motor',
-            'eletrico' => 'Sistema elétrico'
+            'eletrico' => 'Sistema elétrico',
+            'pneumatico' => 'Pneumático'
         ],
         'sintomas' => $sintomas_base,
         'causas' => $causas_base,
@@ -145,7 +147,8 @@ $config_campos = [
             'protecao_incendio' => 'Sistema de proteção contra incêndio',
             'tanque' => 'Tanque de armazenamento',
             'hidraulico' => 'Sistema hidráulico',
-            'eletrico' => 'Sistema elétrico'
+            'eletrico' => 'Sistema elétrico',
+            'pneumatico' => 'Pneumático'
         ],
         'sintomas' => $sintomas_base,
         'causas' => $causas_base,

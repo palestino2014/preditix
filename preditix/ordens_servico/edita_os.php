@@ -157,7 +157,7 @@ require_once '../includes/header.php';
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="data_prevista" class="form-label">Data Prevista</label>
+                                    <label for="data_prevista" class="form-label">Estimativa de conclusão</label>
                                     <input type="date" class="form-control" id="data_prevista" name="data_prevista" 
                                            value="<?php echo $os['data_prevista'] ? date('Y-m-d', strtotime($os['data_prevista'])) : ''; ?>">
                                 </div>
@@ -213,6 +213,11 @@ require_once '../includes/header.php';
                                 <input class="form-check-input" type="checkbox" name="sistemas_afetados[]" value="estrutural" 
                                        <?php echo in_array('estrutural', json_decode($os['sistemas_afetados'] ?? '[]', true)) ? 'checked' : ''; ?>>
                                 <label class="form-check-label">Estrutural</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="sistemas_afetados[]" value="pneumatico" 
+                                       <?php echo in_array('pneumatico', json_decode($os['sistemas_afetados'] ?? '[]', true)) ? 'checked' : ''; ?>>
+                                <label class="form-check-label">Pneumático</label>
                             </div>
                         </div>
 
