@@ -30,17 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $codigo_barras = trim($_POST['codigo_barras'] ?? '');
         $nome = trim($_POST['nome'] ?? '');
-        $quantidade = filter_var($_POST['quantidade'] ?? null, FILTER_VALIDATE_FLOAT);
+        $quantidade = filter_var($_POST['quantidade'] ?? null, FILTER_VALIDATE_INT);
         $valor_unitario = filter_var($_POST['valor_unitario'] ?? null, FILTER_VALIDATE_FLOAT);
 
-        if ($codigo_barras === '') {
-            throw new Exception('O código de barras é obrigatório.');
-        }
         if ($nome === '') {
             throw new Exception('O nome do item é obrigatório.');
         }
         if ($quantidade === false || $quantidade < 0) {
-            throw new Exception('Informe uma quantidade válida.');
+            throw new Exception('Informe uma quantidade inteira maior ou igual a zero.');
         }
         if ($valor_unitario === false || $valor_unitario < 0) {
             throw new Exception('Informe um valor unitário válido.');
@@ -81,7 +78,7 @@ require_once 'includes/header.php';
 
     <div class="card">
         <div class="card-body">
-            <form method="POST" class="needs-validation" novalidate>
+            <form method="POST" class="needs-validation">
                 <input type="hidden" name="action" value="<?php echo $acao; ?>">
                 <?php if ($acao === 'atualizar'): ?>
                     <input type="hidden" name="id" value="<?php echo $dados['id']; ?>">
@@ -92,7 +89,12 @@ require_once 'includes/header.php';
                         <div class="mb-3">
                             <label for="codigo_barras" class="form-label">Cód. de Barras *</label>
                             <input type="text" name="codigo_barras" id="codigo_barras" class="form-control"
-                                   value="<?php echo htmlspecialchars($dados['codigo_barras'] ?? ''); ?>" required>
+                                   value="<?php echo htmlspecialchars($dados['codigo_barras'] ?? ''); ?>"
+                                   maxlength="100"
+                                   pattern="[A-Za-z0-9]+"
+                                   title="Apenas letras sem acento e números"
+                                   autocomplete="off"
+                                   required>
                         </div>
 
                         <div class="mb-3">
@@ -105,8 +107,8 @@ require_once 'includes/header.php';
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="quantidade" class="form-label">Quantidade *</label>
-                            <input type="number" step="0.01" min="0" name="quantidade" id="quantidade" class="form-control"
-                                   value="<?php echo htmlspecialchars($dados['quantidade'] ?? 0); ?>" required>
+                            <input type="number" step="1" min="0" name="quantidade" id="quantidade" class="form-control"
+                                   value="<?php echo (int) round((float)($dados['quantidade'] ?? 0)); ?>" required>
                         </div>
 
                         <div class="mb-3">
@@ -125,3 +127,41 @@ require_once 'includes/header.php';
         </div>
     </div>
 </div>
+<script>
+(function () {
+    const el = document.getElementById('codigo_barras');
+    if (!el) return;
+    const maxLen = 100;
+    function insertCleaned(raw) {
+        const cleaned = String(raw).replace(/[^A-Za-z0-9]/g, '');
+        const start = el.selectionStart ?? el.value.length;
+        const end = el.selectionEnd ?? el.value.length;
+        const room = maxLen - (el.value.length - (end - start));
+        const ins = cleaned.slice(0, Math.max(0, room));
+        el.value = el.value.slice(0, start) + ins + el.value.slice(end);
+        const pos = start + ins.length;
+        el.setSelectionRange(pos, pos);
+    }
+    el.addEventListener('beforeinput', function (e) {
+        if (e.inputType === 'insertText' && e.data && /[^A-Za-z0-9]/.test(e.data)) {
+            e.preventDefault();
+        }
+    });
+    el.addEventListener('paste', function (e) {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+        insertCleaned(text);
+    });
+    el.addEventListener('drop', function (e) {
+        e.preventDefault();
+        const text = e.dataTransfer.getData('text') || '';
+        insertCleaned(text);
+    });
+    el.addEventListener('input', function () {
+        const next = el.value.replace(/[^A-Za-z0-9]/g, '').slice(0, maxLen);
+        if (next !== el.value) {
+            el.value = next;
+        }
+    });
+})();
+</script>

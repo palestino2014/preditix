@@ -580,10 +580,14 @@ require_once '../includes/header.php';
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="itens[descricao][]" class="form-control descricao-item"
-                                                               value="<?php echo $is_outro ? htmlspecialchars($item['descricao'] ?? '') : ''; ?>"
+                                                        <?php $det_outro = $is_outro ? htmlspecialchars($item['descricao'] ?? '') : ''; ?>
+                                                        <input type="hidden" name="itens[descricao][]" class="descricao-post" value="<?php echo $det_outro; ?>">
+                                                        <input type="text" class="form-control descricao-item<?php echo $is_outro ? '' : ' bg-light'; ?>"
+                                                               value="<?php echo $det_outro; ?>"
                                                                <?php echo $is_outro ? '' : 'disabled'; ?>
-                                                               placeholder="Descreva o material">
+                                                               placeholder="Descreva o material"
+                                                               autocomplete="off"
+                                                               title="<?php echo $is_outro ? '' : 'Habilitado ao escolher Outro'; ?>">
                                                     </td>
                                                     <td>
                                                         <span class="estoque-item">
@@ -594,7 +598,15 @@ require_once '../includes/header.php';
                                                         <input type="number" name="itens[quantidade][]" class="form-control quantidade" value="<?php echo (int)$item['quantidade']; ?>" step="1" min="1" required>
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" value="<?php echo $item['valor_unitario']; ?>" step="0.01" min="0" required>
+                                                        <?php
+                                                        $vu_val = (float)($item['valor_unitario'] ?? 0);
+                                                        $vu_str = number_format($vu_val, 2, '.', '');
+                                                        ?>
+                                                        <input type="hidden" name="itens[valor_unitario][]" class="valor-post" value="<?php echo htmlspecialchars($vu_str); ?>">
+                                                        <input type="number" class="form-control valor-unitario-ui<?php echo $is_outro ? '' : ' bg-light'; ?>"
+                                                               value="<?php echo htmlspecialchars($vu_str); ?>" step="0.01" min="0"
+                                                               <?php echo $is_outro ? '' : 'disabled'; ?> autocomplete="off"
+                                                               title="<?php echo $is_outro ? '' : 'Valor definido no almoxarifado'; ?>">
                                                     </td>
                                                 <td>
                                                     <span class="total-item"><?php echo number_format($item['quantidade'] * $item['valor_unitario'], 2, ',', '.'); ?></span>
@@ -697,10 +709,37 @@ require_once '../includes/header.php';
                             return Number.isNaN(parsed) ? 0 : parsed;
                         }
 
+                        function syncDescricaoPost(row) {
+                            const select = row.querySelector('.item-select');
+                            const hidden = row.querySelector('.descricao-post');
+                            const visible = row.querySelector('.descricao-item');
+                            if (!hidden || !visible) {
+                                return;
+                            }
+                            if (select && select.value === 'outro') {
+                                hidden.value = visible.value;
+                            } else {
+                                hidden.value = '';
+                            }
+                        }
+
+                        function syncValorPost(row) {
+                            const select = row.querySelector('.item-select');
+                            const post = row.querySelector('.valor-post');
+                            const ui = row.querySelector('.valor-unitario-ui');
+                            if (!post || !ui) {
+                                return;
+                            }
+                            if (select && select.value === 'outro') {
+                                const v = parseFloat(String(ui.value).replace(',', '.'));
+                                post.value = (Number.isNaN(v) ? 0 : v).toFixed(2);
+                            }
+                        }
+
                         // Função para validar os campos de um item
                         function validarItem(row) {
                             const quantidade = parseFloat(row.querySelector('.quantidade').value);
-                            const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value);
+                            const valorUnitario = parseFloat(row.querySelector('.valor-post')?.value);
                             const itemSelect = row.querySelector('.item-select');
                             const itemId = itemSelect ? itemSelect.value : '';
                             const descricao = row.querySelector('.descricao-item').value.trim();
@@ -726,7 +765,7 @@ require_once '../includes/header.php';
                                 return false;
                             }
 
-                            if (isNaN(valorUnitario) || valorUnitario < 0) {
+                            if (itemId === 'outro' && (isNaN(valorUnitario) || valorUnitario < 0)) {
                                 alert('O valor unitário deve ser maior ou igual a zero.');
                                 return false;
                             }
@@ -755,7 +794,7 @@ require_once '../includes/header.php';
                         // Função para calcular o total de um item
                         function calcularTotalItem(row) {
                             const quantidade = parseFloat(row.querySelector('.quantidade').value) || 0;
-                            const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
+                            const valorUnitario = parseFloat(row.querySelector('.valor-post')?.value) || 0;
                             const total = quantidade * valorUnitario;
                             row.querySelector('.total-item').textContent = total.toLocaleString('pt-BR', {
                                 minimumFractionDigits: 2,
@@ -768,7 +807,7 @@ require_once '../includes/header.php';
                             let total = 0;
                             document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
                                 const quantidade = parseFloat(row.querySelector('.quantidade').value) || 0;
-                                const valorUnitario = parseFloat(row.querySelector('.valor-unitario').value) || 0;
+                                const valorUnitario = parseFloat(row.querySelector('.valor-post')?.value) || 0;
                                 total += quantidade * valorUnitario;
                             });
                             totalGeral.textContent = 'R$ ' + total.toLocaleString('pt-BR', {
@@ -780,7 +819,9 @@ require_once '../includes/header.php';
                         function aplicarItemSelecionado(row) {
                             const select = row.querySelector('.item-select');
                             const descricaoInput = row.querySelector('.descricao-item');
-                            const valorInput = row.querySelector('.valor-unitario');
+                            const descricaoPost = row.querySelector('.descricao-post');
+                            const valorPost = row.querySelector('.valor-post');
+                            const valorUi = row.querySelector('.valor-unitario-ui');
                             const estoqueSpan = row.querySelector('.estoque-item');
 
                             const selected = select.selectedOptions[0];
@@ -789,16 +830,38 @@ require_once '../includes/header.php';
                             const valor = parseNumber(selected?.dataset?.valor);
                             if (isOutro) {
                                 descricaoInput.disabled = false;
+                                descricaoInput.classList.remove('bg-light');
+                                if (descricaoPost) {
+                                    descricaoPost.value = descricaoInput.value;
+                                }
                                 estoqueSpan.textContent = '-';
+                                if (valorUi) {
+                                    valorUi.disabled = false;
+                                    valorUi.classList.remove('bg-light');
+                                }
+                                if (valorPost && valorUi) {
+                                    const v = parseFloat(String(valorUi.value).replace(',', '.'));
+                                    valorPost.value = (Number.isNaN(v) ? 0 : v).toFixed(2);
+                                }
                             } else {
                                 descricaoInput.disabled = true;
+                                descricaoInput.classList.add('bg-light');
                                 descricaoInput.value = '';
+                                if (descricaoPost) {
+                                    descricaoPost.value = '';
+                                }
                                 estoqueSpan.textContent = estoque.toLocaleString('pt-BR', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                 });
-                                if (!Number.isNaN(valor)) {
-                                    valorInput.value = valor.toFixed(2);
+                                if (valorUi) {
+                                    valorUi.disabled = true;
+                                    valorUi.classList.add('bg-light');
+                                }
+                                if (!Number.isNaN(valor) && valorPost && valorUi) {
+                                    const s = valor.toFixed(2);
+                                    valorPost.value = s;
+                                    valorUi.value = s;
                                 }
                             }
                         }
@@ -814,7 +877,8 @@ require_once '../includes/header.php';
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" name="itens[descricao][]" class="form-control descricao-item" placeholder="Descreva o material" disabled>
+                                    <input type="hidden" name="itens[descricao][]" class="descricao-post" value="">
+                                    <input type="text" class="form-control descricao-item bg-light" placeholder="Descreva o material" disabled autocomplete="off">
                                 </td>
                                 <td>
                                     <span class="estoque-item">-</span>
@@ -823,7 +887,8 @@ require_once '../includes/header.php';
                                     <input type="number" name="itens[quantidade][]" class="form-control quantidade" step="1" min="1" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="itens[valor_unitario][]" class="form-control valor-unitario" step="0.01" min="0" required>
+                                    <input type="hidden" name="itens[valor_unitario][]" class="valor-post" value="0.00">
+                                    <input type="number" class="form-control valor-unitario-ui bg-light" value="0.00" step="0.01" min="0" disabled autocomplete="off">
                                 </td>
                                 <td>
                                     <span class="total-item">0,00</span>
@@ -838,7 +903,16 @@ require_once '../includes/header.php';
 
                             const inputs = novaLinha.querySelectorAll('input');
                             inputs.forEach(input => {
+                                if (input.classList.contains('descricao-post') || input.classList.contains('valor-post')) {
+                                    return;
+                                }
                                 input.addEventListener('input', () => {
+                                    if (input.classList.contains('descricao-item')) {
+                                        syncDescricaoPost(novaLinha);
+                                    }
+                                    if (input.classList.contains('valor-unitario-ui')) {
+                                        syncValorPost(novaLinha);
+                                    }
                                     calcularTotalItem(novaLinha);
                                     calcularTotalGeral();
                                 });
@@ -861,7 +935,16 @@ require_once '../includes/header.php';
                         document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
                             const inputs = row.querySelectorAll('input');
                             inputs.forEach(input => {
+                                if (input.classList.contains('descricao-post') || input.classList.contains('valor-post')) {
+                                    return;
+                                }
                                 input.addEventListener('input', () => {
+                                    if (input.classList.contains('descricao-item')) {
+                                        syncDescricaoPost(row);
+                                    }
+                                    if (input.classList.contains('valor-unitario-ui')) {
+                                        syncValorPost(row);
+                                    }
                                     calcularTotalItem(row);
                                     calcularTotalGeral();
                                 });
@@ -874,7 +957,6 @@ require_once '../includes/header.php';
                                     calcularTotalItem(row);
                                     calcularTotalGeral();
                                 });
-                                aplicarItemSelecionado(row);
                             }
 
                             row.querySelector('.remover-item').addEventListener('click', function() {
@@ -885,6 +967,10 @@ require_once '../includes/header.php';
 
                         // Validação do formulário antes do envio
                         form.addEventListener('submit', function(e) {
+                            document.querySelectorAll('#tabelaItens tbody tr').forEach(row => {
+                                syncDescricaoPost(row);
+                                syncValorPost(row);
+                            });
                             // Validação dos itens
                             if (!validarItens()) {
                                 e.preventDefault();

@@ -30,8 +30,28 @@ class AlmoxarifadoItem
         return $result[0];
     }
 
+    /**
+     * Código de barras: apenas letras ASCII e números (sem espaços ou acentos).
+     */
+    private function normalizarCodigoBarras($codigo)
+    {
+        $codigo = trim((string) $codigo);
+        if ($codigo === '') {
+            throw new Exception('O código de barras é obrigatório.');
+        }
+        if (strlen($codigo) > 100) {
+            throw new Exception('O código de barras deve ter no máximo 100 caracteres.');
+        }
+        if (!preg_match('/^[A-Za-z0-9]+$/', $codigo)) {
+            throw new Exception('O código de barras só pode conter letras sem acento e números.');
+        }
+        return $codigo;
+    }
+
     public function cadastrar($dados)
     {
+        $dados['codigo_barras'] = $this->normalizarCodigoBarras($dados['codigo_barras'] ?? '');
+
         $sql = "INSERT INTO almoxarifado_itens (
                     codigo_barras, nome, quantidade, valor_unitario
                 ) VALUES (
@@ -48,6 +68,8 @@ class AlmoxarifadoItem
 
     public function atualizar($id, $dados)
     {
+        $dados['codigo_barras'] = $this->normalizarCodigoBarras($dados['codigo_barras'] ?? '');
+
         $sql = "UPDATE almoxarifado_itens SET
                     codigo_barras = :codigo_barras,
                     nome = :nome,

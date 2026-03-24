@@ -68,7 +68,6 @@ try {
             $quantidade_raw = $itens_post['quantidade'][$index] ?? null;
             $quantidade = filter_var($quantidade_raw, FILTER_VALIDATE_INT);
             $descricao = trim($itens_post['descricao'][$index] ?? '');
-            $valor_unitario = filter_var($itens_post['valor_unitario'][$index] ?? null, FILTER_VALIDATE_FLOAT);
 
             if ($item_id === 0 && $item_id_raw !== 'outro') {
                 continue;
@@ -79,6 +78,7 @@ try {
             }
 
             if ($item_id_raw === 'outro') {
+                $valor_unitario = filter_var($itens_post['valor_unitario'][$index] ?? null, FILTER_VALIDATE_FLOAT);
                 if ($descricao === '') {
                     throw new Exception("Informe a descrição do material.");
                 }

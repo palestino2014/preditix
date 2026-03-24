@@ -52,7 +52,7 @@ include 'includes/header.php';
                             <tr>
                                 <td><?php echo htmlspecialchars($item['codigo_barras'] ?? '-'); ?></td>
                                 <td><?php echo htmlspecialchars($item['nome']); ?></td>
-                                <td><?php echo number_format($item['quantidade'], 2, ',', '.'); ?></td>
+                                <td><?php echo number_format((float) $item['quantidade'], 0, ',', '.'); ?></td>
                                 <td>R$ <?php echo number_format($item['valor_unitario'], 2, ',', '.'); ?></td>
                                 <td>
                                     <?php if ($usuario_gestor): ?>
