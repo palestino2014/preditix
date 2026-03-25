@@ -606,7 +606,7 @@ require_once '../includes/header.php';
                                                         <input type="number" class="form-control valor-unitario-ui<?php echo $is_outro ? '' : ' bg-light'; ?>"
                                                                value="<?php echo htmlspecialchars($vu_str); ?>" step="0.01" min="0"
                                                                <?php echo $is_outro ? '' : 'disabled'; ?> autocomplete="off"
-                                                               title="<?php echo $is_outro ? '' : 'Valor definido no almoxarifado'; ?>">
+                                                               title="<?php echo $is_outro ? '' : 'Valor registrado nesta linha (custo no momento em que a OS foi preenchida)'; ?>">
                                                     </td>
                                                 <td>
                                                     <span class="total-item"><?php echo number_format($item['quantidade'] * $item['valor_unitario'], 2, ',', '.'); ?></span>

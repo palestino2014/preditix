@@ -77,13 +77,14 @@ try {
                 throw new Exception("A quantidade deve ser um número inteiro maior que zero.");
             }
 
+            $valor_unitario = filter_var($itens_post['valor_unitario'][$index] ?? null, FILTER_VALIDATE_FLOAT);
+            if ($valor_unitario === false || $valor_unitario < 0) {
+                throw new Exception("O valor unitário deve ser maior ou igual a zero.");
+            }
+
             if ($item_id_raw === 'outro') {
-                $valor_unitario = filter_var($itens_post['valor_unitario'][$index] ?? null, FILTER_VALIDATE_FLOAT);
                 if ($descricao === '') {
                     throw new Exception("Informe a descrição do material.");
-                }
-                if ($valor_unitario === false || $valor_unitario < 0) {
-                    throw new Exception("O valor unitário deve ser maior ou igual a zero.");
                 }
                 $itens_selecionados[] = [
                     'almox_id' => null,
@@ -94,7 +95,8 @@ try {
             } else {
                 $itens_selecionados[] = [
                     'almox_id' => $item_id,
-                    'quantidade' => $quantidade
+                    'quantidade' => $quantidade,
+                    'valor_unitario' => $valor_unitario
                 ];
             }
         }
@@ -155,7 +157,7 @@ try {
                         ':almoxarifado_item_id' => $id_item,
                         ':descricao' => $mapa_itens[$id_item]['nome'],
                         ':quantidade' => $quantidade,
-                        ':valor_unitario' => $mapa_itens[$id_item]['valor_unitario']
+                        ':valor_unitario' => $item['valor_unitario']
                     ]
                 );
             } else {
